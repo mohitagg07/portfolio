@@ -5,7 +5,7 @@ export const revalidate = 3600;
 export async function GET() {
   try {
     const apiKey = process.env.YOUTUBE_API_KEY;
-    const channelId = "UCRl76KiPhaNOH-iKkFUEHWQ"; // MohitAgg07 channel ID
+    const channelId = "UCbHQ7FadLvkMqHnvW_X-oLQ"; // MohitAgg07 channel ID
 
     if (!apiKey) {
       return NextResponse.json({
