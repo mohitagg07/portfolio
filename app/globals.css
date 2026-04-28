@@ -136,16 +136,18 @@ body::before {
 .animate-blink           { animation: blink 1s step-end infinite; }
 
 /* ── Header responsive ── */
-.hdr-desktop-nav { display: flex !important; }
-.hdr-desktop-cta { display: flex !important; }
-.hdr-hamburger   { display: none !important; }
-.hdr-mobile-menu { display: none !important; }
+.hdr-desktop-nav      { display: flex !important; }
+.hdr-desktop-cta      { display: flex !important; }
+.hdr-hamburger        { display: none !important; }
+.hdr-mobile-backdrop  { display: none !important; }
+.hdr-mobile-panel     { display: none !important; }
 
 @media (max-width: 767px) {
-  .hdr-desktop-nav { display: none  !important; }
-  .hdr-desktop-cta { display: none  !important; }
-  .hdr-hamburger   { display: flex  !important; }
-  .hdr-mobile-menu { display: block !important; }
+  .hdr-desktop-nav     { display: none  !important; }
+  .hdr-desktop-cta     { display: none  !important; }
+  .hdr-hamburger       { display: flex  !important; }
+  .hdr-mobile-backdrop { display: block !important; }
+  .hdr-mobile-panel    { display: block !important; }
 }
 
 /* ── Projects responsive ── */

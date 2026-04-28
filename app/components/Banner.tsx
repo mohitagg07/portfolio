@@ -6,7 +6,7 @@ import VisitorBadge from "./VisitorBadge";
 import GitHubStats from "./GitHubStats";
 
 export default function Banner(): React.JSX.Element {
-  const texts = ["AI Developer", "Full Stack Builder", "Content Creator", "Brand Architect"];
+  const texts = ["AI Engineer", "Full Stack Builder", "Shipped to Production", "ML Systems Builder"];
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);

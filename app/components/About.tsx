@@ -18,13 +18,15 @@ const skills = [
   { label: "Docker",       src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
 ];
 
-/* Real photos used as shuffled cards */
-const CARDS = [
-  { src: "/assets/insta.webp",         label: "Content", rotate: "-8deg",  x: "0px",   y: "0px",   z: 1 },
-  { src: "/assets/thumbnail.png",      label: "Video",   rotate: "-3deg",  x: "70px",  y: "18px",  z: 2 },
-  { src: "/assets/mohit-photo-crop.png", label: "Me",   rotate: "3deg",   x: "140px", y: "8px",   z: 3 },
-  { src: "/assets/webhr.webp",         label: "Work",    rotate: "9deg",   x: "210px", y: "24px",  z: 4 },
-];
+function AICursor() {
+  return (
+    <span style={{
+      display: "inline-block", width: 6, height: 10,
+      background: "#63dcb4", verticalAlign: "middle", marginLeft: 2,
+      animation: "blink 1s step-end infinite",
+    }} />
+  );
+}
 
 export default function About(): React.JSX.Element {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -73,67 +75,171 @@ export default function About(): React.JSX.Element {
         </div>
       </div>
 
-      {/* ── Card Shuffle Strip ── */}
-      <div className="px-6 py-14 overflow-hidden" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+      {/* ── What I Do — Capability Cards ── */}
+      <div className="px-6 py-16" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
         <div className="container mx-auto max-w-6xl">
 
-          {/* Desktop: spread/shuffled fan */}
-          <div className="cards-desktop" style={{ position: "relative", height: 280 }}>
-            {CARDS.map((card, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  left: `calc(${i * 22}% + 0px)`,
-                  top: "50%",
-                  transform: `translateY(-50%) rotate(${card.rotate})`,
-                  width: "22%",
-                  maxWidth: 220,
-                  borderRadius: 20,
-                  overflow: "hidden",
-                  border: "2px solid rgba(255,255,255,0.1)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
-                  background: "#0d1120",
-                  aspectRatio: "3/4",
-                  zIndex: card.z,
-                  transition: "transform 0.3s ease, z-index 0.1s",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = `translateY(-60%) rotate(0deg) scale(1.06)`;
-                  (e.currentTarget as HTMLDivElement).style.zIndex = "20";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.transform = `translateY(-50%) rotate(${card.rotate})`;
-                  (e.currentTarget as HTMLDivElement).style.zIndex = String(card.z);
-                }}
-              >
-                <Image src={card.src} alt={card.label} fill style={{ objectFit: "cover" }} sizes="220px" />
-                {/* Label pill at bottom */}
-                <div style={{ position: "absolute", bottom: 10, left: "50%", transform: "translateX(-50%)", background: "rgba(0,0,0,0.65)", backdropFilter: "blur(8px)", borderRadius: 999, padding: "4px 12px", zIndex: 5 }}>
-                  <span style={{ color: "#fff", fontSize: 10, fontFamily: "Inter,sans-serif", fontWeight: 600, whiteSpace: "nowrap" }}>
-                    {card.label}
-                  </span>
-                </div>
-              </div>
-            ))}
+          {/* Section header */}
+          <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 36 }}>
+            <span style={{ fontFamily: "DM Mono,monospace,Inter,sans-serif", fontSize: 11, letterSpacing: "0.12em", color: "rgba(255,255,255,0.35)", textTransform: "uppercase" }}>02 /</span>
+            <span style={{ fontSize: 22, fontWeight: 700, color: "#fff", fontFamily: "Syne,sans-serif", letterSpacing: "-0.02em" }}>What I Do</span>
           </div>
 
-          {/* Mobile: horizontal scroll row */}
-          <div className="cards-mobile" style={{ display: "flex", gap: 12, overflowX: "auto", paddingBottom: 8, scrollbarWidth: "none" }}>
-            {CARDS.map((card, i) => (
-              <div
-                key={i}
-                style={{ flexShrink: 0, width: 130, borderRadius: 16, overflow: "hidden", border: "2px solid rgba(255,255,255,0.1)", boxShadow: "0 12px 30px rgba(0,0,0,0.5)", background: "#0d1120", aspectRatio: "3/4", position: "relative" }}
-              >
-                <Image src={card.src} alt={card.label} fill style={{ objectFit: "cover" }} sizes="130px" />
-                <div style={{ position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)", background: "rgba(0,0,0,0.65)", backdropFilter: "blur(8px)", borderRadius: 999, padding: "3px 10px" }}>
-                  <span style={{ color: "#fff", fontSize: 9, fontFamily: "Inter,sans-serif", fontWeight: 600, whiteSpace: "nowrap" }}>{card.label}</span>
+          {/* Cards grid */}
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+            gap: 16,
+          }}>
+
+            {/* Card 1 — AI Systems */}
+            <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer", aspectRatio: "3/4", border: "0.5px solid rgba(255,255,255,0.09)", background: "#0f1117", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}
+              onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px) scale(1.02)"}
+              onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "85%", background: "#1a1d2e", borderRadius: 8, border: "0.5px solid rgba(99,220,180,0.25)", padding: 12, fontFamily: "monospace", fontSize: 9 }}>
+                  <div style={{ display: "inline-block", background: "rgba(99,220,180,0.15)", border: "0.5px solid rgba(99,220,180,0.3)", color: "#63dcb4", fontSize: 8, padding: "2px 6px", borderRadius: 4, marginBottom: 8 }}>● llama-3.1</div>
+                  <div style={{ marginBottom: 5 }}><span style={{ color: "#63dcb4" }}>user › </span><span style={{ color: "#8892b0" }}>Analyse this legal doc</span></div>
+                  <div style={{ marginBottom: 5 }}><span style={{ color: "#63dcb4" }}>sys  › </span><span style={{ color: "#8892b0" }}>RAG pipeline running…</span></div>
+                  <div style={{ color: "#ccd6f6", marginTop: 6, lineHeight: 1.6 }}>Clause 12 flags a 90-day lock-in. Risk: medium.<AICursor /></div>
                 </div>
               </div>
-            ))}
-          </div>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,transparent 40%,rgba(0,0,0,0.55) 100%)", zIndex: 2 }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 14, zIndex: 3 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "Syne,sans-serif", marginBottom: 4 }}>AI Systems</div>
+                <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.55)" }}>LLMs · RAG · ML Pipelines</div>
+              </div>
+            </div>
 
+            {/* Card 2 — Full Stack Apps */}
+            <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer", aspectRatio: "3/4", border: "0.5px solid rgba(255,255,255,0.09)", background: "#faf8f4", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}
+              onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px) scale(1.02)"}
+              onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "88%", background: "#fff", borderRadius: 8, border: "0.5px solid #e8e4dc", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+                  <div style={{ background: "#2d2926", padding: "6px 10px", display: "flex", alignItems: "center", gap: 4 }}>
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#ff5f57", display: "inline-block" }} />
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#febc2e", display: "inline-block" }} />
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#28c840", display: "inline-block" }} />
+                    <span style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
+                      {["Dashboard","API","DB"].map(t => <span key={t} style={{ fontFamily: "monospace", fontSize: 7, color: "rgba(255,255,255,0.5)" }}>{t}</span>)}
+                    </span>
+                  </div>
+                  <div style={{ padding: 10 }}>
+                    <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+                      {[["4.2k","Users"],["98%","Uptime"],["12ms","Latency"]].map(([num,lbl]) => (
+                        <div key={lbl} style={{ flex: 1, background: "#f5f2ec", borderRadius: 5, padding: 5 }}>
+                          <div style={{ fontSize: 11, fontWeight: 700, color: "#2d2926" }}>{num}</div>
+                          <div style={{ fontFamily: "monospace", fontSize: 7, color: "#9e9a92" }}>{lbl}</div>
+                        </div>
+                      ))}
+                    </div>
+                    {[["React",90,"#ff6b35"],["Next.js",75,"#3b82f6"],["FastAPI",60,"#8b5cf6"]].map(([lbl,w,col]) => (
+                      <div key={lbl as string} style={{ display: "flex", gap: 4, marginBottom: 4, alignItems: "center" }}>
+                        <span style={{ fontFamily: "monospace", fontSize: 7, color: "#9e9a92", width: 32 }}>{lbl}</span>
+                        <div style={{ flex: 1, height: 5, background: "#f0ede7", borderRadius: 3, overflow: "hidden" }}>
+                          <div style={{ width: `${w}%`, height: "100%", background: col as string, borderRadius: 3 }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,transparent 30%,rgba(20,10,0,0.6) 100%)", zIndex: 2 }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 14, zIndex: 3 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "Syne,sans-serif", marginBottom: 4 }}>Full Stack Apps</div>
+                <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.6)" }}>React · Next.js · FastAPI</div>
+              </div>
+            </div>
+
+            {/* Card 3 — Production */}
+            <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer", aspectRatio: "3/4", border: "0.5px solid rgba(255,255,255,0.09)", background: "#0a0e0a", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}
+              onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px) scale(1.02)"}
+              onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "85%", background: "#111611", borderRadius: 8, border: "0.5px solid rgba(134,239,172,0.2)", padding: 12, fontFamily: "monospace", fontSize: 9 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                    <span style={{ color: "#86efac", fontSize: 9 }}>prod-env</span>
+                    <span style={{ background: "rgba(134,239,172,0.15)", color: "#86efac", padding: "2px 6px", borderRadius: 3, fontSize: 8, border: "0.5px solid rgba(134,239,172,0.3)" }}>● live</span>
+                  </div>
+                  {[["Uptime","99.97%"],["Deploys / week","14"],["Build time","23s"]].map(([lbl,val]) => (
+                    <div key={lbl} style={{ marginBottom: 7 }}>
+                      <div style={{ color: "rgba(255,255,255,0.35)", fontSize: 8, marginBottom: 2 }}>{lbl}</div>
+                      <div style={{ color: "#fff", fontSize: 11, fontWeight: 500 }}>{val}</div>
+                    </div>
+                  ))}
+                  <div style={{ height: 24, display: "flex", alignItems: "flex-end", gap: 2, marginTop: 10 }}>
+                    {[[40,false],[60,false],[50,false],[80,true],[70,true],[90,true],[100,true]].map(([h,active],i) => (
+                      <div key={i} style={{ flex: 1, height: `${h}%`, background: active ? "#86efac" : "rgba(134,239,172,0.25)", borderRadius: "2px 2px 0 0" }} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,transparent 40%,rgba(0,0,0,0.55) 100%)", zIndex: 2 }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 14, zIndex: 3 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "Syne,sans-serif", marginBottom: 4 }}>Production</div>
+                <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.55)" }}>Deployed · Scalable · CI/CD</div>
+              </div>
+            </div>
+
+            {/* Card 4 — Engineering */}
+            <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer", aspectRatio: "3/4", border: "0.5px solid rgba(255,255,255,0.09)", background: "#1c1c1e", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}
+              onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px) scale(1.02)"}
+              onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "85%", background: "#252528", borderRadius: 8, padding: 12, fontFamily: "monospace", fontSize: 8.5, border: "0.5px solid rgba(255,255,255,0.08)" }}>
+                  <div style={{ marginBottom: 4, color: "rgba(255,255,255,0.3)" }}>{"// route handler"}</div>
+                  <div style={{ marginBottom: 4 }}><span style={{ color: "#c084fc" }}>async function</span> <span style={{ color: "#7dd3fc" }}>handler</span>(req) {"{"}</div>
+                  <div style={{ marginBottom: 4 }}>&nbsp;&nbsp;<span style={{ color: "#c084fc" }}>const</span> data = <span style={{ color: "#c084fc" }}>await</span></div>
+                  <div style={{ marginBottom: 4 }}>&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ color: "#7dd3fc" }}>db</span>.<span style={{ color: "#7dd3fc" }}>query</span>(<span style={{ color: "#86efac" }}>`SELECT *`</span>)</div>
+                  <div style={{ marginBottom: 4 }}>&nbsp;&nbsp;<span style={{ color: "#c084fc" }}>return</span> <span style={{ color: "#7dd3fc" }}>transform</span>(data)</div>
+                  <div>{"}"}</div>
+                  <div style={{ marginTop: 10, display: "flex", gap: 6, alignItems: "center" }}>
+                    {["API","Queue","DB"].map((node, i, arr) => (
+                      <span key={node} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                        <span style={{ background: "rgba(124,58,237,0.2)", border: "0.5px solid rgba(124,58,237,0.4)", borderRadius: 5, padding: "4px 7px", fontSize: 8, color: "#c084fc" }}>{node}</span>
+                        {i < arr.length - 1 && <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 10 }}>→</span>}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,transparent 40%,rgba(0,0,0,0.55) 100%)", zIndex: 2 }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 14, zIndex: 3 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "Syne,sans-serif", marginBottom: 4 }}>Engineering</div>
+                <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.55)" }}>Clean Code · Architecture</div>
+              </div>
+            </div>
+
+            {/* Card 5 — Content & Brand */}
+            <div style={{ position: "relative", borderRadius: 14, overflow: "hidden", cursor: "pointer", aspectRatio: "3/4", border: "0.5px solid rgba(255,255,255,0.09)", background: "#fff5f0", transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)" }}
+              onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = "translateY(-6px) scale(1.02)"}
+              onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = "none"}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "88%", background: "#fff", borderRadius: 8, border: "0.5px solid #f0e4dc", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+                  <div style={{ background: "#ff4d2a", padding: "6px 10px" }}>
+                    <span style={{ fontFamily: "Syne,sans-serif", fontSize: 9, fontWeight: 700, color: "#fff" }}>INNOVIX STUDIO</span>
+                  </div>
+                  <div style={{ padding: 10 }}>
+                    <div style={{ fontFamily: "Syne,sans-serif", fontSize: 11, fontWeight: 700, color: "#1a1a1a", lineHeight: 1.3, marginBottom: 6 }}>Design that<br />converts.</div>
+                    <div style={{ fontFamily: "monospace", fontSize: 8, color: "#9e9a92", marginBottom: 8 }}>UI · Copy · Identity</div>
+                    <div style={{ background: "#ff4d2a", color: "#fff", fontSize: 8, fontFamily: "Syne,sans-serif", fontWeight: 700, padding: "4px 10px", borderRadius: 4, display: "inline-block" }}>Book a call →</div>
+                    <div style={{ display: "flex", gap: 4, marginTop: 8 }}>
+                      {["#ff4d2a","#1a1a1a","#fff5f0","#f5a623"].map((col, i) => (
+                        <div key={i} style={{ width: 16, height: 16, borderRadius: "50%", background: col, border: col === "#fff5f0" ? "0.5px solid #f0ddd5" : "none" }} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,transparent 30%,rgba(20,5,0,0.55) 100%)", zIndex: 2 }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: 14, zIndex: 3 }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "Syne,sans-serif", marginBottom: 4 }}>Content & Brand</div>
+                <div style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.6)" }}>UI · Copy · Visual Identity</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -168,9 +274,9 @@ export default function About(): React.JSX.Element {
                     <div style={{ flex: 1 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
                         <p style={{ color: "#fff", fontWeight: 600, fontSize: 13, fontFamily: "Syne,sans-serif" }}>{exp.title}</p>
-                        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, fontFamily: "Inter,sans-serif" }}>{exp.period}</span>
+                        <span style={{ color: "rgba(255,255,255,0.45)", fontSize: 12, fontFamily: "Inter,sans-serif" }}>{exp.period}</span>
                       </div>
-                      <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, fontFamily: "Inter,sans-serif", marginTop: 3 }}>{exp.detail}</p>
+                      <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13, fontFamily: "Inter,sans-serif", marginTop: 3 }}>{exp.detail}</p>
                     </div>
                   </div>
                 ))}
@@ -193,7 +299,7 @@ export default function About(): React.JSX.Element {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={skill.src} alt={skill.label} style={{ width: 30, height: 30, objectFit: "contain" }} />
-                    <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 10, fontFamily: "Inter,sans-serif", textAlign: "center", lineHeight: 1.3 }}>{skill.label}</span>
+                    <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 10, fontFamily: "Inter,sans-serif", textAlign: "center", lineHeight: 1.3 }}>{skill.label}</span>
                   </div>
                 ))}
               </div>
@@ -204,12 +310,7 @@ export default function About(): React.JSX.Element {
       </div>
 
       <style>{`
-        .cards-desktop { display: block !important; }
-        .cards-mobile  { display: none  !important; }
-        @media (max-width: 767px) {
-          .cards-desktop { display: none  !important; }
-          .cards-mobile  { display: flex  !important; }
-        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
       `}</style>
     </section>
   );

@@ -177,8 +177,8 @@ export default function Projects(): React.JSX.Element {
               <div className="project-mobile">
                 <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", background: "#0d1120", boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
                   {/* Screenshot — fixed height so it doesn't squash */}
-                  <div style={{ position: "relative", width: "100%", height: 200 }}>
-                    <Image src={project.image} alt={project.title} fill style={{ objectFit: "cover", objectPosition: "top" }} sizes="100vw" />
+                  <div style={{ position: "relative", width: "100%", height: 200, overflow: "hidden", borderRadius: "16px 16px 0 0", clipPath: "inset(0 0 0 0 round 16px 16px 0 0)" }}>
+                    <Image src={project.image} alt={project.title} fill style={{ objectFit: "cover", objectPosition: "top", borderRadius: "16px 16px 0 0" }} sizes="100vw" />
                     {/* Gradient fading image into card below */}
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 30%, rgba(8,10,20,1) 100%)" }} />
                   </div>
