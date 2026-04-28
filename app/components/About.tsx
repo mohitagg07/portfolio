@@ -47,14 +47,14 @@ export default function About(): React.JSX.Element {
   }, []);
 
   return (
-    <section id="about" className="relative overflow-hidden">
+    <section id="about" style={{ position: "relative", overflow: "hidden" }}>
 
       {/* ── Big Typography Statement ── */}
-      <div className="relative px-6 pt-24 pb-16" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+      <div className="section-block" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
           style={{ width: 700, height: 400, background: "rgba(108,99,255,0.05)", filter: "blur(120px)", borderRadius: "50%" }} />
 
-        <div className="container mx-auto max-w-5xl relative z-10">
+        <div className="container-fluid" style={{ position: "relative", zIndex: 10 }}>
           <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(15px,2vw,20px)", fontFamily: "Inter,sans-serif", marginBottom: 8 }}>
             An AI Builder who
           </p>
@@ -76,11 +76,11 @@ export default function About(): React.JSX.Element {
       </div>
 
       {/* ── Bio + Skills ── */}
-      <div className="py-24 px-6 relative">
+      <div className="section-block">
         <div className="absolute left-0 bottom-0 w-[400px] h-[400px] rounded-full pointer-events-none"
           style={{ background: "rgba(167,139,250,0.04)", filter: "blur(140px)" }} />
 
-        <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="container-fluid" style={{ position: "relative", zIndex: 10 }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
             {/* Bio */}
@@ -122,16 +122,20 @@ export default function About(): React.JSX.Element {
                 <h2 className="text-white" style={{ fontFamily: "Syne,sans-serif", fontWeight: 700, fontSize: "clamp(32px,5vw,40px)", lineHeight: 1.1 }}>Skills</h2>
                 <div className="mt-3 w-10 h-px" style={{ background: "linear-gradient(to right, #6c63ff, transparent)" }} />
               </div>
-              <div ref={gridRef} className="grid grid-cols-4 gap-3">
+              <div ref={gridRef} className="grid grid-cols-4 gap-x-4 gap-y-6">
                 {skills.map((skill) => (
-                  <div key={skill.label} className="skill-item flex flex-col items-center gap-2"
-                    style={{ padding: "14px 8px", borderRadius: 14, background: "rgba(13,17,32,0.6)", border: "1px solid rgba(255,255,255,0.06)", opacity: 0, transform: "translateY(14px) scale(0.95)", transition: "opacity 0.4s ease, transform 0.4s ease, border-color 0.25s, background 0.25s", cursor: "default" }}
-                    onMouseEnter={(e) => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = "rgba(108,99,255,0.4)"; el.style.background = "rgba(108,99,255,0.06)"; }}
-                    onMouseLeave={(e) => { const el = e.currentTarget as HTMLDivElement; el.style.borderColor = "rgba(255,255,255,0.06)"; el.style.background = "rgba(13,17,32,0.6)"; }}
+                  <div key={skill.label} className="skill-item flex flex-col items-center gap-2.5"
+                    style={{ opacity: 0, transform: "translateY(14px) scale(0.95)", transition: "opacity 0.4s ease, transform 0.4s ease", cursor: "default" }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={skill.src} alt={skill.label} style={{ width: 30, height: 30, objectFit: "contain" }} />
-                    <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 10, fontFamily: "Inter,sans-serif", textAlign: "center", lineHeight: 1.3 }}>{skill.label}</span>
+                    <img
+                      src={skill.src}
+                      alt={skill.label}
+                      style={{ width: 36, height: 36, objectFit: "contain", filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.4))", transition: "transform 0.2s ease, filter 0.2s ease" }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.transform = "translateY(-3px) scale(1.12)"; (e.currentTarget as HTMLImageElement).style.filter = "drop-shadow(0 6px 16px rgba(108,99,255,0.35))"; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.transform = "translateY(0) scale(1)"; (e.currentTarget as HTMLImageElement).style.filter = "drop-shadow(0 2px 8px rgba(0,0,0,0.4))"; }}
+                    />
+                    <span style={{ color: "rgba(255,255,255,0.45)", fontSize: 10.5, fontFamily: "Outfit,sans-serif", textAlign: "center", lineHeight: 1.3, letterSpacing: "0.01em" }}>{skill.label}</span>
                   </div>
                 ))}
               </div>

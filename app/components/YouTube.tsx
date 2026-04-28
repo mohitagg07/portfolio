@@ -59,26 +59,26 @@ export default function YouTube(): React.JSX.Element {
   }, []);
 
   return (
-    <section id="youtube" className="px-6 relative" style={{ paddingTop: 110, paddingBottom: 110 }}>
+    <section id="youtube" className="section-block">
       <div
         className="absolute top-0 right-0 pointer-events-none"
         style={{ width: 400, height: 350, background: "rgba(220,38,38,0.05)", filter: "blur(130px)", borderRadius: "50%" }}
       />
 
-      <div className="container mx-auto max-w-6xl relative z-10">
+      <div className="container-fluid" style={{ position: "relative", zIndex: 10 }}>
         {/* Header */}
         <div style={{ marginBottom: 56 }}>
           <p
             className="uppercase tracking-widest"
             style={{ color: "#f87171", fontSize: 11, fontFamily: "Inter,sans-serif", letterSpacing: "0.12em", marginBottom: 14 }}
           >
-            Not always coding
+            Life beyond the screen
           </p>
           <h2
             className="text-white"
             style={{ fontSize: "clamp(32px,5vw,40px)", fontWeight: 700, lineHeight: 1.1, fontFamily: "Syne,sans-serif" }}
           >
-            On YouTube
+            Life on Camera
           </h2>
           <div className="mt-3 w-10 h-px" style={{ background: "linear-gradient(to right, #ef4444, transparent)" }} />
         </div>
@@ -405,7 +405,7 @@ export default function YouTube(): React.JSX.Element {
                 margin: "0 auto 28px",
               }}
             >
-              Subscribe to see behind-the-scenes of building AI products, dev vlogs, and more.
+              Real life, raw moments — travel, daily vlogs, and everything in between.
             </p>
             <a
               href="https://www.youtube.com/@MohitAgg07"

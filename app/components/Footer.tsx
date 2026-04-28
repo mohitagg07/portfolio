@@ -50,8 +50,8 @@ export default function Footer(): React.JSX.Element {
   ];
 
   return (
-    <footer className="py-12 px-6 border-t border-white/5 relative">
-      <div className="container mx-auto max-w-6xl relative z-10 flex flex-col items-center gap-6">
+    <footer className="border-t" style={{ borderColor: "rgba(255,255,255,0.05)", padding: "48px 0" }}>
+      <div className="container-fluid" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, position: "relative", zIndex: 10 }}>
 
         {/* Social icons — dark circle style with real brand logos */}
         <div className="flex items-center gap-4">

@@ -225,7 +225,7 @@ function ServiceCard({ item, index }: { item: typeof ITEMS[0]; index: number }) 
 
 export default function WhatIDo(): React.JSX.Element {
   return (
-    <section id="whatido" style={{ padding: "120px 24px 140px", position: "relative", overflow: "hidden" }}>
+    <section id="whatido" className="section-block" style={{ position: "relative", overflow: "hidden" }}>
 
       {/* Richer layered background */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 20% 30%, rgba(120,80,255,0.07), transparent 55%), radial-gradient(circle at 80% 70%, rgba(0,255,200,0.04), transparent 55%)", pointerEvents: "none", zIndex: 0 }} />

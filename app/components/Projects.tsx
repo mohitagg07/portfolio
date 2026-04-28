@@ -20,6 +20,7 @@ const PROJECTS = [
     description:
       "Designed and built the complete Innovix website for a client — a psychology-driven branding studio. Full brand identity, website, and client acquisition system. Where brands become experiences.",
     image: "/projects/project-1.png",
+    mobilePos: "center",
     demo: "https://innovix-branding-studio.vercel.app/",
     urlLabel: "innovix.studio",
     flip: false,
@@ -31,6 +32,7 @@ const PROJECTS = [
     description:
       "Context-aware chatbot using LLaMA 3 and ChromaDB for memory-persistent conversations. CNN model for real-time facial emotion recognition with 90% accuracy across 7 emotional categories.",
     image: "/projects/project-2.png",
+    mobilePos: "top",
     demo: "https://mindcare-yb5c.vercel.app/",
     urlLabel: "mindcare.vercel.app",
     flip: true,
@@ -42,6 +44,7 @@ const PROJECTS = [
     description:
       "Extracts legal clauses via OCR and Google Document AI with 95% accuracy. RAG pipeline on the Indian Kanoon corpus. Multi-modal output: plain-English summaries, visual timelines, and TTS audio from a single upload.",
     image: "/projects/project-3.png",
+    mobilePos: "top",
     demo: "https://legal-doc-demystifier.vercel.app/",
     urlLabel: "legal-doc-demystifier.vercel.app",
     flip: false,
@@ -88,13 +91,13 @@ function LiveIconBtn({ href }: { href: string }) {
 
 export default function Projects(): React.JSX.Element {
   return (
-    <section id="projects" className="px-4 sm:px-6 relative" style={{ paddingTop: 110, paddingBottom: 110 }}>
+    <section id="projects" className="section-block">
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
         style={{ width: 500, height: 240, background: "rgba(108,99,255,0.05)", filter: "blur(120px)" }}
       />
 
-      <div className="container mx-auto max-w-6xl relative z-10">
+      <div className="container-fluid" style={{ position: "relative", zIndex: 10 }}>
         {/* Section header */}
         <div style={{ marginBottom: 64 }}>
           <p
@@ -175,29 +178,35 @@ export default function Projects(): React.JSX.Element {
 
               {/* ── MOBILE layout (< 768px): image with ALL content overlaid at bottom ── */}
               <div className="project-mobile">
-                <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", background: "#0d1120", boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
-                  {/* Screenshot — fixed height so it doesn't squash */}
-                  <div style={{ position: "relative", width: "100%", height: 200, overflow: "hidden", borderRadius: "16px 16px 0 0", clipPath: "inset(0 0 0 0 round 16px 16px 0 0)" }}>
-                    <Image src={project.image} alt={project.title} fill style={{ objectFit: "cover", objectPosition: "top", borderRadius: "16px 16px 0 0" }} sizes="100vw" />
-                    {/* Gradient fading image into card below */}
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 30%, rgba(8,10,20,1) 100%)" }} />
+                <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", border: "none", background: "rgba(8,10,20,1)", boxShadow: "0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05)" }}>
+                  {/* Screenshot — tall enough to show content, fades to black */}
+                  <div style={{ position: "relative", width: "100%", height: 240, overflow: "hidden" }}>
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      style={{ objectFit: "cover", objectPosition: (project as typeof project & { mobilePos: string }).mobilePos || "top" }}
+                      sizes="100vw"
+                    />
+                    {/* Gradient: visible top 55%, then hard fade to page bg */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(8,10,20,0) 0%, rgba(8,10,20,0) 42%, rgba(8,10,20,0.65) 65%, rgba(8,10,20,1) 85%, rgba(8,10,20,1) 100%)" }} />
                   </div>
 
-                  {/* Content below the image fade */}
-                  <div style={{ background: "rgba(8,10,20,1)", padding: "0 16px 20px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
-                    <p style={{ color: "#a78bfa", fontSize: 10, fontWeight: 700, fontFamily: "Inter,sans-serif", letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>
+                  {/* Content — zero gap, same bg as gradient end */}
+                  <div style={{ background: "rgba(8,10,20,1)", padding: "0 20px 26px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
+                    <p style={{ color: "#6c63ff", fontSize: 10, fontWeight: 700, fontFamily: "Outfit,sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>
                       Featured Project
                     </p>
                     <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 700, lineHeight: 1.2, fontFamily: "Syne,sans-serif", margin: 0 }}>
                       {project.title}
                     </h3>
-                    <p style={{ color: "#a78bfa", fontSize: 13, fontFamily: "Inter,sans-serif", lineHeight: 1.5, margin: 0 }}>
+                    <p style={{ color: "#a78bfa", fontSize: 13, fontFamily: "Outfit,sans-serif", lineHeight: 1.5, margin: 0 }}>
                       {project.subtitle}
                     </p>
-                    <p style={{ color: "rgba(180,185,210,0.8)", fontSize: 13, lineHeight: 1.65, fontFamily: "Inter,sans-serif", margin: 0 }}>
+                    <p style={{ color: "rgba(180,185,210,0.75)", fontSize: 13.5, lineHeight: 1.7, fontFamily: "Outfit,sans-serif", margin: 0 }}>
                       {project.description}
                     </p>
-                    <div style={{ paddingTop: 4 }}>
+                    <div style={{ paddingTop: 6 }}>
                       <LiveIconBtn href={project.demo} />
                     </div>
                   </div>
