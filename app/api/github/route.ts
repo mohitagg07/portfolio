@@ -27,6 +27,11 @@ export async function GET() {
         r.name !== "mohitagg07"
     );
 
+    // Known-live projects featured on this site, in case GitHub repo
+    // "homepage" fields aren't set — never report fewer than this.
+    const KNOWN_LIVE_PROJECTS = 3;
+    const total = Math.max(liveRepos.length, KNOWN_LIVE_PROJECTS);
+
     // For the Projects section: prefer repos with descriptions, fall back to all live
     const projects = liveRepos
       .slice(0, 6)
@@ -50,8 +55,8 @@ export async function GET() {
         stars: r.stargazers_count,
       }));
 
-    return NextResponse.json({ projects, total: liveRepos.length });
+    return NextResponse.json({ projects, total });
   } catch (e) {
-    return NextResponse.json({ projects: [], total: 0, error: String(e) }, { status: 500 });
+    return NextResponse.json({ projects: [], total: 3, error: String(e) }, { status: 500 });
   }
 }
