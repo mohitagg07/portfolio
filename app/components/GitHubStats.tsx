@@ -2,20 +2,28 @@
 
 import { useEffect, useState } from "react";
 
+// Known real project count (matches PROJECTS array in Projects.tsx).
+// A live fetch is only ever allowed to raise this number, never lower it —
+// a fetch failure, rate limit, or a repo missing its "homepage" field on
+// GitHub should never be able to show fewer live projects than we know exist.
+const KNOWN_LIVE_PROJECTS = 3;
+
 export default function GitHubStats(): React.JSX.Element {
-  const [liveCount, setLiveCount] = useState<number | null>(null);
+  const [liveCount, setLiveCount] = useState<number>(KNOWN_LIVE_PROJECTS);
 
   useEffect(() => {
     fetch("/api/github")
       .then((r) => r.json())
       .then((data) => {
-        if (typeof data.total === "number") setLiveCount(data.total);
+        if (typeof data.total === "number" && data.total > 0) {
+          setLiveCount(Math.max(data.total, KNOWN_LIVE_PROJECTS));
+        }
       })
       .catch(() => {});
   }, []);
 
   const stats = [
-    { num: liveCount !== null ? `${liveCount}+` : "3+", label: "Live Projects" },
+    { num: `${liveCount}+`, label: "Live Projects" },
     { num: "95%", label: "AI Accuracy" },
     { num: "6+", label: "Features Shipped" },
   ];
