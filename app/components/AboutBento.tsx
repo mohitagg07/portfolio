@@ -111,19 +111,19 @@ export default function AboutSection() {
               }}
             >
               <div style={{ padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-                <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "'Syne', sans-serif", color: "#c8ff00", letterSpacing: "-0.03em" }}>15+</div>
+                <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "var(--font-main)", color: "#c8ff00", letterSpacing: "-0.03em" }}>15+</div>
                 <div style={{ fontSize: 12, color: "#8a8a80", fontWeight: 500, marginTop: 4 }}>Projects Shipped</div>
               </div>
               <div style={{ padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-                <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "'Syne', sans-serif", color: "#f5f5f0", letterSpacing: "-0.03em" }}>100%</div>
+                <div style={{ fontSize: 28, fontWeight: 800, fontFamily: "var(--font-main)", color: "#f5f5f0", letterSpacing: "-0.03em" }}>100%</div>
                 <div style={{ fontSize: 12, color: "#8a8a80", fontWeight: 500, marginTop: 4 }}>Client Satisfaction</div>
               </div>
               <div style={{ padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-                <div style={{ fontSize: 14, fontWeight: 600, fontFamily: "'Inter', sans-serif", color: "#f5f5f0" }}>Jammu, J&amp;K</div>
+                <div style={{ fontSize: 14, fontWeight: 600, fontFamily: "var(--font-main)", color: "#f5f5f0" }}>Jammu, J&amp;K</div>
                 <div style={{ fontSize: 12, color: "#8a8a80", fontWeight: 500, marginTop: 4 }}>Based in India</div>
               </div>
               <div style={{ padding: 20, borderRadius: 16, border: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.02)" }}>
-                <div style={{ fontSize: 14, fontWeight: 600, fontFamily: "'Inter', monospace", color: "#c8ff00" }}>{timeStr || "—"}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, fontFamily: "var(--font-main)", color: "#c8ff00" }}>{timeStr || "—"}</div>
                 <div style={{ fontSize: 12, color: "#8a8a80", fontWeight: 500, marginTop: 4 }}>Local Time (IST)</div>
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function AboutSection() {
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
                   <span style={{ fontSize: 18, color: "#c8ff00" }}>{cap.icon}</span>
-                  <span style={{ fontSize: 15, fontWeight: 700, color: "#f5f5f0", fontFamily: "'Syne', sans-serif" }}>{cap.title}</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: "#f5f5f0", fontFamily: "var(--font-main)" }}>{cap.title}</span>
                 </div>
                 <p style={{ fontSize: 13, color: "#8a8a80", lineHeight: 1.6, paddingLeft: 30 }}>{cap.desc}</p>
               </div>

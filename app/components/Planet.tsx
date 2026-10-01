@@ -32,10 +32,10 @@ const WORLDS = [
   ["#10384f", "#27c2a4", "#d9f2c2", "#7a5cd6", "#4a3a8f", "#ffffff"],
 ];
 
-function makePlanet() {
+function makePlanet(detail: number) {
   const off = new THREE.Vector3(Math.random() * 100, Math.random() * 100, Math.random() * 100);
   const pal = WORLDS[Math.floor(Math.random() * WORLDS.length)].map((c) => new THREE.Color(c));
-  const geo = new THREE.IcosahedronGeometry(1, 28);
+  const geo = new THREE.IcosahedronGeometry(1, detail);
   const pos = geo.attributes.position;
   const col = new Float32Array(pos.count * 3);
   const v = new THREE.Vector3();
@@ -64,8 +64,10 @@ export default function Planet() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const small = window.innerWidth < 768;
+    const detail = small ? 14 : 22;
+    const renderer = new THREE.WebGLRenderer({ antialias: !small, alpha: true, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1 : 1.5));
     el.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
@@ -83,7 +85,7 @@ export default function Planet() {
     const group = new THREE.Group();
     group.rotation.z = 0.2;
     scene.add(group);
-    let planet = makePlanet();
+    let planet = makePlanet(detail);
     group.add(planet);
     let born = performance.now();
 
@@ -112,7 +114,7 @@ export default function Planet() {
         group.remove(planet);
         planet.geometry.dispose();
         (planet.material as THREE.Material).dispose();
-        planet = makePlanet();
+        planet = makePlanet(detail);
         group.add(planet);
         born = performance.now();
       }
@@ -123,9 +125,13 @@ export default function Planet() {
     window.addEventListener("pointerup", up);
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let visible = true;
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    io.observe(el);
     let raf = 0;
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop);
+      if (!visible || document.hidden) return;
       if (!dragging && !reduce) group.rotation.y += 0.0025;
       const k = Math.min((t - born) / 700, 1);
       planet.scale.setScalar(Math.max(1 - Math.pow(1 - k, 3), 0.001));
@@ -136,6 +142,7 @@ export default function Planet() {
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
       canvas.removeEventListener("pointerdown", down);
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);

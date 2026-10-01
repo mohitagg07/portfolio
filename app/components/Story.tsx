@@ -1,6 +1,7 @@
 "use client";
 
-import { useInView } from "./useInView";
+import Image from "next/image";
+import { useInView, tilt, untilt } from "./useInView";
 
 const PATH = [
   ["2025", "VIT Chennai", "Finished my computer science degree, focused on AI."],
@@ -37,6 +38,12 @@ export default function Story() {
           </div>
         </div>
 
+        <div className="space-y-14">
+          <div className="photo-pop mx-auto w-full max-w-[22rem]">
+            <div className="tilt relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]" onMouseMove={tilt} onMouseLeave={untilt}>
+              <Image src="/assets/mohit.png" alt="Mohit in his graduation gown" fill sizes="352px" className="origin-[50%_55%] scale-[1.5] object-cover" />
+            </div>
+          </div>
         <ol className="vline space-y-8 pl-8">
           {PATH.map(([when, where, what], i) => (
             <li key={where} className="node relative" style={idx(i)}>
@@ -47,6 +54,7 @@ export default function Story() {
             </li>
           ))}
         </ol>
+        </div>
       </div>
 
       <div ref={learnRef} className={`section-wrap mt-24 ${learnIn ? "is-in" : ""}`}>

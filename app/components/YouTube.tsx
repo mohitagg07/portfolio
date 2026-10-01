@@ -129,7 +129,7 @@ export default function YouTube() {
               </svg>
             </div>
             <div>
-              <p style={{ fontWeight: 700, fontSize: 15, color: "#f5f5f0", fontFamily: "'Syne', sans-serif" }}>@MohitAgg07</p>
+              <p style={{ fontWeight: 700, fontSize: 15, color: "#f5f5f0", fontFamily: "var(--font-main)" }}>@MohitAgg07</p>
               <p style={{ fontSize: 12, color: "#8a8a80" }}>
                 {subscriberCount ? `${subscriberCount} subscribers` : "AI · Dev Life · Building in Public"}
               </p>
@@ -323,7 +323,7 @@ export default function YouTube() {
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
             </div>
-            <h3 style={{ color: "#f5f5f0", fontWeight: 700, fontSize: 20, fontFamily: "'Syne', sans-serif", marginBottom: 12 }}>
+            <h3 style={{ color: "#f5f5f0", fontWeight: 700, fontSize: 20, fontFamily: "var(--font-main)", marginBottom: 12 }}>
               Watch My Videos
             </h3>
             <p style={{ color: "#8a8a80", fontSize: 14, maxWidth: 380, margin: "0 auto 28px", lineHeight: 1.7 }}>

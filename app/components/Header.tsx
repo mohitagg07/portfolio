@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-[70] border-b transition-all duration-300 ${scrolled || open ? "border-white/5 bg-[#050505]/70 backdrop-blur-xl" : "border-transparent"}`}>
+      <header className={`fixed inset-x-0 top-0 z-[70] border-b transition-all duration-300 ${scrolled || open ? "border-white/5 bg-[#050505]/90 md:bg-[#050505]/70 md:backdrop-blur-xl" : "border-transparent"}`}>
         <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-3 md:px-10">
           <a href="#" onClick={() => setOpen(false)} aria-label="Mohit, back to top" className="flex items-center gap-2.5">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
@@ -84,7 +84,7 @@ export default function Header() {
       {/* Mobile menu: grows out of the button, links pop in one by one */}
       <div
         aria-hidden={!open}
-        className="fixed inset-0 z-[60] bg-[#050505]/95 backdrop-blur-2xl md:hidden"
+        className="fixed inset-0 z-[60] bg-[#050505] md:hidden"
         style={{
           clipPath: open ? "circle(150% at calc(100% - 36px) 34px)" : "circle(0px at calc(100% - 36px) 34px)",
           visibility: open ? "visible" : "hidden",
@@ -107,7 +107,7 @@ export default function Header() {
                   href={`#${id}`}
                   onClick={() => setOpen(false)}
                   className="block text-[clamp(40px,12vw,64px)] font-bold leading-[1.15]"
-                  style={{ fontFamily: "'Syne', sans-serif", color: active === id ? "var(--accent)" : "var(--fg)" }}
+                  style={{ fontFamily: "var(--font-main)", color: active === id ? "var(--accent)" : "var(--fg)" }}
                 >
                   {label}
                 </a>
