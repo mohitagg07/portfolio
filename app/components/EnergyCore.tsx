@@ -1,41 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSpatialMotion } from "./useInView";
 
 const MODES = ["electric", "violet", "solar"] as const;
 
 export default function EnergyCore() {
   const [mode, setMode] = useState(0);
-  const [visible, setVisible] = useState(false);
-  const sceneRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { rootMargin: "120px 0px" }
-    );
-    observer.observe(scene);
-    return () => observer.disconnect();
-  }, []);
+  const [sceneRef, visible] = useSpatialMotion<HTMLDivElement>(4.5, 5, 22);
 
   const shiftField = () => {
     setMode((current) => (current + 1) % MODES.length);
-  };
-
-  const moveField = (event: React.PointerEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    event.currentTarget.style.setProperty("--energy-x", `${x * 12}px`);
-    event.currentTarget.style.setProperty("--energy-y", `${y * 12}px`);
-  };
-
-  const resetField = (event: React.PointerEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--energy-x", "0px");
-    event.currentTarget.style.setProperty("--energy-y", "0px");
   };
 
   return (
@@ -44,8 +19,6 @@ export default function EnergyCore() {
       className="energy-scene"
       data-mode={MODES[mode]}
       data-visible={visible}
-      onPointerMove={moveField}
-      onPointerLeave={resetField}
     >
       <button
         className="energy-control"

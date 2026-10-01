@@ -28,12 +28,12 @@ export default function ContactSection() {
       <div className="radar" aria-hidden="true" />
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="max-w-md">
-          <h2 className="section-heading text-[clamp(36px,6vw,64px)] font-bold leading-[1.05]">
+          <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
             Let&apos;s build
             <br />
             <span className="glow-text">something great.</span>
           </h2>
-          <p className="mt-6 leading-8 text-[var(--fg-muted)]">
+          <p className="section-lede mt-6">
             Have an idea, need a website, or want to try AI in your work? Tell me about it. I&apos;ll reply as soon as I can.
           </p>
 

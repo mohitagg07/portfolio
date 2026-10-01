@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Fragment } from "react";
-import { useInView, useVisibility, tilt, untilt } from "./useInView";
+import { useInView, useSpatialMotion, useVisibility } from "./useInView";
 
 const PATH = [
   ["2025", "VIT Chennai", "Finished my computer science degree, focused on AI."],
@@ -21,6 +21,7 @@ const idx = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 export default function Story() {
   const [sectionRef, active] = useVisibility<HTMLElement>(0.03, "120px 0px");
+  const [portraitRef] = useSpatialMotion<HTMLDivElement>(3.2, 5, 13);
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const [learnRef, learnIn] = useInView<HTMLDivElement>(0.2);
 
@@ -28,7 +29,7 @@ export default function Story() {
     <section ref={sectionRef} id="about" className={`section-spacer ${active ? "is-active" : ""}`}>
       <div ref={topRef} className={`section-wrap grid gap-16 md:grid-cols-[1.2fr_1fr] ${topIn ? "is-in" : ""}`}>
         <div className="max-w-xl">
-          <h2 className="text-[clamp(32px,5vw,52px)] font-bold" aria-label="I make complex things feel simple.">
+          <h2 className="section-title story-title" aria-label="I make complex things feel simple.">
             {"I make complex things feel simple.".split(" ").map((w, i, words) => (
               <Fragment key={`${i}-${w}`}>
                 <span className="rise-word" style={idx(i)} aria-hidden="true"><span>{w}</span></span>
@@ -45,7 +46,7 @@ export default function Story() {
 
         <div className="space-y-10">
           <div className="photo-pop story-photo mx-auto w-full max-w-[20rem]">
-            <div className="tilt story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]" onMouseMove={tilt} onMouseLeave={untilt}>
+            <div ref={portraitRef} className="tilt story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
               <Image
                 src="/assets/mohit-story.jpg"
                 alt="Mohit seated outdoors in a black suit"

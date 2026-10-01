@@ -84,19 +84,11 @@ export default function YouTube() {
           }}
         >
           
-          <h2
-            className={`section-heading youtube-title ${hasBeenSeen ? "is-in" : ""}`}
-            style={{
-              fontSize: "clamp(32px, 5vw, 52px)",
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-            }}
-          >
+          <h2 className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}>
             Beyond the{" "}
             <span style={{ color: "#f87171", fontStyle: "italic" }}>screen</span>
           </h2>
-          <p style={{ fontSize: 15, color: "#a3adbd", maxWidth: 450, lineHeight: 1.7 }}>
+          <p className="section-lede">
             Real life, travel, tech vlogs, and creative storytelling on YouTube.
           </p>
         </div>
