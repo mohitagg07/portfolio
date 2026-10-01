@@ -18,6 +18,8 @@ export default function IntroLoader() {
       return;
     }
 
+    const root = document.documentElement;
+    root.dataset.introLoading = "true";
     let count = 0;
     let intervalId: number | undefined;
     let holdId: number | undefined;
@@ -31,12 +33,16 @@ export default function IntroLoader() {
         window.clearInterval(intervalId);
         holdId = window.setTimeout(() => {
           setLeaving(true);
-          removeId = window.setTimeout(() => setFinished(true), EXIT_MS);
+          removeId = window.setTimeout(() => {
+            delete root.dataset.introLoading;
+            setFinished(true);
+          }, EXIT_MS);
         }, HOLD_MS);
       }
     }, TYPE_DELAY_MS);
 
     return () => {
+      delete root.dataset.introLoading;
       if (intervalId !== undefined) window.clearInterval(intervalId);
       if (holdId !== undefined) window.clearTimeout(holdId);
       if (removeId !== undefined) window.clearTimeout(removeId);

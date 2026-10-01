@@ -37,7 +37,7 @@ export default function Projects() {
             const style = {
               "--i": i,
               "--enter-x": i % 2 === 0 ? "-28px" : "28px",
-              "--enter-x-mobile": i % 2 === 0 ? "-22px" : "22px",
+              "--enter-x-mobile": i % 2 === 0 ? "-34px" : "34px",
             } as React.CSSProperties;
             return p.demo ? (
               <a key={p.title} href={p.demo} target="_blank" rel="noreferrer" className={cls} style={style}>{body}</a>

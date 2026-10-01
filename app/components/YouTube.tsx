@@ -180,7 +180,7 @@ export default function YouTube() {
                 style={{
                   "--i": i,
                   "--enter-x": i % 2 === 0 ? "-26px" : "26px",
-                  "--enter-x-mobile": i % 2 === 0 ? "-22px" : "22px",
+                  "--enter-x-mobile": i % 2 === 0 ? "-34px" : "34px",
                   borderRadius: 16,
                   border: "1px solid rgba(255,255,255,0.06)",
                   background: "rgba(255,255,255,0.02)",
