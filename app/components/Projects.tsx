@@ -1,224 +1,263 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
-function GlobeIcon() {
-  return (
-    <svg style={{ width: 16, height: 16 }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    </svg>
-  );
+interface Project {
+  id: number;
+  title: string;
+  tagline: string;
+  category: string;
+  description: string;
+  image: string;
+  demo: string;
+  highlights: string[];
 }
 
-const PROJECTS = [
+const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Innovix",
-    subtitle: "Jammu's First Psychology Creative Agency",
-    description:
-      "Designed and built the complete Innovix website for a client — a psychology-driven branding studio. Full brand identity, website, and client acquisition system. Where brands become experiences.",
+    title: "Innovix Studio",
+    tagline: "Psychology-Driven Brand Platform",
+    category: "Web",
+    description: "A complete digital platform for a psychology-driven branding agency in Jammu. Designed to elevate brand experiences and drive client acquisition.",
     image: "/projects/project-1.png",
-    mobilePos: "center",
     demo: "https://innovix-branding-studio.vercel.app/",
-    urlLabel: "innovix.studio",
-    flip: false,
+    highlights: ["Fluid responsive design", "Interactive portfolio", "Client contact system"],
   },
   {
     id: 2,
     title: "MindCare",
-    subtitle: "AI-Powered Mental Health Chatbot",
-    description:
-      "Context-aware chatbot using LLaMA 3 and ChromaDB for memory-persistent conversations. CNN model for real-time facial emotion recognition with 90% accuracy across 7 emotional categories.",
+    tagline: "AI Mental Health Companion",
+    category: "AI",
+    description: "A supportive AI assistant providing mental health conversations, emotional check-ins, and real-time mood recognition for daily wellness.",
     image: "/projects/project-2.png",
-    mobilePos: "top",
     demo: "https://mindcare-yb5c.vercel.app/",
-    urlLabel: "mindcare.vercel.app",
-    flip: true,
+    highlights: ["Context-aware chat", "Emotion recognition", "Private & secure"],
   },
   {
     id: 3,
     title: "LegalMind AI",
-    subtitle: "Generative AI Legal Document Demystifier",
-    description:
-      "Extracts legal clauses via OCR and Google Document AI with 95% accuracy. RAG pipeline on the Indian Kanoon corpus. Multi-modal output: plain-English summaries, visual timelines, and TTS audio from a single upload.",
+    tagline: "Smart Legal Document Analyzer",
+    category: "AI",
+    description: "Upload complex contracts and receive instant plain-English summaries, key clause highlights, and audio summaries for on-the-go listening.",
     image: "/projects/project-3.png",
-    mobilePos: "top",
     demo: "https://legal-doc-demystifier.vercel.app/",
-    urlLabel: "legal-doc-demystifier.vercel.app",
-    flip: false,
+    highlights: ["PDF & scan support", "Plain-English summaries", "Audio playback"],
   },
 ];
 
-/** Icon-only "View Live" button — black pill with globe icon */
-function LiveIconBtn({ href }: { href: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      title="View Live"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: 44,
-        height: 44,
-        borderRadius: "50%",
-        background: "rgba(0,0,0,0.75)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        color: "#fff",
-        flexShrink: 0,
-        transition: "background 0.2s, transform 0.2s",
-        backdropFilter: "blur(8px)",
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLAnchorElement;
-        el.style.background = "rgba(108,99,255,0.85)";
-        el.style.transform = "scale(1.1)";
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLAnchorElement;
-        el.style.background = "rgba(0,0,0,0.75)";
-        el.style.transform = "scale(1)";
-      }}
-    >
-      <GlobeIcon />
-    </a>
-  );
-}
+export default function Projects() {
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-export default function Projects(): React.JSX.Element {
-  return (
-    <section id="projects" className="section-block">
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
-        style={{ width: 500, height: 240, background: "rgba(108,99,255,0.05)", filter: "blur(120px)" }}
-      />
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-      <div className="container-fluid" style={{ position: "relative", zIndex: 10 }}>
-        {/* Section header */}
-        <div style={{ marginBottom: 64 }}>
-          <p
-            style={{ color: "#a78bfa", fontSize: 11, fontFamily: "Inter,sans-serif", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 }}
-          >
-            What I have built
-          </p>
+  return (
+    <section ref={sectionRef} id="work" className="section-spacer" style={{ position: "relative" }}>
+      {/* Subtle divider */}
+      <div className="section-divider" />
+
+      <div className="section-wrap" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+            marginBottom: 64,
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(30px)",
+            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          <span className="label-tag">Selected Work</span>
           <h2
-            className="text-white"
-            style={{ fontSize: "clamp(28px,5vw,40px)", fontWeight: 700, lineHeight: 1.1, fontFamily: "Syne,sans-serif" }}
+            style={{
+              fontSize: "clamp(32px, 5vw, 56px)",
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.1,
+              maxWidth: 600,
+            }}
           >
-            Featured Projects
+            Projects built with
+            <br />
+            <span style={{ color: "#c8ff00", fontStyle: "italic" }}>intention</span>
           </h2>
-          <div style={{ marginTop: 12, width: 40, height: 1, background: "linear-gradient(to right, #6c63ff, transparent)" }} />
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 80 }}>
-          {PROJECTS.map((project) => (
-            <div key={project.id}>
-
-              {/* ── DESKTOP layout (≥768px): side-by-side with glass card overlapping screenshot ── */}
-              <div className="project-desktop" style={{ position: "relative", display: "flex", flexDirection: project.flip ? "row-reverse" : "row", alignItems: "flex-start" }}>
-
-                {/* Screenshot — 58% */}
-                <div style={{ width: "58%", flexShrink: 0, position: "relative", zIndex: 1 }}>
-                  <div style={{ borderRadius: 18, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", background: "#0d1120", aspectRatio: "16/10", boxShadow: "0 32px 80px rgba(0,0,0,0.55)", position: "relative" }}>
-                    {/* macOS bar */}
-                    <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 28, background: "#10131f", display: "flex", alignItems: "center", paddingLeft: 12, gap: 6, zIndex: 5 }}>
-                      <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57", display: "block" }} />
-                      <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e", display: "block" }} />
-                      <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840", display: "block" }} />
-                      <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}>
-                        <GlobeIcon />
-                        <span style={{ fontSize: 9, color: "rgba(255,255,255,0.25)", fontFamily: "Inter,sans-serif" }}>{project.urlLabel}</span>
-                      </div>
-                    </div>
-                    <div style={{ position: "absolute", inset: 0, top: 28 }}>
-                      <Image src={project.image} alt={project.title} fill sizes="55vw" style={{ objectFit: "cover", objectPosition: "top" }} />
-                    </div>
-                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "35%", background: "linear-gradient(to top, rgba(8,11,20,0.6) 0%, transparent 100%)", zIndex: 3 }} />
-                  </div>
+        {/* Projects list — editorial style */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {PROJECTS.map((project, i) => (
+            <a
+              key={project.id}
+              href={project.demo}
+              target="_blank"
+              rel="noreferrer"
+              onMouseEnter={() => setHoveredId(project.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: 24,
+                padding: "40px 0",
+                borderTop: "1px solid rgba(255,255,255,0.06)",
+                textDecoration: "none",
+                transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateY(0)" : "translateY(40px)",
+                transitionDelay: `${i * 0.1}s`,
+              }}
+              className="md:!grid-cols-[1fr_1.4fr]"
+            >
+              {/* Left: Info */}
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span
+                    style={{
+                      fontSize: 48,
+                      fontWeight: 800,
+                      fontFamily: "'Syne', sans-serif",
+                      color: hoveredId === project.id ? "#c8ff00" : "rgba(255,255,255,0.08)",
+                      letterSpacing: "-0.04em",
+                      transition: "color 0.4s ease",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: "#c8ff00",
+                      padding: "4px 10px",
+                      borderRadius: 999,
+                      border: "1px solid rgba(200,255,0,0.15)",
+                      background: "rgba(200,255,0,0.05)",
+                    }}
+                  >
+                    {project.category}
+                  </span>
                 </div>
 
-                {/* Text column — overlaps screenshot, pushed right/left */}
-                <div style={{
-                  width: "50%",
-                  flexShrink: 0,
+                <h3
+                  style={{
+                    fontSize: "clamp(24px, 3vw, 36px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.02em",
+                    color: "#f5f5f0",
+                    transition: "color 0.3s ease",
+                  }}
+                >
+                  {project.title}
+                </h3>
+
+                <p style={{ fontSize: 14, color: "#c8ff00", fontWeight: 500 }}>
+                  {project.tagline}
+                </p>
+
+                <p style={{ fontSize: 14, color: "#8a8a80", lineHeight: 1.7, maxWidth: 400 }}>
+                  {project.description}
+                </p>
+
+                {/* Feature tags */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
+                  {project.highlights.map((h) => (
+                    <span
+                      key={h}
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 500,
+                        color: "#8a8a80",
+                        padding: "5px 12px",
+                        borderRadius: 999,
+                        border: "1px solid rgba(255,255,255,0.06)",
+                        background: "rgba(255,255,255,0.02)",
+                      }}
+                    >
+                      {h}
+                    </span>
+                  ))}
+                </div>
+
+                {/* View project link */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: hoveredId === project.id ? "#c8ff00" : "#555550",
+                    transition: "all 0.3s ease",
+                    marginTop: 8,
+                  }}
+                >
+                  <span>View Project</span>
+                  <span
+                    style={{
+                      transition: "transform 0.3s ease",
+                      transform: hoveredId === project.id ? "translateX(6px)" : "translateX(0)",
+                      fontSize: 16,
+                    }}
+                  >
+                    →
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: Image */}
+              <div
+                style={{
                   position: "relative",
-                  zIndex: 10,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                  paddingTop: 48,
-                  ...(project.flip
-                    ? { marginRight: "-8%", paddingRight: 32 }
-                    : { marginLeft: "-8%", paddingLeft: 32 }),
-                }}>
-                  <p style={{ color: "#6c63ff", fontSize: 11, fontWeight: 700, fontFamily: "Inter,sans-serif", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-                    Featured Project
-                  </p>
-                  <div>
-                    <h3 style={{ color: "#fff", fontSize: "clamp(24px,2.8vw,32px)", fontWeight: 700, lineHeight: 1.15, fontFamily: "Syne,sans-serif", marginBottom: 6 }}>
-                      {project.title}
-                    </h3>
-                    <p style={{ color: "#a78bfa", fontSize: 15, fontFamily: "Inter,sans-serif", lineHeight: 1.5 }}>
-                      {project.subtitle}
-                    </p>
-                  </div>
-                  {/* Glass card */}
-                  <div style={{ background: "rgba(10,12,22,0.78)", backdropFilter: "blur(22px)", WebkitBackdropFilter: "blur(22px)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: "20px 24px", boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
-                    <p style={{ color: "rgba(200,205,225,0.88)", fontSize: 14, lineHeight: 1.75, margin: 0, fontFamily: "Inter,sans-serif" }}>
-                      {project.description}
-                    </p>
-                  </div>
-                  <LiveIconBtn href={project.demo} />
-                </div>
+                  aspectRatio: "16 / 10",
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                  transform: hoveredId === project.id ? "scale(1.02)" : "scale(1)",
+                }}
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover object-top"
+                  style={{
+                    transition: "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                    transform: hoveredId === project.id ? "scale(1.05)" : "scale(1)",
+                  }}
+                />
+                {/* Overlay gradient */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(135deg, rgba(5,5,5,0.3) 0%, transparent 50%)",
+                    opacity: hoveredId === project.id ? 0 : 0.5,
+                    transition: "opacity 0.4s ease",
+                  }}
+                />
               </div>
-
-              {/* ── MOBILE layout (< 768px): image with ALL content overlaid at bottom ── */}
-              <div className="project-mobile">
-                <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", border: "none", background: "rgba(8,10,20,1)", boxShadow: "0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05)" }}>
-                  {/* Screenshot — tall enough to show content, fades to black */}
-                  <div style={{ position: "relative", width: "100%", height: 240, overflow: "hidden" }}>
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      style={{ objectFit: "cover", objectPosition: (project as typeof project & { mobilePos: string }).mobilePos || "top" }}
-                      sizes="100vw"
-                    />
-                    {/* Gradient: visible top 55%, then hard fade to page bg */}
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(8,10,20,0) 0%, rgba(8,10,20,0) 42%, rgba(8,10,20,0.65) 65%, rgba(8,10,20,1) 85%, rgba(8,10,20,1) 100%)" }} />
-                  </div>
-
-                  {/* Content — zero gap, same bg as gradient end */}
-                  <div style={{ background: "rgba(8,10,20,1)", padding: "0 20px 26px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
-                    <p style={{ color: "#6c63ff", fontSize: 10, fontWeight: 700, fontFamily: "Outfit,sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>
-                      Featured Project
-                    </p>
-                    <h3 style={{ color: "#fff", fontSize: 22, fontWeight: 700, lineHeight: 1.2, fontFamily: "Syne,sans-serif", margin: 0 }}>
-                      {project.title}
-                    </h3>
-                    <p style={{ color: "#a78bfa", fontSize: 13, fontFamily: "Outfit,sans-serif", lineHeight: 1.5, margin: 0 }}>
-                      {project.subtitle}
-                    </p>
-                    <p style={{ color: "rgba(180,185,210,0.75)", fontSize: 13.5, lineHeight: 1.7, fontFamily: "Outfit,sans-serif", margin: 0 }}>
-                      {project.description}
-                    </p>
-                    <div style={{ paddingTop: 6 }}>
-                      <LiveIconBtn href={project.demo} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+            </a>
           ))}
+
+          {/* Bottom border */}
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }} />
         </div>
       </div>
-
-      {/* Responsive rules live in globals.css */}
     </section>
   );
 }
