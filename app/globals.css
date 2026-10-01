@@ -564,7 +564,7 @@ main { isolation: isolate; }
 .hero-button--primary:hover { box-shadow: 0 8px 34px rgba(149, 236, 133, .28); }
 .hero-button--quiet { border-color: rgba(195, 211, 238, .18); color: #e4ebf7; background: rgba(255,255,255,.025); }
 .hero-button--quiet:hover { border-color: rgba(195, 211, 238, .4); background: rgba(255,255,255,.06); }
-.hero-visual { position: relative; z-index: 1; display: grid; min-height: min(46vw, 590px); place-items: center; }
+.hero-visual { position: relative; z-index: 1; display: grid; min-height: min(46vw, 590px, max(0px, calc(100svh - 216px))); place-items: center; }
 .energy-scene {
   position: relative;
   display: grid;
@@ -723,7 +723,7 @@ main { isolation: isolate; }
 .hero-scroll {
   position: absolute;
   z-index: 4;
-  bottom: 21px;
+  bottom: 14px;
   left: 50%;
   display: flex;
   flex-direction: column;
@@ -775,10 +775,10 @@ main { isolation: isolate; }
 @keyframes energy-breathe { 0%, 100% { transform: scale(.94); opacity: .82; } 50% { transform: scale(1.05); opacity: 1; } }
 @keyframes energy-dust { to { transform: rotate(360deg); } }
 
-@media (max-width: 900px) {
+@media (max-width: 900px) and (min-width: 681px) {
   .hero-layout { grid-template-columns: minmax(0, 1fr) minmax(260px, .8fr); gap: 0; }
   .hero-copy h1 { font-size: clamp(47px, 7.4vw, 70px); }
-  .hero-visual { min-height: 440px; }
+  .hero-visual { min-height: min(440px, max(0px, calc(100svh - 216px))); }
 }
 @media (max-width: 680px) {
   .site-header { padding: 10px 13px; }
