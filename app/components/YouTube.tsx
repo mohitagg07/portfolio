@@ -75,9 +75,7 @@ export default function YouTube() {
             transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          <span className="label-tag" style={{ borderColor: "rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.05)", color: "#f87171" }}>
-            Life on Camera
-          </span>
+          
           <h2
             style={{
               fontSize: "clamp(32px, 5vw, 52px)",

@@ -1,228 +1,130 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const LINKS = [["Work", "work"], ["About", "about"], ["Videos", "youtube"], ["Contact", "contact"]] as const;
+const SOCIALS = [["GitHub", "https://github.com/mohitagg07"], ["YouTube", "https://youtube.com/@MohitAgg07"], ["LinkedIn", "https://linkedin.com/in/mohitagg07"]] as const;
 
 export default function Header() {
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      if (window.scrollY < 200) setActive("");
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    LINKS.forEach(([, id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
   }, []);
 
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
+    document.body.style.overflow = open ? "hidden" : "";
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", esc);
+    return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
+  }, [open]);
 
-  const links = [
-    { href: "#work", label: "Work" },
-    { href: "#about", label: "About" },
-    { href: "#contact", label: "Contact" },
-  ];
+  const bar = "absolute left-3 h-0.5 w-5 rounded bg-white transition-transform duration-300";
 
   return (
     <>
-      <header
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          padding: "0 clamp(24px, 5vw, 80px)",
-          height: 72,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-          background: scrolled ? "rgba(5,5,5,0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px) saturate(1.8)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.04)" : "1px solid transparent",
-        }}
-      >
-        {/* Logo */}
-        <a
-          href="#"
-          style={{
-            fontFamily: "'Syne', sans-serif",
-            fontWeight: 800,
-            fontSize: 20,
-            letterSpacing: "-0.03em",
-            color: "#f5f5f0",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          mohit
-        </a>
-
-        {/* Desktop Nav */}
-        <nav
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 32,
-          }}
-          className="hidden md:flex"
-        >
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="link-hover"
-              style={{
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#8a8a80",
-                letterSpacing: "0.02em",
-                transition: "color 0.3s ease",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#f5f5f0")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#8a8a80")}
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              color: "#050505",
-              background: "#c8ff00",
-              padding: "8px 20px",
-              borderRadius: 999,
-              letterSpacing: "0.02em",
-              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 0 30px rgba(200,255,0,0.3)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "none";
-            }}
-          >
-            Let&apos;s Talk
+      <header className={`fixed inset-x-0 top-0 z-[70] border-b transition-all duration-300 ${scrolled || open ? "border-white/5 bg-[#050505]/70 backdrop-blur-xl" : "border-transparent"}`}>
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-3 md:px-10">
+          <a href="#" onClick={() => setOpen(false)} aria-label="Mohit, back to top" className="flex items-center gap-2.5">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="logo-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="30" y2="30">
+                  <stop stopColor="#22d3ee" /><stop offset="1" stopColor="#c8ff00" />
+                </linearGradient>
+              </defs>
+              <path className="logo-m" d="M4 25V5l11 13L26 5v20" stroke="url(#logo-g)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="logo-word">mohit</span>
           </a>
-        </nav>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden"
-          style={{
-            background: "none",
-            border: "none",
-            color: "#f5f5f0",
-            width: 40,
-            height: 40,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: menuOpen ? 0 : 6,
-            position: "relative",
-          }}
-          aria-label="Toggle menu"
-        >
-          <span
-            style={{
-              width: 24,
-              height: 2,
-              background: "#f5f5f0",
-              borderRadius: 2,
-              transition: "all 0.3s ease",
-              transform: menuOpen ? "rotate(45deg) translateY(0)" : "none",
-              position: menuOpen ? "absolute" : "relative",
-            }}
-          />
-          <span
-            style={{
-              width: 24,
-              height: 2,
-              background: "#f5f5f0",
-              borderRadius: 2,
-              transition: "all 0.3s ease",
-              opacity: menuOpen ? 0 : 1,
-            }}
-          />
-          <span
-            style={{
-              width: 24,
-              height: 2,
-              background: "#f5f5f0",
-              borderRadius: 2,
-              transition: "all 0.3s ease",
-              transform: menuOpen ? "rotate(-45deg) translateY(0)" : "none",
-              position: menuOpen ? "absolute" : "relative",
-            }}
-          />
-        </button>
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+            {LINKS.map(([label, id]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={`relative text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:bg-[var(--accent)] after:transition-transform after:duration-300 ${
+                  active === id ? "text-[var(--accent)] after:scale-x-100" : "text-[var(--fg-muted)] after:scale-x-0 hover:text-[var(--fg)] hover:after:scale-x-100"
+                }`}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a href="#contact" className="hidden whitespace-nowrap rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-bold text-[#050505] transition-transform hover:scale-105 md:inline-block">
+              Let&apos;s talk
+            </a>
+            <button
+              onClick={() => setOpen(!open)}
+              aria-expanded={open}
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="relative h-11 w-11 md:hidden"
+            >
+              <span className={`${bar} top-[17px]`} style={{ transform: open ? "translateY(4.5px) rotate(45deg)" : "none" }} />
+              <span className={`${bar} top-[26px]`} style={{ transform: open ? "translateY(-4.5px) rotate(-45deg)" : "none" }} />
+            </button>
+          </div>
+        </div>
       </header>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99,
-            background: "rgba(5,5,5,0.97)",
-            backdropFilter: "blur(30px)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 32,
-            animation: "fadeIn 0.3s ease both",
-          }}
-        >
-          {links.map((link, i) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                fontFamily: "'Syne', sans-serif",
-                fontSize: 36,
-                fontWeight: 700,
-                color: "#f5f5f0",
-                letterSpacing: "-0.02em",
-                opacity: 0,
-                animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s both`,
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              fontSize: 14,
-              fontWeight: 600,
-              color: "#050505",
-              background: "#c8ff00",
-              padding: "14px 40px",
-              borderRadius: 999,
-              opacity: 0,
-              animation: "fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.4s both",
-            }}
-          >
-            Let&apos;s Talk →
-          </a>
+      {/* Mobile menu: grows out of the button, links pop in one by one */}
+      <div
+        aria-hidden={!open}
+        className="fixed inset-0 z-[60] bg-[#050505]/95 backdrop-blur-2xl md:hidden"
+        style={{
+          clipPath: open ? "circle(150% at calc(100% - 36px) 34px)" : "circle(0px at calc(100% - 36px) 34px)",
+          visibility: open ? "visible" : "hidden",
+          transition: `clip-path .55s cubic-bezier(.16,1,.3,1), visibility 0s linear ${open ? "0s" : ".55s"}`,
+        }}
+      >
+        <div className="flex h-full flex-col justify-between px-8 pb-10 pt-28">
+          <ul className="space-y-2">
+            {LINKS.map(([label, id], i) => (
+              <li
+                key={id}
+                style={{
+                  transform: open ? "none" : "translateY(28px)",
+                  opacity: open ? 1 : 0,
+                  transition: "all .5s cubic-bezier(.16,1,.3,1)",
+                  transitionDelay: open ? `${120 + i * 70}ms` : "0ms",
+                }}
+              >
+                <a
+                  href={`#${id}`}
+                  onClick={() => setOpen(false)}
+                  className="block text-[clamp(40px,12vw,64px)] font-bold leading-[1.15]"
+                  style={{ fontFamily: "'Syne', sans-serif", color: active === id ? "var(--accent)" : "var(--fg)" }}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div style={{ opacity: open ? 1 : 0, transition: "opacity .5s ease .45s" }}>
+            <a href="mailto:mohitaggarwal2003@gmail.com" className="block text-sm text-[var(--fg-muted)]">mohitaggarwal2003@gmail.com</a>
+            <div className="mt-4 flex gap-6 text-sm font-medium">
+              {SOCIALS.map(([label, href]) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>
+              ))}
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

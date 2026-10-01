@@ -1,226 +1,65 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
+import { useInView } from "./useInView";
+
+const EMAIL = "mohitaggarwal2003@gmail.com";
+const LINKS = [
+  { label: "GitHub", href: "https://github.com/mohitagg07", Icon: Github },
+  { label: "YouTube", href: "https://youtube.com/@MohitAgg07", Icon: Youtube },
+  { label: "LinkedIn", href: "https://linkedin.com/in/mohitagg07", Icon: Linkedin },
+  { label: EMAIL, href: `mailto:${EMAIL}`, Icon: Mail },
+];
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [ref, seen] = useInView<HTMLDivElement>(0.2);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText("mohitaggarwal2003@gmail.com");
+  const copy = () => {
+    navigator.clipboard.writeText(EMAIL);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="section-spacer" style={{ position: "relative", overflow: "hidden" }}>
+    <section id="contact" className="section-spacer relative overflow-hidden">
       <div className="radar" aria-hidden="true" />
-      <div className="section-divider" />
-
-      <div className="section-wrap" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            gap: 24,
-            maxWidth: 700,
-            margin: "0 auto",
-          }}
-        >
-          {/* Label */}
-          <span
-            className="label-tag"
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
-            Get in Touch
-          </span>
-
-          {/* Big heading */}
-          <h2
-            style={{
-              fontSize: "clamp(36px, 7vw, 72px)",
-              fontWeight: 800,
-              letterSpacing: "-0.04em",
-              lineHeight: 1,
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(30px)",
-              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s",
-            }}
-          >
+      <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
+        <div className="max-w-md">
+          <h2 className="text-[clamp(36px,6vw,64px)] font-bold leading-[1.05]">
             Let&apos;s build
             <br />
-            something{" "}
-            <span style={{ color: "#c8ff00", fontStyle: "italic" }}>great</span>
+            <span className="glow-text">something great.</span>
           </h2>
-
-          <p
-            style={{
-              fontSize: "clamp(15px, 1.8vw, 18px)",
-              color: "#8a8a80",
-              lineHeight: 1.7,
-              maxWidth: 460,
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s",
-            }}
-          >
-            Have a project idea, need a website, or want to explore AI solutions?
-            I&apos;d love to hear about it.
+          <p className="mt-6 leading-8 text-[var(--fg-muted)]">
+            Have an idea, need a website, or want to try AI in your work? Tell me about it. I&apos;ll reply as soon as I can.
           </p>
 
-          {/* Email button — big and prominent */}
-          <div
-            style={{
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 12,
-              marginTop: 16,
-            }}
-          >
-            <a
-              href="mailto:mohitaggarwal2003@gmail.com"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "18px 40px",
-                borderRadius: 999,
-                background: "#c8ff00",
-                color: "#050505",
-                fontSize: 16,
-                fontWeight: 700,
-                letterSpacing: "-0.01em",
-                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "scale(1.05)";
-                e.currentTarget.style.boxShadow = "0 0 50px rgba(200,255,0,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-                e.currentTarget.style.boxShadow = "none";
-              }}
-            >
-              Send Me an Email
-              <span style={{ fontSize: 20 }}>→</span>
-            </a>
-
-            {/* Copy email */}
-            <button
-              onClick={copyEmail}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#8a8a80",
-                fontSize: 13,
-                fontWeight: 500,
-                cursor: "pointer",
-                transition: "color 0.3s ease",
-                padding: "8px 16px",
-                borderRadius: 8,
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#c8ff00")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#8a8a80")}
-            >
-              {copied ? "✓ Copied!" : "mohitaggarwal2003@gmail.com — Click to copy"}
-            </button>
-          </div>
-
-          {/* Quick links */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              marginTop: 32,
-              flexWrap: "wrap",
-              justifyContent: "center",
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s",
-            }}
-          >
-            {[
-              { href: "https://github.com/mohitagg07", label: "GitHub" },
-              { href: "https://youtube.com/@MohitAgg07", label: "YouTube" },
-              { href: "https://linkedin.com/in/mohitagg07", label: "LinkedIn" },
-            ].map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  padding: "10px 22px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: "#8a8a80",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(200,255,0,0.2)";
-                  e.currentTarget.style.color = "#c8ff00";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.color = "#8a8a80";
-                }}
-              >
-                {link.label} ↗
-              </a>
+          <ul className="mt-10">
+            {LINKS.map(({ label, href, Icon }, i) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target={href.startsWith("mailto") ? undefined : "_blank"}
+                  rel="noreferrer"
+                  style={{ "--i": i } as React.CSSProperties}
+                  className="hline group flex items-center gap-4 py-4 font-medium transition-colors hover:text-[var(--accent)]"
+                >
+                  <Icon size={22} className="transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
+                  <span>{label}</span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          {/* Location & availability */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 16,
-              marginTop: 24,
-              fontSize: 13,
-              color: "#555550",
-              opacity: visible ? 1 : 0,
-              transition: "all 0.8s ease 0.5s",
-            }}
+          <button
+            onClick={copy}
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
           >
-            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "#c8ff00",
-                  boxShadow: "0 0 8px rgba(200,255,0,0.5)",
-                }}
-              />
-              Available Now
-            </span>
-            <span>·</span>
-            <span>Jammu, J&amp;K, India</span>
-          </div>
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+            {copied ? "Email copied" : "Copy my email"}
+          </button>
         </div>
       </div>
     </section>
