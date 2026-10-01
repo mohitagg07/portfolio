@@ -17,33 +17,33 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Innovix Studio",
-    tagline: "Psychology-Driven Brand Platform",
-    category: "Web",
-    description: "A complete digital platform for a psychology-driven branding agency in Jammu. Designed to elevate brand experiences and drive client acquisition.",
-    image: "/projects/project-1.png",
-    demo: "https://innovix-branding-studio.vercel.app/",
-    highlights: ["Fluid responsive design", "Interactive portfolio", "Client contact system"],
+    title: "MindCare",
+    tagline: "A kind voice for a heavy day",
+    category: "AI",
+    description: "Talk through how you're feeling and get a thoughtful reply. It checks in on your mood and remembers the conversation.",
+    image: "/projects/project-2.png",
+    demo: "https://mindcare-yb5c.vercel.app/",
+    highlights: ["Remembers the chat", "Notices your mood", "Private"],
   },
   {
     id: 2,
-    title: "MindCare",
-    tagline: "AI Mental Health Companion",
+    title: "LegalMind",
+    tagline: "Contracts, explained like a friend would",
     category: "AI",
-    description: "A supportive AI assistant providing mental health conversations, emotional check-ins, and real-time mood recognition for daily wellness.",
-    image: "/projects/project-2.png",
-    demo: "https://mindcare-yb5c.vercel.app/",
-    highlights: ["Context-aware chat", "Emotion recognition", "Private & secure"],
+    description: "Upload a confusing contract and get a short summary in plain English, the clauses that matter, and an audio version to listen to.",
+    image: "/projects/project-3.png",
+    demo: "https://legal-doc-demystifier.vercel.app/",
+    highlights: ["PDFs and scans", "Plain English", "Listen instead of read"],
   },
   {
     id: 3,
-    title: "LegalMind AI",
-    tagline: "Smart Legal Document Analyzer",
-    category: "AI",
-    description: "Upload complex contracts and receive instant plain-English summaries, key clause highlights, and audio summaries for on-the-go listening.",
-    image: "/projects/project-3.png",
-    demo: "https://legal-doc-demystifier.vercel.app/",
-    highlights: ["PDF & scan support", "Plain-English summaries", "Audio playback"],
+    title: "Innovix Studio",
+    tagline: "A home on the web for a branding studio",
+    category: "Web",
+    description: "A full website for a branding studio in Jammu that shows its work and makes it easy for new clients to get in touch.",
+    image: "/projects/project-1.png",
+    demo: "https://innovix-branding-studio.vercel.app/",
+    highlights: ["Looks right on any screen", "Portfolio gallery", "Contact form"],
   },
 ];
 
@@ -89,9 +89,9 @@ export default function Projects() {
               maxWidth: 600,
             }}
           >
-            Projects built with
+            Things I&apos;ve made,
             <br />
-            <span style={{ color: "#c8ff00", fontStyle: "italic" }}>intention</span>
+            <span style={{ color: "#c8ff00", fontStyle: "italic" }}>and why</span>
           </h2>
         </div>
 

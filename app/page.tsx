@@ -3,7 +3,7 @@
 import BackgroundCanvas from "./components/BackgroundCanvas";
 import Header from "./components/Header";
 import HeroGreeting from "./components/HeroGreeting";
-import AboutBento from "./components/AboutBento";
+import Story from "./components/Story";
 import Projects from "./components/Projects";
 import InteractiveDemos from "./components/InteractiveDemos";
 import YouTube from "./components/YouTube";
@@ -25,7 +25,7 @@ export default function Home(): React.JSX.Element {
       </section>
 
       {/* 4. About & Capability Bento Grid */}
-      <AboutBento />
+      <Story />
 
       {/* 5. Featured Projects Showcase */}
       <Projects />
