@@ -197,3 +197,48 @@ body::before {
 }
 @keyframes helloDraw { to { stroke-dashoffset: 0; } }
 @keyframes helloFill { to { fill: url(#hello-grad); stroke-width: 1; } }
+
+/* ── Hero photo: scanned in by a light bar ── */
+.scan-wait { clip-path: inset(0 0 100% 0); }
+.scan { position: relative; clip-path: inset(0 0 100% 0); animation: scanIn 1.5s var(--ease-out-expo) var(--scan-delay, 0.4s) forwards; }
+.scan::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--accent); box-shadow: 0 0 24px 4px rgba(200,255,0,.6); opacity: 0; animation: scanLine 1.5s var(--ease-out-expo) var(--scan-delay, 0.4s) forwards; }
+@keyframes scanIn { to { clip-path: inset(0); } }
+@keyframes scanLine { 0% { top: 0; opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+/* ── Story: words rise out of a mask, timeline draws itself ── */
+.rise-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; }
+.rise-word > span { display: inline-block; transform: translateY(110%); transition: transform .9s var(--ease-out-expo); transition-delay: calc(var(--i) * 70ms); }
+.is-in .rise-word > span { transform: none; }
+.vline { position: relative; }
+.vline::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--accent), rgba(255,255,255,.08)); transform: scaleY(0); transform-origin: top; transition: transform 1.8s var(--ease-smooth); }
+.is-in .vline::before { transform: scaleY(1); }
+.node { opacity: 0; transform: translateX(-16px); transition: all .8s var(--ease-out-expo); transition-delay: calc(.4s + var(--i) * .4s); }
+.is-in .node { opacity: 1; transform: none; }
+.hline { position: relative; }
+.hline::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--accent), rgba(255,255,255,.08)); transform: scaleX(0); transform-origin: left; transition: transform 1.1s var(--ease-out-expo); transition-delay: calc(var(--i) * .15s); }
+.hline > * { opacity: 0; transition: opacity .8s ease; transition-delay: calc(.3s + var(--i) * .15s); }
+.is-in .hline::before { transform: scaleX(1); }
+.is-in .hline > * { opacity: 1; }
+
+/* ── Projects: curtain wipe, zoom settle, 3D tilt ── */
+.tilt { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s ease-out; }
+.curtain { clip-path: inset(0 100% 0 0); transition: clip-path 1.2s var(--ease-out-expo); transition-delay: calc(var(--i) * .15s); }
+.curtain.alt { clip-path: inset(0 0 0 100%); }
+.curtain img { transform: scale(1.35); transition: transform 1.8s var(--ease-out-expo); transition-delay: calc(var(--i) * .15s); }
+.is-in .curtain { clip-path: inset(0); }
+.is-in .curtain img { transform: scale(1); }
+
+/* ── Contact: signal rings ── */
+#contact .section-wrap { position: relative; z-index: 1; }
+.radar { position: absolute; inset: 0; pointer-events: none; }
+.radar::before, .radar::after { content: ""; position: absolute; left: 50%; top: 50%; width: 900px; height: 900px; margin: -450px 0 0 -450px; border-radius: 50%; border: 1px solid rgba(200,255,0,.35); opacity: 0; animation: ping 6s cubic-bezier(.2,.6,.3,1) infinite; }
+.radar::after { animation-delay: 3s; }
+@keyframes ping { 0% { transform: scale(.15); opacity: .8; } 100% { transform: scale(1); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-word > span, .node, .hline > *, .curtain img { transform: none !important; opacity: 1 !important; transition: none !important; }
+  .vline::before, .hline::before { transform: none !important; transition: none !important; }
+  .curtain, .scan, .scan-wait { clip-path: none !important; transition: none !important; animation: none !important; }
+  .scan::after, .radar::before, .radar::after { animation: none !important; display: none; }
+  .tilt { transform: none !important; }
+}

@@ -62,7 +62,6 @@ export default function Header() {
           }}
         >
           mohit
-          <span style={{ color: "#c8ff00", fontSize: 28, lineHeight: 1 }}>.</span>
         </a>
 
         {/* Desktop Nav */}

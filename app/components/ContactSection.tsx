@@ -23,7 +23,8 @@ export default function ContactSection() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="section-spacer" style={{ position: "relative" }}>
+    <section ref={sectionRef} id="contact" className="section-spacer" style={{ position: "relative", overflow: "hidden" }}>
+      <div className="radar" aria-hidden="true" />
       <div className="section-divider" />
 
       <div className="section-wrap" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
