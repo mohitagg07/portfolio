@@ -2,11 +2,18 @@
 
 import EnergyCore from "./EnergyCore";
 import { navigateToSection } from "../utils/scroll";
+import { useVisibility } from "./useInView";
 
 export default function HeroGreeting() {
+  const [heroRef, active] = useVisibility<HTMLDivElement>(0.01, "0px");
+
   return (
-    <div className="hero-layout section-wrap">
+    <div ref={heroRef} className={`hero-layout section-wrap ${active ? "is-active" : ""}`}>
       <div className="hero-copy">
+        <p className="hero-hello" aria-label="Hello world">
+          <span className="hero-hello__dot" aria-hidden="true" />
+          <span className="hero-hello__text" aria-hidden="true">hello world!</span>
+        </p>
         <h1 aria-label="AI & software, made useful.">
           <span className="hero-title__line" aria-hidden="true">AI &amp; software,</span>
           <span className="hero-title__line hero-title__line--accent" aria-hidden="true">made useful.</span>

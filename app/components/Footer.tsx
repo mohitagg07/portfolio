@@ -1,15 +1,18 @@
 "use client";
 
 import { scrollToSection } from "../utils/scroll";
+import { useVisibility } from "./useInView";
 
 export default function Footer() {
+  const [footerRef, active] = useVisibility<HTMLElement>(0.05, "120px 0px");
   const scrollToTop = () => {
     scrollToSection("home");
   };
 
   return (
     <footer
-      className="site-footer"
+      ref={footerRef}
+      className={`site-footer ${active ? "is-active" : ""}`}
       style={{
         borderTop: "1px solid rgba(255,255,255,0.04)",
         padding: "40px 0",

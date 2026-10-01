@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useInView } from "./useInView";
+import { useInView, useVisibility } from "./useInView";
 
 const PROJECTS = [
   { title: "VYRN", image: "/projects/vyrn.png", demo: "" },
@@ -23,10 +23,11 @@ const untilt = (e: React.MouseEvent<HTMLElement>) => {
 };
 
 export default function Projects() {
+  const [sectionRef, active] = useVisibility<HTMLElement>(0.03, "120px 0px");
   const [ref, seen] = useInView<HTMLDivElement>(0.1);
 
   return (
-    <section id="work" className={`section-spacer ${seen ? "is-active" : ""}`}>
+    <section ref={sectionRef} id="work" className={`section-spacer ${active ? "is-active" : ""}`}>
       <div className="section-wrap">
         <h2 className={`section-heading ${seen ? "is-in" : ""} text-[clamp(36px,6vw,64px)] font-bold`}>things i&apos;ve made</h2>
 

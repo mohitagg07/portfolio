@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Fragment } from "react";
-import { useInView, tilt, untilt } from "./useInView";
+import { useInView, useVisibility, tilt, untilt } from "./useInView";
 
 const PATH = [
   ["2025", "VIT Chennai", "Finished my computer science degree, focused on AI."],
@@ -20,11 +20,12 @@ const LEARNING = [
 const idx = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 export default function Story() {
+  const [sectionRef, active] = useVisibility<HTMLElement>(0.03, "120px 0px");
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const [learnRef, learnIn] = useInView<HTMLDivElement>(0.2);
 
   return (
-    <section id="about" className={`section-spacer ${topIn || learnIn ? "is-active" : ""}`}>
+    <section ref={sectionRef} id="about" className={`section-spacer ${active ? "is-active" : ""}`}>
       <div ref={topRef} className={`section-wrap grid gap-16 md:grid-cols-[1.2fr_1fr] ${topIn ? "is-in" : ""}`}>
         <div className="max-w-xl">
           <h2 className="text-[clamp(32px,5vw,52px)] font-bold" aria-label="I make complex things feel simple.">
@@ -50,6 +51,7 @@ export default function Story() {
                 alt="Mohit seated outdoors in a black suit"
                 fill
                 sizes="(max-width: 768px) 80vw, 352px"
+                quality={84}
                 className="story-portrait object-cover"
               />
               <span className="story-photo__label"><i /> Jammu, India</span>

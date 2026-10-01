@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
-import { useInView } from "./useInView";
+import { useInView, useVisibility } from "./useInView";
 
 const EMAIL = "mohitaggarwal2003@gmail.com";
 const LINKS = [
@@ -14,6 +14,7 @@ const LINKS = [
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
+  const [sectionRef, active] = useVisibility<HTMLElement>(0.03, "120px 0px");
   const [ref, seen] = useInView<HTMLDivElement>(0.2);
 
   const copy = () => {
@@ -23,7 +24,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className={`section-spacer relative overflow-hidden ${seen ? "is-active" : ""}`}>
+    <section ref={sectionRef} id="contact" className={`section-spacer relative overflow-hidden ${active ? "is-active" : ""}`}>
       <div className="radar" aria-hidden="true" />
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="max-w-md">

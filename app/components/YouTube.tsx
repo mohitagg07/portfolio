@@ -33,19 +33,25 @@ export default function YouTube() {
   const [subscriberCount, setSubscriberCount] = useState("");
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [hasBeenSeen, setHasBeenSeen] = useState(false);
+  const hasRequestedVideos = useRef(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1, rootMargin: "280px 0px" }
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setHasBeenSeen(true);
+      },
+      { threshold: 0.05, rootMargin: "280px 0px" }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || hasRequestedVideos.current) return;
+    hasRequestedVideos.current = true;
 
     fetch("/api/youtube")
       .then((r) => r.json())
@@ -72,13 +78,14 @@ export default function YouTube() {
             flexDirection: "column",
             gap: 16,
             marginBottom: 48,
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(30px)",
+            opacity: hasBeenSeen ? 1 : 0,
+            transform: hasBeenSeen ? "translateY(0)" : "translateY(30px)",
             transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           
           <h2
+            className={`section-heading youtube-title ${hasBeenSeen ? "is-in" : ""}`}
             style={{
               fontSize: "clamp(32px, 5vw, 52px)",
               fontWeight: 700,
@@ -107,8 +114,8 @@ export default function YouTube() {
             border: "1px solid rgba(255,255,255,0.06)",
             background: "rgba(255,255,255,0.02)",
             marginBottom: 40,
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
+            opacity: hasBeenSeen ? 1 : 0,
+            transform: hasBeenSeen ? "translateY(0)" : "translateY(20px)",
             transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
           }}
         >
@@ -204,8 +211,8 @@ export default function YouTube() {
                   display: "block",
                   textDecoration: "none",
                   transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "translateY(0)" : "translateY(30px)",
+                  opacity: hasBeenSeen ? 1 : 0,
+                  transform: hasBeenSeen ? "translateY(0)" : "translateY(30px)",
                   transitionDelay: `${0.1 + i * 0.08}s`,
                 }}
                 onMouseEnter={(e) => {
