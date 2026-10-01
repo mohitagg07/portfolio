@@ -26,7 +26,7 @@ export default function Footer() {
       >
         {/* Left */}
         <div>
-          <p style={{ fontSize: 13, color: "#555550" }}>
+          <p style={{ fontSize: 13, color: "#9aa7ba" }}>
             © {new Date().getFullYear()} Mohit Aggarwal. Crafted with care.
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function Footer() {
           style={{
             background: "none",
             border: "1px solid rgba(255,255,255,0.06)",
-            color: "#8a8a80",
+            color: "#a3adbd",
             padding: "10px 20px",
             borderRadius: 999,
             fontSize: 12,
@@ -54,7 +54,7 @@ export default function Footer() {
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-            e.currentTarget.style.color = "#8a8a80";
+            e.currentTarget.style.color = "#a3adbd";
           }}
         >
           Back to top ↑

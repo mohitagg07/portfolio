@@ -4,13 +4,9 @@ export default function HeroGreeting() {
   return (
     <div className="hero-layout section-wrap">
       <div className="hero-copy">
-        <p className="hero-kicker">
-          <span className="hero-kicker__dot" /> AI ENGINEER <span>/</span> FULL-STACK DEVELOPER
-        </p>
-        <h1>
-          AI &amp; software,
-          <br />
-          <span>made useful.</span>
+        <h1 aria-label="AI & software, made useful.">
+          <span className="hero-title__line" aria-hidden="true">AI &amp; software,</span>
+          <span className="hero-title__line hero-title__line--accent" aria-hidden="true">made useful.</span>
         </h1>
         <div className="hero-actions">
           <a className="hero-button hero-button--primary" href="#work">
@@ -26,8 +22,9 @@ export default function HeroGreeting() {
         <EnergyCore />
       </div>
 
-      <a className="hero-scroll" href="#about" aria-label="Scroll to about">
-        <span /> SCROLL TO EXPLORE
+      <a className="hero-scroll" href="#about" aria-label="Scroll to explore the about section">
+        <span className="hero-scroll__track" aria-hidden="true"><i /></span>
+        <span className="hero-scroll__label">Scroll to explore</span>
       </a>
     </div>
   );

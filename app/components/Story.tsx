@@ -35,16 +35,16 @@ export default function Story() {
               </Fragment>
             ))}
           </h2>
-          <div className="mt-6 space-y-4 leading-8 text-[var(--fg-muted)]">
+          <div className="story-copy mt-6 space-y-4">
             <p>I live in Jammu and studied computer science in Chennai. Every project I pick has the same shape: something genuinely useful, buried under too much complexity.</p>
             <p>At work, I build tools that handle the boring parts for clients, like collecting information from websites, connecting apps, and answering routine questions automatically.</p>
             <p>On the side, I make my own: a companion for heavy days, a reader that explains contracts like a friend would, and a coach that learns how you train. I make videos about it on YouTube too.</p>
           </div>
         </div>
 
-        <div className="space-y-14">
-          <div className="photo-pop mx-auto w-full max-w-[22rem]">
-            <div className="tilt relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]" onMouseMove={tilt} onMouseLeave={untilt}>
+        <div className="space-y-10">
+          <div className="photo-pop story-photo mx-auto w-full max-w-[20rem]">
+            <div className="tilt story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]" onMouseMove={tilt} onMouseLeave={untilt}>
               <Image
                 src="/assets/mohit-story.jpg"
                 alt="Mohit seated outdoors in a black suit"
@@ -52,6 +52,7 @@ export default function Story() {
                 sizes="(max-width: 768px) 80vw, 352px"
                 className="story-portrait object-cover"
               />
+              <span className="story-photo__label"><i /> Jammu, India</span>
             </div>
           </div>
         <ol className="vline space-y-8 pl-8">

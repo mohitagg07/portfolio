@@ -27,7 +27,7 @@ export default function ContactSection() {
       <div className="radar" aria-hidden="true" />
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="max-w-md">
-          <h2 className="text-[clamp(36px,6vw,64px)] font-bold leading-[1.05]">
+          <h2 className="section-heading text-[clamp(36px,6vw,64px)] font-bold leading-[1.05]">
             Let&apos;s build
             <br />
             <span className="glow-text">something great.</span>

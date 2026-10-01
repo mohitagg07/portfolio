@@ -36,8 +36,8 @@ export default function Header() {
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-[70] border-b transition-all duration-300 ${scrolled || open ? "border-white/10 bg-[#05070b]/90 backdrop-blur-xl" : "border-white/[0.06] bg-[#070b12]/65 backdrop-blur-md"}`}>
-        <div className="mx-auto flex max-w-[1320px] items-center justify-between px-5 py-4 md:px-12">
+      <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-menu-open" : ""}`}>
+        <div className="site-header__glass mx-auto flex max-w-[1320px] items-center justify-between px-5 py-4 md:px-12">
           <a href="#home" onClick={() => setOpen(false)} aria-label="Mohit home" className="flex items-center">
             <svg width="36" height="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
               <defs>
@@ -49,14 +49,12 @@ export default function Header() {
             </svg>
           </a>
 
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
+          <nav className="site-header__nav hidden items-center gap-2 md:flex" aria-label="Main">
             {LINKS.map(([label, id]) => (
               <a
                 key={id}
                 href={`#${id}`}
-                className={`relative text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:bg-[var(--accent)] after:transition-transform after:duration-300 ${
-                  active === id ? "text-[var(--accent)] after:scale-x-100" : "text-[var(--fg-muted)] after:scale-x-0 hover:text-[var(--fg)] hover:after:scale-x-100"
-                }`}
+                className={`site-header__link ${active === id ? "is-active" : ""}`}
               >
                 {label}
               </a>
@@ -64,7 +62,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="#contact" className="hidden whitespace-nowrap rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-bold text-[#050505] transition-transform hover:scale-105 md:inline-block">
+            <a href="#contact" className="site-header__cta hidden whitespace-nowrap md:inline-flex">
               Let&apos;s talk
             </a>
             <button
@@ -83,7 +81,7 @@ export default function Header() {
       {/* Mobile menu: grows out of the button, links pop in one by one */}
       <div
         aria-hidden={!open}
-        className="fixed inset-0 z-[60] bg-[#050505] md:hidden"
+        className="site-header__mobile fixed inset-0 z-[60] md:hidden"
         style={{
           clipPath: open ? "circle(150% at calc(100% - 36px) 34px)" : "circle(0px at calc(100% - 36px) 34px)",
           visibility: open ? "visible" : "hidden",

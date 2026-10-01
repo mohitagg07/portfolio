@@ -87,7 +87,7 @@ export default function YouTube() {
             Beyond the{" "}
             <span style={{ color: "#f87171", fontStyle: "italic" }}>screen</span>
           </h2>
-          <p style={{ fontSize: 15, color: "#8a8a80", maxWidth: 450, lineHeight: 1.7 }}>
+          <p style={{ fontSize: 15, color: "#a3adbd", maxWidth: 450, lineHeight: 1.7 }}>
             Real life, travel, tech vlogs, and creative storytelling on YouTube.
           </p>
         </div>
@@ -130,7 +130,7 @@ export default function YouTube() {
             </div>
             <div>
               <p style={{ fontWeight: 700, fontSize: 15, color: "#f5f5f0", fontFamily: "var(--font-main)" }}>@MohitAgg07</p>
-              <p style={{ fontSize: 12, color: "#8a8a80" }}>
+              <p style={{ fontSize: 12, color: "#a3adbd" }}>
                 {subscriberCount ? `${subscriberCount} subscribers` : "AI · Dev Life · Building in Public"}
               </p>
             </div>
@@ -291,7 +291,7 @@ export default function YouTube() {
                   >
                     {v.title}
                   </p>
-                  <p style={{ color: "#8a8a80", fontSize: 12 }}>{timeAgo(v.publishedAt)}</p>
+                  <p style={{ color: "#a3adbd", fontSize: 12 }}>{timeAgo(v.publishedAt)}</p>
                 </div>
               </a>
             ))}
@@ -326,7 +326,7 @@ export default function YouTube() {
             <h3 style={{ color: "#f5f5f0", fontWeight: 700, fontSize: 20, fontFamily: "var(--font-main)", marginBottom: 12 }}>
               Watch My Videos
             </h3>
-            <p style={{ color: "#8a8a80", fontSize: 14, maxWidth: 380, margin: "0 auto 28px", lineHeight: 1.7 }}>
+            <p style={{ color: "#a3adbd", fontSize: 14, maxWidth: 380, margin: "0 auto 28px", lineHeight: 1.7 }}>
               Real life, travel vlogs, tech stories, and everything in between.
             </p>
             <a

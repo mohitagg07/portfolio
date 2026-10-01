@@ -28,7 +28,7 @@ export default function Projects() {
   return (
     <section id="work" className="section-spacer">
       <div className="section-wrap">
-        <h2 className="text-[clamp(36px,6vw,64px)] font-bold">things i&apos;ve made</h2>
+        <h2 className={`section-heading ${seen ? "is-in" : ""} text-[clamp(36px,6vw,64px)] font-bold`}>things i&apos;ve made</h2>
 
         <div ref={ref} className={`mt-12 columns-1 gap-8 md:columns-2 ${seen ? "is-in" : ""}`}>
           {PROJECTS.map((p, i) => {
