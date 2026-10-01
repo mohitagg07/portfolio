@@ -7,7 +7,6 @@ import Image from "next/image";
 const LINES: [string, string][] = [
   ["I build retrieval pipelines and agent workflows.", "I teach computers to read your files and finish routine work on their own."],
   ["I automate scraping and integrations for clients.", "I let software do the copying and pasting, so people get their hours back."],
-  ["Full-stack, with ML and LLM integration.", "Everything from the screen you tap to the thinking behind it."],
 ];
 
 export default function HeroGreeting() {
@@ -22,7 +21,7 @@ export default function HeroGreeting() {
           I make tech easy to&nbsp;use.
         </h1>
 
-        <ul className="mt-10 max-w-xl space-y-4" aria-live="polite">
+        <ul className="mt-12 max-w-xl space-y-6" aria-live="polite">
           {LINES.map(([tech, simple], i) => (
             <li
               key={`${i}-${plain}`}
@@ -43,7 +42,7 @@ export default function HeroGreeting() {
           role="switch"
           aria-checked={plain}
           onClick={() => setPlain(!plain)}
-          className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 py-2 pl-2 pr-5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+          className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/10 py-2 pl-2 pr-5 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
         >
           <span
             className="flex h-6 w-11 items-center rounded-full p-0.5 transition-colors"
@@ -57,7 +56,7 @@ export default function HeroGreeting() {
           {plain ? "Back to tech talk" : "Say it in plain words"}
         </button>
 
-        <div className="mt-10 flex flex-wrap gap-4 text-sm">
+        <div className="mt-14 flex flex-wrap gap-4 text-sm">
           <a href="#work" className="rounded-full bg-[var(--accent)] px-7 py-3 font-bold text-[#050505]">See what I&apos;ve made</a>
           <a href="#contact" className="rounded-full border border-white/10 px-7 py-3">Say hello</a>
         </div>

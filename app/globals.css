@@ -180,3 +180,20 @@ body::before {
     padding-bottom: 80px;
   }
 }
+
+/* ── Opening "hello world!" ── */
+.hello-text {
+  font-family: 'Caveat', cursive;
+  font-size: 120px;
+  font-weight: 600;
+  stroke: url(#hello-grad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: transparent;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: helloDraw 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards,
+             helloFill 0.7s ease 2.3s forwards;
+}
+@keyframes helloDraw { to { stroke-dashoffset: 0; } }
+@keyframes helloFill { to { fill: url(#hello-grad); stroke-width: 1; } }
