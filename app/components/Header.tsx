@@ -36,18 +36,17 @@ export default function Header() {
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-[70] border-b transition-all duration-300 ${scrolled || open ? "border-white/5 bg-[#050505]/90 md:bg-[#050505]/70 md:backdrop-blur-xl" : "border-transparent"}`}>
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-5 py-3 md:px-10">
-          <a href="#" onClick={() => setOpen(false)} aria-label="Mohit, back to top" className="flex items-center gap-2.5">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+      <header className={`fixed inset-x-0 top-0 z-[70] border-b transition-all duration-300 ${scrolled || open ? "border-white/10 bg-[#05070b]/90 backdrop-blur-xl" : "border-white/[0.06] bg-[#070b12]/65 backdrop-blur-md"}`}>
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between px-5 py-4 md:px-12">
+          <a href="#home" onClick={() => setOpen(false)} aria-label="Mohit home" className="flex items-center">
+            <svg width="36" height="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="logo-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="30" y2="30">
                   <stop stopColor="#22d3ee" /><stop offset="1" stopColor="#c8ff00" />
                 </linearGradient>
               </defs>
-              <path className="logo-m" d="M4 25V5l11 13L26 5v20" stroke="url(#logo-g)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M4 25V5l11 13L26 5v20" stroke="url(#logo-g)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="logo-word">mohit</span>
           </a>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main">

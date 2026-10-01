@@ -46,7 +46,7 @@ export default function ContactSection() {
                   style={{ "--i": i } as React.CSSProperties}
                   className="hline group flex items-center gap-4 py-4 font-medium transition-colors hover:text-[var(--accent)]"
                 >
-                  <Icon size={22} className="transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
+                  <Icon size={22} aria-hidden="true" className="shrink-0 text-white transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
                   <span>{label}</span>
                 </a>
               </li>

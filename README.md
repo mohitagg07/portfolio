@@ -35,9 +35,8 @@ Put your project screenshots in `/public/projects/`:
 - `project-1.png` for Innovix
 - `project-2.png` for MindCare
 
-### 5. Your Photo
-Your photo is already at `/public/assets/mohit.png`.
-For a premium look, remove the background using https://remove.bg and replace the file.
+### 5. About Portrait
+The About section portrait is `/public/assets/mohit-story.jpg` and is displayed with a portrait crop.
 
 ## Deploy to Vercel
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Fragment } from "react";
 import { useInView, tilt, untilt } from "./useInView";
 
 const PATH = [
@@ -26,9 +27,12 @@ export default function Story() {
     <section id="about" className="section-spacer">
       <div ref={topRef} className={`section-wrap grid gap-16 md:grid-cols-[1.2fr_1fr] ${topIn ? "is-in" : ""}`}>
         <div className="max-w-xl">
-          <h2 className="text-[clamp(32px,5vw,52px)] font-bold" aria-label="I like making confusing things feel easy.">
-            {"I like making confusing things feel easy.".split(" ").map((w, i) => (
-              <span key={i} className="rise-word" style={idx(i)} aria-hidden="true"><span>{w}</span>{" "}</span>
+          <h2 className="text-[clamp(32px,5vw,52px)] font-bold" aria-label="I make complex things feel simple.">
+            {"I make complex things feel simple.".split(" ").map((w, i, words) => (
+              <Fragment key={`${i}-${w}`}>
+                <span className="rise-word" style={idx(i)} aria-hidden="true"><span>{w}</span></span>
+                {i < words.length - 1 ? " " : null}
+              </Fragment>
             ))}
           </h2>
           <div className="mt-6 space-y-4 leading-8 text-[var(--fg-muted)]">
@@ -41,7 +45,13 @@ export default function Story() {
         <div className="space-y-14">
           <div className="photo-pop mx-auto w-full max-w-[22rem]">
             <div className="tilt relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]" onMouseMove={tilt} onMouseLeave={untilt}>
-              <Image src="/assets/mohit.png" alt="Mohit in his graduation gown" fill sizes="352px" className="origin-[50%_55%] scale-[1.5] object-cover" />
+              <Image
+                src="/assets/mohit-story.jpg"
+                alt="Mohit seated outdoors in a black suit"
+                fill
+                sizes="(max-width: 768px) 80vw, 352px"
+                className="story-portrait object-cover"
+              />
             </div>
           </div>
         <ol className="vline space-y-8 pl-8">
