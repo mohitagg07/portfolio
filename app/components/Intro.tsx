@@ -14,6 +14,7 @@ export default function Intro() {
       return;
     }
     sessionStorage.setItem("intro-seen", "1");
+    (window as unknown as { __intro?: boolean }).__intro = true;
     const t1 = setTimeout(() => setPhase("fade"), 3000);
     const t2 = setTimeout(() => setPhase("done"), 3900);
     return () => { clearTimeout(t1); clearTimeout(t2); };
