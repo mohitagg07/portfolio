@@ -12,7 +12,7 @@ export default function HeroGreeting() {
       <div className="hero-copy">
         <p className="hero-hello" aria-label="Hello world">
           <span className="hero-hello__dot" aria-hidden="true" />
-          <span className="hero-hello__text" aria-hidden="true">hello world!</span>
+          <span className="hero-hello__text" aria-hidden="true">hello world</span>
         </p>
         <h1 aria-label="AI & software, made useful.">
           <span className="hero-title__line" aria-hidden="true">AI &amp; software,</span>

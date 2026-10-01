@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const GREETING = "hello world!";
+const GREETING = "hello world";
 const TYPE_DELAY_MS = 100;
-const HOLD_MS = 850;
+const HOLD_MS = 1400;
 const EXIT_MS = 620;
 
 export default function IntroLoader() {
