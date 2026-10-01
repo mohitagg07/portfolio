@@ -28,7 +28,7 @@ export default function Story() {
   return (
     <section ref={sectionRef} id="about" className={`section-spacer ${active ? "is-active" : ""}`}>
       <div ref={topRef} className={`section-wrap grid gap-16 md:grid-cols-[1.2fr_1fr] ${topIn ? "is-in" : ""}`}>
-        <div className="max-w-xl">
+        <div className="story-enter max-w-xl">
           <h2 className="section-title story-title" aria-label="I make complex things feel simple.">
             {"I make complex things feel simple.".split(" ").map((w, i, words) => (
               <Fragment key={`${i}-${w}`}>
@@ -44,8 +44,8 @@ export default function Story() {
           </div>
         </div>
 
-        <div className="space-y-10">
-          <div className="photo-pop story-photo mx-auto w-full max-w-[20rem]">
+        <div className="story-enter story-enter--right space-y-10">
+          <div className="story-photo mx-auto w-full max-w-[20rem]">
             <div ref={portraitRef} className="tilt story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
               <Image
                 src="/assets/mohit-story.jpg"
@@ -72,7 +72,7 @@ export default function Story() {
       </div>
 
       <div ref={learnRef} className={`section-wrap mt-24 ${learnIn ? "is-in" : ""}`}>
-        <h3 className="text-2xl font-bold">What I&apos;ve been getting good at lately</h3>
+        <h3 className="learn-heading text-2xl font-bold">What I&apos;ve been getting good at lately</h3>
         <dl className="mt-8 grid gap-x-12 gap-y-6 md:grid-cols-2">
           {LEARNING.map(([title, text], i) => (
             <div key={title} className="hline pt-4" style={idx(i)}>

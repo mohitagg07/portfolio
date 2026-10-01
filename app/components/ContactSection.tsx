@@ -27,7 +27,7 @@ export default function ContactSection() {
     <section ref={sectionRef} id="contact" className={`section-spacer relative overflow-hidden ${active ? "is-active" : ""}`}>
       <div className="radar" aria-hidden="true" />
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
-        <div className="max-w-md">
+        <div className="contact-column max-w-md">
           <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
             Let&apos;s build
             <br />

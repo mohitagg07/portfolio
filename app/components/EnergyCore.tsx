@@ -1,43 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useSpatialMotion } from "./useInView";
 
-const MODES = ["electric", "violet", "solar"] as const;
-
 export default function EnergyCore() {
-  const [mode, setMode] = useState(0);
-  const [sceneRef, visible] = useSpatialMotion<HTMLDivElement>(4.5, 5, 22);
-
-  const shiftField = () => {
-    setMode((current) => (current + 1) % MODES.length);
-  };
+  const [sceneRef, visible] = useSpatialMotion<HTMLDivElement>(2.4, 3, 8);
 
   return (
-    <div
-      ref={sceneRef}
-      className="energy-scene"
-      data-mode={MODES[mode]}
-      data-visible={visible}
-    >
-      <button
-        className="energy-control"
-        type="button"
-        onClick={shiftField}
-        aria-label="Shift the energy field color"
-        title="Shift the energy field"
-      >
-        <span className="energy-halo" />
-        <span className="energy-ring energy-ring--outer"><i /></span>
-        <span className="energy-ring energy-ring--middle"><i /></span>
-        <span className="energy-ring energy-ring--inner" />
-        <span className="energy-slice" />
-        <span className="energy-core"><i /></span>
-        <span className="energy-dust" />
-      </button>
-      <p className="energy-caption">
-        <span /> ENERGY FIELD <i /> CLICK TO SHIFT
-      </p>
+    <div ref={sceneRef} className="hero-art" data-visible={visible} aria-hidden="true">
+      <div className="hero-art__aura" aria-hidden="true" />
+      <div className="hero-art__body">
+        <span className="hero-art__ribbon hero-art__ribbon--one" />
+        <span className="hero-art__ribbon hero-art__ribbon--two" />
+        <span className="hero-art__ribbon hero-art__ribbon--three" />
+        <span className="hero-art__flare" />
+        <span className="hero-art__spark hero-art__spark--one" />
+        <span className="hero-art__spark hero-art__spark--two" />
+        <span className="hero-art__spark hero-art__spark--three" />
+      </div>
+      <p className="hero-art__caption"><span /> SYSTEMS IN MOTION <i /> IDEAS INTO REALITY</p>
     </div>
   );
 }

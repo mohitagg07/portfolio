@@ -31,7 +31,7 @@ export default function Footer() {
         }}
       >
         {/* Left */}
-        <div>
+        <div className="footer-side footer-side--left">
           <p style={{ fontSize: 13, color: "#9aa7ba" }}>
             © {new Date().getFullYear()} Mohit Aggarwal. Crafted with care.
           </p>
@@ -39,6 +39,7 @@ export default function Footer() {
 
         {/* Right */}
         <button
+          className="footer-side footer-side--right"
           onClick={scrollToTop}
           style={{
             background: "none",

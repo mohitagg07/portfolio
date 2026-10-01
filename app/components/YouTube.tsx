@@ -43,7 +43,7 @@ export default function YouTube() {
         setVisible(entry.isIntersecting);
         if (entry.isIntersecting) setHasBeenSeen(true);
       },
-      { threshold: 0.05, rootMargin: "280px 0px" }
+      { threshold: 0.05, rootMargin: "0px" }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -70,17 +70,15 @@ export default function YouTube() {
     <section ref={sectionRef} id="youtube" className={`section-spacer ${visible ? "is-active" : ""}`} style={{ position: "relative" }}>
       <div className="section-divider" />
 
-      <div className="section-wrap" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
+      <div className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`} style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
         {/* Header */}
         <div
+          className="youtube-intro"
           style={{
             display: "flex",
             flexDirection: "column",
             gap: 16,
             marginBottom: 48,
-            opacity: hasBeenSeen ? 1 : 0,
-            transform: hasBeenSeen ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 0.65s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           
@@ -95,6 +93,7 @@ export default function YouTube() {
 
         {/* Channel Bar */}
         <div
+          className="youtube-channel"
           style={{
             display: "flex",
             alignItems: "center",
@@ -106,9 +105,6 @@ export default function YouTube() {
             border: "1px solid rgba(255,255,255,0.06)",
             background: "rgba(255,255,255,0.02)",
             marginBottom: 40,
-            opacity: hasBeenSeen ? 1 : 0,
-            transform: hasBeenSeen ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.65s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -195,29 +191,21 @@ export default function YouTube() {
                 href={v.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="youtube-card"
                 style={{
+                  "--i": i,
+                  "--enter-x": i % 2 === 0 ? "-26px" : "26px",
+                  "--enter-x-mobile": i % 2 === 0 ? "-12px" : "12px",
                   borderRadius: 16,
                   border: "1px solid rgba(255,255,255,0.06)",
                   background: "rgba(255,255,255,0.02)",
                   overflow: "hidden",
                   display: "block",
                   textDecoration: "none",
-                  transition: "opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease",
-                  opacity: hasBeenSeen ? 1 : 0,
-                  transform: hasBeenSeen ? "translateY(0)" : "translateY(30px)",
-                  transitionDelay: `${0.1 + i * 0.08}s`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(239,68,68,0.2)";
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
+                } as React.CSSProperties}
               >
                 {/* Thumbnail */}
-                <div style={{ position: "relative", aspectRatio: "16/9", background: "#0a0a0a", overflow: "hidden" }}>
+                <div className="youtube-thumbnail" style={{ position: "relative", aspectRatio: "16/9", background: "#0a0a0a", overflow: "hidden" }}>
                   {v.thumbnail && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={v.thumbnail} alt={v.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />

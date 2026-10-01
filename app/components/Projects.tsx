@@ -34,7 +34,11 @@ export default function Projects() {
               </div>
             );
             const cls = "project-card mb-8 block break-inside-avoid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]";
-            const style = { "--i": i } as React.CSSProperties;
+            const style = {
+              "--i": i,
+              "--enter-x": i % 2 === 0 ? "-28px" : "28px",
+              "--enter-x-mobile": i % 2 === 0 ? "-12px" : "12px",
+            } as React.CSSProperties;
             return p.demo ? (
               <a key={p.title} href={p.demo} target="_blank" rel="noreferrer" className={cls} style={style}>{body}</a>
             ) : (

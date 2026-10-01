@@ -43,6 +43,9 @@ export function useSpatialMotion<T extends HTMLElement>(maxTilt = 4, maxShift = 
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const canTilt = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    // Touch devices avoid the per-scroll parallax loop; the CSS reveal motion remains.
+    if (reducedMotion || !canTilt) return;
+
     const current = { x: 0, y: 0, rx: 0, ry: 0, scrollY: 0 };
     const target = { ...current };
     let inView = false;
@@ -81,7 +84,7 @@ export function useSpatialMotion<T extends HTMLElement>(maxTilt = 4, maxShift = 
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      if (!canTilt || reducedMotion || !inView) return;
+      if (!inView) return;
       const bounds = element.getBoundingClientRect();
       const x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - 0.5) * 2));
       const y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - 0.5) * 2));
