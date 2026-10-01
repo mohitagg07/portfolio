@@ -49,7 +49,7 @@ export default function Footer() {
             fontSize: 12,
             fontWeight: 500,
             cursor: "pointer",
-            transition: "all 0.3s ease",
+            transition: "border-color 0.3s ease, color 0.3s ease",
             display: "flex",
             alignItems: "center",
             gap: 8,

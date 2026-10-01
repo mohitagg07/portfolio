@@ -80,7 +80,7 @@ export default function YouTube() {
             marginBottom: 48,
             opacity: hasBeenSeen ? 1 : 0,
             transform: hasBeenSeen ? "translateY(0)" : "translateY(30px)",
-            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: "opacity 0.65s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           
@@ -108,7 +108,7 @@ export default function YouTube() {
             marginBottom: 40,
             opacity: hasBeenSeen ? 1 : 0,
             transform: hasBeenSeen ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
+            transition: "opacity 0.65s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -151,7 +151,7 @@ export default function YouTube() {
               color: "#fff",
               fontSize: 13,
               fontWeight: 600,
-              transition: "all 0.3s ease",
+              transition: "transform 0.25s ease, box-shadow 0.3s ease",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
@@ -202,7 +202,7 @@ export default function YouTube() {
                   overflow: "hidden",
                   display: "block",
                   textDecoration: "none",
-                  transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                  transition: "opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease",
                   opacity: hasBeenSeen ? 1 : 0,
                   transform: hasBeenSeen ? "translateY(0)" : "translateY(30px)",
                   transitionDelay: `${0.1 + i * 0.08}s`,

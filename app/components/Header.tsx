@@ -12,9 +12,18 @@ export default function Header() {
   const [active, setActive] = useState("");
 
   useEffect(() => {
+    let lastScrolled: boolean | undefined;
+    let lastNearTop = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-      if (window.scrollY < 200) setActive("");
+      const y = window.scrollY;
+      const nextScrolled = y > 40;
+      const nextNearTop = y < 200;
+      if (nextScrolled !== lastScrolled) {
+        lastScrolled = nextScrolled;
+        setScrolled(nextScrolled);
+      }
+      if (nextNearTop && !lastNearTop) setActive("");
+      lastNearTop = nextNearTop;
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });

@@ -149,14 +149,3 @@ export function useSpatialMotion<T extends HTMLElement>(maxTilt = 4, maxShift = 
 
   return [ref, visible] as const;
 }
-
-// gentle 3D tilt that follows the mouse
-export function tilt(e: React.MouseEvent<HTMLElement>) {
-  const r = e.currentTarget.getBoundingClientRect();
-  e.currentTarget.style.setProperty("--rx", `${-((e.clientY - r.top) / r.height - 0.5) * 10}deg`);
-  e.currentTarget.style.setProperty("--ry", `${((e.clientX - r.left) / r.width - 0.5) * 12}deg`);
-}
-export function untilt(e: React.MouseEvent<HTMLElement>) {
-  e.currentTarget.style.setProperty("--rx", "0deg");
-  e.currentTarget.style.setProperty("--ry", "0deg");
-}

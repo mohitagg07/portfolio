@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 
 const GREETING = "hello world!";
+const TYPE_DELAY_MS = 100;
+const HOLD_MS = 850;
+const EXIT_MS = 620;
 
 export default function IntroLoader() {
   const [visibleCount, setVisibleCount] = useState(0);
@@ -28,10 +31,10 @@ export default function IntroLoader() {
         window.clearInterval(intervalId);
         holdId = window.setTimeout(() => {
           setLeaving(true);
-          removeId = window.setTimeout(() => setFinished(true), 620);
-        }, 220);
+          removeId = window.setTimeout(() => setFinished(true), EXIT_MS);
+        }, HOLD_MS);
       }
-    }, 72);
+    }, TYPE_DELAY_MS);
 
     return () => {
       if (intervalId !== undefined) window.clearInterval(intervalId);
