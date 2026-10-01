@@ -38,13 +38,15 @@ export default function YouTube() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: "280px 0px" }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
+    if (!visible) return;
+
     fetch("/api/youtube")
       .then((r) => r.json())
       .then((data) => {
@@ -56,10 +58,10 @@ export default function YouTube() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, []);
+  }, [visible]);
 
   return (
-    <section ref={sectionRef} id="youtube" className="section-spacer" style={{ position: "relative" }}>
+    <section ref={sectionRef} id="youtube" className={`section-spacer ${visible ? "is-active" : ""}`} style={{ position: "relative" }}>
       <div className="section-divider" />
 
       <div className="section-wrap" style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
@@ -219,7 +221,7 @@ export default function YouTube() {
                 <div style={{ position: "relative", aspectRatio: "16/9", background: "#0a0a0a", overflow: "hidden" }}>
                   {v.thumbnail && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={v.thumbnail} alt={v.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <img src={v.thumbnail} alt={v.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   )}
                   {/* Play button overlay */}
                   <div

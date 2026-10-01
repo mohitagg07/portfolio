@@ -23,7 +23,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="section-spacer relative overflow-hidden">
+    <section id="contact" className={`section-spacer relative overflow-hidden ${seen ? "is-active" : ""}`}>
       <div className="radar" aria-hidden="true" />
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="max-w-md">

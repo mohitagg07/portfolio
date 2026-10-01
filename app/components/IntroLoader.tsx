@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const GREETING = "Hello, world!";
+const GREETING = "hello world!";
 
 export default function IntroLoader() {
   const [visibleCount, setVisibleCount] = useState(0);
@@ -28,10 +28,10 @@ export default function IntroLoader() {
         window.clearInterval(intervalId);
         holdId = window.setTimeout(() => {
           setLeaving(true);
-          removeId = window.setTimeout(() => setFinished(true), 850);
-        }, 180);
+          removeId = window.setTimeout(() => setFinished(true), 620);
+        }, 220);
       }
-    }, 46);
+    }, 72);
 
     return () => {
       if (intervalId !== undefined) window.clearInterval(intervalId);
@@ -44,17 +44,11 @@ export default function IntroLoader() {
 
   return (
     <div className={`intro-loader ${leaving ? "is-leaving" : ""}`} aria-hidden="true">
-      <div className="intro-loader__orbit"><i /></div>
       <div className="intro-loader__content">
-        <p className="intro-loader__eyebrow"><span /> MOHIT AGGARWAL <i /> DIGITAL PORTFOLIO</p>
         <p className="intro-loader__greeting">
           <span>{GREETING.slice(0, visibleCount)}</span>
           {visibleCount < GREETING.length && <i />}
         </p>
-        <div className="intro-loader__progress">
-          <span style={{ transform: `scaleX(${visibleCount / GREETING.length})` }} />
-        </div>
-        <p className="intro-loader__status">{visibleCount === GREETING.length ? "READY TO EXPLORE" : "A MOMENT OF SPARK"}</p>
       </div>
     </div>
   );

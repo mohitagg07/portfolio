@@ -1,12 +1,15 @@
 "use client";
 
+import { scrollToSection } from "../utils/scroll";
+
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToSection("home");
   };
 
   return (
     <footer
+      className="site-footer"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.04)",
         padding: "40px 0",

@@ -1,11 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MODES = ["electric", "violet", "solar"] as const;
 
 export default function EnergyCore() {
   const [mode, setMode] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const sceneRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: "120px 0px" }
+    );
+    observer.observe(scene);
+    return () => observer.disconnect();
+  }, []);
 
   const shiftField = () => {
     setMode((current) => (current + 1) % MODES.length);
@@ -26,8 +40,10 @@ export default function EnergyCore() {
 
   return (
     <div
+      ref={sceneRef}
       className="energy-scene"
       data-mode={MODES[mode]}
+      data-visible={visible}
       onPointerMove={moveField}
       onPointerLeave={resetField}
     >

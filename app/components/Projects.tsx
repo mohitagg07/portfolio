@@ -26,7 +26,7 @@ export default function Projects() {
   const [ref, seen] = useInView<HTMLDivElement>(0.1);
 
   return (
-    <section id="work" className="section-spacer">
+    <section id="work" className={`section-spacer ${seen ? "is-active" : ""}`}>
       <div className="section-wrap">
         <h2 className={`section-heading ${seen ? "is-in" : ""} text-[clamp(36px,6vw,64px)] font-bold`}>things i&apos;ve made</h2>
 

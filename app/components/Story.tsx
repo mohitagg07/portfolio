@@ -24,7 +24,7 @@ export default function Story() {
   const [learnRef, learnIn] = useInView<HTMLDivElement>(0.2);
 
   return (
-    <section id="about" className="section-spacer">
+    <section id="about" className={`section-spacer ${topIn || learnIn ? "is-active" : ""}`}>
       <div ref={topRef} className={`section-wrap grid gap-16 md:grid-cols-[1.2fr_1fr] ${topIn ? "is-in" : ""}`}>
         <div className="max-w-xl">
           <h2 className="text-[clamp(32px,5vw,52px)] font-bold" aria-label="I make complex things feel simple.">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { navigateToSection } from "../utils/scroll";
 
 const LINKS = [["Work", "work"], ["About", "about"], ["Videos", "youtube"], ["Contact", "contact"]] as const;
 const SOCIALS = [["GitHub", "https://github.com/mohitagg07"], ["YouTube", "https://youtube.com/@MohitAgg07"], ["LinkedIn", "https://linkedin.com/in/mohitagg07"]] as const;
@@ -38,7 +39,7 @@ export default function Header() {
     <>
       <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-menu-open" : ""}`}>
         <div className="site-header__glass mx-auto flex max-w-[1320px] items-center justify-between px-5 py-4 md:px-12">
-          <a href="#home" onClick={() => setOpen(false)} aria-label="Mohit home" className="flex items-center">
+          <a href="#home" onClick={(event) => { navigateToSection(event, "home"); setOpen(false); }} aria-label="Mohit home" className="flex items-center">
             <svg width="36" height="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="logo-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="30" y2="30">
@@ -54,6 +55,7 @@ export default function Header() {
               <a
                 key={id}
                 href={`#${id}`}
+                onClick={(event) => { if (navigateToSection(event, id)) setActive(id); }}
                 className={`site-header__link ${active === id ? "is-active" : ""}`}
               >
                 {label}
@@ -62,7 +64,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="#contact" className="site-header__cta hidden whitespace-nowrap md:inline-flex">
+            <a href="#contact" onClick={(event) => { if (navigateToSection(event, "contact")) setActive("contact"); }} className="site-header__cta hidden whitespace-nowrap md:inline-flex">
               Let&apos;s talk
             </a>
             <button
@@ -78,15 +80,10 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile menu: grows out of the button, links pop in one by one */}
+      {/* Mobile menu: fades in with a short, lightweight link stagger */}
       <div
         aria-hidden={!open}
-        className="site-header__mobile fixed inset-0 z-[60] md:hidden"
-        style={{
-          clipPath: open ? "circle(150% at calc(100% - 36px) 34px)" : "circle(0px at calc(100% - 36px) 34px)",
-          visibility: open ? "visible" : "hidden",
-          transition: `clip-path .55s cubic-bezier(.16,1,.3,1), visibility 0s linear ${open ? "0s" : ".55s"}`,
-        }}
+        className={`site-header__mobile fixed inset-0 z-[60] md:hidden ${open ? "is-open" : ""}`}
       >
         <div className="flex h-full flex-col justify-between px-8 pb-10 pt-28">
           <ul className="space-y-2">
@@ -96,13 +93,13 @@ export default function Header() {
                 style={{
                   transform: open ? "none" : "translateY(28px)",
                   opacity: open ? 1 : 0,
-                  transition: "all .5s cubic-bezier(.16,1,.3,1)",
-                  transitionDelay: open ? `${120 + i * 70}ms` : "0ms",
+                  transition: "opacity .36s ease, transform .4s cubic-bezier(.16,1,.3,1)",
+                  transitionDelay: open ? `${80 + i * 55}ms` : "0ms",
                 }}
               >
                 <a
                   href={`#${id}`}
-                  onClick={() => setOpen(false)}
+                  onClick={(event) => { if (navigateToSection(event, id)) setActive(id); setOpen(false); }}
                   className="block text-[clamp(40px,12vw,64px)] font-bold leading-[1.15]"
                   style={{ fontFamily: "var(--font-main)", color: active === id ? "var(--accent)" : "var(--fg)" }}
                 >
