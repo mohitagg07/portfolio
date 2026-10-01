@@ -1,10 +1,10 @@
 "use client";
 
 import { scrollToSection } from "../utils/scroll";
-import { useVisibility } from "./useInView";
+import { useInView } from "./useInView";
 
 export default function Footer() {
-  const [footerRef, active] = useVisibility<HTMLElement>(0.05, "120px 0px");
+  const [footerRef, active] = useInView<HTMLElement>(0.05);
   const scrollToTop = () => {
     scrollToSection("home");
   };

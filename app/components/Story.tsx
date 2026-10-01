@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Fragment } from "react";
-import { useInView, useSpatialMotion, useVisibility } from "./useInView";
+import { useInView, useSpatialMotion } from "./useInView";
 
 const PATH = [
   ["2025", "VIT Chennai", "Finished my computer science degree, focused on AI."],
@@ -20,7 +20,7 @@ const LEARNING = [
 const idx = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 export default function Story() {
-  const [sectionRef, active] = useVisibility<HTMLElement>(0.03, "120px 0px");
+  const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [portraitRef] = useSpatialMotion<HTMLDivElement>(3.2, 5, 13);
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const [learnRef, learnIn] = useInView<HTMLDivElement>(0.2);

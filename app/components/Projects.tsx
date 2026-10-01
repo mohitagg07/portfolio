@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useInView, useVisibility } from "./useInView";
+import { useInView } from "./useInView";
 
 const PROJECTS = [
   { title: "VYRN", image: "/projects/vyrn.png", demo: "" },
@@ -11,7 +11,7 @@ const PROJECTS = [
 ];
 
 export default function Projects() {
-  const [sectionRef, active] = useVisibility<HTMLElement>(0.03, "120px 0px");
+  const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [ref, seen] = useInView<HTMLDivElement>(0.1);
 
   return (
@@ -37,7 +37,7 @@ export default function Projects() {
             const style = {
               "--i": i,
               "--enter-x": i % 2 === 0 ? "-28px" : "28px",
-              "--enter-x-mobile": i % 2 === 0 ? "-12px" : "12px",
+              "--enter-x-mobile": i % 2 === 0 ? "-22px" : "22px",
             } as React.CSSProperties;
             return p.demo ? (
               <a key={p.title} href={p.demo} target="_blank" rel="noreferrer" className={cls} style={style}>{body}</a>

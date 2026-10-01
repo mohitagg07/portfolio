@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { useInView } from "./useInView";
 
 interface Video {
   title: string;
@@ -32,26 +33,10 @@ export default function YouTube() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [subscriberCount, setSubscriberCount] = useState("");
   const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
-  const [hasBeenSeen, setHasBeenSeen] = useState(false);
-  const hasRequestedVideos = useRef(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const [sectionRef, hasBeenSeen] = useInView<HTMLElement>(0.05);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(entry.isIntersecting);
-        if (entry.isIntersecting) setHasBeenSeen(true);
-      },
-      { threshold: 0.05, rootMargin: "0px" }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!visible || hasRequestedVideos.current) return;
-    hasRequestedVideos.current = true;
+    if (!hasBeenSeen) return;
 
     fetch("/api/youtube")
       .then((r) => r.json())
@@ -64,10 +49,10 @@ export default function YouTube() {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [visible]);
+  }, [hasBeenSeen]);
 
   return (
-    <section ref={sectionRef} id="youtube" className={`section-spacer ${visible ? "is-active" : ""}`} style={{ position: "relative" }}>
+    <section ref={sectionRef} id="youtube" className={`section-spacer ${hasBeenSeen ? "is-active" : ""}`} style={{ position: "relative" }}>
       <div className="section-divider" />
 
       <div className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`} style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
@@ -195,7 +180,7 @@ export default function YouTube() {
                 style={{
                   "--i": i,
                   "--enter-x": i % 2 === 0 ? "-26px" : "26px",
-                  "--enter-x-mobile": i % 2 === 0 ? "-12px" : "12px",
+                  "--enter-x-mobile": i % 2 === 0 ? "-22px" : "22px",
                   borderRadius: 16,
                   border: "1px solid rgba(255,255,255,0.06)",
                   background: "rgba(255,255,255,0.02)",
