@@ -6,7 +6,6 @@ import Intro from "./components/Intro";
 import HeroGreeting from "./components/HeroGreeting";
 import Story from "./components/Story";
 import Projects from "./components/Projects";
-import InteractiveDemos from "./components/InteractiveDemos";
 import YouTube from "./components/YouTube";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
@@ -32,8 +31,6 @@ export default function Home(): React.JSX.Element {
       {/* 5. Featured Projects Showcase */}
       <Projects />
 
-      {/* 6. Interactive WebGL & AI Demos Playground */}
-      <InteractiveDemos />
 
       {/* 7. YouTube & Media Showcase */}
       <YouTube />
