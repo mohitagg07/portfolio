@@ -68,11 +68,10 @@ export default function YouTube() {
         >
           
           <h2 className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}>
-            Beyond the{" "}
-            <span style={{ color: "#f87171", fontStyle: "italic" }}>screen</span>
+            Outside of work
           </h2>
           <p className="section-lede">
-            Real life, travel, tech vlogs, and creative storytelling on YouTube.
+            I also make videos about travel, technology, and the process of building things.
           </p>
         </div>
 
