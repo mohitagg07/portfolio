@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { navigateToSection } from "../utils/scroll";
 
-const LINKS = [["Work", "work"], ["About", "about"], ["Videos", "youtube"], ["Contact", "contact"]] as const;
+const LINKS = [["About", "about"], ["Work", "work"], ["Videos", "youtube"], ["Contact", "contact"]] as const;
 const SOCIALS = [["GitHub", "https://github.com/mohitagg07"], ["YouTube", "https://youtube.com/@MohitAgg07"], ["LinkedIn", "https://linkedin.com/in/mohitagg07"]] as const;
 
 export default function Header() {
