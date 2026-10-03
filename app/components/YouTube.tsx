@@ -38,7 +38,6 @@ function timeAgo(dateStr: string): string {
 export default function YouTube() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [subscribers, setSubscribers] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [sectionRef, hasBeenSeen] = useInView<HTMLElement>(0.05);
 
   useEffect(() => {
@@ -50,8 +49,7 @@ export default function YouTube() {
         setVideos(data.videos || []);
         setSubscribers(parseInt(data.subscriberCount ?? "0", 10) || 0);
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      .catch(() => {});
   }, [hasBeenSeen]);
 
   const channelNote =
@@ -86,17 +84,7 @@ export default function YouTube() {
           </a>
         </div>
 
-        {loading ? (
-          <div className="yt-grid" aria-hidden="true">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="yt-skeleton">
-                <div className="yt-skeleton__thumb" />
-                <div className="yt-skeleton__line" />
-                <div className="yt-skeleton__line yt-skeleton__line--short" />
-              </div>
-            ))}
-          </div>
-        ) : videos.length > 0 ? (
+        {videos.length > 0 ? (
           <div className="yt-grid">
             {videos.map((v, i) => {
               const meta = [timeAgo(v.publishedAt), v.viewCount >= SHOW_COUNTS_FROM ? `${formatCount(v.viewCount)} views` : null]
