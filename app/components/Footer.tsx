@@ -2,6 +2,7 @@
 
 import { scrollToSection } from "../utils/scroll";
 import { useInView } from "./useInView";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Footer() {
   const [footerRef, active] = useInView<HTMLElement>(0.05);
@@ -20,8 +21,8 @@ export default function Footer() {
         zIndex: 10,
       }}
     >
+      <ScrollReveal className="section-wrap footer-reveal">
       <div
-        className="section-wrap"
         style={{
           display: "flex",
           alignItems: "center",
@@ -67,6 +68,7 @@ export default function Footer() {
           Back to top ↑
         </button>
       </div>
+      </ScrollReveal>
     </footer>
   );
 }

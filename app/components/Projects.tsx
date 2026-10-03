@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useInView } from "./useInView";
+import ScrollReveal from "./ScrollReveal";
 
 interface Project {
   title: string;
@@ -55,8 +56,9 @@ export default function Projects() {
   const [transitionRef, transitionSeen] = useInView<HTMLDivElement>(0.2);
 
   return (
-    <section ref={sectionRef} id="work" className={`section-spacer work-section ${active ? "is-active" : ""}`}>
+    <section ref={sectionRef} id="work" className={`section-spacer work-section relative z-10 bg-[#f4f4f5] rounded-t-[3rem] shadow-2xl ${active ? "is-active" : ""}`}>
       <div className="section-wrap">
+        <ScrollReveal className="project-intro-reveal">
         <div className="project-intro">
           <p className="project-eyebrow">Selected projects</p>
           <h2 className={`section-heading section-title ${active ? "is-in" : ""}`}>Software that makes everyday work easier</h2>
@@ -64,7 +66,9 @@ export default function Projects() {
             Practical tools for repetitive workflows, scattered information, and tasks that are harder than they need to be.
           </p>
         </div>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.08}>
         <div ref={ref} className={`project-grid mt-12 ${seen ? "is-in" : ""}`} role="region" aria-label="Selected projects. Scroll horizontally on small screens." tabIndex={0}>
           {PROJECTS.map((p, i) => {
             const body = (
@@ -108,9 +112,12 @@ export default function Projects() {
             );
           })}
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.12}>
         <div ref={transitionRef} className={`project-transition ${transitionSeen ? "is-in" : ""}`} aria-hidden="true">
           <span />
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );

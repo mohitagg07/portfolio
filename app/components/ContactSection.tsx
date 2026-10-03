@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
 import { useInView } from "./useInView";
+import ScrollReveal from "./ScrollReveal";
 
 const EMAIL = "mohitaggarwal2003@gmail.com";
 const LINKS = [
@@ -45,6 +46,7 @@ export default function ContactSection() {
         <div className="contact-art__shade" />
         <div className="contact-art__glow" />
       </div>
+      <ScrollReveal className="contact-reveal">
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="contact-column max-w-md">
           <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
@@ -83,6 +85,7 @@ export default function ContactSection() {
           </button>
         </div>
       </div>
+      </ScrollReveal>
     </section>
   );
 }

@@ -3,9 +3,17 @@ import Header from "./components/Header";
 import HeroScene from "./components/HeroScene";
 import Projects from "./components/Projects";
 import Story from "./components/Story";
-import YouTube from "./components/YouTube";
+import dynamic from "next/dynamic";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+
+const YouTube = dynamic(() => import("./components/YouTube"), {
+  loading: () => (
+    <div className="video-scroll-stage" aria-hidden="true">
+      <div className="video-scroll-sticky" />
+    </div>
+  ),
+});
 
 export default function Home(): React.JSX.Element {
   return (

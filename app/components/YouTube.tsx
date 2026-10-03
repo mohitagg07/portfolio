@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Youtube as YoutubeIcon, ArrowUpRight, Play } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useInView } from "./useInView";
+import ScrollReveal from "./ScrollReveal";
 
 interface Video {
   title: string;
@@ -36,9 +38,16 @@ function timeAgo(dateStr: string): string {
 }
 
 export default function YouTube() {
+  const stageRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const [subscribers, setSubscribers] = useState(0);
   const [sectionRef, hasBeenSeen] = useInView<HTMLElement>(0.05);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: stageRef,
+    offset: ["start start", "end start"],
+  });
+  const transitionShade = useTransform(scrollYProgress, [70 / 240, 140 / 240], [0, 0.48]);
 
   useEffect(() => {
     if (!hasBeenSeen) return;
@@ -58,10 +67,16 @@ export default function YouTube() {
       : "Travel, tech and building in public";
 
   return (
-    <section ref={sectionRef} id="youtube" className={`section-spacer relative ${hasBeenSeen ? "is-active" : ""}`}>
+    <div ref={stageRef} id="video" className="video-scroll-stage">
+    <section ref={sectionRef} id="youtube" className={`video-scroll-sticky section-spacer relative ${hasBeenSeen ? "is-active" : ""}`}>
+      <motion.div
+        className="video-scroll-overlay"
+        aria-hidden="true"
+        style={{ opacity: prefersReducedMotion ? 0 : transitionShade }}
+      />
       <div className="section-divider" />
 
-      <div className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`} style={{ paddingTop: "clamp(80px, 12vh, 140px)" }}>
+      <ScrollReveal className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`}>
         <div className="youtube-intro yt-intro">
           <h2 className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}>Outside of work</h2>
           <p className="section-lede">
@@ -121,7 +136,8 @@ export default function YouTube() {
             })}
           </div>
         ) : null}
-      </div>
+      </ScrollReveal>
     </section>
+    </div>
   );
 }
