@@ -104,7 +104,7 @@ export function useSpatialMotion<T extends HTMLElement>(maxTilt = 4, maxShift = 
     };
 
     const onScroll = () => {
-      if (reducedMotion || !inView || scrollFrame) return;
+      if (reducedMotion || maxParallax <= 0 || !inView || scrollFrame) return;
       scrollFrame = window.requestAnimationFrame(() => {
         scrollFrame = 0;
         if (!inView) {
@@ -135,16 +135,20 @@ export function useSpatialMotion<T extends HTMLElement>(maxTilt = 4, maxShift = 
 
     element.addEventListener("pointermove", onPointerMove, { passive: true });
     element.addEventListener("pointerleave", onPointerLeave, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    if (maxParallax > 0) {
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+    }
     observer.observe(element);
 
     return () => {
       observer.disconnect();
       element.removeEventListener("pointermove", onPointerMove);
       element.removeEventListener("pointerleave", onPointerLeave);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      if (maxParallax > 0) {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      }
       window.cancelAnimationFrame(motionFrame);
       window.cancelAnimationFrame(scrollFrame);
     };

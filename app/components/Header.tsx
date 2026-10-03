@@ -15,7 +15,9 @@ export default function Header() {
   useEffect(() => {
     let lastScrolled: boolean | undefined;
     let lastNearTop = false;
-    const onScroll = () => {
+    let scrollFrame = 0;
+    const updateScrollState = () => {
+      scrollFrame = 0;
       const y = window.scrollY;
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.max(0, Math.min(1, y / scrollable)) : 0;
@@ -29,14 +31,18 @@ export default function Header() {
       if (nextNearTop && !lastNearTop) setActive("");
       lastNearTop = nextNearTop;
     };
-    onScroll();
+    const onScroll = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(updateScrollState);
+    };
+    updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-40% 0px -55% 0px" }
     );
     LINKS.forEach(([, id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
-    return () => { window.removeEventListener("scroll", onScroll); io.disconnect(); };
+    return () => { window.removeEventListener("scroll", onScroll); window.cancelAnimationFrame(scrollFrame); io.disconnect(); };
   }, []);
 
   useEffect(() => {

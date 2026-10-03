@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
-import { useInView } from "./useInView";
+import { useInView, useVisibility } from "./useInView";
 
 const EMAIL = "mohitaggarwal2003@gmail.com";
 const LINKS = [
@@ -15,7 +15,7 @@ const LINKS = [
 export default function ContactSection() {
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const resetCopyStatus = useRef<number | undefined>(undefined);
-  const [sectionRef, active] = useInView<HTMLElement>(0.03);
+  const [sectionRef, active] = useVisibility<HTMLElement>(0.03);
   const [ref, seen] = useInView<HTMLDivElement>(0.2);
 
   useEffect(() => () => {

@@ -4,7 +4,6 @@ export default function BackgroundCanvas() {
       <div className="ambient-scene__grid" />
       <div className="ambient-scene__aurora" />
       <div className="ambient-scene__stars" />
-      <div className="ambient-scene__scan" />
     </div>
   );
 }

@@ -21,7 +21,7 @@ const idx = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 export default function Story() {
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
-  const [portraitRef] = useSpatialMotion<HTMLDivElement>(3.2, 5, 13);
+  const [portraitRef] = useSpatialMotion<HTMLDivElement>(3.2, 5, 0);
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const [learnRef, learnIn] = useInView<HTMLDivElement>(0.2);
 
