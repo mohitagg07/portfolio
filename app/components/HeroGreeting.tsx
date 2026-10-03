@@ -27,9 +27,9 @@ export default function HeroGreeting() {
         </div>
       </div>
 
-      <a className="hero-scroll" href="#about" onClick={(event) => navigateToSection(event, "about")} aria-label="Scroll to explore the about section">
+      <a className="hero-scroll" href="#work" onClick={(event) => navigateToSection(event, "work")} aria-label="Scroll to explore selected projects">
         <span className="hero-scroll__track" aria-hidden="true"><i /></span>
-        <span className="hero-scroll__label">Scroll to explore</span>
+        <span className="hero-scroll__label">Scroll to explore work</span>
       </a>
     </div>
   );

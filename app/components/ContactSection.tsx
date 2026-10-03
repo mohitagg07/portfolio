@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
 import { useInView } from "./useInView";
 
@@ -38,7 +39,12 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className={`section-spacer ${seen ? "is-active" : ""}`}>
+    <section id="contact" className={`section-spacer contact-section ${seen ? "is-active" : ""}`}>
+      <div className="contact-art" aria-hidden="true">
+        <Image src="/contact-workspace.webp" alt="" fill sizes="100vw" className="contact-art__image" />
+        <div className="contact-art__shade" />
+        <div className="contact-art__glow" />
+      </div>
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="contact-column max-w-md">
           <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
