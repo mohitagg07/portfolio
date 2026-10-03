@@ -54,25 +54,28 @@ export default function Projects() {
   const [ref, seen] = useInView<HTMLDivElement>(0.1);
 
   return (
-    <section ref={sectionRef} id="work" className={`section-spacer ${active ? "is-active" : ""}`}>
+    <section ref={sectionRef} id="work" className={`section-spacer work-section ${active ? "is-active" : ""}`}>
       <div className="section-wrap">
-        <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>Selected work</h2>
-        <p className={`section-lede mt-5 ${seen ? "is-in" : ""}`}>
-          Each one starts with a problem people already have. Here is the problem, and what I built for it.
-        </p>
+        <div className="project-intro">
+          <p className="project-eyebrow">Selected projects</p>
+          <h2 className={`section-heading section-title ${active ? "is-in" : ""}`}>Software that makes everyday work easier</h2>
+          <p className={`section-lede mt-5 ${seen ? "is-in" : ""}`}>
+            Practical tools for repetitive workflows, scattered information, and tasks that are harder than they need to be.
+          </p>
+        </div>
 
-        <div ref={ref} className={`mt-12 grid items-start gap-x-8 gap-y-14 md:grid-cols-2 ${seen ? "is-in" : ""}`}>
+        <div ref={ref} className={`project-grid mt-12 ${seen ? "is-in" : ""}`} role="region" aria-label="Selected projects. Scroll horizontally on small screens." tabIndex={0}>
           {PROJECTS.map((p, i) => {
             const body = (
               <>
-                <div className={`curtain overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] ${i % 2 ? "alt" : ""}`}>
+                <div className="project-media">
                   <Image
                     src={p.image}
                     alt={`${p.title} preview`}
                     width={1200}
                     height={800}
                     sizes="(max-width: 680px) 88vw, (max-width: 1200px) 46vw, 520px"
-                    className="h-auto w-full"
+                    className="project-image"
                   />
                 </div>
                 <div className="project-body">
@@ -81,8 +84,8 @@ export default function Projects() {
                     {p.title}
                     {p.demo ? <span aria-hidden="true" className="project-arrow">↗</span> : null}
                   </h3>
-                  <p className="project-problem">{p.problem}</p>
-                  <p className="project-what">{p.what}</p>
+                  <p className="project-problem"><span className="project-label">Problem</span>{p.problem}</p>
+                  <p className="project-what"><span className="project-label">What I built</span>{p.what}</p>
                   {p.stack ? (
                     <ul className="project-stack" aria-label={`${p.title} built with`}>
                       {p.stack.map((s) => (
@@ -93,11 +96,9 @@ export default function Projects() {
                 </div>
               </>
             );
-            const cls = "project-card block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]";
+            const cls = "project-card";
             const style = {
               "--i": i,
-              "--enter-x": i % 2 === 0 ? "-28px" : "28px",
-              "--enter-x-mobile": i % 2 === 0 ? "-34px" : "34px",
             } as React.CSSProperties;
             return p.demo ? (
               <a key={p.title} href={p.demo} target="_blank" rel="noopener noreferrer" className={cls} style={style} aria-label={`${p.title}: open live demo`}>{body}</a>

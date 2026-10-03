@@ -19,9 +19,6 @@ export default function Header() {
     const updateScrollState = () => {
       scrollFrame = 0;
       const y = window.scrollY;
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollable > 0 ? Math.max(0, Math.min(1, y / scrollable)) : 0;
-      headerRef.current?.style.setProperty("--scroll-progress", String(progress));
       const nextScrolled = y > 40;
       const nextNearTop = y < 200;
       if (nextScrolled !== lastScrolled) {
