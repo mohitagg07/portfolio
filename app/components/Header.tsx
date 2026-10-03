@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigateToSection } from "../utils/scroll";
 
 const LINKS = [["Work", "work"], ["About", "about"], ["Videos", "youtube"], ["Contact", "contact"]] as const;
 const SOCIALS = [["GitHub", "https://github.com/mohitagg07"], ["YouTube", "https://youtube.com/@MohitAgg07"], ["LinkedIn", "https://linkedin.com/in/mohitagg07"]] as const;
 
 export default function Header() {
+  const headerRef = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
@@ -16,6 +17,9 @@ export default function Header() {
     let lastNearTop = false;
     const onScroll = () => {
       const y = window.scrollY;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.max(0, Math.min(1, y / scrollable)) : 0;
+      headerRef.current?.style.setProperty("--scroll-progress", String(progress));
       const nextScrolled = y > 40;
       const nextNearTop = y < 200;
       if (nextScrolled !== lastScrolled) {
@@ -46,10 +50,10 @@ export default function Header() {
 
   return (
     <>
-      <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-menu-open" : ""}`}>
-        <div className="site-header__glass mx-auto flex max-w-[1320px] items-center justify-between px-5 py-4 md:px-12">
+      <header ref={headerRef} className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-menu-open" : ""}`}>
+        <div className="site-header__glass mx-auto flex items-center justify-between px-5 py-4 md:px-12">
           <span className="site-header__depth" aria-hidden="true" />
-          <a href="#home" onClick={(event) => { navigateToSection(event, "home"); setOpen(false); }} aria-label="Mohit home" className="flex items-center">
+          <a href="#home" onClick={(event) => { navigateToSection(event, "home"); setOpen(false); }} aria-label="Mohit Aggarwal home" className="site-header__brand">
             <svg width="36" height="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="logo-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="30" y2="30">
@@ -58,6 +62,10 @@ export default function Header() {
               </defs>
               <path d="M4 25V5l11 13L26 5v20" stroke="url(#logo-g)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+            <span className="site-header__brand-copy" aria-hidden="true">
+              <span>Mohit Aggarwal</span>
+              <small>AI &amp; automation</small>
+            </span>
           </a>
 
           <nav className="site-header__nav hidden items-center gap-2 md:flex" aria-label="Main">
