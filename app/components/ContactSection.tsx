@@ -40,7 +40,11 @@ export default function ContactSection() {
 
   return (
     <section ref={sectionRef} id="contact" className={`section-spacer relative overflow-hidden ${active ? "is-active" : ""}`}>
-      <div className="radar" aria-hidden="true" />
+      <div className="contact-depth" aria-hidden="true">
+        <div className="contact-depth__orb" />
+        <span className="contact-depth__ring contact-depth__ring--wide" />
+        <span className="contact-depth__ring contact-depth__ring--tilted" />
+      </div>
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="contact-column max-w-md">
           <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>

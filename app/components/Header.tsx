@@ -48,6 +48,7 @@ export default function Header() {
     <>
       <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-menu-open" : ""}`}>
         <div className="site-header__glass mx-auto flex max-w-[1320px] items-center justify-between px-5 py-4 md:px-12">
+          <span className="site-header__depth" aria-hidden="true" />
           <a href="#home" onClick={(event) => { navigateToSection(event, "home"); setOpen(false); }} aria-label="Mohit home" className="flex items-center">
             <svg width="36" height="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
               <defs>

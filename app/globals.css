@@ -85,6 +85,7 @@ button { cursor: pointer; font-family: inherit; }
 }
 .site-header__glass {
   position: relative;
+  isolation: isolate;
   min-height: 72px;
   border: 1px solid rgba(217, 232, 255, .16);
   border-radius: 999px;
@@ -92,9 +93,27 @@ button { cursor: pointer; font-family: inherit; }
   box-shadow: 0 16px 48px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.13);
   backdrop-filter: blur(10px) saturate(125%);
   -webkit-backdrop-filter: blur(10px) saturate(125%);
+  perspective: 1100px;
+  transform-style: preserve-3d;
   transition: background .35s ease, border-color .35s ease, box-shadow .35s ease;
   pointer-events: auto;
 }
+.site-header__depth { position: absolute; z-index: 0; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.site-header__depth::before, .site-header__depth::after { content: ""; position: absolute; inset: -60%; border-radius: inherit; }
+.site-header__depth::before {
+  background: radial-gradient(ellipse at 17% 15%, rgba(95,220,246,.16), transparent 36%), radial-gradient(ellipse at 83% 90%, rgba(200,255,0,.11), transparent 32%);
+  transform: translate3d(-1.5%, 0, 8px) rotateX(3deg);
+  animation: nav-depth-breathe 16s ease-in-out infinite alternate;
+}
+.site-header__depth::after {
+  inset: -85% auto -85% -38%;
+  width: 36%;
+  background: linear-gradient(90deg, transparent, rgba(150,235,255,.035) 26%, rgba(255,255,255,.16) 50%, rgba(200,255,0,.055) 72%, transparent);
+  filter: blur(9px);
+  transform: translateZ(18px) rotate(24deg);
+  animation: nav-light-pass 15s cubic-bezier(.4,0,.2,1) infinite;
+}
+.site-header__glass > :not(.site-header__depth) { z-index: 1; }
 .site-header.is-scrolled .site-header__glass,
 .site-header.is-menu-open .site-header__glass {
   min-height: 66px;
@@ -337,19 +356,33 @@ button { cursor: pointer; font-family: inherit; }
 .is-in .curtain { opacity: 1; transform: none; }
 .is-in .curtain img { transform: scale(1); }
 
-/* ── Contact: signal rings ── */
+/* ── Contact: a softly lit glass object with orbital depth ── */
 #contact .section-wrap { position: relative; z-index: 1; }
-.radar { position: absolute; inset: 0; pointer-events: none; }
-.radar::before, .radar::after { content: ""; position: absolute; left: 72%; top: 50%; width: 900px; height: 900px; margin: -450px 0 0 -450px; border-radius: 50%; border: 1px solid rgba(200,255,0,.35); opacity: 0; transform: scale(.15); }
-#contact.is-active .radar::before { animation: ping 3.2s cubic-bezier(.2,.6,.3,1) both; }
-#contact.is-active .radar::after { animation: ping 3.2s cubic-bezier(.2,.6,.3,1) .7s both; }
-@keyframes ping { 0% { transform: scale(.15); opacity: .8; } 100% { transform: scale(1); opacity: 0; } }
+.contact-depth { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; perspective: 1200px; perspective-origin: 72% 50%; }
+.contact-depth__orb { position: absolute; top: 50%; left: 73%; width: clamp(340px, 43vw, 620px); aspect-ratio: 1; border: 1px solid rgba(205,239,248,.24); border-radius: 50%; background: radial-gradient(ellipse at 30% 23%, rgba(255,255,255,.5), rgba(181,245,255,.18) 5%, transparent 25%), radial-gradient(ellipse at 32% 35%, rgba(75,201,227,.22), transparent 37%), radial-gradient(ellipse at 68% 70%, rgba(200,255,0,.13), transparent 37%), radial-gradient(ellipse at 78% 85%, rgba(1,5,14,.82), transparent 55%), radial-gradient(circle at 50% 50%, rgba(20,42,62,.58), rgba(6,10,20,.84) 67%, rgba(119,225,237,.35) 69%, rgba(200,255,0,.22) 70%, rgba(4,9,18,.35) 71%, transparent 72%); box-shadow: inset -36px -30px 72px rgba(0,0,0,.46), inset 16px 12px 32px rgba(227,250,255,.08), 0 0 70px rgba(40,188,214,.1); opacity: .68; transform: translate3d(-50%,-50%,0) rotateX(12deg) rotateY(-18deg); transform-style: preserve-3d; animation: contact-orb-float 14s ease-in-out infinite alternate; }
+.contact-depth__orb::before, .contact-depth__orb::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.contact-depth__orb::before { background: linear-gradient(125deg, rgba(255,255,255,.2), transparent 19%, transparent 56%, rgba(160,224,240,.05) 72%, transparent 83%), radial-gradient(ellipse at 26% 22%, rgba(255,255,255,.26), transparent 18%); mix-blend-mode: screen; transform: translateZ(22px); }
+.contact-depth__orb::after { inset: 12%; background-image: repeating-linear-gradient(0deg, transparent 0 25px, rgba(190,231,244,.085) 26px, transparent 27px), repeating-linear-gradient(90deg, transparent 0 31px, rgba(190,231,244,.07) 32px, transparent 33px); opacity: .24; mask-image: radial-gradient(ellipse, #000 18%, transparent 72%); transform: translateZ(12px) rotate(-14deg) scale(1.08); animation: globe-lines 28s linear infinite; }
+.contact-depth__ring { position: absolute; top: 50%; left: 73%; width: clamp(410px, 49vw, 720px); height: clamp(130px, 18vw, 250px); border: 1px solid rgba(147,222,239,.26); border-radius: 50%; box-shadow: 0 0 18px rgba(82,205,226,.06), inset 0 0 16px rgba(82,205,226,.04); transform-style: preserve-3d; }
+.contact-depth__ring::after { content: ""; position: absolute; top: 8%; left: 17%; width: 7px; height: 7px; border-radius: 50%; background: radial-gradient(circle, #e5ffff 0 12%, #69d8eb 35%, rgba(105,216,235,0) 72%); box-shadow: 0 0 14px 3px rgba(100,222,242,.4); }
+.contact-depth__ring--wide { transform: translate3d(-50%,-50%,0) rotateX(67deg) rotateZ(-18deg); animation: orbit-drift 27s linear infinite; }
+.contact-depth__ring--tilted { width: clamp(340px, 41vw, 600px); height: clamp(180px, 25vw, 350px); border-color: rgba(200,255,0,.15); opacity: .72; transform: translate3d(-50%,-50%,0) rotateY(58deg) rotateZ(26deg); animation: orbit-drift 36s linear infinite reverse; }
+@media (max-width: 900px) and (min-width: 681px) {
+  .contact-depth__orb { left: 96%; width: 340px; opacity: .38; }
+  .contact-depth__ring { left: 96%; opacity: .36; }
+  .contact-depth__ring--tilted { display: none; }
+}
+@keyframes nav-depth-breathe { to { transform: translate3d(1.5%, -2%, 8px) rotateX(-3deg); } }
+@keyframes nav-light-pass { 0%, 24% { transform: translate3d(0,0,18px) rotate(24deg); opacity: 0; } 36% { opacity: .9; } 62% { opacity: .65; } 82%, 100% { transform: translate3d(480%,0,18px) rotate(24deg); opacity: 0; } }
+@keyframes contact-orb-float { to { transform: translate3d(-50%,-52%,0) rotateX(16deg) rotateY(-12deg); } }
+@keyframes globe-lines { to { transform: translateZ(12px) rotate(346deg) scale(1.08); } }
+@keyframes orbit-drift { to { rotate: 360deg; } }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-header__depth::before, .site-header__depth::after, .contact-depth__orb, .contact-depth__orb::after, .contact-depth__ring { animation: none !important; }
   .rise-word > span, .node, .hline > *, .curtain img { transform: none !important; opacity: 1 !important; transition: none !important; }
   .vline::before, .hline::before { transform: none !important; transition: none !important; }
   .curtain { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
-  .radar::before, .radar::after { animation: none !important; display: none; }
   .tilt { transform: none !important; }
 }
 
@@ -794,8 +827,10 @@ main { isolation: isolate; }
   .story-photo__frame::after { display: none; }
   .story-portrait { transform: none; }
   .story-photo__label { transform: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
-  #contact .radar::before { width: 520px; height: 520px; margin: -260px 0 0 -260px; left: 88%; }
-  #contact .radar::after { display: none; }
+  .contact-depth { perspective-origin: 95% 50%; }
+  .contact-depth__orb { left: 98%; width: min(82vw, 380px); opacity: .28; }
+  .contact-depth__ring { left: 98%; width: min(94vw, 430px); height: min(30vw, 136px); opacity: .4; }
+  .contact-depth__ring--tilted { display: none; }
 }
 
 /* Keep the opening sequence visible before the hero's entrance begins. */
