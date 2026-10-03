@@ -14,8 +14,8 @@ export default function Home(): React.JSX.Element {
       <Header />
 
       <HeroScene />
-      <Projects />
       <Story />
+      <Projects />
 
       <YouTube />
 

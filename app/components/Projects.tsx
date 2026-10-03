@@ -52,6 +52,7 @@ const PROJECTS: Project[] = [
 export default function Projects() {
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [ref, seen] = useInView<HTMLDivElement>(0.1);
+  const [transitionRef, transitionSeen] = useInView<HTMLDivElement>(0.2);
 
   return (
     <section ref={sectionRef} id="work" className={`section-spacer work-section ${active ? "is-active" : ""}`}>
@@ -106,6 +107,9 @@ export default function Projects() {
               <article key={p.title} className={cls} style={style}>{body}</article>
             );
           })}
+        </div>
+        <div ref={transitionRef} className={`project-transition ${transitionSeen ? "is-in" : ""}`} aria-hidden="true">
+          <span />
         </div>
       </div>
     </section>
