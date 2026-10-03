@@ -1,6 +1,7 @@
 import BackgroundCanvas from "./components/BackgroundCanvas";
 import Header from "./components/Header";
 import HeroGreeting from "./components/HeroGreeting";
+import Image from "next/image";
 import Story from "./components/Story";
 import Projects from "./components/Projects";
 import YouTube from "./components/YouTube";
@@ -14,6 +15,21 @@ export default function Home(): React.JSX.Element {
       <Header />
 
       <section id="home" className="hero-section relative flex min-h-[100svh] items-center">
+        <div className="hero-art" aria-hidden="true">
+          <picture className="hero-art__picture">
+            <source media="(max-width: 680px)" srcSet="/hero-workspace-mobile.webp" />
+            <Image
+              src="/hero-workspace.webp"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="hero-art__image"
+            />
+          </picture>
+          <div className="hero-art__shade" />
+          <div className="hero-art__glow" />
+        </div>
         <HeroGreeting />
       </section>
 
