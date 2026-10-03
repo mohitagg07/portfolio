@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Fragment } from "react";
-import { useInView, useSpatialMotion } from "./useInView";
+import { useInView } from "./useInView";
 
 const PATH = [
   ["2025", "VIT Chennai", "Finished my computer science degree, focused on AI."],
@@ -21,7 +21,6 @@ const idx = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 export default function Story() {
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
-  const [portraitRef] = useSpatialMotion<HTMLDivElement>(3.2, 5, 0);
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const [learnRef, learnIn] = useInView<HTMLDivElement>(0.2);
 
@@ -46,7 +45,7 @@ export default function Story() {
 
         <div className="story-enter story-enter--right space-y-10">
           <div className="story-photo mx-auto w-full max-w-[20rem]">
-            <div ref={portraitRef} className="tilt story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+            <div className="story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
               <Image
                 src="/assets/mohit-story.jpg"
                 alt="Mohit seated outdoors in a black suit"
@@ -58,16 +57,16 @@ export default function Story() {
               <span className="story-photo__label"><i /> Jammu, India</span>
             </div>
           </div>
-        <ol className="vline space-y-8 pl-8">
-          {PATH.map(([when, where, what], i) => (
-            <li key={where} className="node relative" style={idx(i)}>
-              <span className="absolute -left-[36px] top-2 h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_12px_var(--accent)]" />
-              <p className="text-sm text-[var(--accent)]">{when}</p>
-              <p className="font-semibold">{where}</p>
-              <p className="text-sm text-[var(--fg-muted)]">{what}</p>
-            </li>
-          ))}
-        </ol>
+          <ol className="vline space-y-8 pl-8">
+            {PATH.map(([when, where, what], i) => (
+              <li key={where} className="node relative" style={idx(i)}>
+                <span className="absolute -left-[36px] top-2 h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_12px_var(--accent)]" />
+                <p className="text-sm text-[var(--accent)]">{when}</p>
+                <p className="font-semibold">{where}</p>
+                <p className="text-sm text-[var(--fg-muted)]">{what}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
 

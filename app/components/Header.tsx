@@ -52,7 +52,7 @@ export default function Header() {
     return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
   }, [open]);
 
-  const bar = "absolute left-3 h-0.5 w-5 rounded bg-white transition-transform duration-300";
+  const bar = "absolute left-2.5 h-0.5 w-5 rounded bg-white transition-transform duration-300";
 
   return (
     <>
@@ -95,10 +95,10 @@ export default function Header() {
               onClick={() => setOpen(!open)}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
-              className="relative h-11 w-11 md:hidden"
+              className="relative h-10 w-10 md:hidden"
             >
-              <span className={`${bar} top-[17px]`} style={{ transform: open ? "translateY(4.5px) rotate(45deg)" : "none" }} />
-              <span className={`${bar} top-[26px]`} style={{ transform: open ? "translateY(-4.5px) rotate(-45deg)" : "none" }} />
+              <span className={`${bar} top-[15px]`} style={{ transform: open ? "translateY(4px) rotate(45deg)" : "none" }} />
+              <span className={`${bar} top-[23px]`} style={{ transform: open ? "translateY(-4px) rotate(-45deg)" : "none" }} />
             </button>
           </div>
         </div>

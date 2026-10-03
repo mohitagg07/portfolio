@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
-import { useInView, useVisibility } from "./useInView";
+import { useInView } from "./useInView";
 
 const EMAIL = "mohitaggarwal2003@gmail.com";
 const LINKS = [
@@ -15,7 +15,6 @@ const LINKS = [
 export default function ContactSection() {
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const resetCopyStatus = useRef<number | undefined>(undefined);
-  const [sectionRef, active] = useVisibility<HTMLElement>(0.03);
   const [ref, seen] = useInView<HTMLDivElement>(0.2);
 
   useEffect(() => () => {
@@ -39,12 +38,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className={`section-spacer relative overflow-hidden ${active ? "is-active" : ""}`}>
-      <div className="contact-depth" aria-hidden="true">
-        <div className="contact-depth__orb" />
-        <span className="contact-depth__ring contact-depth__ring--wide" />
-        <span className="contact-depth__ring contact-depth__ring--tilted" />
-      </div>
+    <section id="contact" className={`section-spacer ${seen ? "is-active" : ""}`}>
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="contact-column max-w-md">
           <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
