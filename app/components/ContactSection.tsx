@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Github, Youtube, Linkedin, Mail, Copy, Check } from "lucide-react";
 import { useInView } from "./useInView";
 
@@ -13,14 +13,29 @@ const LINKS = [
 ];
 
 export default function ContactSection() {
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
+  const resetCopyStatus = useRef<number | undefined>(undefined);
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [ref, seen] = useInView<HTMLDivElement>(0.2);
 
-  const copy = () => {
-    navigator.clipboard.writeText(EMAIL);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+  useEffect(() => () => {
+    if (resetCopyStatus.current !== undefined) {
+      window.clearTimeout(resetCopyStatus.current);
+    }
+  }, []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopyStatus("copied");
+    } catch {
+      setCopyStatus("failed");
+    }
+
+    if (resetCopyStatus.current !== undefined) {
+      window.clearTimeout(resetCopyStatus.current);
+    }
+    resetCopyStatus.current = window.setTimeout(() => setCopyStatus("idle"), 2500);
   };
 
   return (
@@ -43,7 +58,7 @@ export default function ContactSection() {
                 <a
                   href={href}
                   target={href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   style={{ "--i": i } as React.CSSProperties}
                   className="hline group flex items-center gap-4 py-4 font-medium transition-colors hover:text-[var(--accent)]"
                 >
@@ -56,10 +71,11 @@ export default function ContactSection() {
 
           <button
             onClick={copy}
+            aria-live="polite"
             className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
           >
-            {copied ? <Check size={16} /> : <Copy size={16} />}
-            {copied ? "Email copied" : "Copy my email"}
+            {copyStatus === "copied" ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
+            {copyStatus === "copied" ? "Email copied" : copyStatus === "failed" ? "Copy failed — use the email link" : "Copy my email"}
           </button>
         </div>
       </div>

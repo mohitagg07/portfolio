@@ -52,7 +52,7 @@ export default function Story() {
                 alt="Mohit seated outdoors in a black suit"
                 fill
                 sizes="(max-width: 768px) 80vw, 352px"
-                quality={84}
+                quality={75}
                 className="story-portrait object-cover"
               />
               <span className="story-photo__label"><i /> Jammu, India</span>

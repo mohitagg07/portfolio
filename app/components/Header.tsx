@@ -122,7 +122,7 @@ export default function Header() {
             <a href="mailto:mohitaggarwal2003@gmail.com" className="block text-sm text-[var(--fg-muted)]">mohitaggarwal2003@gmail.com</a>
             <div className="mt-4 flex gap-6 text-sm font-medium">
               {SOCIALS.map(([label, href]) => (
-                <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label}</a>
               ))}
             </div>
           </div>

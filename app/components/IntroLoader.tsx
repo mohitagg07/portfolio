@@ -14,22 +14,20 @@ export default function IntroLoader() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setFinished(true);
       return;
     }
 
     const root = document.documentElement;
     root.dataset.introLoading = "true";
     let count = 0;
-    let intervalId: number | undefined;
     let holdId: number | undefined;
     let removeId: number | undefined;
 
-    intervalId = window.setInterval(() => {
+    const intervalId = window.setInterval(() => {
       count += 1;
       setVisibleCount(count);
 
-      if (count >= GREETING.length && intervalId !== undefined) {
+      if (count >= GREETING.length) {
         window.clearInterval(intervalId);
         holdId = window.setTimeout(() => {
           setLeaving(true);
@@ -43,7 +41,7 @@ export default function IntroLoader() {
 
     return () => {
       delete root.dataset.introLoading;
-      if (intervalId !== undefined) window.clearInterval(intervalId);
+      window.clearInterval(intervalId);
       if (holdId !== undefined) window.clearTimeout(holdId);
       if (removeId !== undefined) window.clearTimeout(removeId);
     };
