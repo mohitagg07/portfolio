@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
 
@@ -51,12 +53,27 @@ const PROJECTS: Project[] = [
 ];
 
 export default function Projects() {
+  const stageRef = useRef<HTMLDivElement>(null);
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [ref, seen] = useInView<HTMLDivElement>(0.1);
   const [transitionRef, transitionSeen] = useInView<HTMLDivElement>(0.2);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: stageRef,
+    offset: ["start start", "end start"],
+  });
+  // As video section rises, Work section darkens (0 → 0.82)
+  const shadowOpacity = useTransform(scrollYProgress, [0, 0.55], [0, 0.82]);
 
   return (
+    <div ref={stageRef} className="work-scroll-stage">
     <section ref={sectionRef} id="work" className={`section-spacer work-section relative z-10 bg-[#f4f4f5] rounded-t-[3rem] shadow-2xl ${active ? "is-active" : ""}`}>
+      {/* Scroll-linked fade overlay — darkens Work as Videos rises */}
+      <motion.div
+        className="work-scroll-shadow"
+        aria-hidden="true"
+        style={{ opacity: prefersReducedMotion ? 0 : shadowOpacity }}
+      />
       <div className="section-wrap">
         <ScrollReveal className="project-intro-reveal">
         <div className="project-intro">
@@ -120,5 +137,6 @@ export default function Projects() {
         </ScrollReveal>
       </div>
     </section>
+    </div>
   );
 }
