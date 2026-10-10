@@ -7,13 +7,7 @@ export function scrollToSection(id: string): void {
   const margin = Number.parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
   const start = window.scrollY;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const shortViewport = window.matchMedia("(max-width: 680px) and (max-height: 650px)").matches;
-  const work = id === "youtube" && !reducedMotion && !shortViewport
-    ? document.getElementById("work")
-    : null;
-  const end = work
-    ? Math.max(0, start + work.getBoundingClientRect().bottom)
-    : Math.max(0, start + target.getBoundingClientRect().top - margin);
+  const end = Math.max(0, start + target.getBoundingClientRect().top - margin);
 
   window.scrollTo({ top: end, behavior: reducedMotion ? "auto" : "smooth" });
 }

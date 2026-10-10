@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Youtube as YoutubeIcon, ArrowUpRight, Play } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
 
@@ -38,23 +37,9 @@ function timeAgo(dateStr: string): string {
 }
 
 export default function YouTube() {
-  const stageRef = useRef<HTMLDivElement>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const [subscribers, setSubscribers] = useState(0);
   const [sectionRef, hasBeenSeen] = useInView<HTMLElement>(0.05);
-  const prefersReducedMotion = useReducedMotion();
-
-  // Scroll progress of the entire stage (same pattern as Story.tsx → Learning)
-  const { scrollYProgress } = useScroll({
-    target: stageRef,
-    offset: ["start start", "end start"],
-  });
-
-  // As the scroll stage exits (Videos scrolled past), fade to black
-  // This is the "Work fades out as Videos comes in" complement —
-  // here we fade in the reveal overlay from 0 → 0 so the section itself
-  // stays bright; the darkening happens on the Work side via work-scroll-shadow
-  const revealProgress = useTransform(scrollYProgress, [0, 0.38], [0, 1]);
 
   useEffect(() => {
     if (!hasBeenSeen) return;
@@ -74,7 +59,7 @@ export default function YouTube() {
       : "Travel, tech and building in public";
 
   return (
-    <div ref={stageRef} id="video" className="video-scroll-stage">
+    <div id="video" className="video-scroll-stage">
       <section
         ref={sectionRef}
         id="youtube"
@@ -125,6 +110,7 @@ export default function YouTube() {
                     href={v.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`${v.title} — watch on YouTube`}
                     className="youtube-card yt-card"
                     style={{
                       "--i": i,
@@ -135,7 +121,15 @@ export default function YouTube() {
                     <div className="youtube-thumbnail yt-card__thumb">
                       {v.thumbnail && (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={v.thumbnail} alt="" loading="lazy" decoding="async" />
+                        <img
+                          src={v.thumbnail}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          onError={(e) => {
+                            e.currentTarget.src = `https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`;
+                          }}
+                        />
                       )}
                       <span className="yt-card__play" aria-hidden="true">
                         <Play size={16} fill="currentColor" />
@@ -151,13 +145,6 @@ export default function YouTube() {
             </div>
           ) : null}
         </ScrollReveal>
-
-        {/* Bottom-edge gradient leading into Contact */}
-        <motion.div
-          className="video-bottom-fade"
-          aria-hidden="true"
-          style={{ opacity: prefersReducedMotion ? 0 : revealProgress }}
-        />
       </section>
     </div>
   );

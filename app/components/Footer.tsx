@@ -1,74 +1,72 @@
 "use client";
 
-import { scrollToSection } from "../utils/scroll";
-import { useInView } from "./useInView";
-import ScrollReveal from "./ScrollReveal";
+import { navigateToSection, scrollToSection } from "../utils/scroll";
+
+const EMAIL = "mohitaggarwal2003@gmail.com";
+
+const NAV = [
+  ["About", "about"],
+  ["Work", "work"],
+  ["Videos", "youtube"],
+  ["Contact", "contact"],
+] as const;
+
+const ELSEWHERE = [
+  ["GitHub", "https://github.com/mohitagg07"],
+  ["YouTube", "https://youtube.com/@MohitAgg07"],
+  ["LinkedIn", "https://linkedin.com/in/mohitagg07"],
+] as const;
 
 export default function Footer() {
-  const [footerRef, active] = useInView<HTMLElement>(0.05);
-  const scrollToTop = () => {
-    scrollToSection("home");
-  };
-
   return (
-    <footer
-      ref={footerRef}
-      className={`site-footer ${active ? "is-active" : ""}`}
-      style={{
-        borderTop: "1px solid rgba(255,255,255,0.04)",
-        padding: "40px 0",
-        position: "relative",
-        zIndex: 10,
-      }}
-    >
-      <ScrollReveal className="section-wrap footer-reveal">
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: 20,
-        }}
-      >
-        {/* Left */}
-        <div className="footer-side footer-side--left">
-          <p style={{ fontSize: 13, color: "var(--fg-muted)" }}>
-            © {new Date().getFullYear()} Mohit Aggarwal. Crafted with care.
-          </p>
+    <footer className="site-footer">
+      <div className="section-wrap">
+        <div className="site-footer__top">
+          <div className="site-footer__identity">
+            <p className="site-footer__name">Mohit Aggarwal</p>
+            <p className="site-footer__role">AI &amp; software engineer</p>
+            <p className="site-footer__blurb">
+              Building practical AI tools and automations that make repetitive work easier to get done.
+            </p>
+          </div>
+
+          <nav className="site-footer__col" aria-label="Footer">
+            <p className="site-footer__label">Navigate</p>
+            <ul>
+              {NAV.map(([label, id]) => (
+                <li key={id}>
+                  <a href={`#${id}`} onClick={(event) => navigateToSection(event, id)}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="site-footer__col">
+            <p className="site-footer__label">Elsewhere</p>
+            <ul>
+              {ELSEWHERE.map(([label, href]) => (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer">
+                    {label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={`mailto:${EMAIL}`}>Email</a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Right */}
-        <button
-          className="footer-side footer-side--right"
-          onClick={scrollToTop}
-          style={{
-            background: "none",
-            border: "1px solid rgba(255,255,255,0.06)",
-            color: "var(--fg-muted)",
-            padding: "10px 20px",
-            borderRadius: 999,
-            fontSize: 12,
-            fontWeight: 500,
-            cursor: "pointer",
-            transition: "border-color 0.3s ease, color 0.3s ease",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(200,255,0,0.2)";
-            e.currentTarget.style.color = "#c8ff00";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-            e.currentTarget.style.color = "var(--fg-muted)";
-          }}
-        >
-          Back to top ↑
-        </button>
+        <div className="site-footer__bottom">
+          <p>© {new Date().getFullYear()} Mohit Aggarwal · Made with intention.</p>
+          <button type="button" className="site-footer__top-link" onClick={() => scrollToSection("home")}>
+            Back to top <span aria-hidden="true">↑</span>
+          </button>
+        </div>
       </div>
-      </ScrollReveal>
     </footer>
   );
 }

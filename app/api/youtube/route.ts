@@ -38,7 +38,7 @@ async function getRssVideos() {
       return {
         title: readTag(entry, "title"),
         description: "",
-        thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+        thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
         videoId,
         url: `https://www.youtube.com/watch?v=${videoId}`,
         publishedAt: readTag(entry, "published"),
@@ -112,7 +112,7 @@ export async function GET() {
           snippet: {
             title: string;
             description: string;
-            thumbnails: { high?: { url: string }; medium?: { url: string } };
+            thumbnails: { maxres?: { url: string }; high?: { url: string }; medium?: { url: string } };
             resourceId: { videoId: string };
             publishedAt: string;
           };
@@ -123,6 +123,7 @@ export async function GET() {
             title: item.snippet.title,
             description: item.snippet.description?.slice(0, 120),
             thumbnail:
+              item.snippet.thumbnails?.maxres?.url ||
               item.snippet.thumbnails?.high?.url ||
               item.snippet.thumbnails?.medium?.url,
             videoId,
