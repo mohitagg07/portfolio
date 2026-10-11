@@ -17,13 +17,13 @@ export default function ScrollReveal({ children, className, delay = 0 }: ScrollR
   return (
     <motion.div
       className={`scroll-reveal ${className ?? ""}`.trim()}
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "0px 0px -40px 0px" }}
       transition={
         prefersReducedMotion
           ? { duration: 0 }
-          : { duration: 0.68, delay, ease: [0.22, 1, 0.36, 1] }
+          : { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }
       }
       onAnimationComplete={() => setSettled(true)}
       style={{ willChange: prefersReducedMotion || settled ? "auto" : "transform, opacity" }}
