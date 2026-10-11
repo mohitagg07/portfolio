@@ -49,11 +49,13 @@ export default function ContactSection() {
       <ScrollReveal className="contact-reveal">
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
         <div className="contact-column max-w-md">
-          <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
-            Let&apos;s build
-            <br />
-            <span className="glow-text">something great.</span>
-          </h2>
+          <ScrollReveal variant="mask">
+            <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
+              Let&apos;s build
+              <br />
+              <span className="glow-text">something great.</span>
+            </h2>
+          </ScrollReveal>
           <p className="section-lede mt-6">
             Have an idea, need a website, or want to try AI in your work? Tell me about it. I&apos;ll reply as soon as I can.
           </p>

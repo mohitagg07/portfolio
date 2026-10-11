@@ -1,17 +1,36 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { navigateToSection } from "../utils/scroll";
 
 export default function HeroGreeting() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 60);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="hero-layout section-wrap">
-      <div className="hero-copy">
-        <p className="hero-hello">Mohit Aggarwal <span aria-hidden="true">·</span> AI &amp; software engineer</p>
-        <h1>
-          <span className="hero-title__line">I make repetitive work</span>
-          <span className="hero-title__line hero-title__line--accent">easier to get done.</span>
+      <div className={`hero-copy ${mounted ? "is-mounted" : ""}`}>
+        <p className="hero-hello">
+          Mohit Aggarwal <span aria-hidden="true">·</span> AI &amp; software engineer
+        </p>
+        <h1 className="hero-title">
+          <span className="hero-title__mask">
+            <span className="hero-title__line">I make repetitive work</span>
+          </span>
+          <span className="hero-title__mask">
+            <span className="hero-title__line hero-title__line--accent">
+              easier to get done.
+              <span className="hero-title__accent-pip" aria-hidden="true" />
+            </span>
+          </span>
         </h1>
-        <p className="hero-summary">I build practical AI tools and software that collect information, connect everyday apps, and make complex documents easier to understand.</p>
+        <p className="hero-summary">
+          I build practical AI tools and software that collect information, connect everyday apps, and make complex documents easier to understand.
+        </p>
         <ul className="hero-focus" aria-label="Problems I solve">
           <li><span>01</span> Manual, repetitive workflows</li>
           <li><span>02</span> Information scattered across tools</li>

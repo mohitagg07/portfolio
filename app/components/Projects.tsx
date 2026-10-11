@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
 
@@ -161,23 +160,26 @@ export default function Projects() {
       >
         <div className="section-wrap">
           {/* Section Introduction */}
-          <ScrollReveal className="project-intro-reveal">
+          <div className="project-intro-reveal">
             <div className="project-intro">
               <p className="project-eyebrow">Selected Engineering Work</p>
-              <h2 className={`section-heading section-title ${active ? "is-in" : ""}`}>
-                Software engineered for high-stakes workflows
-              </h2>
+              <ScrollReveal variant="mask" delay={0.05}>
+                <h2 className="section-heading section-title">
+                  Software engineered for high-stakes workflows
+                </h2>
+              </ScrollReveal>
               <p className="section-lede mt-5">
                 Practical systems for complex document interpretation, adaptive coaching decisions, and production automation.
               </p>
             </div>
-          </ScrollReveal>
+          </div>
 
           {/* ══════════════════════════════════════════════════════════════ */}
           {/* MOBILE PROJECT SLIDER (visible on screens <= 768px)          */}
           {/* ══════════════════════════════════════════════════════════════ */}
           <div className="work-mobile-slider mt-8" aria-label="Mobile project slider">
             {/* Header controls: Counter + Prev / Next */}
+            {/* Header: Synchronized Project Counter & Category */}
             <div className="mobile-slider-header">
               <div className="slider-counter-wrap">
                 <span className="slider-counter-num">
@@ -187,26 +189,6 @@ export default function Projects() {
                 <span className="slider-counter-kicker">
                   {PROJECT_KICKERS[activeMobileSlide]}
                 </span>
-              </div>
-              <div className="slider-nav-buttons" role="group" aria-label="Project slider controls">
-                <button
-                  type="button"
-                  onClick={() => scrollToSlide(activeMobileSlide - 1)}
-                  disabled={activeMobileSlide === 0}
-                  aria-label="Previous project"
-                  className="slider-nav-btn"
-                >
-                  <ChevronLeft size={18} aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollToSlide(activeMobileSlide + 1)}
-                  disabled={activeMobileSlide === 3}
-                  aria-label="Next project"
-                  className="slider-nav-btn"
-                >
-                  <ChevronRight size={18} aria-hidden="true" />
-                </button>
               </div>
             </div>
 
@@ -221,7 +203,7 @@ export default function Projects() {
             >
               {/* Slide 1: LegalMind AI */}
               <article
-                className="mobile-slide-card"
+                className={`mobile-slide-card ${activeMobileSlide === 0 ? "is-active-slide" : ""}`}
                 role="group"
                 aria-roledescription="slide"
                 aria-label="Project 1 of 4: LegalMind AI"
@@ -361,7 +343,7 @@ export default function Projects() {
 
               {/* Slide 2: VYRN */}
               <article
-                className="mobile-slide-card"
+                className={`mobile-slide-card ${activeMobileSlide === 1 ? "is-active-slide" : ""}`}
                 role="group"
                 aria-roledescription="slide"
                 aria-label="Project 2 of 4: VYRN"
@@ -405,7 +387,7 @@ export default function Projects() {
 
               {/* Slide 3: MindCare */}
               <article
-                className="mobile-slide-card"
+                className={`mobile-slide-card ${activeMobileSlide === 2 ? "is-active-slide" : ""}`}
                 role="group"
                 aria-roledescription="slide"
                 aria-label="Project 3 of 4: MindCare"
@@ -463,7 +445,7 @@ export default function Projects() {
 
               {/* Slide 4: Innovix Studio */}
               <article
-                className="mobile-slide-card"
+                className={`mobile-slide-card ${activeMobileSlide === 3 ? "is-active-slide" : ""}`}
                 role="group"
                 aria-roledescription="slide"
                 aria-label="Project 4 of 4: Innovix Studio"
@@ -520,7 +502,7 @@ export default function Projects() {
               </article>
             </div>
 
-            {/* Pagination Controls & Dots */}
+            {/* Pagination Dots */}
             <div className="slider-pagination-wrap">
               <div className="slider-pagination-dots" role="tablist" aria-label="Project carousel pagination">
                 {[0, 1, 2, 3].map((idx) => (
@@ -535,9 +517,6 @@ export default function Projects() {
                   />
                 ))}
               </div>
-              <p className="mobile-swipe-hint">
-                <span aria-hidden="true">←</span> Swipe to explore projects <span aria-hidden="true">→</span>
-              </p>
             </div>
           </div>
 
@@ -631,16 +610,18 @@ export default function Projects() {
                           <span className="dot dot-green" />
                           <span className="viewport-url">legal-doc-demystifier.vercel.app</span>
                         </div>
-                        <div className="viewport-image-wrapper">
-                          <Image
-                            src="/projects/project-3.png"
-                            alt="LegalMind AI contract demystifier interface showing plain-English clause breakdown"
-                            width={1200}
-                            height={750}
-                            quality={85}
-                            className="viewport-image"
-                          />
-                        </div>
+                        <ScrollReveal variant="clip-image" delay={0.08}>
+                          <div className="viewport-image-wrapper">
+                            <Image
+                              src="/projects/project-3.png"
+                              alt="LegalMind AI contract demystifier interface showing plain-English clause breakdown"
+                              width={1200}
+                              height={750}
+                              quality={85}
+                              className="viewport-image"
+                            />
+                          </div>
+                        </ScrollReveal>
                         <div className="viewport-caption">
                           <span>Multimodal output: plain-English clause translation, obligation timeline, and TTS audio</span>
                         </div>
@@ -706,22 +687,24 @@ export default function Projects() {
                 <div className="featured-project-layout featured-project-layout--reverse">
                   {/* Visual Column */}
                   <div className="featured-project-display">
-                    <div className="vyrn-media-viewport">
-                      <div className="vyrn-image-wrapper">
-                        <Image
-                          src="/projects/vyrn.png"
-                          alt="VYRN mobile interface displaying biometric readiness score, training load, and dynamic volume recommendations"
-                          width={1200}
-                          height={800}
-                          quality={85}
-                          className="vyrn-image"
-                        />
+                    <ScrollReveal variant="clip-image" delay={0.08}>
+                      <div className="vyrn-media-viewport">
+                        <div className="vyrn-image-wrapper">
+                          <Image
+                            src="/projects/vyrn.png"
+                            alt="VYRN mobile interface displaying biometric readiness score, training load, and dynamic volume recommendations"
+                            width={1200}
+                            height={800}
+                            quality={85}
+                            className="vyrn-image"
+                          />
+                        </div>
+                        <div className="vyrn-telemetry-badge">
+                          <span className="telemetry-prototype-dot" />
+                          <span className="telemetry-label">LangGraph Decision Graph · Prototype Interface</span>
+                        </div>
                       </div>
-                      <div className="vyrn-telemetry-badge">
-                        <span className="telemetry-prototype-dot" />
-                        <span className="telemetry-label">LangGraph Decision Graph · Prototype Interface</span>
-                      </div>
-                    </div>
+                    </ScrollReveal>
                   </div>
 
                   {/* Content Column */}
@@ -760,16 +743,18 @@ export default function Projects() {
                 <div className="supporting-grid mt-8" role="region" aria-label="Supporting projects list">
                   {SUPPORTING_PROJECTS.map((proj) => (
                     <article key={proj.title} className="supporting-card">
-                      <div className="supporting-media">
-                        <Image
-                          src={proj.image}
-                          alt={`${proj.title} preview`}
-                          width={800}
-                          height={500}
-                          quality={85}
-                          className="supporting-image"
-                        />
-                      </div>
+                      <ScrollReveal variant="clip-image" delay={0.08}>
+                        <div className="supporting-media">
+                          <Image
+                            src={proj.image}
+                            alt={`${proj.title} preview`}
+                            width={800}
+                            height={500}
+                            quality={85}
+                            className="supporting-image"
+                          />
+                        </div>
+                      </ScrollReveal>
 
                       <div className="supporting-body">
                         <div className="supporting-title-row">

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import HeroGreeting from "./HeroGreeting";
-import ScrollReveal from "./ScrollReveal";
+import HeroCanvas from "./HeroCanvas";
 
 export default function HeroScene() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -34,9 +34,8 @@ export default function HeroScene() {
           <div className="hero-art__glow" />
           <motion.div className="hero-art__scroll-shadow" style={{ opacity: prefersReducedMotion ? 0 : scrollShadow }} />
         </div>
-        <ScrollReveal className="hero-scroll-reveal">
-          <HeroGreeting />
-        </ScrollReveal>
+        <HeroCanvas />
+        <HeroGreeting />
       </section>
     </div>
   );

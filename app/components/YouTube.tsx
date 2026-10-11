@@ -72,12 +72,14 @@ export default function YouTube() {
         {/* Content */}
         <ScrollReveal className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`}>
           <div className="youtube-intro yt-intro">
-            <h2
-              id="yt-heading"
-              className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}
-            >
-              Outside of work
-            </h2>
+            <ScrollReveal variant="mask">
+              <h2
+                id="yt-heading"
+                className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}
+              >
+                Outside of work
+              </h2>
+            </ScrollReveal>
             <p className="section-lede">
               I also make videos about travel, technology, and the process of building things.
             </p>
