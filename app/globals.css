@@ -297,8 +297,7 @@ button { cursor: pointer; font-family: inherit; }
 .rise-word > span { display: inline-block; transform: translateY(110%); transition: transform .58s var(--ease-out-expo); transition-delay: calc(var(--i) * 34ms); }
 .is-in .rise-word > span { transform: none; }
 .vline { position: relative; }
-.vline::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--accent), rgba(255,255,255,.08)); transform: scaleY(0); transform-origin: top; transition: transform .72s var(--ease-smooth); }
-.is-in .vline::before { transform: scaleY(1); }
+.vline::before { display: none; }
 .node { opacity: 0; transform: translateX(-12px); transition: opacity .56s ease, transform .66s var(--ease-out-expo); transition-delay: calc(.08s + var(--i) * .08s); }
 .is-in .node { opacity: 1; transform: none; }
 .hline { position: relative; }
@@ -328,10 +327,7 @@ button { cursor: pointer; font-family: inherit; }
 .story-enter--right { transform: translate3d(0, 18px, 0); transition-delay: .1s; }
 .is-in .story-enter { opacity: 1; transform: translate3d(0,0,0); }
 .story-copy { max-width: 60ch; color: #d0d8e4; font-size: var(--type-body); font-weight: 450; line-height: var(--leading-body); }
-.story-copy p { opacity: 0; transform: translate3d(0,12px,0); transition: opacity .58s ease, transform .68s var(--ease-out-expo); }
-.is-in .story-copy p:nth-child(1) { opacity: 1; transform: none; transition-delay: .12s; }
-.is-in .story-copy p:nth-child(2) { opacity: 1; transform: none; transition-delay: .22s; }
-.is-in .story-copy p:nth-child(3) { opacity: 1; transform: none; transition-delay: .32s; }
+.story-copy p { will-change: transform, opacity; transition: none !important; }
 .story-copy p + p { margin-top: 1.1rem; }
 .story-photo { perspective: 1100px; }
 .story-photo__frame {
@@ -577,6 +573,7 @@ main { overflow-y: clip; }
 .hero-section { overflow: clip; isolation: isolate; background: #060810; }
 .hero-section--sticky { position: sticky; top: 0; height: 100svh; min-height: 100svh; }
 .hero-art { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; background: #060810; }
+.hero-art__scroll-media { position: absolute; inset: 0; transform-origin: center center; will-change: transform, opacity; }
 .hero-art__picture { position: absolute; display: block; inset: 0 0 0 48%; overflow: hidden; perspective: 1400px; }
 .hero-art__image { object-fit: cover; object-position: center 43%; opacity: .72; transform-origin: center; animation: hero-scene-drift 9s ease-in-out infinite; will-change: transform; }
 .hero-art__shade {
@@ -658,6 +655,18 @@ main { overflow-y: clip; }
   box-shadow: 0 -24px 72px rgba(0,0,0,.18);
   padding-block: clamp(40px, 6vh, 64px);
 }
+.about-entry-seam {
+  position: absolute;
+  z-index: 6;
+  top: 0;
+  left: 8%;
+  width: 84%;
+  height: 1px;
+  transform-origin: center;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(95,220,246,.82) 34%, rgba(170,245,214,.92) 52%, rgba(200,255,0,.72) 68%, transparent);
+  box-shadow: 0 0 18px rgba(104,225,218,.22), 0 0 42px rgba(104,225,218,.12);
+}
 .about-scroll-shadow {
   position: absolute;
   z-index: 5;
@@ -699,14 +708,8 @@ main { overflow-y: clip; }
 }
 .rise-word > span {
   display: inline-block;
-  transform: translate3d(0, 115%, 0);
-  opacity: 0;
-  transition: transform 0.85s var(--ease-out-expo), opacity 0.65s ease;
-  transition-delay: calc(var(--i, 0) * 0.06s + 0.12s);
-}
-.about-grid.is-in .rise-word > span {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
+  will-change: transform, opacity;
+  transition: none !important;
 }
 .story-photo__frame {
   transition: transform 0.45s var(--ease-out-expo), border-color 0.45s ease, box-shadow 0.45s ease;
@@ -723,14 +726,19 @@ main { overflow-y: clip; }
   transform: scale(1.03);
 }
 .about-grid .node {
-  opacity: 0;
-  transform: translate3d(0, 16px, 0);
-  transition: opacity 0.75s ease, transform 0.75s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 0.14s + 0.28s);
+  transition: none !important;
+  will-change: transform, opacity;
 }
-.about-grid.is-in .node {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+.about-grid .vline::before { display: none; }
+.vline__motion-track {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  transform-origin: top;
+  background: linear-gradient(var(--accent), rgba(255,255,255,.08));
 }
 .contact-section { isolation: isolate; overflow: hidden; background: #060810; }
 .contact-art { position: absolute; z-index: 0; inset: 0; overflow: hidden; perspective: 1400px; pointer-events: none; background: #060810; }

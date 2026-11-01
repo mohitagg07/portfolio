@@ -1,6 +1,7 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
+import type { MotionValue } from "motion/react";
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import { navigateToSection } from "../utils/scroll";
@@ -11,7 +12,15 @@ const ROTATING_PHRASES = [
   "easier to scale.",
 ];
 
-export default function HeroGreeting() {
+interface HeroGreetingProps {
+  exitOpacity?: MotionValue<number> | number;
+  exitY?: MotionValue<number> | number;
+}
+
+export default function HeroGreeting({
+  exitOpacity = 1,
+  exitY = 0,
+}: HeroGreetingProps) {
   const [mounted, setMounted] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
   const prefersReducedMotion = useReducedMotion();
@@ -35,7 +44,10 @@ export default function HeroGreeting() {
 
   return (
     <div className="hero-layout section-wrap">
-      <div className={"hero-copy " + (mounted ? "is-mounted" : "")}>
+      <motion.div
+        className={"hero-copy " + (mounted ? "is-mounted" : "")}
+        style={{ opacity: exitOpacity, y: exitY }}
+      >
         <p className="hero-hello">
           Mohit Aggarwal <span aria-hidden="true">·</span> AI &amp; software engineer
         </p>
@@ -82,7 +94,7 @@ export default function HeroGreeting() {
             Get in touch <span aria-hidden="true">↗</span>
           </a>
         </div>
-      </div>
+      </motion.div>
 
       <a className="hero-scroll" href="#work" onClick={(event) => navigateToSection(event, "work")} aria-label="Scroll to explore selected projects">
         <span className="hero-scroll__track" aria-hidden="true"><i /></span>

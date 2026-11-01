@@ -21,12 +21,23 @@ const PATH = [
 ];
 
 const idx = (i: number) => ({ "--i": i }) as React.CSSProperties;
+const motionEase = [0.16, 1, 0.3, 1] as const;
 
 export default function Story() {
   const stageRef = useRef<HTMLDivElement>(null);
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const prefersReducedMotion = useReducedMotion();
+
+  // This progress starts as the hero is leaving and completes as About reaches the top.
+  const { scrollYProgress: incomingProgress } = useScroll({
+    target: stageRef,
+    offset: ["start end", "start start"],
+  });
+  const seamOpacity = useTransform(incomingProgress, [0, 0.45, 1], [0, 0.75, 1]);
+  const seamScale = useTransform(incomingProgress, [0, 1], [0.18, 1]);
+  const portraitSettle = useTransform(incomingProgress, [0, 1], [1.045, 1]);
+
   const portraitPointerX = useMotionValue(0);
   const portraitPointerY = useMotionValue(0);
   const portraitRotateX = useSpring(
@@ -47,8 +58,8 @@ export default function Story() {
 
     portraitPointerX.set(x - 0.5);
     portraitPointerY.set(y - 0.5);
-    event.currentTarget.style.setProperty("--story-light-x", `${x * 100}%`);
-    event.currentTarget.style.setProperty("--story-light-y", `${y * 100}%`);
+    event.currentTarget.style.setProperty("--story-light-x", x * 100 + "%");
+    event.currentTarget.style.setProperty("--story-light-y", y * 100 + "%");
     event.currentTarget.dataset.tilting = "true";
   };
 
@@ -71,28 +82,62 @@ export default function Story() {
       <section
         ref={sectionRef}
         id="about"
-        className={`about-sticky-panel ${active ? "is-active" : ""}`}
+        className={"about-sticky-panel " + (active ? "is-active" : "")}
       >
+        <motion.div
+          className="about-entry-seam"
+          aria-hidden="true"
+          style={{
+            opacity: prefersReducedMotion ? 0 : seamOpacity,
+            scaleX: prefersReducedMotion ? 0 : seamScale,
+          }}
+        />
         <motion.div
           className="about-scroll-shadow"
           aria-hidden="true"
           style={{ opacity: prefersReducedMotion ? 0 : shadowOpacity }}
         />
         <ScrollReveal className="about-reveal-wrap">
-          <div ref={topRef} className={`section-wrap about-grid ${topIn ? "is-in" : ""}`}>
+          <div ref={topRef} className={"section-wrap about-grid " + (topIn ? "is-in" : "")}>
             <div className="story-enter max-w-xl">
               <h2 className="section-title story-title" aria-label="I make complex things feel simple.">
-                {"I make complex things feel simple.".split(" ").map((w, i, words) => (
-                  <Fragment key={`${i}-${w}`}>
-                    <span className="rise-word" style={idx(i)} aria-hidden="true"><span>{w}</span></span>
+                {"I make complex things feel simple.".split(" ").map((word, i, words) => (
+                  <Fragment key={i + "-" + word}>
+                    <span className="rise-word" style={idx(i)} aria-hidden="true">
+                      <motion.span
+                        initial={prefersReducedMotion ? false : { y: "115%", opacity: 0 }}
+                        animate={topIn ? { y: "0%", opacity: 1 } : { y: "115%", opacity: 0 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.72, delay: 0.1 + i * 0.045, ease: motionEase }}
+                      >
+                        {word}
+                      </motion.span>
+                    </span>
                     {i < words.length - 1 ? " " : null}
                   </Fragment>
                 ))}
               </h2>
               <div className="story-copy mt-6 space-y-4">
-                <p>I live in Jammu and studied computer science in Chennai. Every project I pick has the same shape: something genuinely useful, buried under too much complexity.</p>
-                <p>At work, I build tools that handle the boring parts for clients, like collecting information from websites, connecting apps, and answering routine questions automatically.</p>
-                <p>On the side, I make my own: a companion for heavy days, a reader that explains contracts like a friend would, and a coach that learns how you train. I make videos about it on YouTube too.</p>
+                <motion.p
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+                  animate={topIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.62, delay: 0.34, ease: motionEase }}
+                >
+                  I live in Jammu and studied computer science in Chennai. Every project I pick has the same shape: something genuinely useful, buried under too much complexity.
+                </motion.p>
+                <motion.p
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+                  animate={topIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.62, delay: 0.45, ease: motionEase }}
+                >
+                  At work, I build tools that handle the boring parts for clients, like collecting information from websites, connecting apps, and answering routine questions automatically.
+                </motion.p>
+                <motion.p
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+                  animate={topIn ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.62, delay: 0.56, ease: motionEase }}
+                >
+                  On the side, I make my own: a companion for heavy days, a reader that explains contracts like a friend would, and a coach that learns how you train. I make videos about it on YouTube too.
+                </motion.p>
               </div>
             </div>
 
@@ -101,6 +146,7 @@ export default function Story() {
                 <motion.div
                   className="story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]"
                   style={{
+                    scale: prefersReducedMotion ? 1 : portraitSettle,
                     rotateX: prefersReducedMotion ? 0 : portraitRotateX,
                     rotateY: prefersReducedMotion ? 0 : portraitRotateY,
                     transformPerspective: 1100,
@@ -121,13 +167,27 @@ export default function Story() {
                 </motion.div>
               </div>
               <ol className="vline pl-8">
+                <motion.span
+                  className="vline__motion-track"
+                  aria-hidden="true"
+                  initial={prefersReducedMotion ? false : { scaleY: 0 }}
+                  animate={topIn ? { scaleY: 1 } : { scaleY: 0 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.9, delay: 0.32, ease: motionEase }}
+                />
                 {PATH.map(([when, where, what], i) => (
-                  <li key={where} className="node relative" style={idx(i)}>
+                  <motion.li
+                    key={where}
+                    className="node relative"
+                    style={idx(i)}
+                    initial={prefersReducedMotion ? false : { opacity: 0, x: -14 }}
+                    animate={topIn ? { opacity: 1, x: 0 } : { opacity: 0, x: -14 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.62, delay: 0.42 + i * 0.12, ease: motionEase }}
+                  >
                     <span className="absolute -left-[36px] top-2 h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_12px_var(--accent)]" />
                     <p className="text-sm text-[var(--accent)]">{when}</p>
                     <p className="font-semibold">{where}</p>
                     <p className="text-sm text-[var(--fg-muted)]">{what}</p>
-                  </li>
+                  </motion.li>
                 ))}
               </ol>
             </div>
