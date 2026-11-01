@@ -16,13 +16,12 @@ const LIQUID_FULL = "polygon(0% 0%, 5% 0%, 10% 0%, 15% 0%, 20% 0%, 25% 0%, 30% 0
 
 const liquidTransition = {
   clipPath: {
-    duration: 1.45,
-    times: [0, 0.58, 1],
+    duration: 1.55,
     ease: [0.42, 0, 0.18, 1] as const,
   },
-  y: { duration: 1.25, ease: [0.22, 1, 0.36, 1] as const },
-  opacity: { duration: 0.9, ease: "easeOut" as const },
-  scaleY: { duration: 1.3, ease: [0.22, 1, 0.36, 1] as const },
+  y: { duration: 1.35, ease: [0.22, 1, 0.36, 1] as const },
+  opacity: { duration: 1.05, ease: "easeOut" as const },
+  scaleY: { duration: 1.4, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 export default function HeroGreeting() {
