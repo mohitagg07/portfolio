@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
@@ -104,9 +104,10 @@ export default function Projects() {
     target: workStageRef,
     offset: ["start end", "start start"],
   });
-  const workLift = useTransform(workEntryProgress, [0, 0.55, 1], [104, 28, 0]);
-  const workScale = useTransform(workEntryProgress, [0, 1], [0.975, 1]);
-  const workOpacity = useTransform(workEntryProgress, [0, 1], [0.88, 1]);
+  const workLiftRaw = useTransform(workEntryProgress, [0, 0.62, 1], [148, 34, 0]);
+  const workOpacityRaw = useTransform(workEntryProgress, [0, 1], [0.93, 1]);
+  const workLift = useSpring(workLiftRaw, { stiffness: 185, damping: 29, mass: 0.58 });
+  const workOpacity = useSpring(workOpacityRaw, { stiffness: 190, damping: 31, mass: 0.52 });
   const [legalMindView, setLegalMindView] = useState<"preview" | "architecture">("preview");
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [activeMobileSlide, setActiveMobileSlide] = useState<number>(0);
@@ -172,7 +173,6 @@ export default function Projects() {
         className={`section-spacer work-section relative z-10 bg-[#f4f4f5] rounded-t-[3rem] shadow-2xl ${active ? "is-active" : ""}`}
         style={{
           y: prefersReducedMotion ? 0 : workLift,
-          scale: prefersReducedMotion ? 1 : workScale,
           opacity: prefersReducedMotion ? 1 : workOpacity,
           transformOrigin: "top center",
         }}

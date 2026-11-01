@@ -1202,7 +1202,21 @@ main { overflow-y: clip; }
   pointer-events: none;
 }
 #work.work-section.is-active::before { opacity: .95; transform: scaleX(1); }
-#work.work-section::after { display: none; }
+#work.work-section::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: clamp(18px, 4.5vw, 64px);
+  right: clamp(18px, 4.5vw, 64px);
+  height: 22px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.34) 1px, rgba(154,231,218,.13) 2px, transparent 100%);
+  opacity: .58;
+}
 #work .section-wrap { z-index: 1; }
 #work .project-intro { max-width: 760px; margin-inline: auto; text-align: center; opacity: 0; transform: translate3d(0,20px,0); transition: opacity .7s ease, transform .82s var(--ease-out-expo); }
 #work.is-active .project-intro { opacity: 1; transform: none; }
