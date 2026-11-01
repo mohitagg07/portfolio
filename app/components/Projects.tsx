@@ -104,10 +104,10 @@ export default function Projects() {
     target: workStageRef,
     offset: ["start end", "start start"],
   });
-  const workLiftRaw = useTransform(workEntryProgress, [0, 0.62, 1], [148, 34, 0]);
-  const workOpacityRaw = useTransform(workEntryProgress, [0, 1], [0.93, 1]);
-  const workLift = useSpring(workLiftRaw, { stiffness: 185, damping: 29, mass: 0.58 });
-  const workOpacity = useSpring(workOpacityRaw, { stiffness: 190, damping: 31, mass: 0.52 });
+  const workContentLiftRaw = useTransform(workEntryProgress, [0, 0.62, 1], [76, 18, 0]);
+  const workContentOpacityRaw = useTransform(workEntryProgress, [0, 1], [0.88, 1]);
+  const workContentLift = useSpring(workContentLiftRaw, { stiffness: 185, damping: 29, mass: 0.58 });
+  const workContentOpacity = useSpring(workContentOpacityRaw, { stiffness: 190, damping: 31, mass: 0.52 });
   const [legalMindView, setLegalMindView] = useState<"preview" | "architecture">("preview");
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [activeMobileSlide, setActiveMobileSlide] = useState<number>(0);
@@ -167,17 +167,18 @@ export default function Projects() {
 
   return (
     <div ref={workStageRef} className="work-scroll-stage">
-      <motion.section
+      <section
         ref={sectionRef}
         id="work"
         className={`section-spacer work-section relative z-10 bg-[#f4f4f5] rounded-t-[3rem] shadow-2xl ${active ? "is-active" : ""}`}
-        style={{
-          y: prefersReducedMotion ? 0 : workLift,
-          opacity: prefersReducedMotion ? 1 : workOpacity,
-          transformOrigin: "top center",
-        }}
       >
-        <div className="section-wrap">
+        <motion.div
+          className="section-wrap work-entry-content"
+          style={{
+            y: prefersReducedMotion ? 0 : workContentLift,
+            opacity: prefersReducedMotion ? 1 : workContentOpacity,
+          }}
+        >
           {/* Section Introduction */}
           <div className="project-intro-reveal">
             <div className="project-intro">
@@ -816,8 +817,8 @@ export default function Projects() {
               <span />
             </div>
           </ScrollReveal>
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
     </div>
   );
 }
