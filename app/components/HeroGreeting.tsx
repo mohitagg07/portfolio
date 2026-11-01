@@ -59,7 +59,9 @@ export default function HeroGreeting() {
           <span className="hero-title__mask hero-title__mask--liquid">
             <span className="hero-title__line hero-title__line--accent">
               <span className="hero-title__phrase-window" aria-label={staticPhrase}>
-                <span className="hero-title__phrase-sizer" aria-hidden="true">{ROTATING_PHRASES[0]}</span>
+                {ROTATING_PHRASES.map((phrase) => (
+                  <span className="hero-title__phrase-sizer" aria-hidden="true" key={phrase}>{phrase}</span>
+                ))}
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={staticPhrase}
