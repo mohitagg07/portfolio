@@ -717,7 +717,7 @@ main { overflow-y: clip; }
   text-transform: uppercase;
   opacity: 0;
   transform: translate3d(0, 14px, 0);
-  transition: opacity 0.75s ease 0.08s, transform 0.75s var(--ease-out-expo) 0.08s;
+  transition: opacity 0.42s ease 0.04s, transform 0.58s var(--ease-out-expo) 0.04s;
 }
 .hero-copy.is-mounted .hero-hello {
   opacity: 1;
@@ -744,12 +744,12 @@ main { overflow-y: clip; }
   display: inline-block;
   opacity: 0;
   transform: translate3d(0, 115%, 0);
-  transition: opacity 0.5s ease 0.2s, transform 0.95s var(--ease-out-expo) 0.2s;
+  transition: opacity 0.38s ease 0.1s, transform 0.72s var(--ease-out-expo) 0.1s;
   will-change: transform, opacity;
 }
 .hero-title__line--accent {
   color: #c8ff75;
-  transition-delay: 0.38s;
+  transition-delay: 0.2s;
   position: relative;
 }
 .hero-copy.is-mounted .hero-title__line {
@@ -767,7 +767,7 @@ main { overflow-y: clip; }
   vertical-align: middle;
   opacity: 0;
   transform: scale(0.5);
-  transition: opacity 0.5s ease 0.65s, transform 0.6s var(--ease-out-expo) 0.65s;
+  transition: opacity 0.35s ease 0.38s, transform 0.45s var(--ease-out-expo) 0.38s;
 }
 .hero-copy.is-mounted .hero-title__accent-pip {
   opacity: 1;
@@ -783,7 +783,7 @@ main { overflow-y: clip; }
   line-height: 1.7;
   opacity: 0;
   transform: translate3d(0, 16px, 0);
-  transition: opacity 0.75s ease 0.55s, transform 0.85s var(--ease-out-expo) 0.55s;
+  transition: opacity 0.48s ease 0.4s, transform 0.58s var(--ease-out-expo) 0.4s;
 }
 .hero-copy.is-mounted .hero-summary {
   opacity: 1;
@@ -799,7 +799,7 @@ main { overflow-y: clip; }
   list-style: none;
   opacity: 0;
   transform: translate3d(0, 16px, 0);
-  transition: opacity 0.75s ease 0.7s, transform 0.85s var(--ease-out-expo) 0.7s;
+  transition: opacity 0.48s ease 0.5s, transform 0.58s var(--ease-out-expo) 0.5s;
 }
 .hero-copy.is-mounted .hero-focus {
   opacity: 1;
@@ -815,7 +815,7 @@ main { overflow-y: clip; }
   margin-top: 30px;
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.75s ease 0.85s, transform 0.85s var(--ease-out-expo) 0.85s;
+  transition: opacity 0.48s ease 0.6s, transform 0.58s var(--ease-out-expo) 0.6s;
 }
 .hero-copy.is-mounted .hero-actions {
   opacity: 1;
@@ -858,7 +858,7 @@ main { overflow-y: clip; }
   letter-spacing: .065em;
   transform: translateX(-50%);
   opacity: 0;
-  animation: hero-fade-rise 0.9s var(--ease-out-expo) 1.02s forwards;
+  animation: hero-fade-rise 0.7s var(--ease-out-expo) 0.78s forwards;
   transition: color .25s ease;
 }
 .hero-scroll:hover { color: #f5f7fb; }
@@ -888,7 +888,7 @@ main { overflow-y: clip; }
   animation: scroll-signal 1.65s ease-in-out infinite;
 }
 @keyframes scroll-signal { 0% { transform: translate3d(-50%,0,0); opacity: 0; } 25% { opacity: 1; } 75% { opacity: .75; } 100% { transform: translate3d(-50%,18px,0); opacity: 0; } }
-@keyframes hero-fade-rise { to { opacity: 1; transform: translate3d(0,0,0); } }
+@keyframes hero-fade-rise { to { opacity: 1; transform: translate3d(-50%,0,0); } }
 @keyframes hero-mask-rise {
   0% {
     opacity: 0;
@@ -1022,7 +1022,8 @@ main { overflow-y: clip; }
   .rise-word > span, .node, .hline > *, .project-body, .story-copy p { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
   .section-spacer::before, .section-spacer::after, .site-footer::before, .site-footer::after { transition: none !important; }
   .story-copy, .story-enter, .contact-column, .youtube-intro, .youtube-channel, .youtube-card, .footer-side { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .hero-hello, .hero-title__line, .hero-title__accent-pip, .hero-summary, .hero-focus, .hero-actions, .hero-scroll { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-hello, .hero-title__line, .hero-title__accent-pip, .hero-summary, .hero-focus, .hero-actions { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .hero-scroll { opacity: 1 !important; transform: translateX(-50%) !important; animation: none !important; }
   .hero-scroll__track i { animation: none !important; }
   .hero-button, .story-portrait { transition: none; }
 }
