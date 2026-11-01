@@ -71,16 +71,16 @@ export default function HeroGreeting() {
                       scaleY: 0.94,
                     }}
                     animate={{
-                      clipPath: [LIQUID_HIDDEN, LIQUID_WAVE, LIQUID_FULL],
-                      y: [12, 3, 0],
-                      opacity: [0.72, 1, 1],
-                      scaleY: [0.94, 1.012, 1],
+                      clipPath: [LIQUID_WAVE, LIQUID_FULL],
+                      y: [4, 0],
+                      opacity: [0.9, 1],
+                      scaleY: [0.985, 1],
                     }}
                     exit={prefersReducedMotion ? undefined : {
-                      clipPath: [LIQUID_FULL, LIQUID_WAVE, LIQUID_HIDDEN],
-                      y: [0, -4, -9],
-                      opacity: [1, 0.96, 0],
-                      scaleY: [1, 1.012, 1.02],
+                      clipPath: [LIQUID_WAVE, LIQUID_HIDDEN],
+                      y: [-4, -9],
+                      opacity: [0.94, 0],
+                      scaleY: [1.012, 1.02],
                     }}
                     transition={prefersReducedMotion ? { duration: 0 } : liquidTransition}
                   >
