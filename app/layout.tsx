@@ -1,10 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const displayFont = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display-face",
+});
+
+const bodyFont = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body-face",
 });
 
 const expressiveFont = Instrument_Serif({
@@ -48,7 +53,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={displayFont.variable + " " + expressiveFont.variable}>
+    <html lang="en" className={displayFont.variable + " " + bodyFont.variable + " " + expressiveFont.variable}>
       <body className="antialiased">
         {children}
       </body>

@@ -7,8 +7,23 @@ import { navigateToSection } from "../utils/scroll";
 const ROTATING_PHRASES = [
   "easier to get done.",
   "simpler to manage.",
-  "faster to finish.",
+  "easier to scale.",
 ];
+
+const LIQUID_HIDDEN = "polygon(0% 100%, 5% 100%, 10% 100%, 15% 100%, 20% 100%, 25% 100%, 30% 100%, 35% 100%, 40% 100%, 45% 100%, 50% 100%, 55% 100%, 60% 100%, 65% 100%, 70% 100%, 75% 100%, 80% 100%, 85% 100%, 90% 100%, 95% 100%, 100% 100%, 100% 100%, 0% 100%)";
+const LIQUID_WAVE = "polygon(0% 82%, 5% 77%, 10% 70%, 15% 66%, 20% 67%, 25% 71%, 30% 76%, 35% 77%, 40% 72%, 45% 66%, 50% 64%, 55% 67%, 60% 73%, 65% 78%, 70% 78%, 75% 73%, 80% 67%, 85% 65%, 90% 69%, 95% 77%, 100% 83%, 100% 100%, 0% 100%)";
+const LIQUID_FULL = "polygon(0% 0%, 5% 0%, 10% 0%, 15% 0%, 20% 0%, 25% 0%, 30% 0%, 35% 0%, 40% 0%, 45% 0%, 50% 0%, 55% 0%, 60% 0%, 65% 0%, 70% 0%, 75% 0%, 80% 0%, 85% 0%, 90% 0%, 95% 0%, 100% 0%, 100% 100%, 0% 100%)";
+
+const liquidTransition = {
+  clipPath: {
+    duration: 1.45,
+    times: [0, 0.58, 1],
+    ease: [0.42, 0, 0.18, 1] as const,
+  },
+  y: { duration: 1.25, ease: [0.22, 1, 0.36, 1] as const },
+  opacity: { duration: 0.9, ease: "easeOut" as const },
+  scaleY: { duration: 1.3, ease: [0.22, 1, 0.36, 1] as const },
+};
 
 export default function HeroGreeting() {
   const [mounted, setMounted] = useState(false);
@@ -25,10 +40,12 @@ export default function HeroGreeting() {
 
     const interval = window.setInterval(() => {
       setPhraseIndex((current) => (current + 1) % ROTATING_PHRASES.length);
-    }, 3600);
+    }, 6200);
 
     return () => window.clearInterval(interval);
   }, [mounted, prefersReducedMotion]);
+
+  const staticPhrase = ROTATING_PHRASES[phraseIndex];
 
   return (
     <div className="hero-layout section-wrap">
@@ -42,21 +59,36 @@ export default function HeroGreeting() {
           </span>
           <span className="hero-title__mask hero-title__mask--liquid">
             <span className="hero-title__line hero-title__line--accent">
-              <span className="hero-title__phrase-window" aria-label={ROTATING_PHRASES[phraseIndex]}>
-                <AnimatePresence mode="wait" initial={false}>
+              <span className="hero-title__phrase-window" aria-label={staticPhrase}>
+                <span className="hero-title__phrase-sizer" aria-hidden="true">{ROTATING_PHRASES[0]}</span>
+                <AnimatePresence mode="wait">
                   <motion.span
-                    key={ROTATING_PHRASES[phraseIndex]}
+                    key={staticPhrase}
                     className="hero-title__phrase"
-                    initial={prefersReducedMotion ? false : { y: "-112%", opacity: 0, filter: "blur(7px)", scaleY: 0.9 }}
-                    animate={{ y: "0%", opacity: 1, filter: "blur(0px)", scaleY: 1 }}
-                    exit={prefersReducedMotion ? undefined : { y: "112%", opacity: 0, filter: "blur(7px)", scaleY: 1.04 }}
-                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.82, ease: [0.22, 1, 0.36, 1] }}
+                    initial={prefersReducedMotion ? false : {
+                      clipPath: LIQUID_HIDDEN,
+                      y: 12,
+                      opacity: 0.72,
+                      scaleY: 0.94,
+                    }}
+                    animate={{
+                      clipPath: [LIQUID_HIDDEN, LIQUID_WAVE, LIQUID_FULL],
+                      y: [12, 3, 0],
+                      opacity: [0.72, 1, 1],
+                      scaleY: [0.94, 1.012, 1],
+                    }}
+                    exit={prefersReducedMotion ? undefined : {
+                      clipPath: [LIQUID_FULL, LIQUID_WAVE, LIQUID_HIDDEN],
+                      y: [0, -4, -9],
+                      opacity: [1, 0.96, 0],
+                      scaleY: [1, 1.012, 1.02],
+                    }}
+                    transition={prefersReducedMotion ? { duration: 0 } : liquidTransition}
                   >
-                    {ROTATING_PHRASES[phraseIndex]}
+                    {staticPhrase}
                   </motion.span>
                 </AnimatePresence>
               </span>
-              <span className="hero-title__accent-pip" aria-hidden="true" />
             </span>
           </span>
         </h1>
