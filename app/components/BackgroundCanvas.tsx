@@ -26,7 +26,7 @@ export default function BackgroundCanvas() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let animId = 0;
-    let isVisible = true;
+    let isVisible = false;
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -93,16 +93,28 @@ export default function BackgroundCanvas() {
       mouseActive = false;
     };
 
-    // Pause animation when scrolled well past hero to conserve GPU/CPU
+    // Pause and clear once the ambient particles are outside their intended hero range.
+    // Clearing matters: stopping RAF alone leaves the last particle frame painted on the fixed canvas.
     const checkVisibility = () => {
       const scrollY = window.scrollY;
       const shouldBeVisible = scrollY < window.innerHeight * 1.3 && !document.hidden;
-      if (shouldBeVisible !== isVisible) {
-        isVisible = shouldBeVisible;
-        if (isVisible && !prefersReducedMotion && !animId) {
+      if (shouldBeVisible === isVisible) return;
+
+      isVisible = shouldBeVisible;
+      canvas.style.visibility = isVisible ? "visible" : "hidden";
+
+      if (isVisible) {
+        if (prefersReducedMotion) {
+          drawFrame();
+        } else if (!animId) {
           animId = requestAnimationFrame(loop);
         }
+        return;
       }
+
+      if (animId) cancelAnimationFrame(animId);
+      animId = 0;
+      ctx.clearRect(0, 0, width, height);
     };
 
     const drawFrame = () => {
@@ -214,10 +226,7 @@ export default function BackgroundCanvas() {
     document.addEventListener("visibilitychange", checkVisibility);
 
     resize();
-
-    if (!prefersReducedMotion) {
-      animId = requestAnimationFrame(loop);
-    }
+    checkVisibility();
 
     return () => {
       if (animId) cancelAnimationFrame(animId);
