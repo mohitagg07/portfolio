@@ -1,5 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+
+const displayFont = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display-face",
+});
+
+const expressiveFont = Instrument_Serif({
+  subsets: ["latin"],
+  style: "italic",
+  weight: "400",
+  variable: "--font-accent-face",
+});
 
 const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (vercelHost ? `https://${vercelHost}` : "http://localhost:3000");
@@ -35,7 +48,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={displayFont.variable + " " + expressiveFont.variable}>
       <body className="antialiased">
         {children}
       </body>
