@@ -792,9 +792,9 @@ main { overflow-y: clip; }
   display: inline-grid;
   position: relative;
   grid-template-areas: "phrase";
-  overflow: hidden;
+  overflow: visible;
   vertical-align: baseline;
-  padding: 0 .04em .1em 0;
+  padding: .02em .05em .12em 0;
 }
 .hero-title__phrase-sizer,
 .hero-title__phrase {
@@ -810,7 +810,23 @@ main { overflow-y: clip; }
 .hero-title__phrase {
   width: max-content;
   transform-origin: 50% 72%;
-  will-change: clip-path, transform, opacity;
+  animation: hero-phrase-arrive .42s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-title__wave-letter {
+  display: inline-block;
+  font: inherit;
+  line-height: inherit;
+  animation: hero-letter-tide 1.3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -.14s);
+  will-change: transform;
+}
+@keyframes hero-letter-tide {
+  0%, 100% { transform: translate3d(0, 3px, 0) rotate(-.25deg); }
+  50% { transform: translate3d(0, -4px, 0) rotate(.25deg); }
+}
+@keyframes hero-phrase-arrive {
+  from { opacity: .55; transform: translate3d(0, 7px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 .hero-copy.is-mounted .hero-title__line {
   opacity: 1;
@@ -1082,7 +1098,8 @@ main { overflow-y: clip; }
   .section-spacer::before, .section-spacer::after, .site-footer::before, .site-footer::after { transition: none !important; }
   .story-copy, .story-enter, .contact-column, .youtube-intro, .youtube-channel, .youtube-card, .footer-side { opacity: 1 !important; transform: none !important; transition: none !important; }
   .hero-hello, .hero-title__line, .hero-summary, .hero-focus, .hero-actions { opacity: 1 !important; transform: none !important; animation: none !important; }
-  .hero-title__phrase { filter: none !important; }
+  .hero-title__phrase { filter: none !important; animation: none !important; }
+  .hero-title__wave-letter { animation: none !important; transform: none !important; }
   .hero-scroll { opacity: 1 !important; transform: translateX(-50%) !important; animation: none !important; }
   .hero-scroll__track i { animation: none !important; }
   .hero-title__line--accent { animation: none !important; background-position: 0 50%; }
