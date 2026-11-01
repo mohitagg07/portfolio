@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
@@ -92,8 +93,20 @@ const PROJECT_NAMES = [
 ];
 
 export default function Projects() {
+  const workStageRef = useRef<HTMLDivElement>(null);
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [transitionRef, transitionSeen] = useInView<HTMLDivElement>(0.2);
+  const prefersReducedMotion = useReducedMotion();
+
+  // This uses the same 100svh handoff window as About's fade:
+  // Work begins rising as it enters from below, then settles as it reaches the top.
+  const { scrollYProgress: workEntryProgress } = useScroll({
+    target: workStageRef,
+    offset: ["start end", "start start"],
+  });
+  const workLift = useTransform(workEntryProgress, [0, 0.55, 1], [104, 28, 0]);
+  const workScale = useTransform(workEntryProgress, [0, 1], [0.975, 1]);
+  const workOpacity = useTransform(workEntryProgress, [0, 1], [0.88, 1]);
   const [legalMindView, setLegalMindView] = useState<"preview" | "architecture">("preview");
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [activeMobileSlide, setActiveMobileSlide] = useState<number>(0);
@@ -152,11 +165,17 @@ export default function Projects() {
   };
 
   return (
-    <div className="work-scroll-stage">
-      <section
+    <div ref={workStageRef} className="work-scroll-stage">
+      <motion.section
         ref={sectionRef}
         id="work"
         className={`section-spacer work-section relative z-10 bg-[#f4f4f5] rounded-t-[3rem] shadow-2xl ${active ? "is-active" : ""}`}
+        style={{
+          y: prefersReducedMotion ? 0 : workLift,
+          scale: prefersReducedMotion ? 1 : workScale,
+          opacity: prefersReducedMotion ? 1 : workOpacity,
+          transformOrigin: "top center",
+        }}
       >
         <div className="section-wrap">
           {/* Section Introduction */}
@@ -798,7 +817,7 @@ export default function Projects() {
             </div>
           </ScrollReveal>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
