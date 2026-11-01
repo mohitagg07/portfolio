@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 import { Fragment, useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import type { PointerEvent as ReactPointerEvent } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
 
@@ -19,6 +27,37 @@ export default function Story() {
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [topRef, topIn] = useInView<HTMLDivElement>(0.2);
   const prefersReducedMotion = useReducedMotion();
+  const portraitPointerX = useMotionValue(0);
+  const portraitPointerY = useMotionValue(0);
+  const portraitRotateX = useSpring(
+    useTransform(portraitPointerY, [-0.5, 0.5], [3.5, -3.5]),
+    { stiffness: 170, damping: 24, mass: 0.45 }
+  );
+  const portraitRotateY = useSpring(
+    useTransform(portraitPointerX, [-0.5, 0.5], [-4, 4]),
+    { stiffness: 170, damping: 24, mass: 0.45 }
+  );
+
+  const handlePortraitPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (prefersReducedMotion || event.pointerType !== "mouse") return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
+    const y = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
+
+    portraitPointerX.set(x - 0.5);
+    portraitPointerY.set(y - 0.5);
+    event.currentTarget.style.setProperty("--story-light-x", `${x * 100}%`);
+    event.currentTarget.style.setProperty("--story-light-y", `${y * 100}%`);
+    event.currentTarget.dataset.tilting = "true";
+  };
+
+  const resetPortraitPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
+    portraitPointerX.set(0);
+    portraitPointerY.set(0);
+    event.currentTarget.dataset.tilting = "false";
+  };
+
   const { scrollYProgress } = useScroll({
     target: stageRef,
     offset: ["start start", "end start"],
@@ -59,7 +98,17 @@ export default function Story() {
 
             <div className="story-enter story-enter--right">
               <div className="story-photo mx-auto w-full">
-                <div className="story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+                <motion.div
+                  className="story-photo__frame relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]"
+                  style={{
+                    rotateX: prefersReducedMotion ? 0 : portraitRotateX,
+                    rotateY: prefersReducedMotion ? 0 : portraitRotateY,
+                    transformPerspective: 1100,
+                    transformStyle: "preserve-3d",
+                  }}
+                  onPointerMove={handlePortraitPointerMove}
+                  onPointerLeave={resetPortraitPointer}
+                >
                   <Image
                     src="/assets/mohit-story.jpg"
                     alt="Mohit seated outdoors in a black suit"
@@ -69,7 +118,7 @@ export default function Story() {
                     className="story-portrait object-cover"
                   />
                   <span className="story-photo__label"><i /> Jammu, India</span>
-                </div>
+                </motion.div>
               </div>
               <ol className="vline pl-8">
                 {PATH.map(([when, where, what], i) => (

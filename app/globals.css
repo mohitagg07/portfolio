@@ -333,13 +333,50 @@ button { cursor: pointer; font-family: inherit; }
 .is-in .story-copy p:nth-child(2) { opacity: 1; transform: none; transition-delay: .22s; }
 .is-in .story-copy p:nth-child(3) { opacity: 1; transform: none; transition-delay: .32s; }
 .story-copy p + p { margin-top: 1.1rem; }
-.story-photo__frame { box-shadow: 0 28px 72px rgba(0,0,0,.36), 0 0 0 1px rgba(213,235,255,.08), inset 0 1px 0 rgba(255,255,255,.22); }
-.story-photo__frame::after { content: ""; position: absolute; z-index: 1; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(ellipse at 35% 22%, rgba(235,251,255,.18), transparent 42%), linear-gradient(150deg,rgba(255,255,255,.08),transparent 26%,transparent 74%,rgba(5,10,20,.18)); mix-blend-mode: screen; }
+.story-photo { perspective: 1100px; }
+.story-photo__frame {
+  transform-style: preserve-3d;
+  transition: box-shadow .35s ease, border-color .35s ease;
+  box-shadow: 0 28px 72px rgba(0,0,0,.36), 0 0 0 1px rgba(213,235,255,.08), inset 0 1px 0 rgba(255,255,255,.22);
+}
+.story-photo__frame::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at var(--story-light-x, 35%) var(--story-light-y, 22%), rgba(235,251,255,.24), transparent 40%),
+    linear-gradient(150deg,rgba(255,255,255,.08),transparent 26%,transparent 74%,rgba(5,10,20,.18));
+  mix-blend-mode: screen;
+  transition: opacity .25s ease;
+}
+.story-photo__frame::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 28%, rgba(255,255,255,.15) 48%, rgba(255,255,255,.02) 54%, transparent 70%);
+  opacity: 0;
+  transform: translateX(-24%);
+  transition: opacity .35s ease, transform .8s cubic-bezier(.22,1,.36,1);
+}
+.story-photo__frame[data-tilting="true"] {
+  box-shadow: 0 36px 82px rgba(0,0,0,.42), 0 0 0 1px rgba(196,237,255,.2), inset 0 1px 0 rgba(255,255,255,.32);
+}
+.story-photo__frame[data-tilting="true"]::before {
+  opacity: .85;
+  transform: translateX(14%);
+}
 .story-portrait { object-position: 52% 21%; transition: transform .5s ease; }
 .story-photo__frame:hover .story-portrait { transform: scale(1.035); }
 .story-photo__label {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
+  transform: translateZ(18px);
   left: 16px;
   bottom: 16px;
   display: inline-flex;
