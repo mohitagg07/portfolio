@@ -661,7 +661,7 @@ main { overflow-y: clip; }
   height: 260svh;
   margin-bottom: -100svh;
   isolation: isolate;
-  background: #080d16;
+  background: #060810;
 }
 .about-sticky-panel {
   position: sticky;
@@ -675,7 +675,7 @@ main { overflow-y: clip; }
   isolation: isolate;
   background: #060810;
   border: 1px solid rgba(151,205,224,.075);
-  border-top-color: rgba(159,224,221,.17);
+  border-top-color: rgba(159,224,221,.1);
   border-radius: clamp(28px, 4.5vw, 48px) clamp(28px, 4.5vw, 48px) 0 0;
   box-shadow:
     0 -24px 72px rgba(0,0,0,.18),
@@ -1744,6 +1744,7 @@ main { overflow-y: clip; }
   background: #eef1f5;
   border-bottom: 1px solid #edf0f4;
 }
+.supporting-media--mindcare { aspect-ratio: 2.3 / 1; background: #f5f2e9; }
 .supporting-image {
   width: 100%;
   height: 100%;

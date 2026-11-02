@@ -62,11 +62,11 @@ interface SupportingProject {
 const SUPPORTING_PROJECTS: SupportingProject[] = [
   {
     title: "MindCare",
-    category: "AI Companion · Web App",
-    description: "Combines conversational check-ins, mood tracking over time, and emotion-related signals to support daily reflection.",
-    implementation: "Built with persistent vector memory for conversational continuity across sessions, paired with real-time facial expression analysis.",
-    image: "/projects/project-2.png",
-    demo: "https://mindcare-yb5c.vercel.app/",
+    category: "AI Reflection · Web App",
+    description: "A calmer reflection space for guided conversations, structured check-ins, and small next steps—without presenting AI as therapy or diagnosis.",
+    implementation: "Built with React and FastAPI, account-backed sessions, streaming conversations, and user-controlled saved memory. The optional visual reflection tool stays secondary.",
+    image: "/projects/mindcare-landing.webp",
+    demo: "https://mindcare-opal.vercel.app/",
   },
   {
     title: "Innovix Studio",
@@ -764,10 +764,10 @@ export default function Projects() {
                   {SUPPORTING_PROJECTS.map((proj) => (
                     <article key={proj.title} className="supporting-card">
                       <ScrollReveal variant="clip-image" delay={0.08}>
-                        <div className="supporting-media">
+                        <div className={`supporting-media${proj.title === "MindCare" ? " supporting-media--mindcare" : ""}`}>
                           <Image
                             src={proj.image}
-                            alt={`${proj.title} preview`}
+                            alt={proj.title === "MindCare" ? "MindCare landing page with an ivory and forest-green reflection experience" : `${proj.title} preview`}
                             width={800}
                             height={500}
                             quality={85}
