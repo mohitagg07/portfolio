@@ -79,7 +79,7 @@ export default function HeroGreeting({
           </span>
         </h1>
         <p className="hero-summary">
-          I build practical AI tools and software that collect information, connect everyday apps, and make complex documents easier to understand.
+          I build software that takes the busywork out of everyday workflows—from gathering information to making dense documents easier to understand.
         </p>
         <ul className="hero-focus" aria-label="Problems I solve">
           <li><span>01</span> Manual, repetitive workflows</li>

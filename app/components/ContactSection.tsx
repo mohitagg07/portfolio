@@ -51,13 +51,13 @@ export default function ContactSection() {
         <div className="contact-column max-w-md">
           <ScrollReveal variant="mask">
             <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
-              Let&apos;s build
+              Have a project
               <br />
-              <span className="glow-text">something great.</span>
+              <span className="glow-text">in mind?</span>
             </h2>
           </ScrollReveal>
           <p className="section-lede mt-6">
-            Have an idea, need a website, or want to try AI in your work? Tell me about it. I&apos;ll reply as soon as I can.
+            Tell me what you&apos;re trying to build or make simpler. A short note is enough to get the conversation started.
           </p>
 
           <ul className="mt-10">

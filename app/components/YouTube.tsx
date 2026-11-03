@@ -39,18 +39,34 @@ function timeAgo(dateStr: string): string {
 export default function YouTube() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [subscribers, setSubscribers] = useState(0);
+  const [videoStatus, setVideoStatus] = useState<"idle" | "loading" | "ready" | "empty" | "error">("idle");
   const [sectionRef, hasBeenSeen] = useInView<HTMLElement>(0.05);
 
   useEffect(() => {
     if (!hasBeenSeen) return;
 
+    let isCurrent = true;
+    setVideoStatus("loading");
+
     fetch("/api/youtube")
-      .then((r) => r.json())
-      .then((data) => {
-        setVideos(data.videos || []);
-        setSubscribers(parseInt(data.subscriberCount ?? "0", 10) || 0);
+      .then((response) => {
+        if (!response.ok) throw new Error("Video feed unavailable");
+        return response.json();
       })
-      .catch(() => {});
+      .then((data) => {
+        if (!isCurrent) return;
+        const nextVideos = Array.isArray(data.videos) ? data.videos : [];
+        setVideos(nextVideos);
+        setSubscribers(parseInt(data.subscriberCount ?? "0", 10) || 0);
+        setVideoStatus(nextVideos.length > 0 ? "ready" : "empty");
+      })
+      .catch(() => {
+        if (isCurrent) setVideoStatus("error");
+      });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [hasBeenSeen]);
 
   const channelNote =
@@ -81,7 +97,7 @@ export default function YouTube() {
               </h2>
             </ScrollReveal>
             <p className="section-lede">
-              I also make videos about travel, technology, and the process of building things.
+              A few videos on travel, tech and the things I&apos;m learning along the way.
             </p>
           </div>
 
@@ -100,7 +116,17 @@ export default function YouTube() {
             </a>
           </div>
 
-          {videos.length > 0 ? (
+          {videoStatus === "loading" ? (
+            <div className="yt-grid yt-grid--loading" aria-label="Loading recent videos">
+              {[0, 1, 2, 3].map((item) => (
+                <div className="yt-skeleton" key={item}>
+                  <div className="yt-skeleton__thumb" />
+                  <div className="yt-skeleton__line yt-skeleton__line--long" />
+                  <div className="yt-skeleton__line" />
+                </div>
+              ))}
+            </div>
+          ) : videos.length > 0 ? (
             <div className="yt-grid">
               {videos.map((v, i) => {
                 const meta = [timeAgo(v.publishedAt), v.viewCount >= SHOW_COUNTS_FROM ? `${formatCount(v.viewCount)} views` : null]
@@ -144,6 +170,20 @@ export default function YouTube() {
                   </a>
                 );
               })}
+            </div>
+          ) : videoStatus === "empty" || videoStatus === "error" ? (
+            <div className="yt-empty-state">
+              <div className="yt-empty-state__mark" aria-hidden="true">
+                <YoutubeIcon size={22} />
+              </div>
+              <div className="yt-empty-state__copy">
+                <p className="yt-empty-state__eyebrow">The video shelf is taking a breather</p>
+                <h3>There&apos;s more on the channel.</h3>
+                <p>The latest uploads aren&apos;t available in this view right now. You can still browse the channel directly.</p>
+              </div>
+              <a className="yt-empty-state__link" href={CHANNEL_URL} target="_blank" rel="noopener noreferrer">
+                Browse YouTube <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
             </div>
           ) : null}
         </ScrollReveal>

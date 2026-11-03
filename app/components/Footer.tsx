@@ -26,7 +26,7 @@ export default function Footer() {
             <p className="site-footer__name">Mohit Aggarwal</p>
             <p className="site-footer__role">AI &amp; software engineer</p>
             <p className="site-footer__blurb">
-              Building practical AI tools and automations that make repetitive work easier to get done.
+              I build useful software, thoughtful AI tools and automations for everyday work.
             </p>
           </div>
 

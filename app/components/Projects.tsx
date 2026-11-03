@@ -54,7 +54,8 @@ interface SupportingProject {
   title: string;
   category: string;
   description: string;
-  implementation?: string;
+  implementation: string;
+  stack: string[];
   image: string;
   demo: string;
 }
@@ -63,16 +64,18 @@ const SUPPORTING_PROJECTS: SupportingProject[] = [
   {
     title: "MindCare",
     category: "AI Reflection · Web App",
-    description: "A calmer reflection space for guided conversations, structured check-ins, and small next steps—without presenting AI as therapy or diagnosis.",
-    implementation: "Built with React and FastAPI, account-backed sessions, streaming conversations, and user-controlled saved memory. The optional visual reflection tool stays secondary.",
+    description: "A quieter space to talk things through, complete a guided check-in, and choose what context stays with you between conversations.",
+    implementation: "React and FastAPI power account-backed sessions, streamed conversations, and a memory setting people control themselves.",
+    stack: ["React", "FastAPI", "Streaming", "User-controlled memory"],
     image: "/projects/mindcare-room-hero.webp",
     demo: "https://mindcare-opal.vercel.app/",
   },
   {
     title: "Innovix Studio",
     category: "Brand & Studio Website",
-    description: "A website for a creative agency in Jammu, showcasing its service portfolio and helping potential clients make enquiries or schedule a call.",
-    implementation: "Built as a responsive Next.js application with fast asset delivery and an integrated client inquiry flow.",
+    description: "A brand-led website for a creative studio in Jammu, built to make its services clear and enquiries easy.",
+    implementation: "A responsive Next.js build with a focused service portfolio and a direct client enquiry flow.",
+    stack: ["Next.js", "Responsive UI", "Client enquiries"],
     image: "/projects/project-1.png",
     demo: "https://innovix-branding-studio.vercel.app/",
   },
@@ -80,8 +83,8 @@ const SUPPORTING_PROJECTS: SupportingProject[] = [
 
 const PROJECT_KICKERS = [
   "Featured · Document AI",
-  "Featured · Adaptive AI Coaching",
-  "Companion · Web App",
+  "Prototype · Adaptive Coaching",
+  "AI Reflection · Web App",
   "Brand & Studio Website",
 ];
 
@@ -182,14 +185,14 @@ export default function Projects() {
           {/* Section Introduction */}
           <div className="project-intro-reveal">
             <div className="project-intro">
-              <p className="project-eyebrow">Selected Engineering Work</p>
+              <p className="project-eyebrow">Selected work <span aria-hidden="true">/</span> a few things I&apos;ve made</p>
               <ScrollReveal variant="mask" delay={0.05}>
                 <h2 className="section-heading section-title">
-                  Software engineered for high-stakes workflows
+                  A few things I&apos;ve <em className="work-title-accent">built.</em>
                 </h2>
               </ScrollReveal>
               <p className="section-lede mt-5">
-                Practical systems for complex document interpretation, adaptive coaching decisions, and production automation.
+                A closer look at the problems, decisions and interfaces behind each build—from document-heavy workflows to personal products.
               </p>
             </div>
           </div>
@@ -246,7 +249,7 @@ export default function Projects() {
                 </h3>
 
                 <p className="mobile-slide-summary">
-                  Contracts and legal notices are dense, complex, and difficult to parse without specialized training, making it easy to overlook critical obligations.
+                  Important clauses, dates and obligations can hide inside pages of legal language. LegalMind helps turn an uploaded document into something easier to inspect and understand.
                 </p>
 
                 {/* View Mode Toggle for LegalMind AI on mobile */}
@@ -377,7 +380,7 @@ export default function Projects() {
                 </h3>
 
                 <p className="mobile-slide-summary">
-                  Static workout splits follow rigid progression schedules regardless of daily fatigue, poor sleep, or recovery deficits that impact training capacity.
+                  Fixed workout plans rarely reflect how recovery changes from day to day. VYRN explores how readiness signals can inform training volume and recovery decisions.
                 </p>
 
                 <div className="vyrn-media-viewport">
@@ -400,7 +403,7 @@ export default function Projects() {
                 <div className="featured-implementation-block">
                   <span className="featured-implementation-label">Implementation</span>
                   <p className="featured-implementation-text">
-                    A mobile coaching prototype engineered with a LangGraph decision workflow in FastAPI. It models training readiness inputs and recommends dynamic volume adjustments with contextual explanations.
+                    A FastAPI prototype with a LangGraph decision flow. It models readiness inputs and suggests training-volume adjustments with context behind each recommendation.
                   </p>
                 </div>
               </article>
@@ -413,13 +416,13 @@ export default function Projects() {
                 aria-label="Project 3 of 4: MindCare"
               >
                 <div className="mobile-slide-badge-row">
-                  <span className="featured-badge">AI Companion · Web App</span>
+                  <span className="featured-badge">AI Reflection · Web App</span>
                 </div>
 
                 <div className="mobile-slide-title-row">
                   <h3 className="mobile-slide-title">MindCare</h3>
                   <a
-                    href="https://mindcare-yb5c.vercel.app/"
+                    href="https://mindcare-opal.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="supporting-link"
@@ -430,16 +433,16 @@ export default function Projects() {
                 </div>
 
                 <p className="mobile-slide-summary">
-                  Combines conversational check-ins, mood tracking over time, and emotion-related signals to support daily reflection.
+                  A quieter space to talk things through, complete a guided check-in, and choose what context stays with you between conversations.
                 </p>
 
-                <div className="supporting-media rounded-xl overflow-hidden border border-[#cbd5e1]">
+                <div className="supporting-media supporting-media--mindcare mobile-mindcare-preview">
                   <Image
-                    src="/projects/project-2.png"
-                    alt="MindCare preview"
-                    width={800}
-                    height={500}
-                    quality={85}
+                    src="/projects/mindcare-room-hero.webp"
+                    alt="MindCare homepage with its calm forest-green reflection experience"
+                    width={640}
+                    height={277}
+                    quality={90}
                     className="supporting-image"
                   />
                 </div>
@@ -447,18 +450,24 @@ export default function Projects() {
                 <div className="featured-implementation-block">
                   <span className="featured-implementation-label">Implementation</span>
                   <p className="featured-implementation-text">
-                    Built with persistent vector memory for conversational continuity across sessions, paired with real-time facial expression analysis.
+                    React and FastAPI power account-backed sessions, streamed conversations, and a memory setting people control themselves.
                   </p>
+                </div>
+
+                <div className="project-tags mobile-project-tags" aria-label="MindCare technologies and capabilities">
+                  {["React", "FastAPI", "Streaming", "User-controlled memory"].map((tag) => (
+                    <span className="project-tag" key={tag}>{tag}</span>
+                  ))}
                 </div>
 
                 <div className="mobile-slide-action">
                   <a
-                    href="https://mindcare-yb5c.vercel.app/"
+                    href="https://mindcare-opal.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="featured-demo-btn w-full justify-center"
                   >
-                    Launch Live Demo <span aria-hidden="true">↗</span>
+                    Open MindCare <span aria-hidden="true">↗</span>
                   </a>
                 </div>
               </article>
@@ -568,13 +577,13 @@ export default function Projects() {
                     </h3>
 
                     <p className="featured-project-summary">
-                      Contracts and legal notices are dense, complex, and difficult to parse without specialized training, making it easy to overlook critical obligations.
+                      Important clauses, dates and obligations can hide inside pages of legal language. LegalMind helps turn an uploaded document into something easier to inspect and understand.
                     </p>
 
                     <div className="featured-implementation-block">
                       <span className="featured-implementation-label">Implementation</span>
                       <p className="featured-implementation-text">
-                        Processes uploaded contracts using Google Document AI to extract structured clauses and cross-references statutory definitions from Indian legal databases. Synthesizes plain-English summaries and obligation timelines with a safety filter that intercepts direct advisory outputs.
+                        Google Document AI extracts structured clauses; retrieval connects relevant Indian statutes; and a safety layer keeps the output explanatory rather than prescriptive.
                       </p>
                     </div>
 
@@ -738,13 +747,13 @@ export default function Projects() {
                     </h3>
 
                     <p className="featured-project-summary">
-                      Static workout splits follow rigid progression schedules regardless of daily fatigue, poor sleep, or recovery deficits that impact training capacity.
+                      Fixed workout plans rarely reflect how recovery changes from day to day. VYRN explores how readiness signals can inform training volume and recovery decisions.
                     </p>
 
                     <div className="featured-implementation-block">
                       <span className="featured-implementation-label">Implementation</span>
                       <p className="featured-implementation-text">
-                        A mobile coaching prototype engineered with a LangGraph decision workflow in FastAPI. It models training readiness inputs and recommends dynamic volume adjustments with contextual explanations.
+                        A FastAPI prototype with a LangGraph decision flow. It models readiness inputs and suggests training-volume adjustments with context behind each recommendation.
                       </p>
                     </div>
                   </div>
@@ -756,18 +765,18 @@ export default function Projects() {
             <ScrollReveal delay={0.1}>
               <div className="supporting-section mt-16">
                 <div className="supporting-header">
-                  <span className="supporting-kicker">Additional Selected Work</span>
-                  <h3 className="supporting-title">Specialized tools and web applications</h3>
+                  <span className="supporting-kicker">A little more from the workbench</span>
+                  <h3 className="supporting-title">Other things I&apos;ve been making.</h3>
                 </div>
 
                 <div className="supporting-grid mt-8" role="region" aria-label="Supporting projects list">
                   {SUPPORTING_PROJECTS.map((proj) => (
-                    <article key={proj.title} className="supporting-card">
+                    <article key={proj.title} className={`supporting-card${proj.title === "MindCare" ? " supporting-card--mindcare" : ""}`}>
                       <ScrollReveal variant="clip-image" delay={0.08}>
                         <div className={`supporting-media${proj.title === "MindCare" ? " supporting-media--mindcare" : ""}`}>
                           <Image
                             src={proj.image}
-                            alt={proj.title === "MindCare" ? "MindCare landing page with an ivory and forest-green reflection experience" : `${proj.title} preview`}
+                            alt={proj.title === "MindCare" ? "MindCare homepage with its calm forest-green reflection experience" : `${proj.title} preview`}
                             width={800}
                             height={500}
                             quality={85}
@@ -799,6 +808,11 @@ export default function Projects() {
                         {proj.implementation ? (
                           <p className="supporting-implementation">{proj.implementation}</p>
                         ) : null}
+                        <div className="project-tags" aria-label={`${proj.title} technologies and capabilities`}>
+                          {proj.stack.map((tag) => (
+                            <span className="project-tag" key={tag}>{tag}</span>
+                          ))}
+                        </div>
                       </div>
                     </article>
                   ))}
