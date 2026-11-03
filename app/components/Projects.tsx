@@ -372,7 +372,7 @@ export default function Projects() {
                 aria-label="Project 2 of 4: VYRN"
               >
                 <div className="mobile-slide-badge-row">
-                  <span className="featured-badge">Featured · Adaptive AI Coaching</span>
+                  <span className="featured-badge">Prototype · Adaptive AI Coaching</span>
                 </div>
 
                 <h3 className="mobile-slide-title">
@@ -739,7 +739,7 @@ export default function Projects() {
                   {/* Content Column */}
                   <div className="featured-project-info">
                     <div className="featured-project-badge-row">
-                      <span className="featured-badge">Featured · Adaptive AI Coaching</span>
+                      <span className="featured-badge">Prototype · Adaptive AI Coaching</span>
                     </div>
 
                     <h3 id="vyrn-heading" className="featured-project-title">
