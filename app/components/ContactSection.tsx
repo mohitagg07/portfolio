@@ -48,19 +48,20 @@ export default function ContactSection() {
       </div>
       <ScrollReveal className="contact-reveal">
       <div ref={ref} className={`section-wrap ${seen ? "is-in" : ""}`}>
-        <div className="contact-column max-w-md">
+        <div className="contact-column contact-panel">
+          <p className="contact-kicker"><span>04</span> Good work starts with a conversation</p>
           <ScrollReveal variant="mask">
             <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
-              Have a project
+              Got something
               <br />
-              <span className="glow-text">in mind?</span>
+              <span className="glow-text">worth building?</span>
             </h2>
           </ScrollReveal>
           <p className="section-lede mt-6">
-            Tell me what you&apos;re trying to build or make simpler. A short note is enough to get the conversation started.
+            Tell me what you want to make, fix or automate. A rough idea is more than enough to start.
           </p>
 
-          <ul className="mt-10">
+          <ul className="contact-links mt-10">
             {LINKS.map(({ label, href, Icon }, i) => (
               <li key={label}>
                 <a
@@ -68,7 +69,7 @@ export default function ContactSection() {
                   target={href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                   style={{ "--i": i } as React.CSSProperties}
-                  className="hline group flex items-center gap-4 py-4 font-medium transition-colors hover:text-[var(--accent)]"
+                  className="hline contact-link group flex items-center gap-4 py-4 font-medium transition-colors hover:text-[var(--accent)]"
                 >
                   <Icon size={22} aria-hidden="true" className="shrink-0 text-white transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" />
                   <span>{label}</span>
@@ -80,7 +81,7 @@ export default function ContactSection() {
           <button
             onClick={copy}
             aria-live="polite"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+            className="contact-copy mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
           >
             {copyStatus === "copied" ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
             {copyStatus === "copied" ? "Email copied" : copyStatus === "failed" ? "Copy failed — use the email link" : "Copy my email"}

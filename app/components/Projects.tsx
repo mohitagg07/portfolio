@@ -197,6 +197,13 @@ export default function Projects() {
             </div>
           </div>
 
+          <div className="work-principles" aria-label="How I approach a build">
+            <span className="work-principles__label">A simple rulebook</span>
+            <div className="work-principles__item"><b>01</b><span>Start with the problem</span></div>
+            <div className="work-principles__item"><b>02</b><span>Make the hard parts clear</span></div>
+            <div className="work-principles__item"><b>03</b><span>Build for real use</span></div>
+          </div>
+
           {/* ══════════════════════════════════════════════════════════════ */}
           {/* MOBILE PROJECT SLIDER (visible on screens <= 768px)          */}
           {/* ══════════════════════════════════════════════════════════════ */}
@@ -555,7 +562,7 @@ export default function Projects() {
           <div className="work-desktop-editorial">
             {/* Featured Project 1: LegalMind AI */}
             <ScrollReveal delay={0.06}>
-              <article className="featured-project-card mt-12" aria-labelledby="legalmind-heading">
+              <article className="featured-project-card mt-12" data-project-number="01" aria-labelledby="legalmind-heading">
                 <div className="featured-project-layout">
                   {/* Content Column */}
                   <div className="featured-project-info">
@@ -712,7 +719,7 @@ export default function Projects() {
 
             {/* Featured Project 2: VYRN */}
             <ScrollReveal delay={0.08}>
-              <article className="featured-project-card featured-project-card--vyrn mt-10" aria-labelledby="vyrn-heading">
+              <article className="featured-project-card featured-project-card--vyrn mt-10" data-project-number="02" aria-labelledby="vyrn-heading">
                 <div className="featured-project-layout featured-project-layout--reverse">
                   {/* Visual Column */}
                   <div className="featured-project-display">

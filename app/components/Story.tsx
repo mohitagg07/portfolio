@@ -100,6 +100,11 @@ export default function Story() {
         <ScrollReveal className="about-reveal-wrap">
           <div ref={topRef} className={"section-wrap about-grid " + (topIn ? "is-in" : "")}>
             <div className="story-enter max-w-xl">
+              <div className="story-kicker">
+                <span className="story-kicker__number">01</span>
+                <span className="story-kicker__label">The person behind the builds</span>
+                <span className="story-kicker__line" aria-hidden="true" />
+              </div>
               <h2 className="section-title story-title" aria-label="I make complex things feel simple.">
                 {"I make complex things feel simple.".split(" ").map((word, i, words) => (
                   <Fragment key={i + "-" + word}>
@@ -139,6 +144,14 @@ export default function Story() {
                   On the side, I make my own: a companion for heavy days, a reader that explains contracts like a friend would, and a coach that learns how you train. I make videos about it on YouTube too.
                 </motion.p>
               </div>
+              <div className="story-focus">
+                <span className="story-focus__label">Usually working on</span>
+                <div className="story-focus__tags">
+                  <span>AI systems</span>
+                  <span>Workflow automation</span>
+                  <span>Product interfaces</span>
+                </div>
+              </div>
             </div>
 
             <div className="story-enter story-enter--right">
@@ -165,6 +178,10 @@ export default function Story() {
                   />
                   <span className="story-photo__label"><i /> Jammu, India</span>
                 </motion.div>
+              </div>
+              <div className="story-path-heading">
+                <span>THE ROUTE SO FAR</span>
+                <i aria-hidden="true" />
               </div>
               <ol className="vline pl-8">
                 <motion.span
