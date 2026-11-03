@@ -103,7 +103,7 @@ export default function Story() {
               <h2 className="section-title story-title" aria-label="I make complex things feel simple.">
                 {"I make complex things feel simple.".split(" ").map((word, i, words) => (
                   <Fragment key={i + "-" + word}>
-                    <span className="rise-word" style={idx(i)} aria-hidden="true">
+                    <span className={`rise-word${word === "simple." ? " rise-word--accent" : ""}`} style={idx(i)} aria-hidden="true">
                       <motion.span
                         initial={prefersReducedMotion ? false : { y: "115%", opacity: 0 }}
                         animate={topIn ? { y: "0%", opacity: 1 } : { y: "115%", opacity: 0 }}

@@ -738,6 +738,14 @@ main { overflow-y: clip; }
   will-change: transform, opacity;
   transition: none !important;
 }
+.story-title .rise-word--accent > span {
+  color: #a8d9ba;
+  font-family: var(--font-accent-face), Georgia, serif;
+  font-size: 1.13em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
 .story-photo__frame {
   transition: transform 0.45s var(--ease-out-expo), border-color 0.45s ease, box-shadow 0.45s ease;
 }
@@ -1869,9 +1877,9 @@ main { overflow-y: clip; }
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .supporting-link:hover {
-  background: #0f172a;
-  border-color: #0f172a;
-  color: #c8ff00;
+  background: #214f40;
+  border-color: #214f40;
+  color: #fffefa;
   transform: translateY(-1px);
 }
 .supporting-link:focus-visible {
@@ -2184,8 +2192,12 @@ a.yt-link:active,
 
 /* Contact Section & Glow Text */
 .glow-text {
-  color: var(--accent);
-  text-shadow: 0 0 28px rgba(200, 255, 0, 0.45);
+  color: #a8d9ba;
+  font-family: var(--font-accent-face), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  text-shadow: 0 8px 34px rgba(112,206,171,.16);
 }
 .contact-section .section-heading {
   font-size: clamp(2.4rem, 4.8vw, 3.8rem);
