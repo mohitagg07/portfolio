@@ -65,7 +65,7 @@ const SUPPORTING_PROJECTS: SupportingProject[] = [
     category: "AI Reflection · Web App",
     description: "A calmer reflection space for guided conversations, structured check-ins, and small next steps—without presenting AI as therapy or diagnosis.",
     implementation: "Built with React and FastAPI, account-backed sessions, streaming conversations, and user-controlled saved memory. The optional visual reflection tool stays secondary.",
-    image: "/projects/mindcare-landing.webp",
+    image: "/projects/mindcare-room-hero.webp",
     demo: "https://mindcare-opal.vercel.app/",
   },
   {
