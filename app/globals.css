@@ -5269,3 +5269,27 @@ main,
   overflow: hidden;
   border-radius: 4px;
 }
+
+
+/* Desktop type fit and tablet composition refinement */
+.about-v2-title {
+  max-width: none;
+  font-weight: 700;
+  font-size: clamp(3.25rem, 5.45vw, 5rem);
+}
+.about-v2-title span {
+  font-size: clamp(3.5rem, 5.9vw, 5.45rem);
+}
+@media (max-width: 960px) {
+  .about-v2-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 38px;
+  }
+  .about-v2-copy {
+    max-width: 680px;
+  }
+  .about-v2-visual {
+    justify-self: center;
+    max-width: 480px;
+  }
+}
