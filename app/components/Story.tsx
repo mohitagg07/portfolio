@@ -8,25 +8,50 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 const milestones = [
   {
-    period: "Education",
+    period: "THE FOUNDATIONS",
     title: "VIT Chennai",
-    detail: "B.Tech in Computer Science, with a focus on AI & Machine Learning.",
+    detail: "Computer Science (AI & Machine Learning). Learning how software works, not just how to use a framework.",
+    interaction: "milestone-vit",
   },
   {
-    period: "Aug – Dec 2023",
+    period: "A FIRST LOOK AT INDUSTRY",
     title: "Berger Paints",
-    detail: "An internship that gave me an early look at how software and data support everyday business work.",
+    detail: "Internship · August–December 2023. A chance to see how day-to-day business work and technology meet.",
+    interaction: "milestone-berger",
   },
   {
-    period: "Independent builds",
-    title: "MindCare & data tools",
-    detail: "Exploring product ideas, user-controlled memory, data collection and practical automation.",
+    period: "LEARNING BY BUILDING",
+    title: "Independent projects",
+    detail: "MindCare, LegalMind AI, business-data enrichment and automation experiments.",
+    interaction: "milestone-mindcare",
+  },
+] as const;
+
+const principles = [
+  {
+    number: "01",
+    title: "Start with the real problem",
+    text: "Understand where the friction is before choosing a tool, model or framework.",
+    interaction: "stage-understand",
+  },
+  {
+    number: "02",
+    title: "Make something useful",
+    text: "Build the simplest version that genuinely helps someone get something done.",
+    interaction: "stage-build",
+  },
+  {
+    number: "03",
+    title: "Care about the details",
+    text: "Test it, notice what feels awkward, and keep refining until it works naturally.",
+    interaction: "stage-refine",
   },
 ] as const;
 
 export default function Story() {
   const [sectionRef, sectionInView] = useInView<HTMLElement>(0.08);
-  const [approachRef, approachInView] = useInView<HTMLDivElement>(0.12);
+  const [chaptersRef, chaptersInView] = useInView<HTMLElement>(0.12);
+  const [principlesRef, principlesInView] = useInView<HTMLElement>(0.12);
   const reduceMotion = useReducedMotion();
 
   return (
@@ -35,167 +60,205 @@ export default function Story() {
         ref={sectionRef}
         id="about"
         aria-labelledby="about-title"
-        className="about-v2-section"
+        className="about-v3-section"
       >
-        <div className="about-v2-container">
-          <header className="about-v2-masthead">
-            <div className="about-v2-masthead__label">
-              <span className="about-v2-masthead__index">02</span>
-              <span>ABOUT ME</span>
+        <div className="about-v3-intro">
+          <div className="about-v3-shell">
+            <header className="about-v3-masthead">
+              <div className="about-v3-masthead__left">
+                <span className="about-v3-index">02</span>
+                <span>THE PERSON BEHIND THE BUILDS</span>
+              </div>
+              <span className="about-v3-masthead__right">JAMMU, INDIA <span aria-hidden="true">↗</span></span>
+            </header>
+
+            <div className="about-v3-spread">
+              <motion.div
+                className="about-v3-copy"
+                initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+                animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.04, ease: EASE }}
+              >
+                <p className="about-v3-kicker">A QUESTION I COME BACK TO</p>
+                <h2 id="about-title" className="about-v3-title">
+                  I keep asking,
+                  <span>Can this be simpler?</span>
+                </h2>
+
+                <div className="about-v3-bio">
+                  <p className="about-v3-greeting">Hey, I&apos;m Mohit.</p>
+                  <p>
+                    I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
+                    I like the part of building that happens before the code: understanding what is
+                    frustrating, what is missing, and what would make an experience easier.
+                  </p>
+                  <p>
+                    That curiosity has taken me through web development, backend systems,
+                    automation and AI-powered projects. I&apos;ve explored <strong>MindCare</strong>,
+                    <strong> LegalMind AI</strong> and business-data enrichment tools — each with a
+                    different problem to untangle.
+                  </p>
+                  <p className="about-v3-bio__last">
+                    Not every problem needs AI or a complicated stack. I enjoy finding the right
+                    tool, getting the details right, and making something people can actually use.
+                  </p>
+                </div>
+
+                <div className="about-v3-interests">
+                  <span className="about-v3-interests__label">I KEEP EXPLORING</span>
+                  <div className="about-v3-interest-list">
+                    <span>Web products</span><i aria-hidden="true" />
+                    <span>Automation</span><i aria-hidden="true" />
+                    <span>Practical AI</span>
+                  </div>
+                </div>
+
+                <a className="about-v3-work-link" href="#work">
+                  A few things I&apos;ve built <span aria-hidden="true">↗</span>
+                </a>
+              </motion.div>
+
+              <motion.div
+                className="about-v3-visual"
+                data-about-interactive="portrait"
+                initial={reduceMotion ? false : { opacity: 0, y: 26, rotate: 1.5 }}
+                animate={sectionInView ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 26, rotate: 1.5 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.9, delay: 0.14, ease: EASE }}
+              >
+                <span className="about-v3-visual__shape" aria-hidden="true" />
+                <span className="about-v3-visual__corner-label">A LITTLE TIME AWAY FROM THE SCREEN</span>
+
+                <figure
+                  className="about-v3-photo"
+                  data-about-portrait="true"
+                  data-about-interactive="portrait"
+                >
+                  <Image
+                    src="/assets/mohit-story.jpg"
+                    alt="Mohit outdoors in Jammu"
+                    fill
+                    sizes="(max-width: 760px) 88vw, (max-width: 1100px) 48vw, 520px"
+                    quality={88}
+                    className="about-v3-photo__image"
+                  />
+                  <figcaption className="about-v3-photo__caption">
+                    <span className="about-v3-photo__caption-mark" aria-hidden="true">✳</span>
+                    Jammu, India
+                  </figcaption>
+                </figure>
+
+                <a
+                  className="about-v3-project-peek"
+                  href="#work"
+                  data-about-interactive="mindcare-artifact"
+                  aria-label="Explore MindCare in the work section"
+                >
+                  <div className="about-v3-project-peek__top">
+                    <span>ON THE DESK</span>
+                    <span aria-hidden="true">↗</span>
+                  </div>
+                  <div className="about-v3-project-peek__image">
+                    <Image
+                      src="/projects/project-2.png"
+                      alt="MindCare project interface preview"
+                      fill
+                      sizes="260px"
+                      quality={82}
+                      className="about-v3-project-peek__img"
+                    />
+                  </div>
+                  <div className="about-v3-project-peek__bottom">
+                    <strong>MindCare</strong>
+                    <span>Product exploration</span>
+                  </div>
+                </a>
+
+                <svg className="about-v3-doodle" viewBox="0 0 110 76" fill="none" aria-hidden="true">
+                  <path d="M4 63C25 36 59 17 98 14M98 14L86 7M98 14L91 27" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="about-v3-handnote">one idea at a time</span>
+              </motion.div>
             </div>
-            <span className="about-v2-masthead__location">
-              A little context, beyond the code.
-            </span>
-          </header>
-
-          <div className="about-v2-intro">
-            <motion.div
-              className="about-v2-copy"
-              initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-              animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
-            >
-              <p className="about-v2-eyebrow">THE SHORT VERSION</p>
-              <h2 id="about-title" className="about-v2-title">
-                I keep asking,
-                <span>Can this be simpler?</span>
-              </h2>
-
-              <div className="about-v2-biography">
-                <p className="about-v2-greeting">Hey, I&apos;m Mohit.</p>
-                <p>
-                  I studied Computer Science at <strong>VIT Chennai</strong>, specialising in AI
-                  and Machine Learning. What I enjoy most is not collecting technologies; it is
-                  understanding why something is difficult and finding a better way to make it work.
-                </p>
-                <p>
-                  That curiosity has taken me through web development, backend systems,
-                  automation and AI-powered projects. I have explored ideas like <strong>MindCare</strong>
-                  and a business-data collection pipeline, each teaching me something different
-                  about building useful software.
-                </p>
-                <p className="about-v2-signoff">
-                  I like getting into the details, learning by trying, and making the next version
-                  a little better.
-                </p>
-              </div>
-
-              <div className="about-v2-interests" aria-label="Areas of interest">
-                <span>Usually exploring</span>
-                <ul>
-                  <li>Web products</li>
-                  <li>Automation</li>
-                  <li>Practical AI</li>
-                </ul>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="about-v2-visual"
-              data-about-portrait="true"
-              data-about-interactive="portrait"
-              initial={reduceMotion ? false : { opacity: 0, y: 28, rotate: 1.5 }}
-              animate={sectionInView ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 28, rotate: 1.5 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.9, delay: 0.12, ease: EASE }}
-            >
-              <span className="about-v2-visual__wash" aria-hidden="true" />
-              <figure className="about-v2-photo">
-                <Image
-                  src="/assets/mohit-story.jpg"
-                  alt="Mohit outdoors in Jammu"
-                  fill
-                  priority={false}
-                  sizes="(max-width: 900px) 86vw, 42vw"
-                  quality={86}
-                  className="about-v2-photo__image"
-                />
-                <span className="about-v2-photo__edge" aria-hidden="true" />
-                <figcaption className="about-v2-photo__caption">
-                  <span className="about-v2-photo__caption-dot" />
-                  A moment away from the screen
-                </figcaption>
-              </figure>
-
-              <div className="about-v2-note about-v2-note--top">
-                <span className="about-v2-note__small">BASED IN</span>
-                <strong>Jammu, India</strong>
-              </div>
-
-              <div className="about-v2-note about-v2-note--bottom">
-                <span className="about-v2-note__scribble" aria-hidden="true">↗</span>
-                <span>Still curious.<br />Still building.</span>
-              </div>
-            </motion.div>
           </div>
+        </div>
 
-          <section className="about-v2-journey" aria-labelledby="about-journey-title">
-            <div className="about-v2-section-heading">
+        <section
+          ref={chaptersRef}
+          className="about-v3-chapters"
+          aria-labelledby="about-chapters-title"
+        >
+          <div className="about-v3-lower-shell">
+            <motion.div
+              className="about-v3-chapters__heading"
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={chaptersInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.68, ease: EASE }}
+            >
               <div>
-                <p className="about-v2-eyebrow">A FEW CHAPTERS</p>
-                <h3 id="about-journey-title">The path so far<span>.</span></h3>
+                <p className="about-v3-paper-kicker">A FEW CHAPTERS</p>
+                <h3 id="about-chapters-title">The route <em>so far.</em></h3>
               </div>
-              <p>Not a complete timeline—just a few experiences that shaped what I like to build.</p>
-            </div>
+              <p className="about-v3-chapters__aside">
+                A few places and projects that have shaped how I think about building.
+              </p>
+            </motion.div>
 
-            <ol className="about-v2-milestones">
+            <ol className="about-v3-timeline">
               {milestones.map((item, index) => (
-                <li className="about-v2-milestone" key={item.title}>
-                  <span className="about-v2-milestone__number">0{index + 1}</span>
-                  <div className="about-v2-milestone__content">
-                    <span className="about-v2-milestone__period">{item.period}</span>
+                <motion.li
+                  className="about-v3-milestone"
+                  data-about-interactive={item.interaction}
+                  key={item.title}
+                  initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                  animate={chaptersInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+                  transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.1 + index * 0.12, ease: EASE }}
+                >
+                  <span className="about-v3-milestone__number">0{index + 1}</span>
+                  <div className="about-v3-milestone__body">
+                    <span className="about-v3-milestone__period">{item.period}</span>
                     <h4>{item.title}</h4>
                     <p>{item.detail}</p>
                   </div>
-                </li>
+                </motion.li>
               ))}
             </ol>
-          </section>
 
-          <section
-            ref={approachRef}
-            className="about-v2-approach"
-            aria-labelledby="about-approach-title"
-          >
-            <div className="about-v2-approach__heading">
-              <p className="about-v2-eyebrow">HOW I LIKE TO WORK</p>
-              <h3 id="about-approach-title">
-                Understand. <em>Build.</em> Refine.
-              </h3>
-            </div>
-            <div className="about-v2-steps">
-              {[
-                {
-                  number: "01",
-                  title: "Understand first",
-                  text: "Find the real friction before reaching for a tool or framework.",
-                },
-                {
-                  number: "02",
-                  title: "Build something useful",
-                  text: "Choose a practical approach and turn the idea into something people can use.",
-                },
-                {
-                  number: "03",
-                  title: "Keep improving",
-                  text: "Test it, learn from what breaks and make the experience better.",
-                },
-              ].map((step, index) => (
-                <motion.article
-                  className="about-v2-step"
-                  data-about-interactive={`step-${index + 1}`}
-                  key={step.number}
-                  initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                  animate={approachInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                  transition={reduceMotion ? { duration: 0 } : { duration: 0.58, delay: index * 0.1, ease: EASE }}
-                >
-                  <span className="about-v2-step__number">{step.number}</span>
-                  <h4>{step.title}</h4>
-                  <p>{step.text}</p>
-                </motion.article>
-              ))}
-            </div>
-          </section>
-        </div>
+            <section
+              ref={principlesRef}
+              className="about-v3-practice"
+              aria-labelledby="about-practice-title"
+            >
+              <div className="about-v3-practice__intro">
+                <p className="about-v3-paper-kicker">A SMALL RULE I COME BACK TO</p>
+                <h3 id="about-practice-title">
+                  Make it useful <em>before making it clever.</em>
+                </h3>
+              </div>
+
+              <div className="about-v3-principles">
+                {principles.map((item, index) => (
+                  <motion.article
+                    className="about-v3-principle"
+                    data-about-interactive={item.interaction}
+                    key={item.number}
+                    initial={reduceMotion ? false : { opacity: 0, y: 15 }}
+                    animate={principlesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                    transition={reduceMotion ? { duration: 0 } : { duration: 0.58, delay: index * 0.1, ease: EASE }}
+                  >
+                    <span className="about-v3-principle__number">{item.number}</span>
+                    <h4>{item.title}</h4>
+                    <p>{item.text}</p>
+                  </motion.article>
+                ))}
+              </div>
+            </section>
+
+            <footer className="about-v3-footer">
+              <span>STILL CURIOUS. STILL BUILDING.</span>
+              <a href="#work">See what came out of it <span aria-hidden="true">↗</span></a>
+            </footer>
+          </div>
+        </section>
       </section>
     </div>
   );
