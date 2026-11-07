@@ -3,13 +3,12 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { MotionValue } from "motion/react";
 import { useEffect, useState } from "react";
-import type { CSSProperties } from "react";
 import { navigateToSection } from "../utils/scroll";
 
 const ROTATING_PHRASES = [
-  "easier to get done.",
-  "simpler to manage.",
-  "easier to scale.",
+  "into useful software.",
+  "into calmer workflows.",
+  "into tools people use.",
 ];
 
 interface HeroGreetingProps {
@@ -35,7 +34,7 @@ export default function HeroGreeting({
 
     const interval = window.setInterval(() => {
       setPhraseIndex((current) => (current + 1) % ROTATING_PHRASES.length);
-    }, 4600);
+    }, 5200);
 
     return () => window.clearInterval(interval);
   }, [mounted, prefersReducedMotion]);
@@ -49,11 +48,12 @@ export default function HeroGreeting({
         style={{ opacity: exitOpacity, y: exitY }}
       >
         <p className="hero-hello">
-          Mohit Aggarwal <span aria-hidden="true">·</span> AI &amp; software engineer
+          Mohit Aggarwal <span aria-hidden="true">·</span> Software, Automation &amp; AI
         </p>
+
         <h1 className="hero-title">
           <span className="hero-title__mask">
-            <span className="hero-title__line">I make repetitive work</span>
+            <span className="hero-title__line">I like turning messy problems</span>
           </span>
           <span className="hero-title__mask hero-title__mask--liquid">
             <span className="hero-title__line hero-title__line--accent">
@@ -64,40 +64,46 @@ export default function HeroGreeting({
                   </span>
                 ))}
                 <span className="hero-title__phrase" aria-hidden="true" key={phrase}>
-                  {Array.from(phrase).map((character, index) => (
-                    <span
-                      className="hero-title__wave-letter"
-                      key={phrase + "-" + index}
-                      style={{ "--i": index } as CSSProperties}
-                    >
-                      {character === " " ? "\u00a0" : character}
-                    </span>
-                  ))}
+                  {phrase}
                 </span>
               </span>
             </span>
           </span>
         </h1>
+
         <p className="hero-summary">
-          I build software that takes the busywork out of everyday workflows—from gathering information to making dense documents easier to understand.
+          Hey, I&apos;m Mohit — a software engineer who enjoys taking ideas from rough
+          beginnings to useful products. I work across web development, automation and
+          AI, always looking for a better way to solve everyday problems.
         </p>
-        <ul className="hero-focus" aria-label="Problems I solve">
-          <li><span>01</span> Manual, repetitive workflows</li>
-          <li><span>02</span> Information scattered across tools</li>
-          <li><span>03</span> Dense documents and routine questions</li>
-        </ul>
+
         <div className="hero-actions">
-          <a className="hero-button hero-button--primary" href="#work" onClick={(event) => navigateToSection(event, "work")}>
-            Explore my work <span aria-hidden="true">↗</span>
+          <a
+            className="hero-button hero-button--primary"
+            href="#work"
+            onClick={(event) => navigateToSection(event, "work")}
+          >
+            See what I&apos;ve built <span aria-hidden="true">↗</span>
           </a>
-          <a className="hero-button hero-button--quiet" href="#contact" onClick={(event) => navigateToSection(event, "contact")}>
-            Get in touch <span aria-hidden="true">↗</span>
+          <a
+            className="hero-button hero-button--quiet"
+            href="#contact"
+            onClick={(event) => navigateToSection(event, "contact")}
+          >
+            Have a project in mind? Let&apos;s talk.
           </a>
         </div>
       </motion.div>
 
-      <a className="hero-scroll" href="#work" onClick={(event) => navigateToSection(event, "work")} aria-label="Scroll to explore selected projects">
-        <span className="hero-scroll__track" aria-hidden="true"><i /></span>
+      <a
+        className="hero-scroll"
+        href="#work"
+        onClick={(event) => navigateToSection(event, "work")}
+        aria-label="Scroll to explore selected projects"
+      >
+        <span className="hero-scroll__track" aria-hidden="true">
+          <i />
+        </span>
         <span className="hero-scroll__label">Scroll to explore work</span>
       </a>
     </div>

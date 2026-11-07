@@ -14,7 +14,7 @@ export default function Header() {
 
   useEffect(() => {
     let lastScrolled: boolean | undefined;
-    let lastNearTop = false;
+    let lastActive: string | undefined;
     let scrollFrame = 0;
     const updateScrollState = () => {
       scrollFrame = 0;
@@ -25,8 +25,24 @@ export default function Header() {
         lastScrolled = nextScrolled;
         setScrolled(nextScrolled);
       }
-      if (nextNearTop && !lastNearTop) setActive("");
-      lastNearTop = nextNearTop;
+
+      let nextActive = "";
+      if (!nextNearTop) {
+        const triggerY = window.innerHeight * 0.35;
+        for (const [, id] of LINKS) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= triggerY && rect.bottom > triggerY) {
+            nextActive = id;
+            break;
+          }
+        }
+      }
+      if (nextActive !== lastActive) {
+        lastActive = nextActive;
+        setActive(nextActive);
+      }
     };
     const onScroll = () => {
       if (scrollFrame) return;
@@ -34,12 +50,12 @@ export default function Header() {
     };
     updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: "-40% 0px -55% 0px" }
-    );
-    LINKS.forEach(([, id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
-    return () => { window.removeEventListener("scroll", onScroll); window.cancelAnimationFrame(scrollFrame); io.disconnect(); };
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.cancelAnimationFrame(scrollFrame);
+    };
   }, []);
 
   useEffect(() => {

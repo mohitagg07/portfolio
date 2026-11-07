@@ -1,6 +1,7 @@
 import BackgroundCanvas from "./components/BackgroundCanvas";
 import Header from "./components/Header";
 import HeroScene from "./components/HeroScene";
+import HeroRobot from "./components/HeroRobot";
 import Projects from "./components/Projects";
 import Story from "./components/Story";
 import dynamic from "next/dynamic";
@@ -20,6 +21,7 @@ export default function Home(): React.JSX.Element {
     <main className="relative min-h-screen bg-[#060810] text-slate-100 selection:bg-[var(--accent)] selection:text-black overflow-x-clip">
       <BackgroundCanvas />
       <Header />
+      <HeroRobot />
 
       <HeroScene />
       <Story />

@@ -1,14 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, DM_Sans, Instrument_Serif } from "next/font/google";
+import { Manrope, Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const displayFont = Bricolage_Grotesque({
+const displayFont = Manrope({
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-display-face",
 });
 
-const bodyFont = DM_Sans({
+const bodyFont = Manrope({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body-face",
 });
 
@@ -17,6 +19,12 @@ const expressiveFont = Instrument_Serif({
   style: "italic",
   weight: "400",
   variable: "--font-accent-face",
+});
+
+const monoFont = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono-face",
 });
 
 const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
@@ -53,7 +61,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={displayFont.variable + " " + bodyFont.variable + " " + expressiveFont.variable}>
+    <html
+      lang="en"
+      className={
+        displayFont.variable +
+        " " +
+        bodyFont.variable +
+        " " +
+        expressiveFont.variable +
+        " " +
+        monoFont.variable
+      }
+    >
       <body className="antialiased">
         {children}
       </body>

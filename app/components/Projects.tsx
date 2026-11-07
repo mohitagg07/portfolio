@@ -55,31 +55,89 @@ interface SupportingProject {
   category: string;
   description: string;
   implementation: string;
+  challenge: string;
   stack: string[];
   image: string;
+  secondaryImage?: string;
   demo: string;
+  github?: string;
 }
 
 const SUPPORTING_PROJECTS: SupportingProject[] = [
   {
     title: "MindCare",
     category: "AI Reflection · Web App",
-    description: "A quieter space to talk things through, complete a guided check-in, and choose what context stays with you between conversations.",
-    implementation: "React and FastAPI power account-backed sessions, streamed conversations, and a memory setting people control themselves.",
+    description:
+      "Most reflection tools either feel like a clinical form or store everything you type without asking. MindCare gives people a calmer space to talk things through, complete a guided check-in, and decide what context stays between conversations.",
+    implementation:
+      "Built with React and FastAPI using account-backed sessions, streamed responses, and an explicit memory toggle controlled by the user.",
+    challenge:
+      "What I learned: Designing around emotional topics meant keeping latency low on streamed replies while ensuring session memory could be turned off cleanly at the database layer.",
     stack: ["React", "FastAPI", "Streaming", "User-controlled memory"],
     image: "/projects/mindcare-room-hero.webp",
+    secondaryImage: "/projects/project-2.png",
     demo: "https://mindcare-opal.vercel.app/",
+    github: "https://github.com/mohitagg07",
   },
   {
     title: "Innovix Studio",
     category: "Brand & Studio Website",
-    description: "A brand-led website for a creative studio in Jammu, built to make its services clear and enquiries easy.",
-    implementation: "A responsive Next.js build with a focused service portfolio and a direct client enquiry flow.",
+    description:
+      "A creative studio in Jammu needed a fast, clear web presence that explained their services without burying visitors in agency jargon and made starting a project enquiry straightforward.",
+    implementation:
+      "Engineered as a responsive Next.js application with optimized media delivery, structured service breakdowns, and a direct client enquiry flow.",
+    challenge:
+      "What I learned: Balancing expressive brand typography with sub-second page loads on mobile connections required careful image sizing and minimal client-side JavaScript.",
     stack: ["Next.js", "Responsive UI", "Client enquiries"],
     image: "/projects/project-1.png",
     demo: "https://innovix-branding-studio.vercel.app/",
+    github: "https://github.com/mohitagg07",
   },
 ];
+
+const SCRAPER_STAGES = [
+  {
+    step: "01",
+    name: "Extraction & Retry Queue",
+    tech: "Python · Playwright · AsyncIO",
+    problem: "Public business directories paginate inconsistently and throttle burst requests.",
+    solution:
+      "Built an asynchronous worker queue with jittered backoff and selector fallbacks so interrupted runs resume cleanly without re-scraping completed pages.",
+  },
+  {
+    step: "02",
+    name: "Entity Deduplication & Cleaning",
+    tech: "Pydantic · Fuzzy Matching",
+    problem: "The same business often appears across sources with slightly different phone formats, abbreviations, or missing fields.",
+    solution:
+      "Normalized phone numbers, domains, and address tokens through strict Pydantic schemas before merging duplicate records into a single canonical entry.",
+  },
+  {
+    step: "03",
+    name: "Enrichment & Webhook Sync",
+    tech: "FastAPI · REST Bridges",
+    problem: "Raw CSV exports still required someone to manually copy records into internal spreadsheets and CRMs.",
+    solution:
+      "Added automated enrichment checks and a webhook bridge that pushes validated records directly into downstream tools.",
+  },
+] as const;
+
+const GUARDRAIL_SAMPLES = [
+  {
+    label: "Indemnity Clause",
+    rawClause: "Clause 14.2: Receiving Party shall indemnify Disclosing Party against all indirect or consequential losses without cap.",
+    unfilteredOutput: "You must reject this contract immediately and refuse to sign Clause 14.2.",
+    guardedOutput:
+      "Plain-English note: This clause leaves liability uncapped for indirect losses. Commercial agreements often negotiate a mutual cap tied to contract value.",
+  },
+  {
+    label: "Auto-Renewal Notice",
+    rawClause: "Section 8.1: Agreement renews automatically for 24 months unless written notice is delivered 90 days prior.",
+    unfilteredOutput: "Send a termination letter today so you do not get locked in.",
+    guardedOutput:
+      "Timeline obligation: A 90-day notice window applies before the renewal date. Added to the compliance calendar so the team can review in advance.",
+  },
+] as const;
 
 const PROJECT_KICKERS = [
   "Featured · Document AI",
@@ -114,9 +172,14 @@ export default function Projects() {
   const [legalMindView, setLegalMindView] = useState<"preview" | "architecture">("preview");
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [activeMobileSlide, setActiveMobileSlide] = useState<number>(0);
+  const [mindCareView, setMindCareView] = useState<"room" | "session">("room");
+  const [scraperStageIdx, setScraperStageIdx] = useState<number>(0);
+  const [guardrailIdx, setGuardrailIdx] = useState<number>(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const activeStep = LEGALMIND_PIPELINE[activeStepIndex];
+  const activeScraperStage = SCRAPER_STAGES[scraperStageIdx];
+  const activeGuardrail = GUARDRAIL_SAMPLES[guardrailIdx];
 
   const scrollToSlide = (index: number) => {
     const clamped = Math.max(0, Math.min(3, index));
@@ -777,52 +840,203 @@ export default function Projects() {
                 </div>
 
                 <div className="supporting-grid mt-8" role="region" aria-label="Supporting projects list">
-                  {SUPPORTING_PROJECTS.map((proj) => (
-                    <article key={proj.title} className={`supporting-card${proj.title === "MindCare" ? " supporting-card--mindcare" : ""}`}>
-                      <ScrollReveal variant="clip-image" delay={0.08}>
-                        <div className={`supporting-media${proj.title === "MindCare" ? " supporting-media--mindcare" : ""}`}>
-                          <Image
-                            src={proj.image}
-                            alt={proj.title === "MindCare" ? "MindCare homepage with its calm forest-green reflection experience" : `${proj.title} preview`}
-                            width={800}
-                            height={500}
-                            quality={85}
-                            className="supporting-image"
-                          />
-                        </div>
-                      </ScrollReveal>
+                  {SUPPORTING_PROJECTS.map((proj) => {
+                    const isMindCare = proj.title === "MindCare";
+                    const displaySrc =
+                      isMindCare && mindCareView === "session" && proj.secondaryImage
+                        ? proj.secondaryImage
+                        : proj.image;
 
-                      <div className="supporting-body">
-                        <div className="supporting-title-row">
-                          <div className="supporting-heading-group">
-                            <p className="supporting-category">{proj.category}</p>
-                            <h4 className="supporting-name">{proj.title}</h4>
+                    return (
+                      <article
+                        key={proj.title}
+                        className={`supporting-card${isMindCare ? " supporting-card--mindcare" : ""}`}
+                      >
+                        <ScrollReveal variant="clip-image" delay={0.08}>
+                          <div
+                            className={`supporting-media${
+                              isMindCare ? " supporting-media--mindcare" : ""
+                            }`}
+                          >
+                            <Image
+                              src={displaySrc}
+                              alt={
+                                isMindCare
+                                  ? "MindCare reflection interface preview"
+                                  : `${proj.title} preview`
+                              }
+                              width={800}
+                              height={500}
+                              quality={85}
+                              className="supporting-image"
+                            />
                           </div>
-                          {proj.demo ? (
-                            <a
-                              href={proj.demo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="supporting-link"
-                              aria-label={`${proj.title}: open live demo`}
-                            >
-                              Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
-                            </a>
-                          ) : null}
-                        </div>
+                        </ScrollReveal>
 
-                        <p className="supporting-description">{proj.description}</p>
-                        {proj.implementation ? (
-                          <p className="supporting-implementation">{proj.implementation}</p>
-                        ) : null}
-                        <div className="project-tags" aria-label={`${proj.title} technologies and capabilities`}>
-                          {proj.stack.map((tag) => (
-                            <span className="project-tag" key={tag}>{tag}</span>
-                          ))}
+                        <div className="supporting-body">
+                          <div className="supporting-title-row">
+                            <div className="supporting-heading-group">
+                              <p className="supporting-category">{proj.category}</p>
+                              <h4 className="supporting-name">{proj.title}</h4>
+                            </div>
+                            <div className="supporting-links-group">
+                              {isMindCare && proj.secondaryImage ? (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setMindCareView((v) => (v === "room" ? "session" : "room"))
+                                  }
+                                  className="supporting-view-switch"
+                                >
+                                  {mindCareView === "room" ? "View Live Session UI" : "View Calm Room UI"}
+                                </button>
+                              ) : null}
+                              {proj.demo ? (
+                                <a
+                                  href={proj.demo}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="supporting-link"
+                                  aria-label={`${proj.title}: open live demo`}
+                                >
+                                  Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
+                                </a>
+                              ) : null}
+                            </div>
+                          </div>
+
+                          <p className="supporting-description">{proj.description}</p>
+                          {proj.implementation ? (
+                            <p className="supporting-implementation">{proj.implementation}</p>
+                          ) : null}
+                          {proj.challenge ? (
+                            <p className="supporting-challenge">{proj.challenge}</p>
+                          ) : null}
+                          <div
+                            className="project-tags"
+                            aria-label={`${proj.title} technologies and capabilities`}
+                          >
+                            {proj.stack.map((tag) => (
+                              <span className="project-tag" key={tag}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Phase 9: Playground, Workflows & Engineering Experiments */}
+            <ScrollReveal delay={0.11}>
+              <div id="experiments" className="workbench-experiments mt-16">
+                <div className="supporting-header">
+                  <span className="supporting-kicker">Playground &amp; workflow engineering</span>
+                  <h3 className="supporting-title">
+                    Pipelines, scrapers &amp; smaller experiments.
+                  </h3>
+                  <p className="workbench-lede">
+                    Not everything needs a heavy frontend. Some of my favourite builds are
+                    background pipelines and guardrails that quietly clean up messy data.
+                  </p>
+                </div>
+
+                <div className="workbench-grid mt-8">
+                  {/* Experiment 1: Business Scraper & Data Enrichment Pipeline */}
+                  <article className="workbench-card" aria-labelledby="exp-scraper-title">
+                    <div className="workbench-card__meta">
+                      <span className="workbench-badge">Workflow Engineering · Python &amp; FastAPI</span>
+                      <a
+                        href="https://github.com/mohitagg07"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="workbench-gh-link"
+                      >
+                        GitHub ↗
+                      </a>
+                    </div>
+                    <h4 id="exp-scraper-title" className="workbench-card__title">
+                      Business Scraper &amp; Data Enrichment Pipeline
+                    </h4>
+                    <p className="workbench-card__desc">
+                      Built to replace manual directory research: collects unstructured business
+                      listings, deduplicates messy records, validates schemas, and syncs clean
+                      entries directly to downstream tools.
+                    </p>
+
+                    <div className="workbench-tabs" role="tablist" aria-label="Scraper pipeline stages">
+                      {SCRAPER_STAGES.map((st, idx) => (
+                        <button
+                          key={st.step}
+                          type="button"
+                          role="tab"
+                          aria-selected={scraperStageIdx === idx}
+                          onClick={() => setScraperStageIdx(idx)}
+                          className={`workbench-tab ${scraperStageIdx === idx ? "is-active" : ""}`}
+                        >
+                          <span>{st.step}</span> {st.name}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="workbench-stage-box" aria-live="polite">
+                      <p className="workbench-stage-tech">
+                        Stage {activeScraperStage.step} · {activeScraperStage.tech}
+                      </p>
+                      <p className="workbench-stage-row">
+                        <strong>The problem:</strong> {activeScraperStage.problem}
+                      </p>
+                      <p className="workbench-stage-row">
+                        <strong>How I solved it:</strong> {activeScraperStage.solution}
+                      </p>
+                    </div>
+                  </article>
+
+                  {/* Experiment 2: Deterministic Advisory Guardrail Sandbox */}
+                  <article className="workbench-card" aria-labelledby="exp-guardrail-title">
+                    <div className="workbench-card__meta">
+                      <span className="workbench-badge">Interactive Sandbox · Safety Middleware</span>
+                      <span className="workbench-mono-tag">LegalMind Sub-System</span>
+                    </div>
+                    <h4 id="exp-guardrail-title" className="workbench-card__title">
+                      Deterministic Advisory Blocker
+                    </h4>
+                    <p className="workbench-card__desc">
+                      When summarizing contracts, LLMs often slip into giving unauthorized legal
+                      advice. This middleware intercepts prescriptive phrasing and rewrites it into
+                      neutral, factual context.
+                    </p>
+
+                    <div className="workbench-tabs" role="tablist" aria-label="Sample contract clauses">
+                      {GUARDRAIL_SAMPLES.map((sample, idx) => (
+                        <button
+                          key={sample.label}
+                          type="button"
+                          role="tab"
+                          aria-selected={guardrailIdx === idx}
+                          onClick={() => setGuardrailIdx(idx)}
+                          className={`workbench-tab ${guardrailIdx === idx ? "is-active" : ""}`}
+                        >
+                          Sample 0{idx + 1}: {sample.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="workbench-stage-box" aria-live="polite">
+                      <p className="workbench-clause-quote">&ldquo;{activeGuardrail.rawClause}&rdquo;</p>
+                      <div className="workbench-diff">
+                        <p className="workbench-diff__blocked">
+                          <span>Intercepted:</span> {activeGuardrail.unfilteredOutput}
+                        </p>
+                        <p className="workbench-diff__safe">
+                          <span>Neutral Output:</span> {activeGuardrail.guardedOutput}
+                        </p>
                       </div>
-                    </article>
-                  ))}
+                    </div>
+                  </article>
                 </div>
               </div>
             </ScrollReveal>
