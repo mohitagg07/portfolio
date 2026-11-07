@@ -5262,3 +5262,10 @@ main,
   text-shadow: 0 2px 12px rgba(3, 12, 19, .85);
 }
 .m-char--about .m-char__note-leader { color: #83ddb9; }
+
+
+/* Final image containment: keep the portrait clipped to its paper frame. */
+.about-v2-photo {
+  overflow: hidden;
+  border-radius: 4px;
+}
