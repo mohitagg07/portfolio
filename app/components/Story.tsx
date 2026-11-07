@@ -44,7 +44,7 @@ export default function Story() {
               <span>ABOUT ME</span>
             </div>
             <span className="about-v2-masthead__location">
-              A little about the person behind the builds · Jammu, India
+              A little context, beyond the code.
             </span>
           </header>
 
