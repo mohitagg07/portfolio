@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     title: "Mohit Aggarwal — Software Engineer",
-    description: "Web applications, automation tools and practical AI products by Mohit Aggarwal."
+    description: "Web applications, automation tools and practical AI products by Mohit Aggarwal.",
     siteName: "Mohit Aggarwal",
   },
   twitter: {
