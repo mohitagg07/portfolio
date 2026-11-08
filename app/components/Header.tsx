@@ -69,7 +69,7 @@ export default function Header() {
 
   return (
     <>
-      <header ref={headerRef} className={`site-header ${scrolled ? "is-scrolled" : ""} ${open ? "is-menu-open" : ""}`}>
+      <header ref={headerRef} className={`site-header ${scrolled ? "is-scrolled" : ""} ${active === "about" ? "is-about-active" : ""} ${open ? "is-menu-open" : ""}`}>
         <div className="site-header__glass mx-auto flex items-center justify-between px-5 py-4 md:px-12">
           <span className="site-header__depth" aria-hidden="true" />
           <a href="#home" onClick={(event) => { navigateToSection(event, "home"); setOpen(false); }} aria-label="Mohit Aggarwal home" className="site-header__brand">
