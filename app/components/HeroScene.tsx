@@ -35,9 +35,8 @@ export default function HeroScene() {
             }}
           >
             <picture className="hero-art__picture">
-              <source media="(max-width: 680px)" srcSet="/hero-workspace-mobile.webp" />
               <Image
-                src="/hero-workspace.webp"
+                src="/assets/mohit-story.jpg"
                 alt=""
                 fill
                 priority
