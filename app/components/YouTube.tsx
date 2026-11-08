@@ -97,11 +97,11 @@ export default function YouTube() {
                 id="yt-heading"
                 className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}
               >
-                The bits between <em className="youtube-title-accent">builds.</em>
+                A little life <em className="youtube-title-accent">outside the screen.</em>
               </h2>
             </ScrollReveal>
             <p className="section-lede">
-              Travel, tech, new places and the little things I learn while making things.
+              A few trips, things I’m curious about, and moments worth keeping beyond the work.
             </p>
           </div>
 
