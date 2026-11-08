@@ -6,53 +6,16 @@ import { useInView } from "./useInView";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const milestones = [
-  {
-    period: "THE FOUNDATIONS",
-    title: "VIT Chennai",
-    detail: "Computer Science (AI & Machine Learning). Learning how software works, not just how to use a framework.",
-    interaction: "milestone-vit",
-  },
-  {
-    period: "A FIRST LOOK AT INDUSTRY",
-    title: "Berger Paints",
-    detail: "Internship · August–December 2023. A chance to see how day-to-day business work and technology meet.",
-    interaction: "milestone-berger",
-  },
-  {
-    period: "LEARNING BY BUILDING",
-    title: "Independent projects",
-    detail: "MindCare, LegalMind AI, business-data enrichment and automation experiments.",
-    interaction: "milestone-mindcare",
-  },
-] as const;
-
-const principles = [
-  {
-    number: "01",
-    title: "Start with the real problem",
-    text: "Understand where the friction is before choosing a tool, model or framework.",
-    interaction: "stage-understand",
-  },
-  {
-    number: "02",
-    title: "Make something useful",
-    text: "Build the simplest version that genuinely helps someone get something done.",
-    interaction: "stage-build",
-  },
-  {
-    number: "03",
-    title: "Care about the details",
-    text: "Test it, notice what feels awkward, and keep refining until it works naturally.",
-    interaction: "stage-refine",
-  },
-] as const;
-
 export default function Story() {
-  const [sectionRef, sectionInView] = useInView<HTMLElement>(0.08);
-  const [chaptersRef, chaptersInView] = useInView<HTMLElement>(0.12);
-  const [principlesRef, principlesInView] = useInView<HTMLElement>(0.12);
+  const [sectionRef, sectionSeen] = useInView<HTMLElement>(0.08);
+  const [factsRef, factsSeen] = useInView<HTMLDivElement>(0.12);
   const reduceMotion = useReducedMotion();
+
+  const reveal = (delay = 0) => ({
+    initial: reduceMotion ? false : { opacity: 0, y: 22 },
+    animate: sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.72, delay, ease: EASE },
+  });
 
   return (
     <div className="about-scroll-stage">
@@ -60,205 +23,151 @@ export default function Story() {
         ref={sectionRef}
         id="about"
         aria-labelledby="about-title"
-        className="about-v3-section"
+        className="about-v4-section relative isolate overflow-hidden scroll-mt-24 text-[#f4eedf]"
       >
-        <div className="about-v3-intro">
-          <div className="about-v3-shell">
-            <header className="about-v3-masthead">
-              <div className="about-v3-masthead__left">
-                <span className="about-v3-index">02</span>
-                <span>THE PERSON BEHIND THE BUILDS</span>
-              </div>
-              <span className="about-v3-masthead__right">JAMMU, INDIA <span aria-hidden="true">↗</span></span>
-            </header>
+        <div className="about-v4-atmosphere pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="relative mx-auto w-full max-w-[1360px] px-5 pb-12 pt-28 sm:px-8 lg:px-14 lg:pb-16 lg:pt-32">
+          <header className="about-v4-header flex items-center justify-between border-b border-white/15 pb-4">
+            <p className="text-[12px] font-semibold tracking-[0.16em] text-[#e9e0ce]">About Me</p>
+            <p className="text-[11px] tracking-[0.12em] text-[#a9b8a9]">A LITTLE MORE THAN THE WORK</p>
+          </header>
 
-            <div className="about-v3-spread">
-              <motion.div
-                className="about-v3-copy"
-                initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-                animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.04, ease: EASE }}
-              >
-                <p className="about-v3-kicker">A QUESTION I COME BACK TO</p>
-                <h2 id="about-title" className="about-v3-title">
-                  I keep asking,
-                  <span>Can this be simpler?</span>
-                </h2>
-
-                <div className="about-v3-bio">
-                  <p className="about-v3-greeting">Hey, I&apos;m Mohit.</p>
-                  <p>
-                    I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
-                    I like the part of building that happens before the code: understanding what is
-                    frustrating, what is missing, and what would make an experience easier.
-                  </p>
-                  <p>
-                    That curiosity has taken me through web development, backend systems,
-                    automation and AI-powered projects. I&apos;ve explored <strong>MindCare</strong>,
-                    <strong> LegalMind AI</strong> and business-data enrichment tools — each with a
-                    different problem to untangle.
-                  </p>
-                  <p className="about-v3-bio__last">
-                    Not every problem needs AI or a complicated stack. I enjoy finding the right
-                    tool, getting the details right, and making something people can actually use.
-                  </p>
-                </div>
-
-                <div className="about-v3-interests">
-                  <span className="about-v3-interests__label">I KEEP EXPLORING</span>
-                  <div className="about-v3-interest-list">
-                    <span>Web products</span><i aria-hidden="true" />
-                    <span>Automation</span><i aria-hidden="true" />
-                    <span>Practical AI</span>
-                  </div>
-                </div>
-
-                <a className="about-v3-work-link" href="#work">
-                  A few things I&apos;ve built <span aria-hidden="true">↗</span>
-                </a>
-              </motion.div>
-
-              <motion.div
-                className="about-v3-visual"
-                data-about-interactive="portrait"
-                initial={reduceMotion ? false : { opacity: 0, y: 26, rotate: 1.5 }}
-                animate={sectionInView ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 26, rotate: 1.5 }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.9, delay: 0.14, ease: EASE }}
-              >
-                <span className="about-v3-visual__shape" aria-hidden="true" />
-                <span className="about-v3-visual__corner-label">A LITTLE TIME AWAY FROM THE SCREEN</span>
-
-                <figure
-                  className="about-v3-photo"
-                  data-about-portrait="true"
-                  data-about-interactive="portrait"
-                >
-                  <Image
-                    src="/assets/mohit-story.jpg"
-                    alt="Mohit outdoors in Jammu"
-                    fill
-                    sizes="(max-width: 760px) 88vw, (max-width: 1100px) 48vw, 520px"
-                    quality={88}
-                    className="about-v3-photo__image"
-                  />
-                  <figcaption className="about-v3-photo__caption">
-                    <span className="about-v3-photo__caption-mark" aria-hidden="true">✳</span>
-                    Jammu, India
-                  </figcaption>
-                </figure>
-
-                <a
-                  className="about-v3-project-peek"
-                  href="#work"
-                  data-about-interactive="mindcare-artifact"
-                  aria-label="Explore MindCare in the work section"
-                >
-                  <div className="about-v3-project-peek__top">
-                    <span>ON THE DESK</span>
-                    <span aria-hidden="true">↗</span>
-                  </div>
-                  <div className="about-v3-project-peek__image">
-                    <Image
-                      src="/projects/project-2.png"
-                      alt="MindCare project interface preview"
-                      fill
-                      sizes="260px"
-                      quality={82}
-                      className="about-v3-project-peek__img"
-                    />
-                  </div>
-                  <div className="about-v3-project-peek__bottom">
-                    <strong>MindCare</strong>
-                    <span>Product exploration</span>
-                  </div>
-                </a>
-
-                <svg className="about-v3-doodle" viewBox="0 0 110 76" fill="none" aria-hidden="true">
-                  <path d="M4 63C25 36 59 17 98 14M98 14L86 7M98 14L91 27" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="about-v3-handnote">one idea at a time</span>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-
-        <section
-          ref={chaptersRef}
-          className="about-v3-chapters"
-          aria-labelledby="about-chapters-title"
-        >
-          <div className="about-v3-lower-shell">
+          <div className="grid items-center gap-9 pt-8 md:gap-12 lg:grid-cols-[1.04fr_.96fr] lg:gap-14 lg:pt-10">
             <motion.div
-              className="about-v3-chapters__heading"
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-              animate={chaptersInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.68, ease: EASE }}
+              className="about-v4-collage relative mx-auto h-[410px] w-full max-w-[570px] sm:h-[500px] lg:h-[585px]"
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={sectionSeen ? { opacity: 1 } : { opacity: 0 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.55 }}
             >
-              <div>
-                <p className="about-v3-paper-kicker">A FEW CHAPTERS</p>
-                <h3 id="about-chapters-title">The route <em>so far.</em></h3>
+              <div className="about-v4-jammu-tag absolute left-[1%] top-[1%] z-30 flex -rotate-[7deg] flex-col justify-center px-5 py-2.5 sm:px-6 sm:py-3">
+                <span className="text-[8px] font-bold uppercase tracking-[0.18em] text-[#6a735a]">Home base</span>
+                <strong className="font-[var(--font-accent-face)] text-[24px] font-normal italic leading-none text-[#263d30] sm:text-[29px]">Jammu, India</strong>
               </div>
-              <p className="about-v3-chapters__aside">
-                A few places and projects that have shaped how I think about building.
-              </p>
+
+              <motion.figure
+                data-about-portrait="true"
+                data-about-interactive="portrait"
+                className="about-v4-photo about-v4-photo--main group absolute left-[19%] top-[9%] z-20 h-[79%] w-[61%] -rotate-[3.5deg] cursor-pointer"
+                initial={reduceMotion ? false : { opacity: 0, y: 28, rotate: -8 }}
+                animate={sectionSeen ? { opacity: 1, y: 0, rotate: -3.5 } : { opacity: 0, y: 28, rotate: -8 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.82, delay: 0.16, ease: EASE }}
+                whileHover={reduceMotion ? undefined : { y: -9, rotate: 0, scale: 1.015 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.99 }}
+              >
+                <Image
+                  src="/about/about-main.webp"
+                  alt="Mohit outdoors in a black shirt"
+                  fill
+                  sizes="(max-width: 760px) 62vw, (max-width: 1100px) 34vw, 350px"
+                  quality={88}
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.045]"
+                />
+                <span className="about-v4-photo-grain pointer-events-none absolute inset-0" aria-hidden="true" />
+              </motion.figure>
+
+              <motion.figure
+                className="about-v4-photo about-v4-photo--selfie group absolute right-[1%] top-[12%] z-30 h-[39%] w-[29%] rotate-[5deg] cursor-pointer"
+                initial={reduceMotion ? false : { opacity: 0, x: 24, rotate: 11 }}
+                animate={sectionSeen ? { opacity: 1, x: 0, rotate: 5 } : { opacity: 0, x: 24, rotate: 11 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.76, delay: 0.38, ease: EASE }}
+                whileHover={reduceMotion ? undefined : { y: -8, rotate: 1, scale: 1.035 }}
+              >
+                <Image
+                  src="/about/about-selfie.webp"
+                  alt="Mohit in a leather jacket"
+                  fill
+                  sizes="(max-width: 760px) 30vw, 170px"
+                  quality={86}
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                />
+              </motion.figure>
+
+              <motion.figure
+                className="about-v4-photo about-v4-photo--waterfall group absolute bottom-[4%] left-[1%] z-30 h-[42%] w-[35%] -rotate-[5deg] cursor-pointer"
+                initial={reduceMotion ? false : { opacity: 0, y: 25, rotate: -10 }}
+                animate={sectionSeen ? { opacity: 1, y: 0, rotate: -5 } : { opacity: 0, y: 25, rotate: -10 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.8, delay: 0.54, ease: EASE }}
+                whileHover={reduceMotion ? undefined : { y: -8, rotate: -1, scale: 1.035 }}
+              >
+                <Image
+                  src="/about/about-waterfall.webp"
+                  alt="Mohit visiting a waterfall"
+                  fill
+                  sizes="(max-width: 760px) 36vw, 200px"
+                  quality={86}
+                  className="object-cover object-[50%_66%] transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                />
+              </motion.figure>
+
+              <span className="about-v4-tape about-v4-tape--main pointer-events-none absolute left-[39%] top-[5%] z-40" aria-hidden="true" />
+              <span className="about-v4-tape about-v4-tape--small pointer-events-none absolute right-[15%] top-[8%] z-40" aria-hidden="true" />
+              <svg className="about-v4-scribble pointer-events-none absolute bottom-[1%] right-[8%] z-40" viewBox="0 0 120 50" fill="none" aria-hidden="true">
+                <path d="M4 36C33 15 72 9 111 16M101 7L112 16L98 22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="about-v4-handnote pointer-events-none absolute bottom-[0%] right-[20%] z-40">out for a change of scene</span>
             </motion.div>
 
-            <ol className="about-v3-timeline">
-              {milestones.map((item, index) => (
-                <motion.li
-                  className="about-v3-milestone"
-                  data-about-interactive={item.interaction}
-                  key={item.title}
-                  initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-                  animate={chaptersInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-                  transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.1 + index * 0.12, ease: EASE }}
-                >
-                  <span className="about-v3-milestone__number">0{index + 1}</span>
-                  <div className="about-v3-milestone__body">
-                    <span className="about-v3-milestone__period">{item.period}</span>
-                    <h4>{item.title}</h4>
-                    <p>{item.detail}</p>
-                  </div>
-                </motion.li>
-              ))}
-            </ol>
+            <motion.div className="about-v4-copy relative z-10 lg:pl-1" {...reveal(0.2)}>
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-[#d8b85b]">HEY, I’M MOHIT</p>
+              <h2 id="about-title" className="about-v4-title">
+                I like figuring
+                <span>things out.</span>
+                <em>And making them work.</em>
+              </h2>
 
-            <section
-              ref={principlesRef}
-              className="about-v3-practice"
-              aria-labelledby="about-practice-title"
-            >
-              <div className="about-v3-practice__intro">
-                <p className="about-v3-paper-kicker">A SMALL RULE I COME BACK TO</p>
-                <h3 id="about-practice-title">
-                  Make it useful <em>before making it clever.</em>
-                </h3>
+              <div className="mt-6 max-w-[540px] space-y-4 text-[15px] leading-[1.75] text-[#c9d2c8] sm:text-[16px]">
+                <p>
+                  I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
+                  I’ve always enjoyed understanding how things work, then finding a better way to do them.
+                </p>
+                <p>
+                  That curiosity has taken me from web projects and automation to ideas like
+                  <strong> MindCare</strong> and <strong>LegalMind AI</strong>. I like making ideas real,
+                  trying them out, and getting the small details right.
+                </p>
               </div>
 
-              <div className="about-v3-principles">
-                {principles.map((item, index) => (
-                  <motion.article
-                    className="about-v3-principle"
-                    data-about-interactive={item.interaction}
-                    key={item.number}
-                    initial={reduceMotion ? false : { opacity: 0, y: 15 }}
-                    animate={principlesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                    transition={reduceMotion ? { duration: 0 } : { duration: 0.58, delay: index * 0.1, ease: EASE }}
-                  >
-                    <span className="about-v3-principle__number">{item.number}</span>
-                    <h4>{item.title}</h4>
-                    <p>{item.text}</p>
-                  </motion.article>
-                ))}
+              <div className="about-v4-interests mt-7 flex max-w-[550px] flex-wrap items-center gap-x-3 gap-y-2 border-t border-white/15 pt-4 text-[13px] text-[#e9e5d8]">
+                <span>Making ideas useful</span>
+                <i aria-hidden="true" />
+                <span>Taking the busywork out</span>
+                <i aria-hidden="true" />
+                <span>Exploring AI when it helps</span>
               </div>
-            </section>
 
-            <footer className="about-v3-footer">
-              <span>STILL CURIOUS. STILL BUILDING.</span>
-              <a href="#work">See what came out of it <span aria-hidden="true">↗</span></a>
-            </footer>
+              <a
+                href="#work"
+                className="about-v4-link mt-7 inline-flex items-center gap-2 text-[13px] font-semibold text-[#8be0bd] transition-all duration-300 hover:gap-4 hover:text-[#c3f1d9]"
+              >
+                A few things I’ve been working on <span aria-hidden="true">↗</span>
+              </a>
+            </motion.div>
           </div>
-        </section>
+
+          <motion.div
+            ref={factsRef}
+            className="about-v4-facts relative mt-11 grid grid-cols-2 gap-x-5 gap-y-5 px-6 py-7 sm:px-8 lg:mt-6 lg:grid-cols-3 lg:gap-0 lg:px-10 lg:py-8"
+            initial={reduceMotion ? false : { opacity: 0, y: 20, rotate: -0.3 }}
+            animate={factsSeen ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 20, rotate: -0.3 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
+          >
+            <div className="about-v4-fact">
+              <span>STUDIED AT</span>
+              <strong>VIT Chennai</strong>
+              <small>B.Tech · Computer Science (AI &amp; ML)</small>
+            </div>
+            <div className="about-v4-fact">
+              <span>FIRST INTERNSHIP</span>
+              <strong>Berger Paints</strong>
+              <small>August to December 2023</small>
+            </div>
+            <div className="about-v4-fact col-span-2 lg:col-span-1">
+              <span>THINGS I’VE BUILT</span>
+              <strong>MindCare · LegalMind AI</strong>
+              <small>Business Scraper and automation tools</small>
+            </div>
+          </motion.div>
+        </div>
       </section>
     </div>
   );
