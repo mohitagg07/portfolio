@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohit Aggarwal — AI & Automation Developer",
-    description: "AI tools and software that automate repetitive work and make complex information easier to use.",
+    title: "Mohit Aggarwal — Software Engineer",
+    description: "Web applications, automation tools and practical AI products by Mohit Aggarwal.",
   },
   robots: { index: true, follow: true },
 };
