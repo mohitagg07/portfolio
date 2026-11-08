@@ -18,7 +18,7 @@ const YouTube = dynamic(() => import("./components/YouTube"), {
 
 export default function Home(): React.JSX.Element {
   return (
-    <main className="relative min-h-screen bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--accent)] selection:text-[#102b23] overflow-x-clip">
+    <main className="portfolio-theme relative min-h-screen overflow-x-clip bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--accent)] selection:text-[#102b23]">
       <BackgroundCanvas />
       <Header />
       <HeroRobot />
