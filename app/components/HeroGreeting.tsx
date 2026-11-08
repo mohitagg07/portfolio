@@ -15,7 +15,6 @@ export default function HeroGreeting({
   exitY = 0,
 }: HeroGreetingProps) {
   const [mounted, setMounted] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setMounted(true));
