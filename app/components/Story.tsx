@@ -109,12 +109,13 @@ export default function Story() {
           <motion.div className="about-v4-copy-body" {...reveal(0.28)}>
             <p>
               I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
-              I like getting to the bottom of a problem, trying ideas out, and turning the useful
-              ones into software people can actually use.
+              I’m drawn to the parts of a project that need a bit of untangling: a slow process,
+              scattered information, or an idea that hasn’t quite become a product yet.
             </p>
             <p>
-              From web apps and automation to <strong>MindCare</strong> and <strong>LegalMind AI</strong>,
-              I enjoy making ideas real, testing what works, and getting the small details right.
+              I’ve worked on web apps, automation and projects like <strong>MindCare</strong> and
+              <strong> LegalMind AI</strong>. I enjoy making a first version, seeing where it falls
+              short, and making the next one better.
             </p>
 
             <div className="about-v4-interests" aria-label="What I enjoy">
