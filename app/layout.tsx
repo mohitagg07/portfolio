@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./portfolio-art-direction.css";
 
 const displayFont = Manrope({
   subsets: ["latin"],
@@ -32,17 +33,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (vercelHost ? `https://${ver
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Mohit Aggarwal — AI & Automation Developer",
-  description: "Mohit Aggarwal builds AI tools and software that automate repetitive work, connect everyday apps, and make complex information easier to use. Based in Jammu, India.",
-  keywords: ["Mohit Aggarwal", "AI developer", "automation developer", "AI engineer", "software developer", "portfolio"],
+  title: "Mohit Aggarwal — Software Engineer",
+  description: "Mohit Aggarwal is a software engineer in Jammu, India. He builds web applications, automation tools and practical AI products.",
+  keywords: ["Mohit Aggarwal", "software engineer", "web development", "automation", "AI products", "portfolio"],
   authors: [{ name: "Mohit Aggarwal" }],
   creator: "Mohit Aggarwal",
   icons: { icon: "/favicon.ico", shortcut: "/favicon.ico", apple: "/favicon.ico" },
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Mohit Aggarwal — AI & Automation Developer",
-    description: "AI tools and software that automate repetitive work and make complex information easier to use.",
+    title: "Mohit Aggarwal — Software Engineer",
+    description: "Web applications, automation tools and practical AI products by Mohit Aggarwal."
     siteName: "Mohit Aggarwal",
   },
   twitter: {
