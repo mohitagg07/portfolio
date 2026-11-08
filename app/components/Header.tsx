@@ -76,7 +76,7 @@ export default function Header() {
             <svg width="36" height="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
               <defs>
                 <linearGradient id="logo-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="30" y2="30">
-                  <stop stopColor="#22d3ee" /><stop offset="1" stopColor="#c8ff00" />
+                  <stop stopColor="#c69a43" /><stop offset="1" stopColor="#8dd7b6" />
                 </linearGradient>
               </defs>
               <path d="M4 25V5l11 13L26 5v20" stroke="url(#logo-g)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
