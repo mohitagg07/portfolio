@@ -83,7 +83,7 @@ export default function Header() {
             </svg>
             <span className="site-header__brand-copy" aria-hidden="true">
               <span>Mohit Aggarwal</span>
-              <small>AI &amp; automation</small>
+              <small>Software engineer</small>
             </span>
           </a>
 
