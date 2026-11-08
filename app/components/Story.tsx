@@ -25,6 +25,10 @@ export default function Story() {
       className="about-v4-section relative isolate scroll-mt-24"
     >
       <div className="about-v4-inner mx-auto w-full">
+        <div className="about-v4-masthead">
+          <p className="about-v4-masthead__title">About Me <span aria-hidden="true" /></p>
+          <p className="about-v4-masthead__note">A little more than the work</p>
+        </div>
         <div className="about-v4-layout">
           <motion.div className="about-v4-collage" {...reveal(0.08)}>
             <span className="about-v4-paper-shape" aria-hidden="true" />
@@ -48,7 +52,7 @@ export default function Story() {
                 alt="Mohit outdoors in a black shirt, among the greenery"
                 fill
                 sizes="(max-width: 760px) 76vw, (max-width: 1200px) 45vw, 620px"
-                quality={85}
+                quality={90}
                 className="about-v4-photo-image object-cover object-center"
               />
             </motion.figure>
@@ -65,7 +69,7 @@ export default function Story() {
                 alt="Mohit in a black leather jacket"
                 fill
                 sizes="(max-width: 760px) 31vw, 230px"
-                quality={85}
+                quality={90}
                 className="about-v4-photo-image object-cover object-center"
               />
             </motion.figure>
@@ -82,7 +86,7 @@ export default function Story() {
                 alt="Mohit visiting a waterfall"
                 fill
                 sizes="(max-width: 760px) 36vw, 260px"
-                quality={85}
+                quality={90}
                 className="about-v4-photo-image object-cover object-[50%_66%]"
               />
             </motion.figure>
@@ -94,7 +98,7 @@ export default function Story() {
           </motion.div>
 
           <motion.div className="about-v4-copy-title" {...reveal(0.16)}>
-            <p className="about-v4-eyebrow">ABOUT ME</p>
+            <p className="about-v4-eyebrow">HEY, I’M MOHIT</p>
             <h2 id="about-title" className="about-v4-title">
               <span>I like figuring</span>
               <span>things out.</span>
@@ -103,7 +107,6 @@ export default function Story() {
           </motion.div>
 
           <motion.div className="about-v4-copy-body" {...reveal(0.28)}>
-            <h3>Hey, I’m Mohit.</h3>
             <p>
               I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
               I like getting to the bottom of a problem, trying ideas out, and turning the useful
@@ -147,11 +150,6 @@ export default function Story() {
             <span>THINGS I’VE BUILT</span>
             <strong>MindCare · LegalMind AI</strong>
             <small>Business Scraper and automation tools</small>
-          </div>
-          <div className="about-v4-fact">
-            <span>HOME BASE</span>
-            <strong>Jammu, India</strong>
-            <small>A good place to come back to</small>
           </div>
         </motion.div>
 
