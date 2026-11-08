@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { useInView } from "./useInView";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Story() {
   const [sectionRef, sectionSeen] = useInView<HTMLElement>(0.08);
@@ -13,7 +13,7 @@ export default function Story() {
 
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 22 },
-    animate: sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 },
+    animate: reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 },
     transition: reduceMotion ? { duration: 0 } : { duration: 0.72, delay, ease: EASE },
   });
 
@@ -36,7 +36,7 @@ export default function Story() {
             <motion.div
               className="about-v4-collage relative mx-auto h-[410px] w-full max-w-[570px] sm:h-[500px] lg:h-[585px]"
               initial={reduceMotion ? false : { opacity: 0 }}
-              animate={sectionSeen ? { opacity: 1 } : { opacity: 0 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.55 }}
             >
               <div className="about-v4-jammu-tag absolute left-[1%] top-[1%] z-30 flex -rotate-[7deg] flex-col justify-center px-5 py-2.5 sm:px-6 sm:py-3">
@@ -49,7 +49,7 @@ export default function Story() {
                 data-about-interactive="portrait"
                 className="about-v4-photo about-v4-photo--main group absolute left-[19%] top-[9%] z-20 h-[79%] w-[61%] -rotate-[3.5deg] cursor-pointer"
                 initial={reduceMotion ? false : { opacity: 0, y: 28, rotate: -8 }}
-                animate={sectionSeen ? { opacity: 1, y: 0, rotate: -3.5 } : { opacity: 0, y: 28, rotate: -8 }}
+                animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0, rotate: -3.5 } : { opacity: 0, y: 28, rotate: -8 }}
                 transition={reduceMotion ? { duration: 0 } : { duration: 0.82, delay: 0.16, ease: EASE }}
                 whileHover={reduceMotion ? undefined : { y: -9, rotate: 0, scale: 1.015 }}
                 whileTap={reduceMotion ? undefined : { scale: 0.99 }}
@@ -59,16 +59,16 @@ export default function Story() {
                   alt="Mohit outdoors in a black shirt"
                   fill
                   sizes="(max-width: 760px) 62vw, (max-width: 1100px) 34vw, 350px"
-                  quality={88}
+                  quality={90}
                   className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.045]"
                 />
                 <span className="about-v4-photo-grain pointer-events-none absolute inset-0" aria-hidden="true" />
               </motion.figure>
 
               <motion.figure
-                className="about-v4-photo about-v4-photo--selfie group absolute right-[1%] top-[12%] z-30 h-[39%] w-[29%] rotate-[5deg] cursor-pointer"
+                className="about-v4-photo about-v4-photo--selfie group absolute right-[1%] top-[12%] z-30 h-[39%] w-[29%] rotate-[5deg]"
                 initial={reduceMotion ? false : { opacity: 0, x: 24, rotate: 11 }}
-                animate={sectionSeen ? { opacity: 1, x: 0, rotate: 5 } : { opacity: 0, x: 24, rotate: 11 }}
+                animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0, rotate: 5 } : { opacity: 0, x: 24, rotate: 11 }}
                 transition={reduceMotion ? { duration: 0 } : { duration: 0.76, delay: 0.38, ease: EASE }}
                 whileHover={reduceMotion ? undefined : { y: -8, rotate: 1, scale: 1.035 }}
               >
@@ -77,15 +77,15 @@ export default function Story() {
                   alt="Mohit in a leather jacket"
                   fill
                   sizes="(max-width: 760px) 30vw, 170px"
-                  quality={86}
+                  quality={85}
                   className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 />
               </motion.figure>
 
               <motion.figure
-                className="about-v4-photo about-v4-photo--waterfall group absolute bottom-[4%] left-[1%] z-30 h-[42%] w-[35%] -rotate-[5deg] cursor-pointer"
+                className="about-v4-photo about-v4-photo--waterfall group absolute bottom-[4%] left-[1%] z-30 h-[42%] w-[35%] -rotate-[5deg]"
                 initial={reduceMotion ? false : { opacity: 0, y: 25, rotate: -10 }}
-                animate={sectionSeen ? { opacity: 1, y: 0, rotate: -5 } : { opacity: 0, y: 25, rotate: -10 }}
+                animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0, rotate: -5 } : { opacity: 0, y: 25, rotate: -10 }}
                 transition={reduceMotion ? { duration: 0 } : { duration: 0.8, delay: 0.54, ease: EASE }}
                 whileHover={reduceMotion ? undefined : { y: -8, rotate: -1, scale: 1.035 }}
               >
@@ -94,7 +94,7 @@ export default function Story() {
                   alt="Mohit visiting a waterfall"
                   fill
                   sizes="(max-width: 760px) 36vw, 200px"
-                  quality={86}
+                  quality={85}
                   className="object-cover object-[50%_66%] transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                 />
               </motion.figure>
@@ -148,7 +148,7 @@ export default function Story() {
             ref={factsRef}
             className="about-v4-facts relative mt-11 grid grid-cols-2 gap-x-5 gap-y-5 px-6 py-7 sm:px-8 lg:mt-6 lg:grid-cols-3 lg:gap-0 lg:px-10 lg:py-8"
             initial={reduceMotion ? false : { opacity: 0, y: 20, rotate: -0.3 }}
-            animate={factsSeen ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 20, rotate: -0.3 }}
+            animate={reduceMotion || factsSeen ? { opacity: 1, y: 0, rotate: 0 } : { opacity: 0, y: 20, rotate: -0.3 }}
             transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
           >
             <div className="about-v4-fact">
