@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import Image from "next/image";
 import { Github, Youtube, Linkedin, Mail, Copy, Check, ArrowUpRight } from "lucide-react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
@@ -64,15 +63,6 @@ export default function ContactSection() {
       className={`section-spacer contact-section ${seen ? "is-active" : ""}`}
     >
       <div className="contact-art" aria-hidden="true">
-        <Image
-          src="/contact-workspace.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          loading="lazy"
-          quality={75}
-          className="contact-art__image"
-        />
         <div className="contact-art__shade" />
         <div className="contact-art__glow" />
       </div>
