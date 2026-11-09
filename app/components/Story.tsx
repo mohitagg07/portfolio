@@ -176,8 +176,7 @@ export default function Story() {
                 <h4>Relu Consultancy</h4>
                 <p className="about-experience__role">Intern</p>
                 <p className="about-experience__description">
-                  Internship experience at Relu Consultancy. Further role details and dates
-                  can be added once the exact information is confirmed.
+                  An internship experience with the team at Relu Consultancy.
                 </p>
               </div>
               <span className="about-experience__year">01</span>
