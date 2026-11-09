@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HeroGreeting from "./HeroGreeting";
 
 export default function HeroScene() {
   return (
@@ -6,17 +7,19 @@ export default function HeroScene() {
       <section
         id="home"
         className="hero-section hero-section--sticky hero-scene-section"
-        aria-label="Mohit Aggarwal portfolio"
+        aria-labelledby="hero-title"
       >
         <Image
           src="/assets/hero-background.avif"
-          alt="A forest-green creative workspace with a desk, laptop, camera, books, plants and warm window light"
+          alt="A warm, forest-green workspace with a desk, laptop, camera, books, plants and window light"
           fill
           priority
-          quality={90}
+          quality={92}
           sizes="100vw"
           className="hero-background-image"
         />
+        <div className="hero-image-shade" aria-hidden="true" />
+        <HeroGreeting />
       </section>
     </div>
   );
