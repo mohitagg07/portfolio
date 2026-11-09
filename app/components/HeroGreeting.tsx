@@ -72,7 +72,6 @@ export default function HeroGreeting() {
           <span className="hero-title__line" aria-hidden="true">
             <Word delay={0.54}>of</Word>
             <Word delay={0.61}>work</Word>
-            {" "}
             <em className="hero-title__accent">
               <Word delay={0.72} accent>feel</Word>
               <Word delay={0.82} accent>simpler.</Word>
