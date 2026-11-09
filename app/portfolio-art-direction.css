@@ -1990,6 +1990,109 @@ body {
   content: "";
 }
 
+.innovix-project-media {
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  background: #17251c;
+}
+
+.innovix-project-cover {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  aspect-ratio: 16 / 10;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(16px, 2vw, 25px);
+  color: #f2efe5;
+  background:
+    radial-gradient(ellipse at 78% 25%, rgba(169, 218, 173, .20), transparent 38%),
+    linear-gradient(135deg, #1a2b20 0%, #0e1913 72%);
+}
+
+.innovix-project-cover::before {
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(220, 229, 202, .20);
+  content: "";
+  pointer-events: none;
+}
+
+.innovix-project-cover__top,
+.innovix-project-cover__bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #b3c5b0;
+  font-family: var(--font-mono-face), monospace;
+  font-size: clamp(7px, .8vw, 10px);
+  letter-spacing: .12em;
+}
+
+.innovix-project-cover__field {
+  position: absolute;
+  inset: 15% 12% 18% 42%;
+  border: 1px solid rgba(170, 219, 178, .25);
+  border-radius: 48% 48% 4px 4px;
+  transform: rotate(8deg);
+}
+
+.innovix-project-cover__shape {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(184, 223, 172, .54);
+  border-radius: 50%;
+}
+
+.innovix-project-cover__shape--one {
+  inset: 11% 13% 18% 19%;
+}
+
+.innovix-project-cover__shape--two {
+  inset: 25% 28% 6% 7%;
+  border-color: rgba(217, 181, 119, .62);
+}
+
+.innovix-project-cover__shape--three {
+  top: 35%;
+  left: 44%;
+  width: 18%;
+  aspect-ratio: 1;
+  background: rgba(169, 222, 177, .14);
+  box-shadow: 0 0 36px rgba(169, 222, 177, .10);
+}
+
+.innovix-project-cover__wordmark {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #f2efe5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 5vw, 58px);
+  letter-spacing: -.06em;
+  line-height: .9;
+}
+
+.innovix-project-cover__wordmark small {
+  color: #a9dfb6;
+  font-family: var(--font-mono-face), monospace;
+  font-size: clamp(9px, 1vw, 12px);
+  letter-spacing: .16em;
+}
+
+.innovix-project-cover__bottom {
+  color: #d7c59e;
+  font-size: clamp(6px, .72vw, 9px);
+}
+
 @media (max-width: 1100px) and (min-width: 768px) {
   .hero-layout.section-wrap {
     padding-inline: 34px;
