@@ -15,11 +15,17 @@ export default function HeroGreeting() {
   return (
     <div className="hero-layout section-wrap">
       <div className="hero-copy">
-        <p className="hero-hello">
-          <span className="hero-hello__role">Software engineer</span>
-          <span className="hero-hello__divider" aria-hidden="true" />
+        <div className="hero-hello" aria-label="Location, education and experience">
           <span className="hero-hello__place"><PinIcon /> Jammu, India</span>
-        </p>
+          <span className="hero-hello__school" aria-label="VIT Chennai">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.2 12 4l10 5.2L12 14.5 2 9.2Z"/><path d="M5.5 11.2v5.1c3.8 3 9.2 3 13 0v-5.1M22 9.2v6"/></svg>
+            VIT Chennai
+          </span>
+          <span className="hero-hello__internship" aria-label="Berger Paints internship">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="1.5"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg>
+            Berger Paints (Intern)
+          </span>
+        </div>
 
         <h1 id="hero-title" className="hero-title">
           <span className="hero-title__line">I make the messy parts</span>
