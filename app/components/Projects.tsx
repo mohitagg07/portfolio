@@ -153,6 +153,32 @@ const PROJECT_NAMES = [
   "MindCare",
   "Innovix Studio",
 ];
+function handleTabListKeyDown(event: React.KeyboardEvent<HTMLElement>) {
+  const key = event.key;
+  if (key !== "ArrowRight" && key !== "ArrowLeft" && key !== "ArrowDown" && key !== "ArrowUp" && key !== "Home" && key !== "End") {
+    return;
+  }
+
+  const tabs = Array.from(
+    event.currentTarget.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])')
+  );
+  if (!tabs.length) return;
+
+  const currentIndex = tabs.findIndex((tab) => tab === document.activeElement);
+  if (currentIndex < 0) return;
+
+  event.preventDefault();
+  const nextIndex =
+    key === "Home" ? 0 :
+    key === "End" ? tabs.length - 1 :
+    key === "ArrowRight" || key === "ArrowDown"
+      ? (currentIndex + 1) % tabs.length
+      : (currentIndex - 1 + tabs.length) % tabs.length;
+
+  const nextTab = tabs[nextIndex];
+  nextTab?.focus();
+  nextTab?.click();
+}
 
 export default function Projects() {
   const workStageRef = useRef<HTMLDivElement>(null);
@@ -325,7 +351,7 @@ export default function Projects() {
 
                 {/* View Mode Toggle for LegalMind AI on mobile */}
                 <div className="mobile-mode-toggle-wrap">
-                  <div className="view-mode-toggle" role="tablist" aria-label="LegalMind inspection modes">
+                  <div className="view-mode-toggle" role="tablist" aria-label="LegalMind inspection modes" onKeyDown={handleTabListKeyDown}>
                     <button
                       type="button"
                       role="tab"
@@ -387,7 +413,7 @@ export default function Projects() {
                       <span className="explorer-kicker">Pipeline Stages</span>
                       <span className="explorer-indicator">Tap step to inspect trade-off</span>
                     </div>
-                    <div className="pipeline-steps-grid" role="tablist" aria-label="Pipeline stages">
+                    <div className="pipeline-steps-grid" role="tablist" aria-label="Pipeline stages" onKeyDown={handleTabListKeyDown}>
                       {LEGALMIND_PIPELINE.map((step, idx) => {
                         const isSelected = activeStepIndex === idx;
                         return (
@@ -395,6 +421,9 @@ export default function Projects() {
                             key={step.id}
                             type="button"
                             role="tab"
+                            id={`mobile-pipeline-${step.id}`}
+                            aria-controls="mobile-pipeline-detail"
+                            tabIndex={isSelected ? 0 : -1}
                             aria-selected={isSelected}
                             className={`pipeline-step-btn ${isSelected ? "is-selected" : ""}`}
                             onClick={() => setActiveStepIndex(idx)}
@@ -405,7 +434,14 @@ export default function Projects() {
                         );
                       })}
                     </div>
-                    <div className="pipeline-inspection-box" aria-live="polite">
+                    <div
+                      id="mobile-pipeline-detail"
+                      role="tabpanel"
+                      tabIndex={0}
+                      aria-labelledby={`mobile-pipeline-${activeStep.id}`}
+                      className="pipeline-inspection-box"
+                      aria-live="polite"
+                    >
                       <span className="inspection-step-tag">Stage {activeStep.number} · {activeStep.tech}</span>
                       <p className="inspection-summary mt-1">{activeStep.summary}</p>
                       <div className="inspection-tradeoff mt-2">
@@ -597,13 +633,12 @@ export default function Projects() {
 
             {/* Pagination Dots */}
             <div className="slider-pagination-wrap">
-              <div className="slider-pagination-dots" role="tablist" aria-label="Project carousel pagination">
+              <div className="slider-pagination-dots" role="group" aria-label="Project carousel pagination">
                 {[0, 1, 2, 3].map((idx) => (
                   <button
                     key={idx}
                     type="button"
-                    role="tab"
-                    aria-selected={activeMobileSlide === idx}
+                    aria-pressed={activeMobileSlide === idx}
                     aria-label={`Go to project ${idx + 1}: ${PROJECT_NAMES[idx]}`}
                     className={`slider-dot ${activeMobileSlide === idx ? "is-active" : ""}`}
                     onClick={() => scrollToSlide(idx)}
@@ -661,7 +696,7 @@ export default function Projects() {
                         Launch Live Web App <span aria-hidden="true">↗</span>
                       </a>
 
-                      <div className="view-mode-toggle" role="tablist" aria-label="LegalMind inspection modes">
+                      <div className="view-mode-toggle" role="tablist" aria-label="LegalMind inspection modes" onKeyDown={handleTabListKeyDown}>
                         <button
                           type="button"
                           role="tab"
@@ -694,6 +729,7 @@ export default function Projects() {
                       <div
                         id="legalmind-preview-panel"
                         role="tabpanel"
+                        tabIndex={0}
                         aria-labelledby="tab-preview"
                         className="featured-media-viewport"
                       >
@@ -723,6 +759,7 @@ export default function Projects() {
                       <div
                         id="legalmind-arch-panel"
                         role="tabpanel"
+                        tabIndex={0}
                         aria-labelledby="tab-arch"
                         className="architecture-explorer-panel"
                       >
@@ -734,7 +771,7 @@ export default function Projects() {
                           <span className="explorer-indicator">Click step to inspect trade-off</span>
                         </div>
 
-                        <div className="pipeline-steps-grid" role="tablist" aria-label="Pipeline stages">
+                        <div className="pipeline-steps-grid" role="tablist" aria-label="Pipeline stages" onKeyDown={handleTabListKeyDown}>
                           {LEGALMIND_PIPELINE.map((step, idx) => {
                             const isSelected = activeStepIndex === idx;
                             return (
@@ -742,6 +779,9 @@ export default function Projects() {
                                 key={step.id}
                                 type="button"
                                 role="tab"
+                                id={`desktop-pipeline-${step.id}`}
+                                aria-controls="desktop-pipeline-detail"
+                                tabIndex={isSelected ? 0 : -1}
                                 aria-selected={isSelected}
                                 className={`pipeline-step-btn ${isSelected ? "is-selected" : ""}`}
                                 onClick={() => setActiveStepIndex(idx)}
@@ -756,7 +796,14 @@ export default function Projects() {
                           })}
                         </div>
 
-                        <div className="pipeline-inspection-box" aria-live="polite">
+                        <div
+                          id="desktop-pipeline-detail"
+                          role="tabpanel"
+                          tabIndex={0}
+                          aria-labelledby={`desktop-pipeline-${activeStep.id}`}
+                          className="pipeline-inspection-box"
+                          aria-live="polite"
+                        >
                           <div className="inspection-header">
                             <span className="inspection-step-tag">Stage {activeStep.number} · {activeStep.tech}</span>
                             <h5 className="inspection-step-title">{activeStep.title}</h5>
@@ -962,12 +1009,15 @@ export default function Projects() {
                       entries directly to downstream tools.
                     </p>
 
-                    <div className="workbench-tabs" role="tablist" aria-label="Scraper pipeline stages">
+                    <div className="workbench-tabs" role="tablist" aria-label="Scraper pipeline stages" onKeyDown={handleTabListKeyDown}>
                       {SCRAPER_STAGES.map((st, idx) => (
                         <button
                           key={st.step}
                           type="button"
                           role="tab"
+                          id={`scraper-tab-${st.step}`}
+                          aria-controls="scraper-stage-detail"
+                          tabIndex={scraperStageIdx === idx ? 0 : -1}
                           aria-selected={scraperStageIdx === idx}
                           onClick={() => setScraperStageIdx(idx)}
                           className={`workbench-tab ${scraperStageIdx === idx ? "is-active" : ""}`}
@@ -977,7 +1027,14 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="workbench-stage-box" aria-live="polite">
+                    <div
+                      id="scraper-stage-detail"
+                      role="tabpanel"
+                      tabIndex={0}
+                      aria-labelledby={`scraper-tab-${activeScraperStage.step}`}
+                      className="workbench-stage-box"
+                      aria-live="polite"
+                    >
                       <p className="workbench-stage-tech">
                         Stage {activeScraperStage.step} · {activeScraperStage.tech}
                       </p>
@@ -1005,12 +1062,15 @@ export default function Projects() {
                       neutral, factual context.
                     </p>
 
-                    <div className="workbench-tabs" role="tablist" aria-label="Sample contract clauses">
+                    <div className="workbench-tabs" role="tablist" aria-label="Sample contract clauses" onKeyDown={handleTabListKeyDown}>
                       {GUARDRAIL_SAMPLES.map((sample, idx) => (
                         <button
                           key={sample.label}
                           type="button"
                           role="tab"
+                          id={`guardrail-tab-${idx}`}
+                          aria-controls="guardrail-stage-detail"
+                          tabIndex={guardrailIdx === idx ? 0 : -1}
                           aria-selected={guardrailIdx === idx}
                           onClick={() => setGuardrailIdx(idx)}
                           className={`workbench-tab ${guardrailIdx === idx ? "is-active" : ""}`}
@@ -1020,7 +1080,14 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="workbench-stage-box" aria-live="polite">
+                    <div
+                      id="guardrail-stage-detail"
+                      role="tabpanel"
+                      tabIndex={0}
+                      aria-labelledby={`guardrail-tab-${guardrailIdx}`}
+                      className="workbench-stage-box"
+                      aria-live="polite"
+                    >
                       <p className="workbench-clause-quote">&ldquo;{activeGuardrail.rawClause}&rdquo;</p>
                       <div className="workbench-diff">
                         <p className="workbench-diff__blocked">
