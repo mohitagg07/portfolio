@@ -490,16 +490,23 @@
 .hero-scene-section .hero-title__accent {
   text-shadow: 0 7px 28px rgba(148, 226, 177, .16);
 }
+.hero-scene-section .hero-title__accent {
+  position: relative;
+  display: inline-block;
+}
 .hero-scene-section .hero-title__accent::after {
   content: "";
+  position: absolute;
+  left: .12em;
+  bottom: -.055em;
   display: block;
   width: 78%;
   height: .11em;
-  margin: -.015em 0 0 .12em;
   border-top: 2px solid rgba(174, 231, 185, .72);
   border-radius: 50%;
   transform: rotate(-2deg);
   transform-origin: left center;
+  pointer-events: none;
 }
 .hero-scene-section .hero-button--primary {
   background: linear-gradient(112deg, #c8f1c9 0%, #a7e4bd 100%);
