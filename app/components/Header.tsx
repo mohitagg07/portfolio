@@ -7,7 +7,8 @@ const LINKS = [["About", "about"], ["Work", "work"], ["Videos", "youtube"], ["Co
 const SOCIALS = [["GitHub", "https://github.com/mohitagg07"], ["YouTube", "https://youtube.com/@MohitAgg07"], ["LinkedIn", "https://linkedin.com/in/mohitagg07"]] as const;
 
 export default function Header() {
-  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
@@ -59,17 +60,56 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("keydown", esc);
-    return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = ""; };
+    const previousOverflow = document.body.style.overflow;
+    if (open) {
+      document.body.style.overflow = "hidden";
+      window.requestAnimationFrame(() => {
+        menuPanelRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
+      });
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!open) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusable = menuPanelRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable?.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [open]);
+
+  const closeMenu = () => {
+    setOpen(false);
+    window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+  };
 
   const bar = "absolute left-2.5 h-0.5 w-5 rounded bg-white transition-transform duration-300";
 
   return (
     <>
-      <header ref={headerRef} className={`site-header ${scrolled ? "is-scrolled" : ""} ${active === "about" ? "is-about-active" : ""} ${open ? "is-menu-open" : ""}`}>
+      <header className={`site-header ${scrolled ? "is-scrolled" : ""} ${active === "about" ? "is-about-active" : ""} ${open ? "is-menu-open" : ""}`}>
         <div className="site-header__glass mx-auto flex items-center justify-between px-5 py-4 md:px-12">
           <span className="site-header__depth" aria-hidden="true" />
           <a href="#home" onClick={(event) => { navigateToSection(event, "home"); setOpen(false); }} aria-label="Mohit Aggarwal home" className="site-header__brand">
@@ -105,8 +145,12 @@ export default function Header() {
               Let&apos;s talk
             </a>
             <button
+              ref={menuButtonRef}
+              type="button"
               onClick={() => setOpen(!open)}
               aria-expanded={open}
+              aria-controls="mobile-navigation"
+              aria-haspopup="true"
               aria-label={open ? "Close menu" : "Open menu"}
               className="relative h-10 w-10 md:hidden"
             >
@@ -119,7 +163,10 @@ export default function Header() {
 
       {/* Mobile menu: fades in with a short, lightweight link stagger */}
       <div
+        ref={menuPanelRef}
+        id="mobile-navigation"
         aria-hidden={!open}
+        inert={!open}
         className={`site-header__mobile fixed inset-0 z-[60] md:hidden ${open ? "is-open" : ""}`}
       >
         <div className="flex h-full flex-col justify-between px-8 pb-10 pt-28">
@@ -136,7 +183,7 @@ export default function Header() {
               >
                 <a
                   href={`#${id}`}
-                  onClick={(event) => { if (navigateToSection(event, id)) setActive(id); setOpen(false); }}
+                  onClick={(event) => { if (navigateToSection(event, id)) setActive(id); closeMenu(); }}
                   className="block text-[clamp(40px,12vw,64px)] font-bold leading-[1.15]"
                   style={{ fontFamily: "var(--font-main)", color: active === id ? "var(--accent)" : "var(--fg)" }}
                 >

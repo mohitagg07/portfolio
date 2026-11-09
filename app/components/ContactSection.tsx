@@ -17,6 +17,7 @@ const LINKS = [
 export default function ContactSection() {
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const [senderName, setSenderName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
   const [projectNote, setProjectNote] = useState("");
   const resetCopyStatus = useRef<number | undefined>(undefined);
   const [ref, seen] = useInView<HTMLDivElement>(0.2);
@@ -51,9 +52,14 @@ export default function ContactSection() {
         ? `Project idea from ${senderName.trim()}`
         : "Project or workflow idea"
     );
-    const body = encodeURIComponent(
-      projectNote.trim() || "Hi Mohit, I have a project idea I'd love to discuss."
-    );
+    const message = projectNote.trim() || "Hi Mohit, I have a project idea I'd love to discuss.";
+    const details = [
+      senderName.trim() ? `Name: ${senderName.trim()}` : "",
+      senderEmail.trim() ? `Reply to: ${senderEmail.trim()}` : "",
+      "",
+      message,
+    ].filter(Boolean);
+    const body = encodeURIComponent(details.join("\n"));
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
 
@@ -142,7 +148,7 @@ export default function ContactSection() {
               <p className="contact-form-kicker">Quick project note</p>
               <h3 className="contact-form-title">Send a rough brief</h3>
               <p className="contact-form-sub">
-                A sentence or two is plenty—this opens directly in your email client.
+                This opens a ready-to-send email in your mail app. Nothing is sent until you press Send.
               </p>
 
               <label className="contact-field">
@@ -152,7 +158,23 @@ export default function ContactSection() {
                   name="name"
                   value={senderName}
                   onChange={(e) => setSenderName(e.target.value)}
-                  placeholder="e.g., Rohan / Founder at ..."
+                  placeholder="Your name"
+                  autoComplete="name"
+                  maxLength={100}
+                  className="contact-input"
+                />
+              </label>
+
+              <label className="contact-field">
+                <span>Your email <small>(optional)</small></span>
+                <input
+                  type="email"
+                  name="email"
+                  value={senderEmail}
+                  onChange={(e) => setSenderEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  maxLength={254}
                   className="contact-input"
                 />
               </label>
@@ -161,10 +183,13 @@ export default function ContactSection() {
                 <span>What are you thinking of building or fixing?</span>
                 <textarea
                   name="project"
-                  rows={3}
+                  rows={4}
                   value={projectNote}
                   onChange={(e) => setProjectNote(e.target.value)}
-                  placeholder="Tell me a little about the problem, workflow, or product idea..."
+                  placeholder="A short description of the problem, workflow, or product idea..."
+                  minLength={12}
+                  maxLength={3000}
+                  required
                   className="contact-textarea"
                 />
               </label>

@@ -1,51 +1,54 @@
 "use client";
 
-import { motion } from "motion/react";
-import type { MotionValue } from "motion/react";
-import { useEffect, useState } from "react";
 import { navigateToSection } from "../utils/scroll";
 
-interface HeroGreetingProps {
-  exitOpacity?: MotionValue<number> | number;
-  exitY?: MotionValue<number> | number;
+function PinIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <path d="M10 18s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10Z" />
+      <circle cx="10" cy="8" r="2" />
+    </svg>
+  );
 }
 
-export default function HeroGreeting({
-  exitOpacity = 1,
-  exitY = 0,
-}: HeroGreetingProps) {
-  const [mounted, setMounted] = useState(false);
+function EducationIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <path d="m1.5 7.2 8.5-4 8.5 4-8.5 4-8.5-4Z" />
+      <path d="M5 9.1v4.1c2.8 2.1 7.2 2.1 10 0V9.1M18.5 7.2v5" />
+    </svg>
+  );
+}
 
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => setMounted(true));
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
+function WorkIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <rect x="2" y="6" width="16" height="11" rx="2" />
+      <path d="M7 6V4.5A1.5 1.5 0 0 1 8.5 3h3A1.5 1.5 0 0 1 13 4.5V6M2 10h16M8 10v2h4v-2" />
+    </svg>
+  );
+}
 
+export default function HeroGreeting() {
   return (
     <div className="hero-layout section-wrap">
-      <motion.div
-        className={"hero-copy " + (mounted ? "is-mounted" : "")}
-        style={{ opacity: exitOpacity, y: exitY }}
-      >
+      <div className="hero-copy">
         <p className="hero-hello">
-          Mohit Aggarwal <span aria-hidden="true">·</span> Software engineer in Jammu
+          <span className="hero-hello__role">Software engineer</span>
+          <span className="hero-hello__divider" aria-hidden="true" />
+          <span className="hero-hello__place"><PinIcon /> Jammu, India</span>
         </p>
 
-        <h1 className="hero-title">
-          <span className="hero-title__mask">
-            <span className="hero-title__line">I make the messy parts</span>
-          </span>
-          <span className="hero-title__mask hero-title__mask--liquid">
-            <span className="hero-title__line hero-title__line--accent">
-              of work feel simpler.
-            </span>
+        <h1 id="hero-title" className="hero-title">
+          <span className="hero-title__line">I make the messy parts</span>
+          <span className="hero-title__line">
+            of work <em className="hero-title__accent">feel simpler.</em>
           </span>
         </h1>
 
         <p className="hero-summary">
-          I build web apps, automation and practical AI tools. I like starting with
-          the bit that frustrates people, then finding a clearer, more useful way
-          to get it done.
+          I build web apps, automation and practical AI tools that turn complicated
+          workflows into clear, useful products.
         </p>
 
         <div className="hero-actions">
@@ -64,18 +67,33 @@ export default function HeroGreeting({
             A little about me
           </a>
         </div>
-      </motion.div>
+
+        <ul className="hero-proof" aria-label="A few details about my background">
+          <li>
+            <span className="hero-proof__value">5+</span>
+            <span className="hero-proof__label">Projects &amp; experiments</span>
+          </li>
+          <li>
+            <span className="hero-proof__value">01</span>
+            <span className="hero-proof__label">Berger Paints internship</span>
+          </li>
+          <li>
+            <span className="hero-proof__value">2025</span>
+            <span className="hero-proof__label">B.Tech · VIT Chennai</span>
+          </li>
+        </ul>
+      </div>
 
       <a
         className="hero-scroll"
         href="#work"
         onClick={(event) => navigateToSection(event, "work")}
-        aria-label="Scroll to explore selected projects"
+        aria-label="Explore selected projects"
       >
         <span className="hero-scroll__track" aria-hidden="true">
           <i />
         </span>
-        <span className="hero-scroll__label">A little further down</span>
+        <span className="hero-scroll__label">Scroll to explore</span>
       </a>
     </div>
   );
