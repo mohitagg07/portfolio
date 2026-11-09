@@ -15,6 +15,13 @@ const bodyFont = Manrope({
   variable: "--font-body-face",
 });
 
+const editorialFont = Instrument_Serif({
+  subsets: ["latin"],
+  style: "normal",
+  weight: "400",
+  variable: "--font-editorial-face",
+});
+
 const expressiveFont = Instrument_Serif({
   subsets: ["latin"],
   style: "italic",
@@ -68,6 +75,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         displayFont.variable +
         " " +
         bodyFont.variable +
+        " " +
+        editorialFont.variable +
         " " +
         expressiveFont.variable +
         " " +
