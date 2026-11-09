@@ -29,6 +29,22 @@ function WorkIcon() {
   );
 }
 
+function Word({ children, delay, accent = false }: {
+  children: string;
+  delay: number;
+  accent?: boolean;
+}) {
+  return (
+    <span
+      className={accent ? "hero-word hero-word--accent" : "hero-word"}
+      style={{ animationDelay: `${delay}s` }}
+      aria-hidden="true"
+    >
+      <span className="hero-word__inner">{children}</span>
+    </span>
+  );
+}
+
 export default function HeroGreeting() {
   return (
     <div className="hero-layout">
@@ -41,10 +57,26 @@ export default function HeroGreeting() {
 
         <p className="hero-eyebrow">SOFTWARE ENGINEER <i aria-hidden="true" /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
 
-        <h1 id="hero-title" className="hero-title">
-          <span className="hero-title__line">I make the messy parts</span>
-          <span className="hero-title__line">
-            of work <em className="hero-title__accent">feel simpler.</em>
+        <h1
+          id="hero-title"
+          className="hero-title"
+          aria-label="I make the messy parts of work feel simpler."
+        >
+          <span className="hero-title__line" aria-hidden="true">
+            <Word delay={0.16}>I</Word>
+            <Word delay={0.23}>make</Word>
+            <Word delay={0.30}>the</Word>
+            <Word delay={0.37}>messy</Word>
+            <Word delay={0.44}>parts</Word>
+          </span>
+          <span className="hero-title__line" aria-hidden="true">
+            <Word delay={0.54}>of</Word>
+            <Word delay={0.61}>work</Word>
+            {" "}
+            <em className="hero-title__accent">
+              <Word delay={0.72} accent>feel</Word>
+              <Word delay={0.82} accent>simpler.</Word>
+            </em>
           </span>
         </h1>
 
