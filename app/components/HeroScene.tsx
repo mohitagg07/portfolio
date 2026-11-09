@@ -27,27 +27,11 @@ export default function HeroScene() {
           <div className="hero-art__shade" />
           <div className="hero-art__glow" />
 
-          <div className="hero-studio__desk">
-            <div className="hero-studio__laptop">
-              <div className="hero-studio__laptop-screen">
-                <span className="hero-studio__laptop-mark">M.</span>
-                <span className="hero-studio__laptop-caption">MADE WITH INTENTION</span>
-              </div>
-              <div className="hero-studio__laptop-base" />
-            </div>
-
-            <div className="hero-studio__mug">
-              <span>M.</span>
-            </div>
-
-            <div className="hero-studio__books">
-              <span>AI SYSTEMS</span>
-              <span>PRODUCT BUILDING</span>
-              <span>SYSTEM DESIGN</span>
-            </div>
+          <div className="hero-art__window" />
+          <div className="hero-art__shelf">
+            <span>BUILD</span><span>REFINE</span><span>SHIP</span>
           </div>
-
-          <div className="hero-studio__light" />
+          <div className="hero-art__deskline" />
         </div>
 
         <HeroGreeting />
