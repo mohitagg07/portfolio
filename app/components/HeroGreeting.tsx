@@ -21,9 +21,9 @@ export default function HeroGreeting() {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.2 12 4l10 5.2L12 14.5 2 9.2Z"/><path d="M5.5 11.2v5.1c3.8 3 9.2 3 13 0v-5.1M22 9.2v6"/></svg>
             VIT Chennai
           </span>
-          <span className="hero-hello__internship" aria-label="Berger Paints internship">
+          <span className="hero-hello__internship" aria-label="Two internships: Relu Consultancy and Berger Paints">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="1.5"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg>
-            Berger Paints (Intern)
+            2 internships
           </span>
         </div>
 
@@ -62,8 +62,8 @@ export default function HeroGreeting() {
             <span className="hero-proof__label">Projects &amp; experiments</span>
           </li>
           <li>
-            <span className="hero-proof__value">01</span>
-            <span className="hero-proof__label">Berger Paints internship</span>
+            <span className="hero-proof__value">02</span>
+            <span className="hero-proof__label">Industry internships</span>
           </li>
           <li>
             <span className="hero-proof__value">2025</span>
