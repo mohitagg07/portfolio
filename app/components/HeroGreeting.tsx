@@ -11,26 +11,41 @@ function PinIcon() {
   );
 }
 
+function SchoolIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m2.5 9 9.5-5 9.5 5-9.5 5-9.5-5Z" />
+      <path d="M6 11v5.2c3.8 2.7 8.2 2.7 12 0V11M21.5 9v6" />
+    </svg>
+  );
+}
+
+function WorkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="7" width="18" height="14" rx="1.5" />
+      <path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2" />
+    </svg>
+  );
+}
+
 export default function HeroGreeting() {
   return (
     <div className="hero-layout section-wrap">
       <div className="hero-copy">
         <div className="hero-hello" aria-label="Location, education and experience">
           <span className="hero-hello__place"><PinIcon /> Jammu, India</span>
-          <span className="hero-hello__school" aria-label="VIT Chennai">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.2 12 4l10 5.2L12 14.5 2 9.2Z"/><path d="M5.5 11.2v5.1c3.8 3 9.2 3 13 0v-5.1M22 9.2v6"/></svg>
-            VIT Chennai
-          </span>
-          <span className="hero-hello__internship" aria-label="Two internships: Relu Consultancy and Berger Paints">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="1.5"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg>
-            2 internships
-          </span>
+          <span className="hero-hello__school"><SchoolIcon /> VIT Chennai</span>
+          <span className="hero-hello__internship"><WorkIcon /> 2 internships</span>
         </div>
 
+        <p className="hero-eyebrow">SOFTWARE ENGINEER · AI, AUTOMATION &amp; PRODUCT BUILDING</p>
+
         <h1 id="hero-title" className="hero-title">
-          <span className="hero-title__line">I make the messy parts</span>
-          <span className="hero-title__line">
-            of work <em className="hero-title__accent">feel simpler.</em>
+          <span className="hero-title__line">I make the messy</span>
+          <span className="hero-title__line">parts of work</span>
+          <span className="hero-title__line hero-title__line--final">
+            <em className="hero-title__accent">feel simpler.</em>
           </span>
         </h1>
 
@@ -45,7 +60,7 @@ export default function HeroGreeting() {
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
           >
-            Selected work <span aria-hidden="true">↗</span>
+            Explore selected work <span aria-hidden="true">↗</span>
           </a>
           <a
             className="hero-button hero-button--quiet"
@@ -63,7 +78,7 @@ export default function HeroGreeting() {
           </li>
           <li>
             <span className="hero-proof__value">02</span>
-            <span className="hero-proof__label">Relu + Berger Paints</span>
+            <span className="hero-proof__label">Relu Consultancy · Berger Paints</span>
           </li>
           <li>
             <span className="hero-proof__value">2025</span>
