@@ -430,3 +430,480 @@
     transition: none !important;
   }
 }
+
+
+
+/* ==========================================================================
+   HERO + ABOUT — final art-direction pass
+   Quiet motion, deliberate overlap, and an actual internship timeline.
+   ========================================================================== */
+
+/* The photo should breathe, not look like a moving wallpaper. */
+.hero-scene-section .hero-background-image {
+  animation: hero-workspace-breathe 24s cubic-bezier(.45,0,.55,1) infinite alternate;
+  transform-origin: 64% 50%;
+  will-change: transform;
+}
+@keyframes hero-workspace-breathe {
+  from { transform: scale(1.018); }
+  to   { transform: scale(1.052); }
+}
+
+/* Entry choreography: short, staggered, and readable immediately afterwards. */
+.hero-scene-section .hero-hello,
+.hero-scene-section .hero-eyebrow,
+.hero-scene-section .hero-title,
+.hero-scene-section .hero-summary,
+.hero-scene-section .hero-actions,
+.hero-scene-section .hero-proof {
+  animation: hero-editorial-arrive .72s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-scene-section .hero-hello { animation-delay: .06s; }
+.hero-scene-section .hero-eyebrow { animation-delay: .12s; }
+.hero-scene-section .hero-title { animation-delay: .19s; }
+.hero-scene-section .hero-summary { animation-delay: .29s; }
+.hero-scene-section .hero-actions { animation-delay: .38s; }
+.hero-scene-section .hero-proof { animation-delay: .47s; }
+@keyframes hero-editorial-arrive {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); filter: blur(4px); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+/* A small hand-mark gives the hero a human, slightly playful signature. */
+.hero-scene-section .hero-copy::after {
+  content: "✳";
+  position: absolute;
+  top: 5%;
+  right: -4%;
+  z-index: 2;
+  color: #d9bd83;
+  font: 400 clamp(25px, 3vw, 42px)/1 var(--font-editorial-face), Georgia, serif;
+  text-shadow: 0 4px 24px rgba(0,0,0,.24);
+  transform: rotate(-12deg);
+  animation: hero-mark-float 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes hero-mark-float {
+  0%, 100% { transform: translate3d(0,0,0) rotate(-12deg); }
+  50% { transform: translate3d(0,-7px,0) rotate(4deg); }
+}
+.hero-scene-section .hero-title__accent {
+  text-shadow: 0 7px 28px rgba(148, 226, 177, .16);
+}
+.hero-scene-section .hero-title__accent::after {
+  content: "";
+  display: block;
+  width: 78%;
+  height: .11em;
+  margin: -.015em 0 0 .12em;
+  border-top: 2px solid rgba(174, 231, 185, .72);
+  border-radius: 50%;
+  transform: rotate(-2deg);
+  transform-origin: left center;
+}
+.hero-scene-section .hero-button--primary {
+  background: linear-gradient(112deg, #c8f1c9 0%, #a7e4bd 100%);
+}
+.hero-scene-section .hero-button--primary:hover {
+  box-shadow: 0 12px 30px rgba(153, 228, 175, .24), inset 0 1px 0 rgba(255,255,255,.55);
+}
+.hero-scene-section .hero-proof li {
+  transition: transform .28s cubic-bezier(.16,1,.3,1), border-color .28s ease;
+}
+.hero-scene-section .hero-proof li:hover { transform: translateY(-3px); }
+
+/* The next section arrives like a warm sheet sliding over the dark workspace. */
+.about-v4-section {
+  position: relative;
+  z-index: 8;
+  margin-top: -22px;
+  padding-top: clamp(86px, 8vw, 116px);
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 -22px 52px rgba(5, 17, 10, .13);
+  isolation: isolate;
+}
+.about-v4-section::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: clamp(28px, 6vw, 90px);
+  right: clamp(28px, 6vw, 90px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(165, 206, 163, .58) 22%, rgba(197, 161, 99, .62) 50%, rgba(165, 206, 163, .58) 78%, transparent);
+  pointer-events: none;
+}
+.about-v4-section::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -35px;
+  left: 12%;
+  right: 12%;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(177, 214, 177, .16);
+  filter: blur(34px);
+  pointer-events: none;
+}
+.about-v4-masthead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+.about-v4-masthead__note {
+  text-transform: uppercase;
+}
+.about-v4-layout {
+  align-items: center;
+}
+.about-v4-copy-title {
+  position: relative;
+}
+.about-v4-copy-title::after {
+  content: "✳";
+  position: absolute;
+  top: -10px;
+  right: 3%;
+  color: #c49b59;
+  font: 400 31px/1 var(--font-editorial-face), Georgia, serif;
+  transform: rotate(14deg);
+  animation: about-mark-turn 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes about-mark-turn {
+  0%, 100% { transform: rotate(14deg) translateY(0); }
+  50% { transform: rotate(-5deg) translateY(-5px); }
+}
+
+/* Refine the collage: paper layers, tactile photographs, and a restrained note. */
+.about-v4-collage {
+  transform-style: preserve-3d;
+}
+.about-v4-paper-shape {
+  background: linear-gradient(140deg, #e3eadb, #cfddca);
+  box-shadow: 12px 14px 36px rgba(28, 57, 39, .07);
+}
+.about-v4-photo {
+  transition:
+    transform .55s cubic-bezier(.16,1,.3,1),
+    box-shadow .4s ease,
+    filter .4s ease;
+  will-change: transform;
+}
+.about-v4-photo--main { transform: rotate(-1.2deg); }
+.about-v4-photo--selfie { transform: rotate(3.2deg); }
+.about-v4-photo--waterfall { transform: rotate(2.1deg); }
+.about-v4-collage:hover .about-v4-photo--main {
+  transform: translate3d(0,-5px,0) rotate(-.4deg);
+  box-shadow: 0 22px 42px rgba(35,48,38,.19);
+}
+.about-v4-collage:hover .about-v4-photo--selfie {
+  transform: translate3d(5px,-8px,0) rotate(4.6deg);
+}
+.about-v4-collage:hover .about-v4-photo--waterfall {
+  transform: translate3d(5px,5px,0) rotate(1deg);
+}
+.about-v4-jammu-tag {
+  animation: about-paper-drift 7.5s ease-in-out infinite;
+}
+@keyframes about-paper-drift {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(-1.5deg) translateY(-5px); }
+}
+.about-v4-name-tag,
+.about-v4-handnote {
+  pointer-events: none;
+}
+
+/* Fast facts: one clean strip, not three competing cards. */
+.about-v4-facts {
+  position: relative;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  margin-top: clamp(26px, 3.4vw, 42px);
+  padding: 19px 14px;
+  border: 1px solid rgba(42, 77, 54, .13);
+  border-radius: 16px;
+  background:
+    linear-gradient(110deg, rgba(228, 230, 215, .88), rgba(239, 235, 222, .9));
+  box-shadow: 0 9px 26px rgba(36, 58, 39, .045);
+}
+.about-v4-facts::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(#a7d6ad, #c9a66d);
+}
+.about-v4-fact {
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  min-width: 0;
+  padding: 5px clamp(12px, 2vw, 25px);
+}
+.about-v4-fact span {
+  font: 750 8px/1.4 var(--font-mono-face), monospace;
+  letter-spacing: .15em;
+}
+.about-v4-fact strong {
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.35;
+}
+.about-v4-fact small {
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* Properly designed internship timeline — it was previously unstyled text. */
+.about-experience {
+  margin-top: clamp(52px, 7vw, 88px);
+  padding-top: clamp(28px, 3.6vw, 44px);
+  border-top: 1px solid rgba(36, 70, 48, .16);
+}
+.about-experience__heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+.about-experience__eyebrow {
+  margin: 0 0 9px;
+  color: #768476;
+  font: 750 9px/1.4 var(--font-mono-face), monospace;
+  letter-spacing: .16em;
+}
+.about-experience__heading h3 {
+  margin: 0;
+  color: #20382b;
+  font: 400 clamp(2.3rem, 4vw, 3.8rem)/.98 var(--font-editorial-face), Georgia, serif;
+  letter-spacing: -.045em;
+}
+.about-experience__heading h3 em {
+  color: #43845d;
+  font-family: var(--font-accent-face), Georgia, serif;
+  font-weight: 400;
+}
+.about-experience__count {
+  flex: none;
+  padding: 9px 12px;
+  border: 1px solid rgba(52, 91, 61, .17);
+  border-radius: 999px;
+  color: #58725d;
+  background: rgba(225, 232, 218, .62);
+  font: 700 9px/1 var(--font-mono-face), monospace;
+  letter-spacing: .09em;
+}
+.about-experience__timeline {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 24px);
+}
+.about-experience__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 34px;
+  gap: 14px;
+  min-height: 190px;
+  padding: clamp(20px, 2.4vw, 29px);
+  overflow: hidden;
+  border: 1px solid rgba(42, 77, 54, .15);
+  border-radius: 17px;
+  background: rgba(255, 253, 247, .60);
+  box-shadow: 0 8px 22px rgba(35, 53, 37, .035);
+  transition: border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.about-experience__item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #9bcda3, #c9a66d 58%, transparent);
+  transform: scaleX(.28);
+  transform-origin: left;
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+}
+.about-experience__item:hover {
+  border-color: rgba(65, 119, 78, .32);
+  background: rgba(255, 254, 249, .9);
+  box-shadow: 0 17px 34px rgba(35, 53, 37, .09);
+}
+.about-experience__item:hover::before { transform: scaleX(1); }
+.about-experience__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 2px;
+}
+.about-experience__index {
+  color: #3f7652;
+  font: 750 10px/1 var(--font-mono-face), monospace;
+}
+.about-experience__node {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border: 2px solid #6f9b73;
+  border-radius: 50%;
+  background: #f6f3e9;
+  box-shadow: 0 0 0 4px rgba(120, 164, 125, .12);
+}
+.about-experience__content { min-width: 0; }
+.about-experience__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 12px;
+  margin-bottom: 12px;
+  color: #7d8779;
+  font: 700 8px/1.4 var(--font-mono-face), monospace;
+  letter-spacing: .08em;
+}
+.about-experience__tag {
+  padding: 5px 8px;
+  border: 1px solid rgba(68, 111, 75, .16);
+  border-radius: 999px;
+  color: #477653;
+  background: #eaf0e4;
+}
+.about-experience__content h4 {
+  margin: 0;
+  color: #203b2d;
+  font: 700 clamp(18px, 1.6vw, 22px)/1.2 var(--font-body-face), sans-serif;
+  letter-spacing: -.035em;
+}
+.about-experience__role {
+  margin: 5px 0 0;
+  color: #4f7157;
+  font-size: 12px;
+  font-weight: 700;
+}
+.about-experience__description {
+  max-width: 40ch;
+  margin: 12px 0 0;
+  color: #647165;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.about-experience__year {
+  align-self: start;
+  justify-self: end;
+  color: rgba(51, 89, 60, .24);
+  font: 400 29px/.9 var(--font-editorial-face), Georgia, serif;
+  letter-spacing: -.06em;
+}
+.about-v4-signoff {
+  margin-top: 30px;
+  padding: 14px 0 0;
+  border-top: 1px solid rgba(36, 70, 48, .12);
+  color: #718071;
+  font: italic 400 19px/1.3 var(--font-accent-face), Georgia, serif;
+}
+
+/* Keep the dark glass nav legible over both the forest hero and light About. */
+.site-header.is-about-active .site-header__glass {
+  border-color: rgba(229, 242, 226, .30);
+  background: rgba(7, 21, 13, .76);
+}
+.site-header.is-about-active .site-header__brand-copy > span { color: #f4f1e7; }
+.site-header.is-about-active .site-header__brand-copy small { color: rgba(216, 228, 211, .72); }
+.site-header.is-about-active .site-header__link {
+  color: rgba(239, 242, 229, .91);
+}
+.site-header.is-about-active .site-header__link:hover {
+  color: #fff;
+  background: rgba(255,255,255,.06);
+}
+.site-header.is-about-active .site-header__link.is-active {
+  color: #b8ebc4;
+  background: rgba(184,235,196,.09);
+}
+.site-header.is-about-active .site-header__cta {
+  border-color: rgba(211,248,218,.58);
+  color: #112117;
+  background: #b8ebc4;
+}
+.site-header.is-about-active .site-header__cta:hover { color: #112117; background: #caf2d2; }
+
+/* The mascot stays part of the broader site, but not over the new collage. */
+.m-char-layer .m-char--home,
+.m-char-layer .m-char--about { display: none !important; }
+
+@media (max-width: 1050px) {
+  .about-v4-section { padding-inline: 28px; }
+  .about-v4-collage { height: clamp(470px, 54vw, 570px); }
+  .about-v4-layout { column-gap: 28px; }
+  .about-v4-title { font-size: clamp(2.85rem, 5vw, 4rem); }
+}
+@media (max-width: 760px) {
+  .about-v4-section {
+    margin-top: -14px;
+    padding: 82px 18px 54px;
+    border-radius: 22px 22px 0 0;
+  }
+  .about-v4-masthead { align-items: center; margin-bottom: 23px; }
+  .about-v4-masthead__note { font-size: 7px; letter-spacing: .1em; text-align: right; }
+  .about-v4-collage { height: min(116vw, 500px); min-height: 390px; }
+  .about-v4-photo { border-width: 6px; border-bottom-width: 14px; }
+  .about-v4-jammu-tag { right: 1%; min-width: 155px; padding: 8px 12px; }
+  .about-v4-jammu-tag strong { font-size: 20px; }
+  .about-v4-copy-title::after { top: -20px; right: 1%; font-size: 24px; }
+  .about-v4-facts {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 28px;
+    padding: 8px 12px;
+  }
+  .about-v4-fact { padding: 12px 10px; }
+  .about-v4-fact + .about-v4-fact {
+    border-top: 1px solid rgba(30,72,52,.13);
+    border-left: 0;
+  }
+  .about-experience { margin-top: 42px; padding-top: 25px; }
+  .about-experience__heading { align-items: start; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+  .about-experience__heading h3 { font-size: clamp(2.2rem, 10vw, 3.2rem); }
+  .about-experience__timeline { grid-template-columns: 1fr; gap: 12px; }
+  .about-experience__item { min-height: 0; grid-template-columns: 30px minmax(0,1fr) 26px; gap: 10px; padding: 18px 15px; }
+  .about-experience__year { font-size: 25px; }
+  .about-v4-signoff { margin-top: 22px; }
+}
+@media (max-width: 420px) {
+  .about-v4-collage { min-height: 340px; height: 105vw; }
+  .about-v4-photo--main { left: 2%; top: 12%; width: 78%; height: 80%; }
+  .about-v4-photo--selfie { left: 60%; top: 19%; width: 34%; height: 33%; }
+  .about-v4-photo--waterfall { left: 57%; bottom: 5%; width: 37%; height: 36%; }
+  .about-v4-copy-body p { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene-section .hero-background-image,
+  .hero-scene-section .hero-copy::after,
+  .about-v4-copy-title::after,
+  .about-v4-jammu-tag {
+    animation: none !important;
+    transform: none !important;
+  }
+  .hero-scene-section .hero-hello,
+  .hero-scene-section .hero-eyebrow,
+  .hero-scene-section .hero-title,
+  .hero-scene-section .hero-summary,
+  .hero-scene-section .hero-actions,
+  .hero-scene-section .hero-proof {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .about-experience__item,
+  .about-v4-photo {
+    transition: none !important;
+  }
+}
