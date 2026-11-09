@@ -2934,3 +2934,21 @@ body {
     transition: none !important;
   }
 }
+
+/* Desktop optical alignment at the portfolio's reference viewport. */
+@media (min-width: 1101px) {
+  .hero-scene-section .hero-copy { width: min(54%, 760px); }
+  .hero-scene-section .hero-copy h1,
+  .hero-scene-section .hero-title {
+    font-size: clamp(3.2rem, 4.75vw, 4.7rem);
+  }
+  .hero-scene-section .hero-art__picture {
+    right: clamp(42px, 6.2vw, 94px);
+    width: clamp(410px, 36vw, 540px);
+  }
+}
+@media (min-width: 768px) and (max-height: 720px) {
+  .hero-scene-section .hero-layout { padding-top: 108px; padding-bottom: 76px; }
+  .hero-scene-section .hero-copy h1,
+  .hero-scene-section .hero-title { font-size: clamp(3rem, 4.55vw, 4.25rem); }
+}
