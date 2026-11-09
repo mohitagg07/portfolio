@@ -4191,3 +4191,7 @@ body {
   }
   .hero-studio__desk { left: 49%; }
 }
+
+/* Keep the real-photo caption above the photographic treatment. */
+.hero-art__picture { z-index: 4; }
+.hero-art__shade { z-index: 3; }
