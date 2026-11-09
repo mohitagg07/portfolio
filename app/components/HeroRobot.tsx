@@ -179,41 +179,22 @@ export default function HeroRobot() {
     }
 
     if (section === "home") {
-      // 1. Peek from behind boundary -> 2. Notice visitor & wave -> 3. Swoop flight -> 4. Stunt flip -> 5. Land & observe
+      // A quiet studio hello: peek out, wave once, then settle into a gentle idle.
       setAct("peek");
       setEyes("peek-side");
 
       scheduleAct(() => {
         setAct("notice-wave");
-        setEyes("wide");
+        setEyes("happy");
         if (firstTimeHere) {
-          whisper("Wait, I want to show you something.", 3200);
+          whisper("Psst — have a look around.", 2800);
         }
-      }, 1500);
-
-      scheduleAct(() => {
-        setEyes("happy");
-      }, 2100);
-
-      scheduleAct(() => {
-        setAct("fly-swoop");
-        setEyes("default");
-      }, 3600);
-
-      scheduleAct(() => {
-        setAct("stunt-flip");
-        setEyes("wide");
-      }, 5400);
-
-      scheduleAct(() => {
-        setAct("land-bounce");
-        setEyes("happy");
-      }, 6450);
+      }, 1150);
 
       scheduleAct(() => {
         setAct("idle-observe");
         setEyes("default");
-      }, 7400);
+      }, 2250);
     } else if (section === "about") {
       // 1. Peek from behind the photo -> 2. Give a small wave + short playful message -> 3. Point towards biography -> 4. Calm peek
       setAct("about-peek");
@@ -279,24 +260,14 @@ export default function HeroRobot() {
 
     const interval = window.setInterval(() => {
       if (act !== "idle-observe") return;
-      setAct("fly-swoop");
-      setEyes("peek-side");
-
-      scheduleAct(() => {
-        setAct("stunt-flip");
-        setEyes("wide");
-      }, 1700);
-
-      scheduleAct(() => {
-        setAct("land-bounce");
-        setEyes("wink");
-      }, 2750);
+      setAct("notice-wave");
+      setEyes("happy");
 
       scheduleAct(() => {
         setAct("idle-observe");
         setEyes("default");
-      }, 3700);
-    }, 17000);
+      }, 850);
+    }, 22000);
 
     return () => window.clearInterval(interval);
   }, [mounted, prefersReducedMotion, pageHidden, section, act, scheduleAct]);
