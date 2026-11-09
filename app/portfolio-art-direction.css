@@ -4180,3 +4180,14 @@ body {
   .hero-scroll__track i { animation: none !important; }
   .hero-button,.site-header,.site-header__glass { transition: none !important; }
 }
+
+
+/* Final desktop fit: preserve a clean gutter between the copy, portrait and desk. */
+@media (min-width: 1101px) {
+  .hero-copy { width: min(57%, 760px); }
+  .hero-art__picture {
+    right: clamp(78px,8vw,128px);
+    width: clamp(430px,36vw,590px);
+  }
+  .hero-studio__desk { left: 49%; }
+}
