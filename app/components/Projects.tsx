@@ -5,7 +5,6 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "mo
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
-import InnovixProjectCover from "./InnovixProjectCover";
 
 interface PipelineStep {
   id: string;
@@ -571,8 +570,15 @@ export default function Projects() {
                   A website for a creative agency in Jammu, showcasing its service portfolio and helping potential clients make enquiries or schedule a call.
                 </p>
 
-                <div className="supporting-media innovix-project-media rounded-xl overflow-hidden">
-                  <InnovixProjectCover />
+                <div className="supporting-media rounded-xl overflow-hidden border border-[#cbd5e1]">
+                  <Image
+                    src="/projects/project-1.png"
+                    alt="Innovix Studio website preview"
+                    width={800}
+                    height={500}
+                    quality={85}
+                    className="supporting-image"
+                  />
                 </div>
 
                 <div className="featured-implementation-block">
@@ -852,18 +858,18 @@ export default function Projects() {
                               isMindCare ? " supporting-media--mindcare" : ""
                             }`}
                           >
-                            {isMindCare ? (
-                              <Image
-                                src={displaySrc}
-                                alt="MindCare reflection interface preview"
-                                width={800}
-                                height={500}
-                                quality={90}
-                                className="supporting-image"
-                              />
-                            ) : (
-                              <InnovixProjectCover />
-                            )}
+                            <Image
+                              src={displaySrc}
+                              alt={
+                                isMindCare
+                                  ? "MindCare reflection interface preview"
+                                  : `${proj.title} preview`
+                              }
+                              width={800}
+                              height={500}
+                              quality={85}
+                              className="supporting-image"
+                            />
                           </div>
                         </ScrollReveal>
 
