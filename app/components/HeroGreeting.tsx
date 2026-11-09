@@ -29,19 +29,17 @@ function WorkIcon() {
   );
 }
 
-const TOOLKIT = ["Python", "TypeScript", "FastAPI", "LangChain", "Docker", "SQL"];
-
 export default function HeroGreeting() {
   return (
-    <div className="hero-layout section-wrap">
+    <div className="hero-layout">
       <div className="hero-copy">
         <div className="hero-hello" aria-label="Location, education and experience">
-          <span className="hero-hello__place"><PinIcon /> Jammu, India</span>
-          <span className="hero-hello__school"><SchoolIcon /> VIT Chennai</span>
-          <span className="hero-hello__internship"><WorkIcon /> 2 internships</span>
+          <span><PinIcon /> Jammu, India</span>
+          <span><SchoolIcon /> VIT Chennai</span>
+          <span><WorkIcon /> 2 internships</span>
         </div>
 
-        <p className="hero-eyebrow">SOFTWARE ENGINEER <i /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
+        <p className="hero-eyebrow">SOFTWARE ENGINEER <i aria-hidden="true" /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
 
         <h1 id="hero-title" className="hero-title">
           <span className="hero-title__line">I make the messy parts</span>
@@ -86,18 +84,13 @@ export default function HeroGreeting() {
             <span className="hero-proof__label">B.Tech · VIT Chennai</span>
           </li>
         </ul>
-
-        <div className="hero-toolkit" aria-label="Technologies in my toolkit">
-          <span className="hero-toolkit__label">IN THE TOOLKIT</span>
-          {TOOLKIT.map((tool) => <span key={tool}>{tool}</span>)}
-        </div>
       </div>
 
       <a
         className="hero-scroll"
         href="#work"
         onClick={(event) => navigateToSection(event, "work")}
-        aria-label="Explore selected projects"
+        aria-label="Scroll to selected work"
       >
         <span className="hero-scroll__track" aria-hidden="true"><i /></span>
         <span className="hero-scroll__label">Scroll to explore</span>
