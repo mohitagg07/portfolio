@@ -29,6 +29,8 @@ function WorkIcon() {
   );
 }
 
+const TOOLKIT = ["Python", "TypeScript", "FastAPI", "LangChain", "Docker", "SQL"];
+
 export default function HeroGreeting() {
   return (
     <div className="hero-layout section-wrap">
@@ -39,7 +41,7 @@ export default function HeroGreeting() {
           <span className="hero-hello__internship"><WorkIcon /> 2 internships</span>
         </div>
 
-        <p className="hero-eyebrow">SOFTWARE ENGINEER · AI, AUTOMATION &amp; PRODUCT BUILDING</p>
+        <p className="hero-eyebrow">SOFTWARE ENGINEER <i /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
 
         <h1 id="hero-title" className="hero-title">
           <span className="hero-title__line">I make the messy parts</span>
@@ -59,7 +61,7 @@ export default function HeroGreeting() {
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
           >
-            Selected work <span aria-hidden="true">↗</span>
+            Explore selected work <span aria-hidden="true">↗</span>
           </a>
           <a
             className="hero-button hero-button--quiet"
@@ -77,13 +79,18 @@ export default function HeroGreeting() {
           </li>
           <li>
             <span className="hero-proof__value">02</span>
-            <span className="hero-proof__label">Relu + Berger Paints</span>
+            <span className="hero-proof__label">Relu Consultancy · Berger Paints</span>
           </li>
           <li>
             <span className="hero-proof__value">2025</span>
             <span className="hero-proof__label">B.Tech · VIT Chennai</span>
           </li>
         </ul>
+
+        <div className="hero-toolkit" aria-label="Technologies in my toolkit">
+          <span className="hero-toolkit__label">IN THE TOOLKIT</span>
+          {TOOLKIT.map((tool) => <span key={tool}>{tool}</span>)}
+        </div>
       </div>
 
       <a
