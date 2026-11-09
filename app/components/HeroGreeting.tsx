@@ -42,10 +42,9 @@ export default function HeroGreeting() {
         <p className="hero-eyebrow">SOFTWARE ENGINEER · AI, AUTOMATION &amp; PRODUCT BUILDING</p>
 
         <h1 id="hero-title" className="hero-title">
-          <span className="hero-title__line">I make the messy</span>
-          <span className="hero-title__line">parts of work</span>
-          <span className="hero-title__line hero-title__line--final">
-            <em className="hero-title__accent">feel simpler.</em>
+          <span className="hero-title__line">I make the messy parts</span>
+          <span className="hero-title__line">
+            of work <em className="hero-title__accent">feel simpler.</em>
           </span>
         </h1>
 
@@ -60,7 +59,7 @@ export default function HeroGreeting() {
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
           >
-            Explore selected work <span aria-hidden="true">↗</span>
+            Selected work <span aria-hidden="true">↗</span>
           </a>
           <a
             className="hero-button hero-button--quiet"
@@ -93,9 +92,7 @@ export default function HeroGreeting() {
         onClick={(event) => navigateToSection(event, "work")}
         aria-label="Explore selected projects"
       >
-        <span className="hero-scroll__track" aria-hidden="true">
-          <i />
-        </span>
+        <span className="hero-scroll__track" aria-hidden="true"><i /></span>
         <span className="hero-scroll__label">Scroll to explore</span>
       </a>
     </div>
