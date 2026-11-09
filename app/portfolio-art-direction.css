@@ -1616,7 +1616,7 @@ body {
 
 .hero-copy .hero-title {
   display: block;
-  max-width: 12.5ch;
+  max-width: min(100%, 720px);
   margin: 0;
   color: #f3efe5;
   font-family: Georgia, "Times New Roman", serif;
@@ -2417,4 +2417,43 @@ body {
   color: #b7c5b7;
   font-size: 11px;
   font-weight: 450;
+}
+
+
+@media (max-width: 900px) and (min-width: 768px) {
+  .hero-layout.section-wrap {
+    padding-right: 28px;
+    padding-left: 28px;
+  }
+
+  .hero-copy {
+    width: 58%;
+    max-width: 58%;
+  }
+
+  .hero-copy .hero-title {
+    font-size: clamp(2.55rem, 4.8vw, 3.45rem);
+  }
+
+  .hero-summary {
+    max-width: 46ch;
+    font-size: 14px;
+  }
+
+  .hero-proof__label {
+    font-size: 9px;
+  }
+
+  .hero-scene-section .hero-art__picture {
+    right: 16px;
+    width: 40vw;
+  }
+
+  .hero-studio__desk {
+    left: 44%;
+  }
+
+  .hero-studio__books {
+    width: 104px;
+  }
 }

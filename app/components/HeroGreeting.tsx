@@ -11,24 +11,6 @@ function PinIcon() {
   );
 }
 
-function EducationIcon() {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path d="m1.5 7.2 8.5-4 8.5 4-8.5 4-8.5-4Z" />
-      <path d="M5 9.1v4.1c2.8 2.1 7.2 2.1 10 0V9.1M18.5 7.2v5" />
-    </svg>
-  );
-}
-
-function WorkIcon() {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <rect x="2" y="6" width="16" height="11" rx="2" />
-      <path d="M7 6V4.5A1.5 1.5 0 0 1 8.5 3h3A1.5 1.5 0 0 1 13 4.5V6M2 10h16M8 10v2h4v-2" />
-    </svg>
-  );
-}
-
 export default function HeroGreeting() {
   return (
     <div className="hero-layout section-wrap">
