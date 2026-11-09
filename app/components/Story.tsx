@@ -164,7 +164,14 @@ export default function Story() {
           </div>
 
           <div className="about-experience__timeline">
-            <article className="about-experience__item" data-about-interactive="experience-relu">
+            <motion.article
+              className="about-experience__item"
+              data-about-interactive="experience-relu"
+              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.65, delay: 0.08, ease: EASE }}
+              whileHover={reduceMotion ? undefined : { y: -4 }}
+            >
               <div className="about-experience__rail">
                 <span className="about-experience__index">01</span>
                 <span className="about-experience__node" />
@@ -180,9 +187,16 @@ export default function Story() {
                 </p>
               </div>
               <span className="about-experience__year">01</span>
-            </article>
+            </motion.article>
 
-            <article className="about-experience__item" data-about-interactive="experience-berger">
+            <motion.article
+              className="about-experience__item"
+              data-about-interactive="experience-berger"
+              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.65, delay: 0.18, ease: EASE }}
+              whileHover={reduceMotion ? undefined : { y: -4 }}
+            >
               <div className="about-experience__rail">
                 <span className="about-experience__index">02</span>
                 <span className="about-experience__node" />
@@ -198,8 +212,8 @@ export default function Story() {
                   An early industry experience alongside my Computer Science studies.
                 </p>
               </div>
-              <span className="about-experience__year">2023</span>
-            </article>
+              <span className="about-experience__year">02</span>
+            </motion.article>
           </div>
         </section>
 
