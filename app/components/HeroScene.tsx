@@ -31,7 +31,7 @@ export default function HeroScene() {
             <span />
           </div>
 
-          <div className="hero-room__notes" aria-label="A simple working rhythm">
+          <div className="hero-room__notes" aria-hidden="true">
             {WORKFLOW_STEPS.map((step, index) => (
               <span key={step} className={index % 2 === 1 ? "is-offset" : ""}>
                 {step}
