@@ -63,7 +63,7 @@ export default function HeroGreeting() {
           </li>
           <li>
             <span className="hero-proof__value">02</span>
-            <span className="hero-proof__label">Industry internships</span>
+            <span className="hero-proof__label">Relu Consultancy · Berger Paints</span>
           </li>
           <li>
             <span className="hero-proof__value">2025</span>
