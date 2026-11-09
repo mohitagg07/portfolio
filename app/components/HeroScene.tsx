@@ -9,7 +9,7 @@ export default function HeroScene() {
         aria-label="Mohit Aggarwal portfolio"
       >
         <Image
-          src="/assets/hero-background.webp"
+          src="/assets/hero-background.avif"
           alt="A forest-green creative workspace with a desk, laptop, camera, books, plants and warm window light"
           fill
           priority
