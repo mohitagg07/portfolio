@@ -138,21 +138,75 @@ export default function Story() {
           transition={reduceMotion ? { duration: 0 } : { duration: 0.68, ease: EASE }}
         >
           <div className="about-v4-fact">
-            <span>WHERE I STUDIED</span>
+            <span>EDUCATION</span>
             <strong>VIT Chennai</strong>
-            <small>Computer Science · AI &amp; ML</small>
+            <small>B.Tech · Computer Science (AI &amp; ML) · 2025</small>
           </div>
           <div className="about-v4-fact">
-            <span>FIRST INTERNSHIP</span>
-            <strong>Berger Paints</strong>
-            <small>August to December 2023</small>
+            <span>INDUSTRY EXPERIENCE</span>
+            <strong>02 internships</strong>
+            <small>Relu Consultancy · Berger Paints</small>
           </div>
           <div className="about-v4-fact">
-            <span>THINGS I’VE BUILT</span>
+            <span>SELECTED BUILDS</span>
             <strong>MindCare · LegalMind AI</strong>
-            <small>Business Scraper and automation tools</small>
+            <small>Business data and workflow automation</small>
           </div>
         </motion.div>
+
+        <section className="about-experience" aria-labelledby="about-experience-title">
+          <div className="about-experience__heading">
+            <div>
+              <p className="about-experience__eyebrow">WHERE I’VE CONTRIBUTED</p>
+              <h3 id="about-experience-title">A couple of chapters<br /><em>in the real world.</em></h3>
+            </div>
+            <span className="about-experience__count">02 / INTERNSHIPS</span>
+          </div>
+
+          <div className="about-experience__timeline">
+            <article className="about-experience__item" data-about-interactive="experience-relu">
+              <div className="about-experience__rail">
+                <span className="about-experience__index">01</span>
+                <span className="about-experience__node" />
+              </div>
+              <div className="about-experience__content">
+                <div className="about-experience__meta">
+                  <span>JUL — SEP 2026</span>
+                  <span className="about-experience__tag">AI &amp; AUTOMATION</span>
+                </div>
+                <h4>Relu Consultancy</h4>
+                <p className="about-experience__role">AI &amp; Automation Developer Intern</p>
+                <p className="about-experience__description">
+                  Built and refined practical automation workflows, connected APIs and CRM systems,
+                  and worked on AI-assisted campaign and lead operations for client workflows.
+                </p>
+                <div className="about-experience__tools">
+                  <span>Python</span><span>APIs &amp; Webhooks</span><span>GoHighLevel</span><span>AI Workflows</span>
+                </div>
+              </div>
+              <span className="about-experience__year">2026</span>
+            </article>
+
+            <article className="about-experience__item" data-about-interactive="experience-berger">
+              <div className="about-experience__rail">
+                <span className="about-experience__index">02</span>
+                <span className="about-experience__node" />
+              </div>
+              <div className="about-experience__content">
+                <div className="about-experience__meta">
+                  <span>AUG — DEC 2023</span>
+                  <span className="about-experience__tag">INDUSTRY INTERNSHIP</span>
+                </div>
+                <h4>Berger Paints</h4>
+                <p className="about-experience__role">Intern</p>
+                <p className="about-experience__description">
+                  An early industry experience alongside my Computer Science studies.
+                </p>
+              </div>
+              <span className="about-experience__year">2023</span>
+            </article>
+          </div>
+        </section>
 
         <p className="about-v4-signoff">Still curious. Still making things.</p>
       </div>
