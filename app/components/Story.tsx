@@ -171,20 +171,16 @@ export default function Story() {
               </div>
               <div className="about-experience__content">
                 <div className="about-experience__meta">
-                  <span>JUL — SEP 2026</span>
-                  <span className="about-experience__tag">AI &amp; AUTOMATION</span>
+                  <span className="about-experience__tag">INTERNSHIP</span>
                 </div>
                 <h4>Relu Consultancy</h4>
-                <p className="about-experience__role">AI &amp; Automation Developer Intern</p>
+                <p className="about-experience__role">Intern</p>
                 <p className="about-experience__description">
-                  Built and refined practical automation workflows, connected APIs and CRM systems,
-                  and worked on AI-assisted campaign and lead operations for client workflows.
+                  Internship experience at Relu Consultancy. Further role details and dates
+                  can be added once the exact information is confirmed.
                 </p>
-                <div className="about-experience__tools">
-                  <span>Python</span><span>APIs &amp; Webhooks</span><span>GoHighLevel</span><span>AI Workflows</span>
-                </div>
               </div>
-              <span className="about-experience__year">2026</span>
+              <span className="about-experience__year">01</span>
             </article>
 
             <article className="about-experience__item" data-about-interactive="experience-berger">
