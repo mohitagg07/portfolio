@@ -920,8 +920,8 @@
 /* Hero character + kinetic type: a little playful, never in the way. */
 .m-char-layer .m-char--home {
   display: block !important;
-  --char-x: clamp(650px, 47vw, 735px);
-  --char-y: clamp(445px, 72vh, 625px);
+  --char-x: clamp(660px, 48vw, 760px);
+  --char-y: clamp(555px, 82vh, 740px);
   z-index: 42;
 }
 .m-char-layer .m-char--home .m-char__svg {
