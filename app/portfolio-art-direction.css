@@ -2808,7 +2808,7 @@ body {
 
 /* The animated mascot is part of the wider site, but it does not sit on top
    of the first impression or overlap the hero proof points. */
-.m-char-layer .m-char--home { display: none !important; }
+/* The studio assistant is visible from the first screen. */
 
 @media (max-width: 1100px) and (min-width: 768px) {
   .hero-scene-section .hero-layout { padding-inline: 28px; }
