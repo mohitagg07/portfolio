@@ -14,7 +14,7 @@ export default function HeroScene() {
           alt="A warm, forest-green workspace with a desk, laptop, camera, books, plants and window light"
           fill
           priority
-          quality={92}
+          quality={100}
           sizes="100vw"
           className="hero-background-image"
         />
