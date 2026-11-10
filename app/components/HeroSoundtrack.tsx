@@ -9,7 +9,7 @@ export default function HeroSoundtrack() {
         title="Blinding Lights by The Weeknd — Spotify player"
         src="https://open.spotify.com/embed/track/0VjIjW4GlUZAMYd2vXMi3b?utm_source=generator&theme=0"
         width="100%"
-        height="152"
+        height="80"
         loading="lazy"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         allowFullScreen
