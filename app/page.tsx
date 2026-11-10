@@ -20,9 +20,9 @@ export default function Home(): React.JSX.Element {
   return (
     <>
       <Header />
+      <HeroRobot />
       <main className="portfolio-theme relative min-h-screen overflow-x-clip bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--accent)] selection:text-[#102b23]">
         <BackgroundCanvas />
-        <HeroRobot />
         <HeroScene />
         <Story />
         <Projects />
