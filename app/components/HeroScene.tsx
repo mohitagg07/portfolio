@@ -1,30 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, type PointerEvent as ReactPointerEvent } from "react";
 import { useReducedMotion } from "motion/react";
 import HeroGreeting from "./HeroGreeting";
 
-const GRID_STEP = 42;
+const GRID_STEP = 46;
+const INFLUENCE_RADIUS = 170;
+const MAX_DISPLACEMENT = 7;
+
+type GridPoint = {
+  x: number;
+  y: number;
+  originX: number;
+  originY: number;
+  vx: number;
+  vy: number;
+};
 
 export default function HeroScene() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+  const handlePointerMove = (event: ReactPointerEvent<HTMLElement>) => {
     if (prefersReducedMotion || event.pointerType !== "mouse") return;
     const section = sectionRef.current;
     if (!section) return;
+
     const bounds = section.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
     section.style.setProperty("--hero-depth-x", `${(x * 5).toFixed(2)}px`);
     section.style.setProperty("--hero-depth-y", `${(y * 4).toFixed(2)}px`);
-    section.style.setProperty("--hero-tilt-x", `${(-y * 0.35).toFixed(2)}deg`);
-    section.style.setProperty("--hero-tilt-y", `${(x * 0.35).toFixed(2)}deg`);
-    section.style.setProperty("--hero-pointer-x", `${event.clientX - bounds.left}px`);
-    section.style.setProperty("--hero-pointer-y", `${event.clientY - bounds.top}px`);
+    section.style.setProperty("--hero-tilt-x", `${(-y * 0.3).toFixed(2)}deg`);
+    section.style.setProperty("--hero-tilt-y", `${(x * 0.3).toFixed(2)}deg`);
   };
 
   const resetPointer = () => {
@@ -39,19 +50,48 @@ export default function HeroScene() {
   const drawGrid = useCallback(() => {
     const canvas = canvasRef.current;
     const section = sectionRef.current;
-    if (!canvas || !section) return;
-
-    const context = canvas.getContext("2d", { alpha: true });
-    if (!context) return;
+    const context = canvas?.getContext("2d", { alpha: true });
+    if (!canvas || !section || !context) return;
 
     let frame = 0;
     let width = 0;
     let height = 0;
-    let points: Array<{ x: number; y: number; ox: number; oy: number; vx: number; vy: number }> = [];
-    const pointer = { x: -1000, y: -1000, active: false };
+    let points: GridPoint[] = [];
+    let visible = document.visibilityState === "visible";
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarse = window.matchMedia("(pointer: coarse)").matches;
-    let visible = true;
+    const pointer = { x: -1000, y: -1000, active: false };
+
+    const paint = () => {
+      context.clearRect(0, 0, width, height);
+
+      context.beginPath();
+      context.strokeStyle = "rgba(190, 226, 195, 0.045)";
+      context.lineWidth = 0.65;
+      for (let x = 0; x <= width; x += GRID_STEP) {
+        context.moveTo(x, 0);
+        context.lineTo(x, height);
+      }
+      for (let y = 0; y <= height; y += GRID_STEP) {
+        context.moveTo(0, y);
+        context.lineTo(width, y);
+      }
+      context.stroke();
+
+      for (const point of points) {
+        const dx = point.x - pointer.x;
+        const dy = point.y - pointer.y;
+        const distance = pointer.active ? Math.hypot(dx, dy) : INFLUENCE_RADIUS;
+        const influence = pointer.active
+          ? Math.max(0, 1 - distance / INFLUENCE_RADIUS)
+          : 0;
+
+        context.beginPath();
+        context.fillStyle = `rgba(205, 231, 201, ${0.20 + influence * 0.34})`;
+        context.arc(point.x, point.y, 0.8 + influence * 0.8, 0, Math.PI * 2);
+        context.fill();
+      }
+    };
 
     const resize = () => {
       const rect = section.getBoundingClientRect();
@@ -63,47 +103,64 @@ export default function HeroScene() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
       points = [];
-      for (let y = 18; y < height; y += GRID_STEP) {
-        for (let x = 18; x < width; x += GRID_STEP) {
-          points.push({ x, y, ox: x, oy: y, vx: 0, vy: 0 });
+      for (let y = 20; y < height; y += GRID_STEP) {
+        for (let x = 20; x < width; x += GRID_STEP) {
+          points.push({ x, y, originX: x, originY: y, vx: 0, vy: 0 });
         }
       }
       paint();
     };
 
-    const paint = () => {
-      context.clearRect(0, 0, width, height);
-      for (const point of points) {
-        const dx = pointer.active ? point.x - pointer.x : 0;
-        const dy = pointer.active ? point.y - pointer.y : 0;
-        const distance = Math.hypot(dx, dy);
-        const radius = pointer.active && distance < 190 ? (1 - distance / 190) * 5 : 0;
-        const alpha = pointer.active && distance < 190 ? 0.23 + (1 - distance / 190) * 0.3 : 0.2;
-        context.beginPath();
-        context.fillStyle = `rgba(190, 226, 195, ${alpha})`;
-        context.arc(point.ox + (radius ? dx / Math.max(distance, 1) * radius : 0), point.oy + (radius ? dy / Math.max(distance, 1) * radius : 0), radius ? 1.35 : 0.85, 0, Math.PI * 2);
-        context.fill();
-      }
-    };
-
     const animate = () => {
       frame = 0;
+      let stillMoving = false;
+
       for (const point of points) {
-        const dx = point.ox - point.x;
-        const dy = point.oy - point.y;
-        point.vx = (point.vx + dx * 0.16) * 0.72;
-        point.vy = (point.vy + dy * 0.16) * 0.72;
+        const dx = point.originX - pointer.x;
+        const dy = point.originY - pointer.y;
+        const distance = Math.hypot(dx, dy);
+        const influence = pointer.active
+          ? Math.max(0, 1 - distance / INFLUENCE_RADIUS)
+          : 0;
+        const directionX = distance > 0 ? dx / distance : 0;
+        const directionY = distance > 0 ? dy / distance : 0;
+        const targetX = point.originX + directionX * influence * MAX_DISPLACEMENT;
+        const targetY = point.originY + directionY * influence * MAX_DISPLACEMENT;
+
+        point.vx = (point.vx + (targetX - point.x) * 0.16) * 0.72;
+        point.vy = (point.vy + (targetY - point.y) * 0.16) * 0.72;
         point.x += point.vx;
         point.y += point.vy;
+
+        if (
+          Math.abs(targetX - point.x) > 0.08 ||
+          Math.abs(targetY - point.y) > 0.08 ||
+          Math.abs(point.vx) > 0.08 ||
+          Math.abs(point.vy) > 0.08
+        ) {
+          stillMoving = true;
+        } else {
+          point.x = targetX;
+          point.y = targetY;
+          point.vx = 0;
+          point.vy = 0;
+        }
       }
+
       paint();
-      if (!reduced && !coarse && visible) frame = window.requestAnimationFrame(animate);
+      if (stillMoving && visible && !reduced && !coarse) {
+        frame = window.requestAnimationFrame(animate);
+      }
     };
 
     const schedule = () => {
-      if (!frame && !reduced && !coarse && visible) frame = window.requestAnimationFrame(animate);
+      if (!frame && visible && !reduced && !coarse) {
+        frame = window.requestAnimationFrame(animate);
+      }
     };
+
     const onPointer = (event: PointerEvent) => {
       const rect = section.getBoundingClientRect();
       pointer.x = event.clientX - rect.left;
@@ -111,14 +168,20 @@ export default function HeroScene() {
       pointer.active = true;
       schedule();
     };
+
     const onLeave = () => {
       pointer.active = false;
       schedule();
     };
+
     const onVisibility = () => {
       visible = document.visibilityState === "visible";
-      if (!visible && frame) window.cancelAnimationFrame(frame);
-      else schedule();
+      if (!visible && frame) {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+      } else {
+        schedule();
+      }
     };
 
     section.addEventListener("pointermove", onPointer, { passive: true });
@@ -127,7 +190,6 @@ export default function HeroScene() {
     const observer = new ResizeObserver(resize);
     observer.observe(section);
     resize();
-    if (!reduced && !coarse) schedule();
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
@@ -161,20 +223,11 @@ export default function HeroScene() {
       />
       <div className="hero-v3__shade" aria-hidden="true" />
       <canvas ref={canvasRef} className="hero-v3__grid" aria-hidden="true" />
-      <div className="hero-v3__annotation hero-v3__annotation--top" aria-hidden="true">
-        <span>FIELD NOTES / 001</span><i /> <span>BUILDING WITH INTENT</span>
-      </div>
-      <div className="hero-v3__annotation hero-v3__annotation--right" aria-hidden="true">
-        <span>01</span><span>IDEA</span><b />
-        <span>02</span><span>BUILD</span><b />
-        <span>03</span><span>REFINE</span>
-      </div>
       <HeroGreeting />
       <div className="hero-v3__ticker" aria-hidden="true">
         <div className="hero-v3__ticker-track">
-          {Array.from({ length: 2 }).map((_, index) => (
-            <span key={index}>AI SYSTEMS <i>✳</i> SOFTWARE ENGINEERING <i>✳</i> AUTOMATION <i>✳</i> PRODUCT BUILDING <i>✳</i></span>
-          ))}
+          <span>AI SYSTEMS <i>✳</i> SOFTWARE ENGINEERING <i>✳</i> AUTOMATION <i>✳</i> PRODUCT BUILDING <i>✳</i></span>
+          <span>AI SYSTEMS <i>✳</i> SOFTWARE ENGINEERING <i>✳</i> AUTOMATION <i>✳</i> PRODUCT BUILDING <i>✳</i></span>
         </div>
       </div>
     </section>
