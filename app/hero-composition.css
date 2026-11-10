@@ -1192,7 +1192,7 @@
     inset: 0 0 auto 0 !important;
     display: block;
     width: 100% !important;
-    height: var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) !important;
+    height: var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) !important;
     object-fit: cover !important;
     object-position: 73% 41% !important;
   }
@@ -1201,7 +1201,7 @@
     z-index: 1;
     inset: 0 0 auto 0;
     width: 100%;
-    height: var(--mobile-hero-image-height, clamp(208px, 66vw, 268px));
+    height: var(--mobile-hero-image-height, clamp(228px, 44svh, 290px));
     pointer-events: none;
     background:
       linear-gradient(180deg, rgba(4, 14, 8, .02) 0%, rgba(4, 14, 8, .02) 62%, rgba(7, 22, 14, .44) 83%, #07160e 100%),
@@ -1215,12 +1215,12 @@
     height: auto !important;
     min-height: 0 !important;
     margin: 0;
-    padding: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) + 19px) 19px 38px;
+    padding: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) + 19px) 19px 38px;
     background: linear-gradient(
       180deg,
       transparent 0,
-      transparent calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) - 2px),
-      #07160e var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)),
+      transparent calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) - 2px),
+      #07160e var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)),
       #091a11 100%
     );
   }
@@ -1378,7 +1378,7 @@
 @media (max-width: 900px) {
   .m-char-layer .m-char--home {
     --char-x: calc(100vw - 78px);
-    --char-y: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) - 72px);
+    --char-y: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) - 72px);
   }
   .m-char-layer .m-char--home .m-char__svg {
     width: 54px;
@@ -1388,7 +1388,7 @@
 @media (max-width: 420px) {
   .m-char-layer .m-char--home {
     --char-x: calc(100vw - 68px);
-    --char-y: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) - 64px);
+    --char-y: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) - 64px);
   }
   .m-char-layer .m-char--home .m-char__svg {
     width: 48px;
@@ -1399,6 +1399,226 @@
 /* Preserve the portrait if the browser has reduced-animation preferences. */
 @media (prefers-reduced-motion: reduce) {
   .hero-scene-section .hero-background-image {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
+
+/* ==========================================================================
+   HERO SIGNATURE PASS — one clear process motif, more legible Android layout
+   ========================================================================== */
+
+/* The hero metadata is intentionally only the home location. */
+.hero-scene-section .hero-hello {
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+.hero-scene-section .hero-hello > .hero-hello__item {
+  padding-left: 0 !important;
+  border-right: 0 !important;
+  font-size: 10px !important;
+  letter-spacing: .055em !important;
+}
+.hero-scene-section .hero-hello__item svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* A compact, meaningful work-loop ticker — a signature detail, not decoration. */
+.hero-scene-section .hero-method {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: min(100%, 630px);
+  margin-top: 18px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(224, 231, 215, .20);
+}
+.hero-scene-section .hero-method__label {
+  flex: 0 0 auto;
+  color: #d4b477;
+  font: 750 8px/1.2 var(--font-mono-face), monospace;
+  letter-spacing: .16em;
+}
+.hero-scene-section .hero-method__viewport {
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 94%, transparent);
+}
+.hero-scene-section .hero-method__track,
+.hero-scene-section .hero-method__group {
+  display: flex;
+  width: max-content;
+  align-items: center;
+}
+.hero-scene-section .hero-method__track {
+  animation: hero-method-marquee 28s linear infinite;
+  will-change: transform;
+}
+.hero-scene-section .hero-method__group {
+  gap: 15px;
+  padding-right: 30px;
+}
+.hero-scene-section .hero-method__group span {
+  color: rgba(226, 234, 220, .82);
+  font: 700 8px/1 var(--font-body-face), sans-serif;
+  letter-spacing: .10em;
+  white-space: nowrap;
+}
+.hero-scene-section .hero-method__group i {
+  color: #a8e5b9;
+  font: normal 11px/1 var(--font-editorial-face), Georgia, serif;
+}
+@keyframes hero-method-marquee {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
+}
+.hero-scene-section .hero-method__viewport:hover .hero-method__track {
+  animation-play-state: paused;
+}
+
+/* Remove the floating star if it competes with the real portrait or text. */
+.hero-scene-section .hero-copy::after { display: none !important; content: none !important; }
+
+/* The character layer is viewport-fixed and sits below navigation, above art. */
+.m-char-layer {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 78 !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  visibility: visible;
+}
+.m-char-layer .m-char--home {
+  display: block !important;
+  visibility: visible !important;
+  --char-x: clamp(740px, 57vw, 900px);
+  --char-y: calc(100svh - 116px);
+  z-index: 1 !important;
+  pointer-events: auto;
+}
+.m-char-layer .m-char--home.is-mounted {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.m-char-layer .m-char--home .m-char__btn {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.m-char-layer .m-char--home .m-char__svg {
+  width: 62px;
+  height: 68px;
+  filter: drop-shadow(0 9px 16px rgba(0,0,0,.34));
+}
+
+/* A tiny "studio assistant" silhouette lives on the photo's lower-left seam on
+   phones, away from Mohit's face and the headline/buttons. */
+@media (max-width: 900px) {
+  .m-char-layer .m-char--home {
+    --char-x: 18px;
+    --char-y: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) - 64px);
+  }
+  .m-char-layer .m-char--home .m-char__svg {
+    width: 52px;
+    height: 58px;
+  }
+}
+@media (max-width: 420px) {
+  .m-char-layer .m-char--home {
+    --char-x: 15px;
+    --char-y: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) - 62px);
+  }
+  .m-char-layer .m-char--home .m-char__svg {
+    width: 48px;
+    height: 54px;
+  }
+}
+
+/* Tighten the mobile layout around legibility rather than fitting every detail
+   into one screenshot-height. The first view should lead with the portrait and
+   title; metrics and the process strip can sit just below the fold. */
+@media (max-width: 767px) {
+  .hero-scene-section .hero-background-image {
+    height: var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) !important;
+    object-position: 73% 39% !important;
+  }
+  .hero-scene-section .hero-image-shade {
+    height: var(--mobile-hero-image-height, clamp(228px, 44svh, 290px));
+  }
+  .hero-scene-section .hero-layout {
+    padding-top: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) + 14px);
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 30px;
+  }
+  .hero-scene-section .hero-hello {
+    margin-bottom: 11px;
+    font-size: 9px;
+  }
+  .hero-scene-section .hero-hello > .hero-hello__item {
+    font-size: 9px !important;
+    gap: 6px;
+  }
+  .hero-scene-section .hero-eyebrow {
+    margin-bottom: 10px;
+    font-size: 8px;
+    letter-spacing: .095em;
+  }
+  .hero-scene-section .hero-title {
+    font-size: clamp(2.05rem, 9.35vw, 2.45rem);
+    line-height: 1.03;
+    letter-spacing: -.052em;
+  }
+  .hero-scene-section .hero-summary {
+    margin-top: 13px;
+    font-size: 13.5px;
+    line-height: 1.56;
+  }
+  .hero-scene-section .hero-actions {
+    margin-top: 18px;
+    gap: 9px;
+  }
+  .hero-scene-section .hero-button {
+    min-height: 44px;
+    padding-inline: 10px;
+    font-size: 9.5px;
+  }
+  .hero-scene-section .hero-proof {
+    margin-top: 21px;
+    padding-top: 12px;
+  }
+  .hero-scene-section .hero-proof__value { font-size: 24px; }
+  .hero-scene-section .hero-proof__label {
+    font-size: 8px;
+    line-height: 1.35;
+  }
+  .hero-scene-section .hero-method {
+    width: 100%;
+    gap: 11px;
+    margin-top: 15px;
+    padding-top: 10px;
+  }
+  .hero-scene-section .hero-method__label { font-size: 7px; }
+  .hero-scene-section .hero-method__group { gap: 11px; padding-right: 22px; }
+  .hero-scene-section .hero-method__group span {
+    font-size: 7px;
+    letter-spacing: .065em;
+  }
+  .hero-scene-section .hero-method__group i { font-size: 10px; }
+}
+@media (max-width: 360px) {
+  .hero-scene-section .hero-layout { padding-inline: 17px; }
+  .hero-scene-section .hero-title { font-size: clamp(1.95rem, 9.15vw, 2.2rem); }
+  .hero-scene-section .hero-button { font-size: 9px; }
+  .hero-scene-section .hero-proof__label { font-size: 7.5px; }
+  .hero-scene-section .hero-method__group span { font-size: 6.5px; }
+}
+
+/* Keep the ribbon running on wide screens, stop it on hover and when requested
+   by the user's operating system. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene-section .hero-method__track {
     animation: none !important;
     transform: none !important;
   }
