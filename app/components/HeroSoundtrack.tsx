@@ -10,7 +10,7 @@ export default function HeroSoundtrack() {
   return (
     <motion.aside
       className="hero-soundtrack"
-      aria-label="A track playing in the background of the portfolio"
+      aria-label="Portfolio soundtrack"
       initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
