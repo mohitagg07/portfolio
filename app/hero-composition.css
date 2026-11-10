@@ -1425,59 +1425,6 @@
   height: 16px !important;
 }
 
-/* A compact, meaningful work-loop ticker — a signature detail, not decoration. */
-.hero-scene-section .hero-method {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  width: min(100%, 630px);
-  margin-top: 18px;
-  padding-top: 11px;
-  border-top: 1px solid rgba(224, 231, 215, .20);
-}
-.hero-scene-section .hero-method__label {
-  flex: 0 0 auto;
-  color: #d4b477;
-  font: 750 8px/1.2 var(--font-mono-face), monospace;
-  letter-spacing: .16em;
-}
-.hero-scene-section .hero-method__viewport {
-  min-width: 0;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 94%, transparent);
-}
-.hero-scene-section .hero-method__track,
-.hero-scene-section .hero-method__group {
-  display: flex;
-  width: max-content;
-  align-items: center;
-}
-.hero-scene-section .hero-method__track {
-  animation: hero-method-marquee 28s linear infinite;
-  will-change: transform;
-}
-.hero-scene-section .hero-method__group {
-  gap: 15px;
-  padding-right: 30px;
-}
-.hero-scene-section .hero-method__group span {
-  color: rgba(226, 234, 220, .82);
-  font: 700 8px/1 var(--font-body-face), sans-serif;
-  letter-spacing: .10em;
-  white-space: nowrap;
-}
-.hero-scene-section .hero-method__group i {
-  color: #a8e5b9;
-  font: normal 11px/1 var(--font-editorial-face), Georgia, serif;
-}
-@keyframes hero-method-marquee {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(-50%,0,0); }
-}
-.hero-scene-section .hero-method__viewport:hover .hero-method__track {
-  animation-play-state: paused;
-}
-
 /* Remove the floating star if it competes with the real portrait or text. */
 .hero-scene-section .hero-copy::after { display: none !important; content: none !important; }
 
@@ -1593,33 +1540,281 @@
     font-size: 8px;
     line-height: 1.35;
   }
-  .hero-scene-section .hero-method {
-    width: 100%;
-    gap: 11px;
-    margin-top: 15px;
-    padding-top: 10px;
-  }
-  .hero-scene-section .hero-method__label { font-size: 7px; }
-  .hero-scene-section .hero-method__group { gap: 11px; padding-right: 22px; }
-  .hero-scene-section .hero-method__group span {
-    font-size: 7px;
-    letter-spacing: .065em;
-  }
-  .hero-scene-section .hero-method__group i { font-size: 10px; }
+  
+  
+  
+  
+  
 }
 @media (max-width: 360px) {
   .hero-scene-section .hero-layout { padding-inline: 17px; }
   .hero-scene-section .hero-title { font-size: clamp(1.95rem, 9.15vw, 2.2rem); }
   .hero-scene-section .hero-button { font-size: 9px; }
   .hero-scene-section .hero-proof__label { font-size: 7.5px; }
-  .hero-scene-section .hero-method__group span { font-size: 6.5px; }
+  
 }
 
-/* Keep the ribbon running on wide screens, stop it on hover and when requested
-   by the user's operating system. */
+
+
+
+
+/* ==========================================================================
+   SHARED ART DIRECTION — portrait orbit + one continuous workspace backdrop
+   ========================================================================== */
+
+/* The exact workspace image continues behind the entire site. Section surfaces
+   tint it for readability; the image itself is not regenerated or altered. */
+.portfolio-theme {
+  isolation: isolate;
+  background: transparent !important;
+}
+.portfolio-theme > .ambient-scene {
+  position: fixed !important;
+  z-index: 0 !important;
+  inset: 0 !important;
+  opacity: 1 !important;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(6, 18, 11, .56), rgba(7, 19, 12, .68)),
+    url("/assets/hero-background.avif") center 43% / cover no-repeat;
+  pointer-events: none;
+}
+.portfolio-theme > .ambient-scene .ambient-scene__grid,
+.portfolio-theme > .ambient-scene .ambient-scene__stars {
+  display: none !important;
+}
+.portfolio-theme > .ambient-scene .ambient-scene__aurora {
+  inset: -15%;
+  opacity: .22;
+  background:
+    radial-gradient(ellipse at 16% 28%, rgba(168, 229, 185, .13), transparent 36%),
+    radial-gradient(ellipse at 82% 38%, rgba(209, 180, 119, .10), transparent 38%),
+    radial-gradient(ellipse at 54% 90%, rgba(66, 119, 83, .14), transparent 42%);
+  animation: shared-backdrop-drift 34s ease-in-out infinite alternate;
+}
+@keyframes shared-backdrop-drift {
+  from { transform: translate3d(-1%, 0, 0) scale(1); }
+  to { transform: translate3d(1%, -1.5%, 0) scale(1.035); }
+}
+
+/* Content sections sit above the artwork; fixed nav and character keep their
+   own stacking contexts and remain interactive. */
+.portfolio-theme > :not(.ambient-scene):not(.site-header):not(.m-char-layer) {
+  position: relative;
+  z-index: 1;
+}
+.portfolio-theme > .site-header { z-index: 80; }
+.portfolio-theme > .m-char-layer { z-index: 78; }
+
+/* Warm-paper chapters let a faint amount of the same workspace show through. */
+.about-v4-section {
+  background:
+    radial-gradient(ellipse 32% 42% at 83% 17%, rgba(172,194,164,.18), transparent 78%),
+    linear-gradient(145deg, rgba(244,241,232,.92) 0%, rgba(239,237,227,.88) 58%, rgba(245,241,231,.92) 100%) !important;
+  -webkit-backdrop-filter: saturate(.88) blur(2px);
+  backdrop-filter: saturate(.88) blur(2px);
+}
+#work.work-section {
+  background:
+    radial-gradient(ellipse 30% 23% at 96% 5%, rgba(186,205,174,.22), transparent 74%),
+    linear-gradient(145deg, rgba(247,244,235,.94) 0%, rgba(240,238,229,.91) 58%, rgba(246,242,232,.94) 100%) !important;
+  -webkit-backdrop-filter: saturate(.86) blur(2px);
+  backdrop-filter: saturate(.86) blur(2px);
+}
+.video-scroll-sticky {
+  background:
+    radial-gradient(ellipse 34% 45% at 83% 17%, rgba(77,130,96,.18), transparent 75%),
+    linear-gradient(135deg, rgba(15,31,22,.90) 0%, rgba(12,26,19,.86) 62%, rgba(15,31,22,.90) 100%) !important;
+}
+.contact-section {
+  background:
+    radial-gradient(ellipse 48% 54% at 81% 26%, rgba(76,133,92,.18), transparent 74%),
+    linear-gradient(110deg, rgba(16,34,24,.92), rgba(13,29,20,.88)) !important;
+}
+.site-footer {
+  background: rgba(13, 27, 19, .94) !important;
+}
+
+/* PORTRAIT BANNER — graphic frame around the actual person in the artwork.
+   The orbital paths deliberately sit around, not over, the face. */
+.hero-scene-section .hero-portrait-banner {
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  right: clamp(12px, 3.3vw, 52px);
+  width: min(43vw, 640px);
+  height: min(78vh, 690px);
+  min-height: 430px;
+  pointer-events: none;
+  isolation: isolate;
+}
+.hero-portrait-banner__orbit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(-5deg);
+}
+.hero-portrait-banner__ring {
+  stroke: rgba(193, 224, 183, .46);
+  stroke-width: 1.05;
+  vector-effect: non-scaling-stroke;
+}
+.hero-portrait-banner__ring--dashed {
+  stroke: rgba(218, 185, 124, .42);
+  stroke-width: .9;
+  stroke-dasharray: 2 9;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: portrait-orbit-rotate 46s linear infinite;
+}
+.hero-portrait-banner__arc {
+  stroke: rgba(184, 233, 196, .72);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 7;
+  animation: portrait-arc-trace 7s ease-in-out infinite alternate;
+}
+.hero-portrait-banner__satellite {
+  fill: #d7b77b;
+  filter: drop-shadow(0 0 6px rgba(215,183,123,.75));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: portrait-satellite-pulse 3.4s ease-in-out infinite;
+}
+.hero-portrait-banner__satellite--small {
+  fill: #a8e5b9;
+  animation-delay: 1.1s;
+}
+@keyframes portrait-orbit-rotate {
+  to { transform: rotate(360deg); }
+}
+@keyframes portrait-arc-trace {
+  from { opacity: .34; stroke-dashoffset: 0; }
+  to { opacity: .9; stroke-dashoffset: -44; }
+}
+@keyframes portrait-satellite-pulse {
+  0%, 100% { opacity: .72; transform: scale(.82); }
+  50% { opacity: 1; transform: scale(1.22); }
+}
+.hero-portrait-banner__plate {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 27px;
+  padding: 7px 10px;
+  border: 1px solid rgba(219, 237, 213, .28);
+  border-radius: 5px;
+  color: rgba(239, 243, 228, .93);
+  background: rgba(8, 24, 15, .62);
+  box-shadow: 0 8px 24px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.11);
+  -webkit-backdrop-filter: blur(12px) saturate(135%);
+  backdrop-filter: blur(12px) saturate(135%);
+  font: 750 8px/1 var(--font-mono-face), monospace;
+  letter-spacing: .13em;
+  white-space: nowrap;
+}
+.hero-portrait-banner__plate b {
+  color: #c9ae76;
+  font-weight: 700;
+}
+.hero-portrait-banner__plate i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a8e5b9;
+  box-shadow: 0 0 11px rgba(168,229,185,.68);
+  animation: banner-live-pulse 2.5s ease-in-out infinite;
+}
+@keyframes banner-live-pulse {
+  0%, 100% { opacity: .68; box-shadow: 0 0 5px rgba(168,229,185,.38); }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(168,229,185,.82); }
+}
+.hero-portrait-banner__plate--top {
+  top: 6%;
+  right: 4%;
+  transform: rotate(2deg);
+}
+.hero-portrait-banner__plate--left {
+  top: 53%;
+  left: -1%;
+  transform: rotate(-4deg);
+  animation: banner-plate-float 6s ease-in-out infinite;
+}
+.hero-portrait-banner__plate--right {
+  right: -1%;
+  bottom: 22%;
+  transform: rotate(2deg);
+  animation: banner-plate-float 6.8s ease-in-out 1s infinite;
+}
+@keyframes banner-plate-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+.hero-portrait-banner__signature {
+  position: absolute;
+  right: 9%;
+  bottom: 2%;
+  color: rgba(226, 233, 217, .72);
+  font: 650 7px/1.3 var(--font-mono-face), monospace;
+  letter-spacing: .18em;
+  text-align: right;
+  text-shadow: 0 2px 10px rgba(0,0,0,.55);
+}
+.hero-portrait-banner__signature b {
+  padding-inline: 5px;
+  color: #d7b77b;
+}
+@media (max-width: 1100px) and (min-width: 768px) {
+  .hero-scene-section .hero-portrait-banner {
+    right: 0;
+    width: 42vw;
+    height: 72vh;
+  }
+  .hero-portrait-banner__plate { font-size: 7px; letter-spacing: .09em; }
+}
+@media (max-width: 767px) {
+  /* One neat maker's mark on the portrait, not a crowded orbit over the face. */
+  .hero-scene-section .hero-portrait-banner {
+    top: 5%;
+    right: 3%;
+    width: 58%;
+    height: calc(var(--mobile-hero-image-height, clamp(228px, 44svh, 290px)) * .88);
+    min-height: 0;
+  }
+  .hero-portrait-banner__ring { stroke: rgba(205,231,196,.54); }
+  .hero-portrait-banner__ring--dashed { opacity: .58; }
+  .hero-portrait-banner__plate {
+    min-height: 22px;
+    padding: 6px 8px;
+    font-size: 6px;
+    letter-spacing: .085em;
+  }
+  .hero-portrait-banner__plate--top { top: 3%; right: 0; }
+  .hero-portrait-banner__plate--left { top: auto; left: -2%; bottom: 14%; }
+  .hero-portrait-banner__plate--right { display: none; }
+  .hero-portrait-banner__signature {
+    right: 0;
+    bottom: 1%;
+    font-size: 5px;
+    letter-spacing: .11em;
+  }
+}
+@media (max-width: 420px) {
+  .hero-scene-section .hero-portrait-banner { width: 62%; right: 1%; }
+  .hero-portrait-banner__plate { font-size: 5.5px; padding: 5px 7px; }
+  .hero-portrait-banner__signature { font-size: 4.7px; }
+}
+
+/* One consistent motion language: drift on the photo frame, calm reveal on the
+   About collage, no scroll-jank or auto-moving text ribbon. */
 @media (prefers-reduced-motion: reduce) {
-  .hero-scene-section .hero-method__track {
+  .hero-portrait-banner *,
+  .portfolio-theme > .ambient-scene .ambient-scene__aurora {
     animation: none !important;
+    transition: none !important;
     transform: none !important;
   }
 }
