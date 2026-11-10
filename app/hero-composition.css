@@ -1635,6 +1635,17 @@
   background: rgba(13, 27, 19, .94) !important;
 }
 
+@media (max-width: 767px) {
+  .portfolio-theme > .ambient-scene {
+    background-position: 72% center;
+    background-size: cover;
+  }
+  .portfolio-theme > .ambient-scene .ambient-scene__aurora {
+    display: none !important;
+    animation: none !important;
+  }
+}
+
 /* PORTRAIT BANNER — graphic frame around the actual person in the artwork.
    The orbital paths deliberately sit around, not over, the face. */
 .hero-scene-section .hero-portrait-banner {
