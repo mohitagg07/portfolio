@@ -1736,11 +1736,6 @@
 .hero-scene-section .hero-proof {
   width: min(100%, 590px);
 }
-.hero-scene-section .hero-method,
-.hero-scene-section .hero-portrait-banner {
-  display: none !important;
-}
-
 /* Android: keep the same artwork behind the entire hero, not in a small banner.
    The copy is placed over the lower, naturally darker part of the photograph. */
 @media (max-width: 767px) {
@@ -1914,8 +1909,6 @@
     overflow-wrap: anywhere;
   }
   .hero-scene-section .hero-scroll { display: none; }
-  .hero-scene-section .hero-method,
-  .hero-scene-section .hero-portrait-banner { display: none !important; }
 }
 
 /* Small Android widths: keep both buttons readable instead of clipping labels. */
@@ -1929,11 +1922,7 @@
   .hero-scene-section .hero-proof__label { font-size: 6.9px; }
 }
 
-/* The workspace is the hero's story; do not add orbit labels or ticker UI. */
-.hero-scene-section .hero-portrait-banner,
-.hero-scene-section .hero-method {
-  display: none !important;
-}
+/* The workspace image itself carries the visual story. */
 
 /* Keep transitions calm and the actual word reveal readable. */
 @media (prefers-reduced-motion: reduce) {
