@@ -1943,3 +1943,188 @@
     filter: none !important;
   }
 }
+
+
+
+/* ==========================================================================
+   MOBILE DUPLICATE-IMAGE FIX — BackgroundCanvas is the only artwork source.
+   The hero no longer renders a second copy of hero-background.avif.
+   ========================================================================== */
+.portfolio-theme > .ambient-scene {
+  position: fixed !important;
+  z-index: 0 !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100vw;
+  height: 100svh;
+  opacity: 1 !important;
+  overflow: hidden;
+  background-color: #07160e;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(4, 14, 8, .17) 0%,
+      rgba(4, 14, 8, .25) 52%,
+      rgba(4, 14, 8, .48) 100%
+    ),
+    url("/assets/hero-background.avif");
+  background-repeat: no-repeat;
+  background-position: center 43%;
+  background-size: cover;
+  pointer-events: none;
+}
+.portfolio-theme > .ambient-scene .ambient-scene__grid,
+.portfolio-theme > .ambient-scene .ambient-scene__stars {
+  display: none !important;
+}
+.hero-scroll-stage.hero-image-only {
+  position: relative !important;
+  z-index: 1;
+  background: transparent !important;
+}
+.hero-section--sticky.hero-scene-section {
+  position: relative !important;
+  z-index: 1;
+  background: transparent !important;
+}
+.hero-scene-section .hero-image-shade {
+  position: absolute !important;
+  z-index: 1;
+  inset: 0 !important;
+  width: 100%;
+  height: 100% !important;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 15, 9, .76) 0%,
+      rgba(4, 15, 9, .57) 44%,
+      rgba(4, 15, 9, .12) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(4, 14, 8, .05) 0%,
+      rgba(4, 14, 8, .04) 34%,
+      rgba(4, 14, 8, .54) 62%,
+      rgba(4, 14, 8, .88) 100%
+    );
+}
+@media (max-width: 767px) {
+  .portfolio-theme > .ambient-scene {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw;
+    height: 100svh;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(4, 14, 8, .06) 0%,
+        rgba(4, 14, 8, .12) 38%,
+        rgba(4, 14, 8, .56) 70%,
+        rgba(4, 14, 8, .78) 100%
+      ),
+      url("/assets/hero-background.avif");
+    background-position: 73% 43%;
+    background-size: cover;
+  }
+
+  .hero-scroll-stage.hero-image-only {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+  .hero-section--sticky.hero-scene-section {
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: 100svh !important;
+    overflow: hidden !important;
+    background: transparent !important;
+  }
+  .hero-scene-section .hero-image-shade {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100%;
+    height: 100% !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(4, 14, 8, .02) 0%,
+        rgba(4, 14, 8, .06) 28%,
+        rgba(4, 14, 8, .22) 42%,
+        rgba(4, 14, 8, .78) 57%,
+        rgba(4, 14, 8, .94) 100%
+      );
+  }
+  .hero-scene-section .hero-layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: auto !important;
+    min-height: 100svh;
+    padding: clamp(276px, 47svh, 340px) 19px 30px;
+    background: transparent !important;
+  }
+  .hero-scene-section .hero-copy {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero-scene-section .hero-title {
+    font-size: clamp(2rem, 9vw, 2.42rem);
+    line-height: 1.03;
+  }
+  .hero-scene-section .hero-summary {
+    font-size: 13px;
+    line-height: 1.52;
+  }
+  .hero-scene-section .hero-actions {
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .hero-scene-section .hero-button {
+    min-height: 43px;
+    font-size: 9px;
+  }
+  .hero-scene-section .hero-proof {
+    margin-top: 18px;
+  }
+  .hero-scene-section .hero-proof__value {
+    font-size: 22px;
+  }
+  .hero-scene-section .hero-proof__label {
+    font-size: 7px;
+    line-height: 1.3;
+  }
+
+  /* The duplicate image element is intentionally absent from HeroScene.
+     This guard prevents any legacy image/art layer from reappearing. */
+  .hero-scene-section .hero-background-image,
+  .hero-scene-section .hero-art__picture,
+  .hero-scene-section .hero-art__picture img {
+    display: none !important;
+  }
+}
+@media (max-width: 360px) {
+  .hero-scene-section .hero-layout {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .hero-scene-section .hero-title {
+    font-size: clamp(1.9rem, 8.8vw, 2.12rem);
+  }
+  .hero-scene-section .hero-button {
+    padding-inline: 6px;
+    font-size: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-theme > .ambient-scene {
+    background-attachment: scroll;
+  }
+}
