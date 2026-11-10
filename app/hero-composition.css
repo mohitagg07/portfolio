@@ -1216,7 +1216,13 @@
     min-height: 0 !important;
     margin: 0;
     padding: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) + 19px) 19px 38px;
-    background: linear-gradient(180deg, #07160e 0%, #091a11 100%);
+    background: linear-gradient(
+      180deg,
+      transparent 0,
+      transparent calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) - 2px),
+      #07160e var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)),
+      #091a11 100%
+    );
   }
   .hero-scene-section .hero-copy {
     width: 100%;
