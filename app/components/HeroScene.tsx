@@ -5,10 +5,11 @@ import { useCallback, useEffect, useRef, type PointerEvent as ReactPointerEvent 
 import { useReducedMotion } from "motion/react";
 import HeroGreeting from "./HeroGreeting";
 import HeroSoundtrack from "./HeroSoundtrack";
+import HeroPersonalDetails from "./HeroPersonalDetails";
 
 const GRID_STEP = 56;
 const INFLUENCE_RADIUS = 156;
-const MAX_DISPLACEMENT = 5;
+const MAX_DISPLACEMENT = 3;
 
 type GridPoint = {
   x: number;
@@ -34,10 +35,10 @@ export default function HeroScene() {
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
 
-    section.style.setProperty("--hero-depth-x", `${(x * 3.5).toFixed(2)}px`);
-    section.style.setProperty("--hero-depth-y", `${(y * 2.5).toFixed(2)}px`);
-    section.style.setProperty("--hero-tilt-x", `${(-y * 0.18).toFixed(2)}deg`);
-    section.style.setProperty("--hero-tilt-y", `${(x * 0.18).toFixed(2)}deg`);
+    section.style.setProperty("--hero-depth-x", `${(x * 2.0).toFixed(2)}px`);
+    section.style.setProperty("--hero-depth-y", `${(y * 1.5).toFixed(2)}px`);
+    section.style.setProperty("--hero-tilt-x", `${(-y * 0.10).toFixed(2)}deg`);
+    section.style.setProperty("--hero-tilt-y", `${(x * 0.10).toFixed(2)}deg`);
   };
 
   const resetPointer = () => {
@@ -224,6 +225,7 @@ export default function HeroScene() {
       <div className="hero-v3__shade" aria-hidden="true" />
       <canvas ref={canvasRef} className="hero-v3__grid" aria-hidden="true" />
       <HeroGreeting />
+      <HeroPersonalDetails />
       <HeroSoundtrack />
     </section>
   );
