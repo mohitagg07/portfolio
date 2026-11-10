@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { navigateToSection, scrollToSection } from "../utils/scroll";
 
@@ -159,7 +159,7 @@ export default function Header() {
     window.requestAnimationFrame(() => menuButtonRef.current?.focus());
   };
 
-  const navigateFromMenu = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const navigateFromMenu = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault();
     pendingNavigationRef.current = id;
     setOpen(false);
