@@ -237,8 +237,7 @@
   background: #a8e6bb;
 }
 
-/* Keep the animated mascot off the hero; the image and message are the focus. */
-.m-char-layer .m-char.m-char--home { display: none !important; }
+/* The home assistant is intentionally visible; positioning is defined below. */
 
 /* Keep the existing navigation separate and glassy above the hero. */
 .site-header {
