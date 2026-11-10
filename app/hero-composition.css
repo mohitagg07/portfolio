@@ -3897,214 +3897,154 @@
 
 
 /* ==========================================================================
-   V9 — GLASS SOUNDTRACK PLACEMENT
-   Keep the portrait completely clear. The Spotify embed remains a real,
-   branded player; the surrounding surface supplies the frosted-glass treatment.
+   V10 — COMPACT FROSTED SOUNDTRACK
+   Reserved in negative space; never crosses the headline or portrait.
    ========================================================================== */
-@media (min-width: 1500px) {
+#home.hero-v3 .hero-soundtrack {
+  position: absolute;
+  z-index: 6;
+  display: block;
+  padding: 8px;
+  border: 1px solid rgba(231, 245, 227, .34);
+  border-radius: 17px;
+  background:
+    linear-gradient(132deg,
+      rgba(229, 244, 224, .16) 0%,
+      rgba(155, 197, 160, .075) 38%,
+      rgba(12, 38, 26, .28) 100%);
+  box-shadow:
+    0 18px 48px rgba(0,0,0,.23),
+    inset 0 1px 0 rgba(255,255,255,.36),
+    inset 0 -1px 0 rgba(226,244,221,.09);
+  -webkit-backdrop-filter: blur(26px) saturate(155%);
+  backdrop-filter: blur(26px) saturate(155%);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+#home.hero-v3 .hero-soundtrack::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(118deg,
+    rgba(255,255,255,.17) 0%,
+    rgba(255,255,255,.045) 25%,
+    transparent 52%,
+    rgba(189,229,188,.075) 100%);
+  pointer-events: none;
+}
+
+#home.hero-v3 .hero-soundtrack::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -48px;
+  right: -38px;
+  width: 140px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(183, 229, 184, .12);
+  filter: blur(36px);
+  pointer-events: none;
+}
+
+#home.hero-v3 .hero-soundtrack__heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 2px 6px;
+  color: rgba(229, 244, 225, .92);
+  font: 700 7px/1.3 var(--font-mono-face), ui-monospace, monospace;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0,0,0,.28);
+}
+
+#home.hero-v3 .hero-soundtrack__index {
+  color: rgba(228, 239, 221, .56);
+  font-size: 6px;
+  white-space: nowrap;
+}
+
+#home.hero-v3 .hero-soundtrack iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 80px;
+  min-width: 0;
+  border: 1px solid rgba(238, 248, 233, .14);
+  border-radius: 11px;
+  background: #121a15;
+  box-shadow: 0 5px 15px rgba(0,0,0,.14);
+}
+
+/* At the reference desktop width (1530 × 674), this sits below the copy,
+   to the right of the CTA, and above the statistics. It cannot cover the face. */
+@media (min-width: 1361px) {
   #home.hero-v3 .hero-soundtrack {
-    top: 34%;
+    top: 60%;
+    left: 44.6%;
     right: auto;
     bottom: auto;
-    left: clamp(650px, 44.3vw, 680px);
-    width: 310px;
-    min-width: 0;
-    padding: 10px;
-    border: 1px solid rgba(235, 248, 230, .38);
-    border-radius: 22px;
-    background:
-      linear-gradient(132deg,
-        rgba(237, 249, 234, .19) 0%,
-        rgba(184, 220, 188, .10) 34%,
-        rgba(21, 54, 38, .25) 72%,
-        rgba(8, 31, 21, .34) 100%);
-    box-shadow:
-      0 26px 70px rgba(0, 0, 0, .28),
-      0 5px 18px rgba(0, 0, 0, .16),
-      inset 0 1px 0 rgba(255, 255, 255, .48),
-      inset 0 -1px 0 rgba(224, 245, 222, .12),
-      0 0 0 1px rgba(255, 255, 255, .035);
-    -webkit-backdrop-filter: blur(30px) saturate(165%);
-    backdrop-filter: blur(30px) saturate(165%);
-    isolation: isolate;
-    overflow: hidden;
-    transform: translate3d(0, -50%, 0) rotate(-.35deg);
-  }
-
-  #home.hero-v3 .hero-soundtrack::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    border-radius: inherit;
-    background:
-      linear-gradient(116deg,
-        rgba(255, 255, 255, .20) 0%,
-        rgba(255, 255, 255, .055) 24%,
-        transparent 47%,
-        rgba(190, 232, 194, .07) 78%,
-        rgba(255, 255, 255, .09) 100%);
-    pointer-events: none;
-  }
-
-  #home.hero-v3 .hero-soundtrack::after {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    top: -64px;
-    right: -56px;
-    width: 190px;
-    height: 150px;
-    border-radius: 50%;
-    background: rgba(190, 235, 190, .13);
-    filter: blur(42px);
-    pointer-events: none;
-  }
-
-  #home.hero-v3 .hero-soundtrack__heading {
-    position: relative;
-    z-index: 1;
-    margin: 1px 3px 9px;
-    color: rgba(224, 245, 221, .94);
-    text-shadow: 0 1px 12px rgba(2, 15, 9, .28);
-  }
-
-  #home.hero-v3 .hero-soundtrack__index {
-    color: rgba(235, 244, 228, .62);
-  }
-
-  #home.hero-v3 .hero-soundtrack iframe {
-    position: relative;
-    z-index: 1;
-    height: 152px;
-    border: 1px solid rgba(238, 248, 233, .17);
-    border-radius: 14px;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, .16);
+    width: 250px;
+    transform: translateY(-50%);
   }
 }
 
-/* On medium desktop widths, the player stays low and right rather than
-   competing with the heading or the subject's face. */
-@media (min-width: 768px) and (max-width: 1499px) {
+/* Mid-size desktop: park the compact player at the lower-right desk area. */
+@media (min-width: 1101px) and (max-width: 1360px) {
   #home.hero-v3 .hero-soundtrack {
     top: auto;
-    right: 24px;
-    bottom: 24px;
+    right: 25px;
+    bottom: 22px;
     left: auto;
-    width: 300px;
-    min-width: 0;
-    padding: 9px;
-    border: 1px solid rgba(235, 248, 230, .36);
-    border-radius: 21px;
-    background: linear-gradient(132deg,
-      rgba(237,249,234,.18),
-      rgba(184,220,188,.09) 42%,
-      rgba(8,31,21,.30));
-    box-shadow:
-      0 22px 58px rgba(0,0,0,.26),
-      inset 0 1px 0 rgba(255,255,255,.42),
-      inset 0 -1px 0 rgba(224,245,222,.10);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
-    backdrop-filter: blur(28px) saturate(160%);
+    width: 250px;
     transform: none;
-  }
-
-  #home.hero-v3 .hero-soundtrack__heading {
-    margin: 1px 3px 8px;
   }
 }
 
-/* Tablet: keep the embed away from the face and give it its own lower corner. */
+/* Tablet: keep the soundtrack in its own lower-right footprint. */
 @media (min-width: 768px) and (max-width: 1100px) {
   #home.hero-v3 .hero-soundtrack {
     top: auto;
-    right: 22px;
-    bottom: 24px;
+    right: 18px;
+    bottom: 18px;
     left: auto;
-    width: 300px;
-    min-width: 0;
-    padding: 9px;
-    border: 1px solid rgba(235, 248, 230, .34);
-    border-radius: 20px;
-    background: linear-gradient(132deg,
-      rgba(237,249,234,.17),
-      rgba(184,220,188,.08) 42%,
-      rgba(8,31,21,.34));
-    box-shadow:
-      0 20px 50px rgba(0,0,0,.28),
-      inset 0 1px 0 rgba(255,255,255,.40);
-    -webkit-backdrop-filter: blur(26px) saturate(155%);
-    backdrop-filter: blur(26px) saturate(155%);
+    width: 244px;
     transform: none;
+  }
+
+  #home.hero-v3 .hero-soundtrack__index {
+    display: none;
   }
 }
 
+/* Mobile uses the dedicated lower slot below the copy, not an overlay on the face. */
 @media (max-width: 767px) {
   #home.hero-v3 .hero-soundtrack {
-    border: 1px solid rgba(235, 248, 230, .34);
-    border-radius: 19px;
-    background: linear-gradient(132deg,
-      rgba(237,249,234,.18),
-      rgba(184,220,188,.08) 42%,
-      rgba(8,31,21,.38));
-    box-shadow:
-      0 18px 44px rgba(0,0,0,.28),
-      inset 0 1px 0 rgba(255,255,255,.42);
-    -webkit-backdrop-filter: blur(26px) saturate(155%);
-    backdrop-filter: blur(26px) saturate(155%);
-    overflow: hidden;
+    top: auto;
+    right: 18px;
+    bottom: 15px;
+    left: 18px;
+    width: auto;
+    max-width: 360px;
+    margin-inline: auto;
+    padding: 8px;
+    transform: none;
   }
 
   #home.hero-v3 .hero-soundtrack__heading {
-    color: rgba(224,245,221,.94);
-  }
-}
-
-
-/* Shared glass highlights sit on the wrapper only; Spotify's own controls remain
-   inside its official cross-origin iframe and are intentionally left untouched. */
-@media (min-width: 768px) {
-  #home.hero-v3 .hero-soundtrack {
-    isolation: isolate;
-    overflow: hidden;
-  }
-
-  #home.hero-v3 .hero-soundtrack::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(116deg,
-      rgba(255,255,255,.20) 0%,
-      rgba(255,255,255,.055) 24%,
-      transparent 47%,
-      rgba(190,232,194,.07) 78%,
-      rgba(255,255,255,.09) 100%);
-    pointer-events: none;
-  }
-
-  #home.hero-v3 .hero-soundtrack::after {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    top: -64px;
-    right: -56px;
-    width: 190px;
-    height: 150px;
-    border-radius: 50%;
-    background: rgba(190,235,190,.13);
-    filter: blur(42px);
-    pointer-events: none;
-  }
-
-  #home.hero-v3 .hero-soundtrack__heading,
-  #home.hero-v3 .hero-soundtrack iframe {
-    position: relative;
-    z-index: 1;
+    font-size: 7px;
   }
 
   #home.hero-v3 .hero-soundtrack iframe {
-    min-width: 280px;
+    height: 80px;
   }
 }
+
