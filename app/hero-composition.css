@@ -1736,6 +1736,10 @@
 .hero-scene-section .hero-proof {
   width: min(100%, 590px);
 }
+.hero-scene-section .hero-method,
+.hero-scene-section .hero-portrait-banner {
+  display: none !important;
+}
 /* Android: keep the same artwork behind the entire hero, not in a small banner.
    The copy is placed over the lower, naturally darker part of the photograph. */
 @media (max-width: 767px) {
@@ -1909,6 +1913,8 @@
     overflow-wrap: anywhere;
   }
   .hero-scene-section .hero-scroll { display: none; }
+  .hero-scene-section .hero-method,
+  .hero-scene-section .hero-portrait-banner { display: none !important; }
 }
 
 /* Small Android widths: keep both buttons readable instead of clipping labels. */
