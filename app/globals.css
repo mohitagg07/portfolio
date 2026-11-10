@@ -5874,3 +5874,16 @@ main,
     text-align: right;
   }
 }
+
+
+/* Keep the home mascot's editorial note inside the viewport. */
+.m-char-layer .m-char--home .m-char__note {
+  left: auto;
+  right: 8px;
+  align-items: flex-end;
+  text-align: right;
+  transform: translate3d(0, 8px, 0) rotate(-1.5deg);
+}
+.m-char-layer .m-char--home .m-char__note.is-visible {
+  transform: translate3d(0, 0, 0) rotate(-1.5deg);
+}
