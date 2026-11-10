@@ -2122,3 +2122,69 @@
     background-attachment: scroll;
   }
 }
+
+
+
+/* MOBILE HERO VERTICAL ALIGNMENT — keep the introduction inside the first view.
+   The layout uses border-box sizing so its viewport height includes padding;
+   this prevents flex-end from pushing the copy below the screen. */
+@media (max-width: 767px) {
+  .hero-section--sticky.hero-scene-section {
+    box-sizing: border-box !important;
+    min-height: 100svh !important;
+  }
+
+  .hero-scene-section .hero-layout {
+    box-sizing: border-box !important;
+    min-height: 100svh !important;
+    height: auto !important;
+    justify-content: flex-end !important;
+    padding: clamp(168px, 32svh, 214px) 19px 24px !important;
+  }
+
+  .hero-scene-section .hero-copy {
+    margin-top: 0 !important;
+  }
+
+  .hero-scene-section .hero-hello {
+    margin-bottom: 9px !important;
+  }
+
+  .hero-scene-section .hero-eyebrow {
+    margin-bottom: 7px !important;
+  }
+
+  .hero-scene-section .hero-summary {
+    margin-top: 10px !important;
+  }
+
+  .hero-scene-section .hero-actions {
+    margin-top: 13px !important;
+  }
+
+  .hero-scene-section .hero-proof {
+    margin-top: 15px !important;
+    padding-top: 9px !important;
+  }
+}
+
+/* Short Android viewports: reserve less vertical space above the copy. */
+@media (max-width: 767px) and (max-height: 620px) {
+  .hero-scene-section .hero-layout {
+    padding-top: 158px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .hero-scene-section .hero-title {
+    font-size: clamp(1.88rem, 8.7vw, 2.15rem) !important;
+  }
+
+  .hero-scene-section .hero-summary {
+    font-size: 12px !important;
+    line-height: 1.43 !important;
+  }
+
+  .hero-scene-section .hero-proof {
+    margin-top: 12px !important;
+  }
+}
