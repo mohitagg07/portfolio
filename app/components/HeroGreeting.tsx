@@ -96,25 +96,6 @@ export default function HeroGreeting() {
           </li>
         </ul>
 
-        <div className="hero-method" aria-label="My approach: find the friction, make it clear, build what helps">
-          <span className="hero-method__label">THE LOOP</span>
-          <div className="hero-method__viewport">
-            <div className="hero-method__track">
-              <div className="hero-method__group">
-                <span>FIND THE FRICTION</span><i aria-hidden="true">✳</i>
-                <span>MAKE THE FLOW CLEAR</span><i aria-hidden="true">✳</i>
-                <span>BUILD WHAT HELPS</span><i aria-hidden="true">✳</i>
-              </div>
-              <div className="hero-method__group" aria-hidden="true">
-                <span>FIND THE FRICTION</span><i>✳</i>
-                <span>MAKE THE FLOW CLEAR</span><i>✳</i>
-                <span>BUILD WHAT HELPS</span><i>✳</i>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <a
         className="hero-scroll"
         href="#work"
