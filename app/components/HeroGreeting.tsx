@@ -11,24 +11,6 @@ function PinIcon() {
   );
 }
 
-function SchoolIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="m2.5 9 9.5-5 9.5 5-9.5 5-9.5-5Z" />
-      <path d="M6 11v5.2c3.8 2.7 8.2 2.7 12 0V11M21.5 9v6" />
-    </svg>
-  );
-}
-
-function WorkIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3" y="7" width="18" height="14" rx="1.5" />
-      <path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2" />
-    </svg>
-  );
-}
-
 function Word({ children, delay, accent = false }: {
   children: string;
   delay: number;
@@ -49,10 +31,8 @@ export default function HeroGreeting() {
   return (
     <div className="hero-layout">
       <div className="hero-copy">
-        <div className="hero-hello" aria-label="Location, education and experience">
+        <div className="hero-hello" aria-label="Based in Jammu, India">
           <span className="hero-hello__item"><PinIcon /> Jammu, India</span>
-          <span className="hero-hello__item"><SchoolIcon /> VIT Chennai</span>
-          <span className="hero-hello__item"><WorkIcon /> 2 internships</span>
         </div>
 
         <p className="hero-eyebrow">SOFTWARE ENGINEER <i aria-hidden="true" /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
@@ -115,6 +95,24 @@ export default function HeroGreeting() {
             <span className="hero-proof__label">B.Tech · VIT Chennai</span>
           </li>
         </ul>
+
+        <div className="hero-method" aria-label="My approach: find the friction, make it clear, build what helps">
+          <span className="hero-method__label">THE LOOP</span>
+          <div className="hero-method__viewport">
+            <div className="hero-method__track">
+              <div className="hero-method__group">
+                <span>FIND THE FRICTION</span><i aria-hidden="true">✳</i>
+                <span>MAKE THE FLOW CLEAR</span><i aria-hidden="true">✳</i>
+                <span>BUILD WHAT HELPS</span><i aria-hidden="true">✳</i>
+              </div>
+              <div className="hero-method__group" aria-hidden="true">
+                <span>FIND THE FRICTION</span><i>✳</i>
+                <span>MAKE THE FLOW CLEAR</span><i>✳</i>
+                <span>BUILD WHAT HELPS</span><i>✳</i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <a
