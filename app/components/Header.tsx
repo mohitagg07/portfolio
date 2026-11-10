@@ -150,14 +150,12 @@ export default function Header() {
     if (open || !pendingNavigationRef.current) return;
     const id = pendingNavigationRef.current;
     pendingNavigationRef.current = null;
-    const frame = window.requestAnimationFrame(() => scrollToSection(id));
+    const frame = window.requestAnimationFrame(() => {
+      scrollToSection(id);
+      menuButtonRef.current?.focus({ preventScroll: true });
+    });
     return () => window.cancelAnimationFrame(frame);
   }, [open]);
-
-  const closeMenu = () => {
-    setOpen(false);
-    window.requestAnimationFrame(() => menuButtonRef.current?.focus());
-  };
 
   const navigateFromMenu = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault();
