@@ -50,9 +50,9 @@ export default function HeroGreeting() {
     <div className="hero-layout">
       <div className="hero-copy">
         <div className="hero-hello" aria-label="Location, education and experience">
-          <span><PinIcon /> Jammu, India</span>
-          <span><SchoolIcon /> VIT Chennai</span>
-          <span><WorkIcon /> 2 internships</span>
+          <span className="hero-hello__item"><PinIcon /> Jammu, India</span>
+          <span className="hero-hello__item"><SchoolIcon /> VIT Chennai</span>
+          <span className="hero-hello__item"><WorkIcon /> 2 internships</span>
         </div>
 
         <p className="hero-eyebrow">SOFTWARE ENGINEER <i aria-hidden="true" /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
