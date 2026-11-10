@@ -13,74 +13,66 @@ function PinIcon() {
 
 function Word({
   children,
-  delay,
   accent = false,
 }: {
   children: string;
-  delay: number;
   accent?: boolean;
 }) {
   return (
-    <span
-      className={accent ? "hero-word hero-word--accent" : "hero-word"}
-      style={{ animationDelay: `${delay}s` }}
-      aria-hidden="true"
-    >
-      <span className="hero-word__inner">{children}</span>
+    <span className={accent ? "hero-v3__word hero-v3__word--accent" : "hero-v3__word"}>
+      {children}
     </span>
   );
 }
 
 export default function HeroGreeting() {
   return (
-    <div className="hero-layout">
-      <div className="hero-copy">
-        <div className="hero-hello" aria-label="Based in Jammu, India">
-          <span className="hero-hello__item">
-            <PinIcon />
-            Jammu, India
-          </span>
+    <div className="hero-v3__content">
+      <div className="hero-v3__copy">
+        <div className="hero-v3__location" aria-label="Based in Jammu, India">
+          <PinIcon />
+          <span>Jammu, India</span>
         </div>
 
-        <p className="hero-eyebrow">SOFTWARE ENGINEER</p>
+        <p className="hero-v3__eyebrow">SOFTWARE ENGINEER</p>
 
         <h1
-          id="hero-title"
-          className="hero-title"
+          id="hero-v3-title"
+          className="hero-v3__title"
           aria-label="I make the messy parts of work feel simpler."
         >
-          <span className="hero-title__line" aria-hidden="true">
-            <Word delay={0.16}>I</Word>
-            <Word delay={0.23}>make</Word>
-            <Word delay={0.30}>the</Word>
-            <Word delay={0.37}>messy</Word>
-            <Word delay={0.44}>parts</Word>
+          <span className="hero-v3__line" aria-hidden="true">
+            <Word>I</Word>{" "}
+            <Word>make</Word>{" "}
+            <Word>the</Word>{" "}
+            <Word>messy</Word>{" "}
+            <Word>parts</Word>
           </span>
-          <span className="hero-title__line" aria-hidden="true">
-            <Word delay={0.54}>of</Word>
-            <Word delay={0.61}>work</Word>
-            <em className="hero-title__accent">
-              <Word delay={0.72} accent>feel</Word>
-              <Word delay={0.82} accent>simpler.</Word>
+          <span className="hero-v3__line" aria-hidden="true">
+            <Word>of</Word>{" "}
+            <Word>work</Word>{" "}
+            <em className="hero-v3__accent">
+              <Word accent>feel</Word>{" "}
+              <Word accent>simpler.</Word>
             </em>
           </span>
         </h1>
 
-        <p className="hero-summary">
+        <p className="hero-v3__summary">
           I enjoy untangling complicated ideas, finding what matters, and building
           something clear, thoughtful and useful.
         </p>
 
-        <div className="hero-actions">
+        <div className="hero-v3__actions">
           <a
-            className="hero-button hero-button--primary"
+            className="hero-v3__button hero-v3__button--primary"
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
           >
             Explore selected work <span aria-hidden="true">↗</span>
           </a>
           <a
-            className="hero-button hero-button--quiet"
+            className="hero-v3__button hero-v3__button--secondary"
             href="#about"
             onClick={(event) => navigateToSection(event, "about")}
           >
@@ -88,30 +80,30 @@ export default function HeroGreeting() {
           </a>
         </div>
 
-        <ul className="hero-proof" aria-label="A few details about my background">
-          <li>
-            <span className="hero-proof__value">5+</span>
-            <span className="hero-proof__label">Projects &amp; experiments</span>
-          </li>
-          <li>
-            <span className="hero-proof__value">02</span>
-            <span className="hero-proof__label">Relu Consultancy · Berger Paints</span>
-          </li>
-          <li>
-            <span className="hero-proof__value">2025</span>
-            <span className="hero-proof__label">B.Tech · VIT Chennai</span>
-          </li>
-        </ul>
+        <div className="hero-v3__facts" aria-label="A few details about my background">
+          <div>
+            <strong>5+</strong>
+            <span>Projects &amp; experiments</span>
+          </div>
+          <div>
+            <strong>02</strong>
+            <span>Relu Consultancy · Berger Paints</span>
+          </div>
+          <div>
+            <strong>2025</strong>
+            <span>B.Tech · VIT Chennai</span>
+          </div>
+        </div>
       </div>
 
       <a
-        className="hero-scroll"
-        href="#work"
-        onClick={(event) => navigateToSection(event, "work")}
-        aria-label="Scroll to selected work"
+        className="hero-v3__scroll"
+        href="#about"
+        onClick={(event) => navigateToSection(event, "about")}
+        aria-label="Scroll to about section"
       >
-        <span className="hero-scroll__track" aria-hidden="true"><i /></span>
-        <span className="hero-scroll__label">Scroll to explore</span>
+        <span className="hero-v3__scroll-mark" aria-hidden="true" />
+        <span>Scroll to explore</span>
       </a>
     </div>
   );
