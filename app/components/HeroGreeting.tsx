@@ -3,15 +3,6 @@
 import { motion, useReducedMotion } from "motion/react";
 import { navigateToSection } from "../utils/scroll";
 
-function PinIcon() {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path d="M10 18s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10Z" />
-      <circle cx="10" cy="8" r="2" />
-    </svg>
-  );
-}
-
 function Word({
   children,
   delay,
@@ -26,10 +17,10 @@ function Word({
   return (
     <motion.span
       className={accent ? "hero-v3__word hero-v3__word--accent" : "hero-v3__word"}
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 16, filter: "blur(2px)" }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 14, filter: "blur(1.5px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{
-        duration: prefersReducedMotion ? 0 : 0.62,
+        duration: prefersReducedMotion ? 0 : 0.58,
         delay: prefersReducedMotion ? 0 : delay,
         ease: [0.16, 1, 0.3, 1],
       }}
@@ -40,18 +31,11 @@ function Word({
 }
 
 export default function HeroGreeting() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <div className="hero-v3__content">
       <div className="hero-v3__copy">
-        <div className="hero-v3__location" aria-label="Based in Jammu, India">
-          <PinIcon />
-          <span>Jammu, India</span>
-        </div>
-
-        <p className="hero-v3__eyebrow">
-          SOFTWARE ENGINEER <i /> AI &amp; AUTOMATION
-        </p>
-
         <h1
           id="hero-v3-title"
           className="hero-v3__title"
@@ -74,42 +58,41 @@ export default function HeroGreeting() {
           </span>
         </h1>
 
-        <p className="hero-v3__summary">
-          From AI-powered products to real-world automation, I turn complex ideas
-          into reliable, human-centred solutions.
-        </p>
-
         <div className="hero-v3__actions">
-          <a
+          <motion.a
             className="hero-v3__button hero-v3__button--primary"
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: 0.82 }}
           >
             Explore my work <span aria-hidden="true">↗</span>
-          </a>
-          <a
+          </motion.a>
+          <motion.a
             className="hero-v3__button hero-v3__button--secondary"
             href="#about"
             onClick={(event) => navigateToSection(event, "about")}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: 0.9 }}
           >
             A little about me
-          </a>
+          </motion.a>
         </div>
 
-        <div className="hero-v3__facts" aria-label="A few details about my background">
+        <motion.div
+          className="hero-v3__facts"
+          aria-label="Selected work"
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 1.02 }}
+        >
           <div>
             <strong>5+</strong>
             <span>Projects &amp; experiments</span>
           </div>
-          <div>
-            <strong>02</strong>
-            <span>Relu Consultancy · Berger Paints</span>
-          </div>
-          <div>
-            <strong>2025</strong>
-            <span>B.Tech · VIT Chennai</span>
-          </div>
-        </div>
+        </motion.div>
       </div>
 
       <a

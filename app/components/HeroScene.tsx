@@ -225,12 +225,6 @@ export default function HeroScene() {
       <canvas ref={canvasRef} className="hero-v3__grid" aria-hidden="true" />
       <HeroGreeting />
       <HeroSoundtrack />
-      <aside className="hero-principle" aria-label="A product principle from MindCare">
-        <span className="hero-principle__label">A PRINCIPLE I BUILD BY</span>
-        <blockquote>“People should not have to explain their story from zero.”</blockquote>
-        <span className="hero-principle__source">MindCare · product principle</span>
-        <span className="hero-principle__tape" aria-hidden="true" />
-      </aside>
     </section>
   );
 }
