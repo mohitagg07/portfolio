@@ -11,7 +11,11 @@ function PinIcon() {
   );
 }
 
-function Word({ children, delay, accent = false }: {
+function Word({
+  children,
+  delay,
+  accent = false,
+}: {
   children: string;
   delay: number;
   accent?: boolean;
@@ -32,10 +36,13 @@ export default function HeroGreeting() {
     <div className="hero-layout">
       <div className="hero-copy">
         <div className="hero-hello" aria-label="Based in Jammu, India">
-          <span className="hero-hello__item"><PinIcon /> Jammu, India</span>
+          <span className="hero-hello__item">
+            <PinIcon />
+            Jammu, India
+          </span>
         </div>
 
-        <p className="hero-eyebrow">SOFTWARE ENGINEER <i aria-hidden="true" /> AI, AUTOMATION &amp; PRODUCT BUILDING</p>
+        <p className="hero-eyebrow">SOFTWARE ENGINEER</p>
 
         <h1
           id="hero-title"
@@ -60,8 +67,8 @@ export default function HeroGreeting() {
         </h1>
 
         <p className="hero-summary">
-          I build web apps, automation and practical AI tools that turn complicated
-          workflows into clear, useful products.
+          I enjoy untangling complicated ideas, finding what matters, and building
+          something clear, thoughtful and useful.
         </p>
 
         <div className="hero-actions">
@@ -95,6 +102,7 @@ export default function HeroGreeting() {
             <span className="hero-proof__label">B.Tech · VIT Chennai</span>
           </li>
         </ul>
+      </div>
 
       <a
         className="hero-scroll"
