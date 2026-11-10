@@ -2331,3 +2331,106 @@
   .hero-scene-section .hero-proof { margin-top: 10px !important; }
   .hero-scene-section .hero-proof__label { font-size: 6.4px !important; }
 }
+
+
+
+/* SINGLE IMAGE PLACEMENT — workspace artwork belongs only to the hero. */
+.portfolio-theme > .ambient-scene {
+  background: transparent !important;
+  background-image: none !important;
+}
+.portfolio-theme > .ambient-scene .ambient-scene__aurora {
+  display: none !important;
+}
+
+.hero-scroll-stage.hero-image-only {
+  position: relative !important;
+  z-index: 1 !important;
+  height: 100svh !important;
+  min-height: 620px;
+  overflow: hidden !important;
+  background: #07160e !important;
+}
+.hero-section--sticky.hero-scene-section {
+  position: relative !important;
+  isolation: isolate;
+  width: 100%;
+  height: 100% !important;
+  min-height: 100% !important;
+  overflow: hidden !important;
+  background: #07160e !important;
+}
+.hero-scene-section .hero-background-image {
+  position: absolute !important;
+  z-index: 0 !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: 72% center !important;
+}
+.hero-scene-section .hero-image-shade {
+  position: absolute !important;
+  z-index: 1 !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+.hero-scene-section .hero-layout {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+@media (max-width: 767px) {
+  /* Remove the site-wide photograph on phones too; use only the hero's image. */
+  .portfolio-theme > .ambient-scene {
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    background: none !important;
+    background-image: none !important;
+    display: none !important;
+  }
+
+  .hero-scroll-stage.hero-image-only {
+    height: 100svh !important;
+    min-height: 100svh !important;
+    overflow: hidden !important;
+  }
+  .hero-section--sticky.hero-scene-section {
+    height: 100% !important;
+    min-height: 100% !important;
+    overflow: hidden !important;
+  }
+  .hero-scene-section .hero-background-image {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 73% center !important;
+  }
+  .hero-scene-section .hero-image-shade {
+    inset: 0 !important;
+    height: 100% !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(4, 14, 8, .04) 0%,
+        rgba(4, 14, 8, .12) 32%,
+        rgba(4, 14, 8, .52) 56%,
+        rgba(4, 14, 8, .92) 100%
+      ) !important;
+  }
+  .hero-scene-section .hero-layout {
+    position: relative !important;
+    z-index: 2 !important;
+    min-height: 100% !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
