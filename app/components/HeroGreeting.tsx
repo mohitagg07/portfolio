@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "motion/react";
 import { navigateToSection } from "../utils/scroll";
 
 function PinIcon() {
@@ -13,15 +14,28 @@ function PinIcon() {
 
 function Word({
   children,
+  delay,
   accent = false,
 }: {
   children: string;
+  delay: number;
   accent?: boolean;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <span className={accent ? "hero-v3__word hero-v3__word--accent" : "hero-v3__word"}>
+    <motion.span
+      className={accent ? "hero-v3__word hero-v3__word--accent" : "hero-v3__word"}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 18, filter: "blur(3px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{
+        duration: prefersReducedMotion ? 0 : 0.68,
+        delay: prefersReducedMotion ? 0 : delay,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+    >
       {children}
-    </span>
+    </motion.span>
   );
 }
 
@@ -42,18 +56,18 @@ export default function HeroGreeting() {
           aria-label="I make the messy parts of work feel simpler."
         >
           <span className="hero-v3__line" aria-hidden="true">
-            <Word>I</Word>{" "}
-            <Word>make</Word>{" "}
-            <Word>the</Word>{" "}
-            <Word>messy</Word>{" "}
-            <Word>parts</Word>
+            <Word delay={0.08}>I</Word>{" "}
+            <Word delay={0.15}>make</Word>{" "}
+            <Word delay={0.22}>the</Word>{" "}
+            <Word delay={0.29}>messy</Word>{" "}
+            <Word delay={0.36}>parts</Word>
           </span>
           <span className="hero-v3__line" aria-hidden="true">
-            <Word>of</Word>{" "}
-            <Word>work</Word>{" "}
+            <Word delay={0.46}>of</Word>{" "}
+            <Word delay={0.53}>work</Word>{" "}
             <em className="hero-v3__accent">
-              <Word accent>feel</Word>{" "}
-              <Word accent>simpler.</Word>
+              <Word delay={0.64} accent>feel</Word>{" "}
+              <Word delay={0.75} accent>simpler.</Word>
             </em>
           </span>
         </h1>
