@@ -1066,3 +1066,334 @@
     transition: none !important;
   }
 }
+
+
+
+/* ==========================================================================
+   RESPONSIVE HERO CORRECTION — clean metadata, protected artwork, clear mobile
+   ========================================================================== */
+
+/* The previous global .hero-hello span rule turns every metadata item into a
+   6px dot. Scope the actual items and fully reset that legacy decoration. */
+.hero-scene-section .hero-hello {
+  display: flex !important;
+  width: auto;
+  min-height: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px 0;
+}
+.hero-scene-section .hero-hello > .hero-hello__item {
+  display: inline-flex !important;
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 0;
+  height: auto !important;
+  align-items: center;
+  gap: 7px;
+  overflow: visible !important;
+  padding: 0 13px !important;
+  border: 0;
+  border-right: 1px solid rgba(224, 231, 215, .25);
+  border-radius: 0 !important;
+  color: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: inherit !important;
+  letter-spacing: inherit;
+  line-height: 1.4;
+  text-transform: none;
+  white-space: nowrap;
+}
+.hero-scene-section .hero-hello > .hero-hello__item:first-child { padding-left: 0 !important; }
+.hero-scene-section .hero-hello > .hero-hello__item:last-child { border-right: 0; }
+.hero-scene-section .hero-hello__item svg {
+  display: block !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 15px !important;
+  overflow: visible !important;
+  fill: none !important;
+  stroke: #a8e5b9 !important;
+  stroke-width: 1.65 !important;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Preserve original artwork sharpness. Do not continuously zoom a raster hero. */
+.hero-scene-section .hero-background-image {
+  animation: none !important;
+  transform: none !important;
+  will-change: auto !important;
+  image-rendering: auto;
+  backface-visibility: hidden;
+}
+
+/* Desktop: give the copy a firm grid so credibility metrics never sit on the
+   laptop or portrait. The photograph remains the single background artwork. */
+@media (min-width: 768px) {
+  .hero-scroll-stage.hero-image-only {
+    height: 100svh !important;
+    min-height: 620px !important;
+  }
+  .hero-section--sticky.hero-scene-section {
+    height: 100% !important;
+    min-height: 620px !important;
+  }
+  .hero-scene-section .hero-layout {
+    min-height: 100%;
+    padding: 112px clamp(28px, 6.4vw, 96px) 78px;
+  }
+  .hero-scene-section .hero-copy {
+    width: min(53%, 720px);
+    max-width: 720px;
+  }
+  .hero-scene-section .hero-title {
+    font-size: clamp(3.15rem, 4.65vw, 4.55rem);
+  }
+  .hero-scene-section .hero-proof {
+    width: min(100%, 570px);
+  }
+  .hero-scene-section .hero-proof li {
+    padding-inline: 13px;
+  }
+  .hero-scene-section .hero-proof__label {
+    max-width: 20ch;
+    font-size: 8.5px;
+  }
+  .hero-scene-section .hero-copy::after {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+/* Mobile is intentionally not a scaled desktop overlay:
+   1) portrait-led image panel,
+   2) separate dark reading panel,
+   3) all actions and facts remain in normal document flow. */
+@media (max-width: 767px) {
+  .hero-scroll-stage.hero-image-only {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+  .hero-section--sticky.hero-scene-section {
+    display: block !important;
+    position: relative !important;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0;
+    background: #07160e;
+  }
+  .hero-scene-section .hero-background-image {
+    position: absolute !important;
+    inset: 0 0 auto 0 !important;
+    display: block;
+    width: 100% !important;
+    height: var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) !important;
+    object-fit: cover !important;
+    object-position: 73% 41% !important;
+  }
+  .hero-scene-section .hero-image-shade {
+    position: absolute;
+    z-index: 1;
+    inset: 0 0 auto 0;
+    width: 100%;
+    height: var(--mobile-hero-image-height, clamp(208px, 66vw, 268px));
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(4, 14, 8, .02) 0%, rgba(4, 14, 8, .02) 62%, rgba(7, 22, 14, .44) 83%, #07160e 100%),
+      linear-gradient(90deg, rgba(4, 14, 8, .16), transparent 62%);
+  }
+  .hero-scene-section .hero-layout {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0;
+    padding: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) + 19px) 19px 38px;
+    background: linear-gradient(180deg, #07160e 0%, #091a11 100%);
+  }
+  .hero-scene-section .hero-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero-scene-section .hero-hello {
+    display: flex !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px 0;
+    margin: 0 0 13px;
+    font-size: 8px;
+    line-height: 1.35;
+    letter-spacing: .035em;
+  }
+  .hero-scene-section .hero-hello > .hero-hello__item {
+    gap: 5px;
+    padding-inline: 8px !important;
+    font-size: 8px !important;
+  }
+  .hero-scene-section .hero-hello__item svg {
+    width: 12px !important;
+    height: 12px !important;
+    flex-basis: 12px !important;
+  }
+  .hero-scene-section .hero-eyebrow {
+    margin: 0 0 9px;
+    font-size: 7px;
+    line-height: 1.5;
+    letter-spacing: .12em;
+  }
+  .hero-scene-section .hero-title {
+    max-width: 100% !important;
+    font-size: clamp(1.95rem, 9.1vw, 2.35rem);
+    line-height: 1.02;
+    letter-spacing: -.05em;
+    text-wrap: balance;
+  }
+  .hero-scene-section .hero-title__line {
+    white-space: normal;
+    line-height: 1.04;
+  }
+  .hero-scene-section .hero-title__accent {
+    display: inline;
+    white-space: nowrap;
+    font-size: 1.04em;
+  }
+  .hero-scene-section .hero-word {
+    margin-right: .11em;
+    padding: .01em 0 .08em;
+    line-height: 1.02;
+  }
+  .hero-scene-section .hero-summary {
+    max-width: 38ch;
+    margin: 12px 0 0;
+    color: rgba(230, 235, 224, .88);
+    font-size: 12.5px;
+    line-height: 1.52;
+  }
+  .hero-scene-section .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+  }
+  .hero-scene-section .hero-button {
+    display: inline-flex;
+    width: 100%;
+    min-width: 0;
+    min-height: 41px;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 9px;
+    font-size: 9px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .hero-scene-section .hero-proof {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    margin-top: 19px;
+    padding-top: 10px;
+  }
+  .hero-scene-section .hero-proof li {
+    display: flex;
+    min-width: 0;
+    padding: 0 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .hero-scene-section .hero-proof li:first-child { padding-left: 0; }
+  .hero-scene-section .hero-proof__value {
+    font-size: 23px;
+    line-height: 1;
+  }
+  .hero-scene-section .hero-proof__label {
+    margin-top: 2px;
+    font-size: 7px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .hero-scene-section .hero-scroll { display: none; }
+  .hero-scene-section .hero-copy::after { display: none !important; content: none !important; }
+}
+
+/* Very narrow Android devices: prevent CTAs or proof labels from clipping. */
+@media (max-width: 360px) {
+  .hero-scene-section .hero-layout { padding-inline: 17px; }
+  .hero-scene-section .hero-title { font-size: clamp(1.88rem, 8.9vw, 2.08rem); }
+  .hero-scene-section .hero-button { font-size: 8px; padding-inline: 6px; }
+  .hero-scene-section .hero-proof li { padding-inline: 6px; }
+  .hero-scene-section .hero-proof__value { font-size: 21px; }
+  .hero-scene-section .hero-proof__label { font-size: 6.5px; }
+}
+
+/* About enters as one calm layer after the hero; motion section handles the
+   content reveal while this curved overlap makes the hand-off feel continuous. */
+.about-v4-section {
+  margin-top: -20px;
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -18px 48px rgba(5, 17, 10, .12);
+}
+.about-v4-section::before {
+  height: 1px;
+  opacity: .82;
+}
+@media (max-width: 767px) {
+  .about-v4-section {
+    margin-top: -12px;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+/* Re-introduce the character in a predictable, visible position. Keep it below
+   the fixed navigation and off the main reading column. */
+.m-char-layer {
+  z-index: 50 !important;
+}
+.m-char-layer .m-char--home {
+  display: block !important;
+  visibility: visible !important;
+  --char-x: clamp(690px, 50vw, 770px);
+  --char-y: clamp(500px, 76vh, 620px);
+  z-index: 52;
+}
+.m-char-layer .m-char--home .m-char__svg {
+  width: 62px;
+  height: 68px;
+}
+@media (max-width: 900px) {
+  .m-char-layer .m-char--home {
+    --char-x: calc(100vw - 78px);
+    --char-y: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) - 72px);
+  }
+  .m-char-layer .m-char--home .m-char__svg {
+    width: 54px;
+    height: 60px;
+  }
+}
+@media (max-width: 420px) {
+  .m-char-layer .m-char--home {
+    --char-x: calc(100vw - 68px);
+    --char-y: calc(var(--mobile-hero-image-height, clamp(208px, 66vw, 268px)) - 64px);
+  }
+  .m-char-layer .m-char--home .m-char__svg {
+    width: 48px;
+    height: 54px;
+  }
+}
+
+/* Preserve the portrait if the browser has reduced-animation preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene-section .hero-background-image {
+    animation: none !important;
+    transform: none !important;
+  }
+}
