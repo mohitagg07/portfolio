@@ -1493,8 +1493,8 @@
 .m-char-layer .m-char--home {
   display: block !important;
   visibility: visible !important;
-  --char-x: clamp(740px, 57vw, 900px);
-  --char-y: calc(100svh - 116px);
+  --char-x: clamp(640px, 45vw, 760px);
+  --char-y: clamp(490px, calc(100svh - 112px), 840px);
   z-index: 1 !important;
   pointer-events: auto;
 }
