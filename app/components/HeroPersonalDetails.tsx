@@ -69,12 +69,14 @@ export default function HeroPersonalDetails() {
         onClick={(event) => navigateToSection(event, "work")}
         aria-label="Read about the thinking behind my projects"
         {...reveal(0.82)}
+        whileHover={reduceMotion ? undefined : { y: -4, rotate: -0.3 }}
+        whileTap={reduceMotion ? undefined : { scale: 0.995 }}
       >
         <span className="hero-principle__tape" aria-hidden="true" />
-        <span className="hero-principle__eyebrow">A NOTE TO KEEP CLOSE</span>
+        <span className="hero-principle__eyebrow">A THOUGHT I COME BACK TO</span>
         <span className="hero-principle__quote-mark" aria-hidden="true">“</span>
         <blockquote>The hard part should stay behind the screen.</blockquote>
-        <span className="hero-principle__source">A thought about making good software</span>
+        <span className="hero-principle__source">— Mohit</span>
       </motion.a>
     </div>
   );

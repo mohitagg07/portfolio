@@ -18,14 +18,11 @@ export default function Story() {
   });
 
   return (
-    <motion.section
+    <section
       ref={sectionRef}
       id="about"
       aria-labelledby="about-title"
       className="about-v4-section relative isolate scroll-mt-24"
-      initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-      animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={reduceMotion ? { duration: 0 } : { duration: 0.82, ease: EASE }}
     >
       <div className="about-v4-inner mx-auto w-full">
         <div className="about-v4-masthead">
@@ -222,6 +219,6 @@ export default function Story() {
 
         <p className="about-v4-signoff">Still curious. Still making things.</p>
       </div>
-    </motion.section>
+    </section>
   );
 }

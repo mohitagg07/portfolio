@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 export default function HeroSoundtrack() {
+  const playerRef = useRef<HTMLElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const reduceMotion = useReducedMotion();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,13 +12,32 @@ export default function HeroSoundtrack() {
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    const player = playerRef.current;
+    if (!audio || !player) return;
 
-    // Never resume automatically after a remount or navigation.
+    // Playback is always user initiated and never carries into another section.
     audio.pause();
     audio.currentTime = 0;
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.12) {
+          audio.pause();
+        }
+      },
+      { threshold: [0, 0.12, 0.5] }
+    );
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState !== "visible") audio.pause();
+    };
+
+    observer.observe(player);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       audio.pause();
     };
   }, []);
@@ -41,13 +61,14 @@ export default function HeroSoundtrack() {
 
   return (
     <motion.aside
+      ref={playerRef}
       className={`hero-soundtrack${isPlaying ? " is-playing" : ""}`}
       aria-label="Mohit's soundtrack: Blinding Lights by The Weeknd"
-      initial={reduceMotion ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 9 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: reduceMotion ? 0 : 0.6,
-        delay: reduceMotion ? 0 : 0.86,
+        duration: reduceMotion ? 0 : 0.62,
+        delay: reduceMotion ? 0 : 0.88,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -65,8 +86,8 @@ export default function HeroSoundtrack() {
       />
 
       <div className="hero-soundtrack__topline">
-        <span className="hero-soundtrack__eyebrow">A SONG I KEEP COMING BACK TO</span>
-        <span className="hero-soundtrack__edition">PERSONAL SOUNDTRACK</span>
+        <span className="hero-soundtrack__eyebrow">A SONG FOR THE LATE BUILDS</span>
+        <span className="hero-soundtrack__edition">ON REPEAT</span>
       </div>
 
       <div className="hero-soundtrack__main">
@@ -79,7 +100,7 @@ export default function HeroSoundtrack() {
           <strong>{audioError ? "Audio unavailable" : "Blinding Lights"}</strong>
           <span>The Weeknd</span>
           <div className="hero-soundtrack__wave" aria-hidden="true">
-            <i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i />
+            <i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i />
           </div>
         </div>
         <button
@@ -104,9 +125,10 @@ export default function HeroSoundtrack() {
           )}
         </button>
       </div>
-      <p className="hero-soundtrack__hint" aria-live="polite">
-        {audioError ? "The preview could not be loaded." : isPlaying ? "Playing" : "Press play when you want to listen."}
-      </p>
+
+      <span className="hero-soundtrack__sr-status" aria-live="polite">
+        {audioError ? "Audio could not be loaded" : isPlaying ? "Playing Blinding Lights" : "Ready to play"}
+      </span>
     </motion.aside>
   );
 }
