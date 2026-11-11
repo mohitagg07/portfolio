@@ -17,7 +17,6 @@ export default function HeroSoundtrack() {
 
     // Playback is always user initiated and never carries into another section.
     audio.pause();
-    audio.currentTime = 0;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
