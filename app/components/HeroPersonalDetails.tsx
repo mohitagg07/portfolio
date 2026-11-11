@@ -51,10 +51,11 @@ export default function HeroPersonalDetails() {
         <span className="hero-polaroid__pin" aria-hidden="true" />
         <span className="hero-polaroid__photo">
           <Image
-            src="/about/friends-memory.webp"
+            src="/about/friends-memory-240.webp"
             alt="Mohit with three friends at an outdoor gathering"
             fill
             priority
+            unoptimized
             sizes="(max-width: 767px) 44vw, (max-width: 1100px) 116px, 148px"
           />
         </span>

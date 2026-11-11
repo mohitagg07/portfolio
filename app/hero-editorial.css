@@ -2011,3 +2011,290 @@
     transform: none !important;
   }
 }
+
+
+/* V19 — dedicated desktop record player; mobile composition remains in its existing flow. */
+#home.hero-v3 .hero-record-player {
+  position: absolute !important;
+  z-index: 9 !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: 42px !important;
+  left: 41.8% !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  width: clamp(400px, 28.7vw, 440px) !important;
+  min-width: 400px !important;
+  max-width: 440px !important;
+  padding: 13px 16px 14px !important;
+  border: 1px solid rgba(180, 211, 157, .34) !important;
+  border-radius: 10px !important;
+  color: #f2f1e7 !important;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(126, 164, 100, .18), transparent 54%),
+    linear-gradient(145deg, rgba(24, 48, 31, .98), rgba(7, 22, 14, .985)) !important;
+  box-shadow:
+    0 17px 36px rgba(0,0,0,.31),
+    0 2px 6px rgba(0,0,0,.2),
+    inset 0 1px 0 rgba(245,247,227,.11) !important;
+  overflow: hidden !important;
+  transform: rotate(-.25deg);
+  transition: transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease !important;
+}
+
+#home.hero-v3 .hero-record-player::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 18px;
+  right: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(218,231,196,.3), transparent);
+  pointer-events: none;
+}
+
+#home.hero-v3 .hero-record-player:hover {
+  transform: translateY(-3px) rotate(0deg) !important;
+  border-color: rgba(199,226,173,.5) !important;
+  box-shadow: 0 22px 42px rgba(0,0,0,.36), 0 2px 6px rgba(0,0,0,.2), inset 0 1px 0 rgba(245,247,227,.13) !important;
+}
+
+#home.hero-v3 .hero-record-player__label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin: 0 2px 10px !important;
+  color: #c8d9b7 !important;
+  font: 700 7px/1.2 var(--font-mono-face), ui-monospace, monospace !important;
+  letter-spacing: .13em !important;
+}
+
+#home.hero-v3 .hero-record-player__label-right {
+  color: rgba(211,222,196,.58) !important;
+  font-size: 6px !important;
+  letter-spacing: .12em !important;
+}
+
+#home.hero-v3 .hero-record-player__main {
+  display: grid !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  grid-template-columns: 70px minmax(0,1fr) 46px !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+#home.hero-v3 .hero-record-player__art {
+  display: block !important;
+  width: 70px !important;
+  min-width: 70px !important;
+  height: 70px !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  border-radius: 3px !important;
+  background-color: #38251d !important;
+  background-image: url("https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a6/6e/bf/a66ebf79-5008-8948-b352-a790fc87446b/19UM1IM04638.rgb.jpg/3000x3000bb.jpg") !important;
+  background-position: center !important;
+  background-size: cover !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.32) !important;
+}
+
+#home.hero-v3 .hero-record-player__meta {
+  display: flex !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  overflow: visible !important;
+}
+
+#home.hero-v3 .hero-record-player__meta > strong {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  color: #f7f4e9 !important;
+  font: 700 16px/1.2 var(--font-body-face), Arial, sans-serif !important;
+  letter-spacing: -.025em !important;
+  white-space: nowrap !important;
+  text-overflow: clip !important;
+}
+
+#home.hero-v3 .hero-record-player__meta > span {
+  color: rgba(233,237,220,.74) !important;
+  font: 500 11px/1.2 var(--font-body-face), Arial, sans-serif !important;
+}
+
+#home.hero-v3 .hero-record-player__wave {
+  display: flex !important;
+  width: min(100%, 150px) !important;
+  height: 15px !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 3px !important;
+  margin-top: 4px !important;
+  overflow: hidden !important;
+}
+
+#home.hero-v3 .hero-record-player__wave i {
+  display: block !important;
+  flex: 0 0 2px !important;
+  width: 2px !important;
+  min-width: 2px !important;
+  border-radius: 2px !important;
+  background: #abd9a2 !important;
+  opacity: .66 !important;
+  transform: scaleY(.62);
+  transform-origin: center;
+}
+
+#home.hero-v3 .hero-record-player__wave i:nth-child(2n) { height: 55% !important; }
+#home.hero-v3 .hero-record-player__wave i:nth-child(3n) { height: 90% !important; }
+#home.hero-v3 .hero-record-player__wave i:nth-child(4n) { height: 35% !important; }
+
+#home.hero-v3 .hero-record-player.is-playing .hero-record-player__wave i {
+  animation: hero-record-wave .72s ease-in-out infinite alternate !important;
+}
+#home.hero-v3 .hero-record-player.is-playing .hero-record-player__wave i:nth-child(2n) { animation-delay: -.2s !important; }
+#home.hero-v3 .hero-record-player.is-playing .hero-record-player__wave i:nth-child(3n) { animation-delay: -.4s !important; }
+#home.hero-v3 .hero-record-player.is-playing .hero-record-player__wave i:nth-child(4n) { animation-delay: -.12s !important; }
+
+@keyframes hero-record-wave {
+  from { transform: scaleY(.35); opacity: .46; }
+  to { transform: scaleY(1); opacity: .96; }
+}
+
+#home.hero-v3 .hero-record-player__button {
+  display: grid !important;
+  width: 46px !important;
+  min-width: 46px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  place-items: center !important;
+  border: 1px solid rgba(211,239,198,.78) !important;
+  border-radius: 50% !important;
+  color: #142a1b !important;
+  background: #c1edc5 !important;
+  box-shadow: 0 4px 13px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.7) !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease !important;
+}
+
+#home.hero-v3 .hero-record-player__button:hover:not(:disabled) {
+  transform: scale(1.06) !important;
+  background: #d3f3d2 !important;
+  box-shadow: 0 6px 17px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.8) !important;
+}
+
+#home.hero-v3 .hero-record-player__button svg {
+  display: block !important;
+  width: 17px !important;
+  height: 17px !important;
+  fill: currentColor !important;
+}
+
+#home.hero-v3 .hero-record-player__status {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Tablet keeps the same hierarchy but uses a slightly smaller card. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  #home.hero-v3 .hero-record-player {
+    right: 20px !important;
+    left: auto !important;
+    bottom: 24px !important;
+    width: min(400px, calc(100vw - 40px)) !important;
+    min-width: 0 !important;
+    max-width: 400px !important;
+    padding: 12px 14px !important;
+    transform: none !important;
+  }
+  #home.hero-v3 .hero-record-player__main {
+    grid-template-columns: 62px minmax(0,1fr) 42px !important;
+    gap: 12px !important;
+  }
+  #home.hero-v3 .hero-record-player__art { width: 62px !important; min-width: 62px !important; height: 62px !important; }
+  #home.hero-v3 .hero-record-player__button { width: 42px !important; min-width: 42px !important; height: 42px !important; min-height: 42px !important; }
+}
+
+/* Preserve the established mobile scrapbook layout and its paper-coloured player. */
+@media (max-width: 767px) {
+  #home.hero-v3 .hero-record-player {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    align-self: center !important;
+    width: calc(100% - 32px) !important;
+    min-width: 0 !important;
+    max-width: 420px !important;
+    margin: 16px auto 0 !important;
+    padding: 11px 12px 13px !important;
+    border: 1px solid rgba(78,65,43,.2) !important;
+    border-radius: 3px !important;
+    color: #17271d !important;
+    background: linear-gradient(135deg,#f4ecd9,#e9ddc3) !important;
+    box-shadow: 0 10px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.72) !important;
+    transform: rotate(-.15deg) !important;
+  }
+  #home.hero-v3 .hero-record-player__label {
+    margin: 0 1px 9px !important;
+    color: #48523e !important;
+    font-size: 6px !important;
+  }
+  #home.hero-v3 .hero-record-player__label-right { display: none !important; }
+  #home.hero-v3 .hero-record-player__main {
+    grid-template-columns: 56px minmax(0,1fr) 40px !important;
+    gap: 10px !important;
+  }
+  #home.hero-v3 .hero-record-player__art { width: 56px !important; min-width: 56px !important; height: 56px !important; }
+  #home.hero-v3 .hero-record-player__meta > strong { color: #18241a !important; font-size: 12px !important; }
+  #home.hero-v3 .hero-record-player__meta > span { color: #5b6653 !important; font-size: 9px !important; }
+  #home.hero-v3 .hero-record-player__wave i { background: #58764d !important; }
+  #home.hero-v3 .hero-record-player__button {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    color: #eaf1df !important;
+    background: #284530 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #home.hero-v3 .hero-record-player {
+    width: calc(100% - 26px) !important;
+    margin-top: 14px !important;
+    padding-inline: 10px !important;
+  }
+  #home.hero-v3 .hero-record-player__main {
+    grid-template-columns: 52px minmax(0,1fr) 38px !important;
+    gap: 8px !important;
+  }
+  #home.hero-v3 .hero-record-player__art { width: 52px !important; min-width: 52px !important; height: 52px !important; }
+  #home.hero-v3 .hero-record-player__button { width: 38px !important; min-width: 38px !important; height: 38px !important; min-height: 38px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #home.hero-v3 .hero-record-player,
+  #home.hero-v3 .hero-record-player__button,
+  #home.hero-v3 .hero-record-player__wave i {
+    animation: none !important;
+    transition: none !important;
+  }
+}
