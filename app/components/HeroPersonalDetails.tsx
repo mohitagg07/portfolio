@@ -36,8 +36,8 @@ export default function HeroPersonalDetails() {
           />
         </span>
         <span className="hero-polaroid__caption">
-          <small>AWAY FROM THE DESK</small>
-          <strong>Room to think.</strong>
+          <small>OFF THE CLOCK</small>
+          <strong>A view worth the climb.</strong>
         </span>
       </motion.a>
 
@@ -52,8 +52,9 @@ export default function HeroPersonalDetails() {
         <span className="hero-polaroid__photo">
           <Image
             src="/about/friends-memory.webp"
-            alt="Mohit sharing a moment with friends at an outdoor gathering"
+            alt="Mohit with three friends at an outdoor gathering"
             fill
+            priority
             sizes="(max-width: 767px) 44vw, (max-width: 1100px) 116px, 148px"
           />
         </span>

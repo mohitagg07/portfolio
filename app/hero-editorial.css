@@ -786,11 +786,7 @@
 #home.hero-v3 .hero-workbench { display: none !important; }
 #home.hero-v3 .hero-v3__ticker { display: none !important; }
 
-/* Hide the playful companion while the first impression is on screen. */
-.m-char--home {
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
+/* Hero companion restored; existing section choreography remains active. */
 
 
 /* V10 — correction pass from the live laptop screenshot */
@@ -848,15 +844,7 @@
   animation: none !important;
 }
 
-/* The mascot belongs to the deeper site experience, not the hero's first impression.
-   Scope above the older, more specific rules that deliberately re-show it. */
-.m-char-layer .m-char--home,
-.m-char-layer .m-char--home.is-mounted,
-.m-char-layer .m-char--home .m-char__note {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
+/* Home companion visibility is controlled by HeroRobot section state. */
 
 @media (max-width: 1100px) and (min-width: 768px) {
   #home.hero-v3 .hero-v3__copy {
@@ -1493,6 +1481,308 @@
 @media (prefers-reduced-motion: reduce) {
   #home.hero-v3 .hero-principle,
   #home.hero-v3 .hero-soundtrack,
+  #home.hero-v3 .hero-soundtrack__wave i {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* V16 — repair the photo, restore the studio companion and make the soundtrack legible. */
+
+/* A warm record sleeve with enough room for the complete track title. */
+#home.hero-v3 .hero-soundtrack {
+  box-sizing: border-box !important;
+  border: 1px solid rgba(77, 61, 37, .22) !important;
+  border-radius: 3px !important;
+  color: #17271d !important;
+  background:
+    linear-gradient(90deg, #405b3e 0 5px, transparent 5px),
+    repeating-linear-gradient(0deg, rgba(83, 66, 37, .025) 0 1px, transparent 1px 4px),
+    linear-gradient(135deg, #f4ecd9 0%, #e9ddc3 100%) !important;
+  box-shadow: 0 16px 34px rgba(0,0,0,.27), 0 2px 4px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.76) !important;
+  overflow: visible !important;
+}
+
+#home.hero-v3 .hero-soundtrack::before { content: none !important; }
+
+#home.hero-v3 .hero-soundtrack__topline {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin: 0 0 10px 3px !important;
+}
+
+#home.hero-v3 .hero-soundtrack__eyebrow {
+  color: #394c36 !important;
+  font: 700 7px/1.3 var(--font-mono-face), ui-monospace, monospace !important;
+  letter-spacing: .095em !important;
+  white-space: nowrap !important;
+}
+
+#home.hero-v3 .hero-soundtrack__edition {
+  color: #788064 !important;
+  font: 600 6px/1.3 var(--font-mono-face), ui-monospace, monospace !important;
+  letter-spacing: .08em !important;
+  white-space: nowrap !important;
+}
+
+#home.hero-v3 .hero-soundtrack__main {
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 13px !important;
+}
+
+#home.hero-v3 .hero-soundtrack__cover {
+  position: relative !important;
+  display: block !important;
+  flex: 0 0 66px !important;
+  width: 66px !important;
+  min-width: 66px !important;
+  height: 66px !important;
+  border: 1px solid rgba(72,55,30,.2) !important;
+  border-radius: 2px !important;
+  background-color: #5a3b1e !important;
+  background-position: center !important;
+  background-size: cover !important;
+  box-shadow: 0 3px 8px rgba(40,31,19,.22) !important;
+}
+
+#home.hero-v3 .hero-soundtrack__track {
+  position: relative !important;
+  display: flex !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  overflow: visible !important;
+}
+
+#home.hero-v3 .hero-soundtrack__track > strong {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  overflow: visible !important;
+  color: #18241a !important;
+  font: 700 14px/1.2 var(--font-body-face), sans-serif !important;
+  letter-spacing: -.025em !important;
+  white-space: nowrap !important;
+  text-overflow: clip !important;
+  overflow-wrap: normal !important;
+}
+
+#home.hero-v3 .hero-soundtrack__track > span {
+  display: block !important;
+  color: #5b6653 !important;
+  font: 500 10px/1.2 var(--font-body-face), sans-serif !important;
+  white-space: nowrap !important;
+}
+
+#home.hero-v3 .hero-soundtrack__wave {
+  display: flex !important;
+  width: min(100%, 126px) !important;
+  height: 14px !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 3px !important;
+  margin: 2px 0 0 !important;
+  overflow: hidden !important;
+}
+
+#home.hero-v3 .hero-soundtrack__wave i {
+  display: block !important;
+  flex: 0 0 2px !important;
+  width: 2px !important;
+  min-width: 2px !important;
+  border-radius: 2px !important;
+  background: #58764d !important;
+  opacity: .72 !important;
+  animation: none !important;
+}
+
+#home.hero-v3 .hero-soundtrack__wave i:nth-child(2n) { height: 55% !important; }
+#home.hero-v3 .hero-soundtrack__wave i:nth-child(3n) { height: 88% !important; }
+#home.hero-v3 .hero-soundtrack__wave i:nth-child(4n) { height: 37% !important; }
+
+#home.hero-v3 .hero-soundtrack.is-playing .hero-soundtrack__wave i {
+  animation: hero-sound-wave .82s ease-in-out infinite alternate !important;
+}
+
+#home.hero-v3 .hero-soundtrack__play {
+  position: relative !important;
+  display: grid !important;
+  flex: 0 0 44px !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  margin: 0 2px 0 auto !important;
+  padding: 0 !important;
+  place-items: center !important;
+  border: 1px solid rgba(32,62,39,.32) !important;
+  border-radius: 50% !important;
+  color: #eaf1df !important;
+  background: #284530 !important;
+  box-shadow: 0 4px 11px rgba(25,42,26,.22), inset 0 1px 0 rgba(255,255,255,.14) !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transition: transform .22s ease, background .22s ease, box-shadow .22s ease !important;
+}
+
+#home.hero-v3 .hero-soundtrack__play svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  fill: currentColor !important;
+}
+
+#home.hero-v3 .hero-soundtrack__play:hover:not(:disabled) {
+  transform: scale(1.06) !important;
+  background: #385b3d !important;
+  box-shadow: 0 6px 14px rgba(25,42,26,.26) !important;
+}
+
+#home.hero-v3 .hero-soundtrack__sr-status {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (min-width: 1101px) {
+  #home.hero-v3 .hero-soundtrack {
+    top: auto !important;
+    right: auto !important;
+    bottom: 24px !important;
+    left: 43.5% !important;
+    width: 408px !important;
+    min-width: 0 !important;
+    max-width: 408px !important;
+    padding: 13px 16px 14px 17px !important;
+    transform: rotate(-.35deg) !important;
+  }
+  #home.hero-v3 .hero-soundtrack:hover {
+    transform: translateY(-3px) rotate(0deg) !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  #home.hero-v3 .hero-soundtrack {
+    top: auto !important;
+    right: 24px !important;
+    bottom: 22px !important;
+    left: auto !important;
+    width: min(390px, calc(100vw - 48px)) !important;
+    min-width: 0 !important;
+    max-width: 390px !important;
+    padding: 12px 14px !important;
+    transform: none !important;
+  }
+  #home.hero-v3 .hero-soundtrack__cover {
+    flex-basis: 58px !important;
+    width: 58px !important;
+    min-width: 58px !important;
+    height: 58px !important;
+  }
+  #home.hero-v3 .hero-soundtrack__play {
+    flex-basis: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  #home.hero-v3 .hero-soundtrack {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    display: block !important;
+    align-self: center !important;
+    width: calc(100% - 32px) !important;
+    min-width: 0 !important;
+    max-width: 420px !important;
+    margin: 16px auto 0 !important;
+    padding: 11px 12px 12px 14px !important;
+    transform: rotate(-.2deg) !important;
+  }
+  #home.hero-v3 .hero-soundtrack__topline { margin-bottom: 8px !important; }
+  #home.hero-v3 .hero-soundtrack__eyebrow {
+    font-size: 6px !important;
+    letter-spacing: .075em !important;
+  }
+  #home.hero-v3 .hero-soundtrack__edition { font-size: 5px !important; }
+  #home.hero-v3 .hero-soundtrack__main { gap: 10px !important; }
+  #home.hero-v3 .hero-soundtrack__cover {
+    flex-basis: 56px !important;
+    width: 56px !important;
+    min-width: 56px !important;
+    height: 56px !important;
+  }
+  #home.hero-v3 .hero-soundtrack__track > strong { font-size: 12px !important; }
+  #home.hero-v3 .hero-soundtrack__track > span { font-size: 9px !important; }
+  #home.hero-v3 .hero-soundtrack__play {
+    flex-basis: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #home.hero-v3 .hero-soundtrack {
+    width: calc(100% - 26px) !important;
+    margin-top: 14px !important;
+    padding-right: 10px !important;
+    padding-left: 12px !important;
+  }
+  #home.hero-v3 .hero-soundtrack__main { gap: 8px !important; }
+  #home.hero-v3 .hero-soundtrack__cover {
+    flex-basis: 52px !important;
+    width: 52px !important;
+    min-width: 52px !important;
+    height: 52px !important;
+  }
+  #home.hero-v3 .hero-soundtrack__track > strong { font-size: 11px !important; }
+  #home.hero-v3 .hero-soundtrack__play {
+    flex-basis: 38px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+  }
+  #home.hero-v3 .hero-soundtrack__edition { display: none !important; }
+}
+
+.m-char-layer .m-char--home,
+.m-char-layer .m-char--home.is-mounted {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.m-char-layer .m-char--home .m-char__btn { pointer-events: auto !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  #home.hero-v3 .hero-soundtrack,
+  #home.hero-v3 .hero-soundtrack__play,
   #home.hero-v3 .hero-soundtrack__wave i {
     animation: none !important;
     transition: none !important;
