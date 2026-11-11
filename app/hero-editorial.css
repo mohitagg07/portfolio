@@ -1788,3 +1788,226 @@
     transition: none !important;
   }
 }
+
+
+/* V17 — desktop hierarchy pass. Mobile remains on its existing stacked layout. */
+@media (min-width: 1101px) {
+  #home.hero-v3 {
+    min-height: max(700px, 100svh) !important;
+  }
+
+  #home.hero-v3 .hero-v3__copy {
+    top: 50% !important;
+    left: clamp(48px, 6.3vw, 100px) !important;
+    width: min(45%, 690px) !important;
+    max-width: 690px !important;
+    transform: translateY(-40%) !important;
+  }
+
+  #home.hero-v3 .hero-v3__eyebrow {
+    margin-bottom: 17px !important;
+    font-size: 10px !important;
+    letter-spacing: .16em !important;
+  }
+
+  #home.hero-v3 .hero-v3__title {
+    max-width: 11.2ch !important;
+    font-size: clamp(3.65rem, 4.55vw, 4.85rem) !important;
+    line-height: .99 !important;
+    letter-spacing: -.06em !important;
+    text-wrap: balance !important;
+  }
+
+  #home.hero-v3 .hero-v3__summary {
+    max-width: 38ch !important;
+    margin-top: 19px !important;
+    font-size: 15px !important;
+    line-height: 1.58 !important;
+  }
+
+  #home.hero-v3 .hero-v3__actions {
+    gap: 12px !important;
+    margin-top: 24px !important;
+  }
+
+  #home.hero-v3 .hero-v3__button {
+    min-height: 46px !important;
+    padding-inline: 20px !important;
+    font-size: 11px !important;
+  }
+
+  #home.hero-v3 .hero-v3__facts {
+    margin-top: 28px !important;
+    padding-top: 15px !important;
+  }
+
+  #home.hero-v3 .hero-v3__facts-count strong {
+    font-size: 40px !important;
+    line-height: 1 !important;
+  }
+
+  #home.hero-v3 .hero-v3__facts-count span {
+    font-size: 10px !important;
+  }
+
+  #home.hero-v3 .hero-v3__facts-count small {
+    max-width: 22ch !important;
+    margin-top: 5px !important;
+    font-size: 9px !important;
+    line-height: 1.45 !important;
+  }
+
+  #home.hero-v3 .hero-v3__practice {
+    gap: 7px !important;
+    padding-left: 18px !important;
+  }
+
+  #home.hero-v3 .hero-v3__practice span {
+    font-size: 13px !important;
+    line-height: 1.22 !important;
+  }
+
+  /* Keep both real-life prints together in the open middle of the workspace. */
+  #home.hero-v3 .hero-polaroid--home {
+    top: 17% !important;
+    left: 51.5% !important;
+    width: 160px !important;
+    transform: rotate(-4.6deg) !important;
+  }
+
+  #home.hero-v3 .hero-polaroid--field {
+    top: 22.5% !important;
+    left: 62.2% !important;
+    width: 152px !important;
+    transform: rotate(3.8deg) !important;
+  }
+
+  #home.hero-v3 .hero-polaroid__photo {
+    aspect-ratio: 1.22 !important;
+  }
+
+  #home.hero-v3 .hero-polaroid--field .hero-polaroid__photo {
+    aspect-ratio: 1.22 !important;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption {
+    padding: 9px 4px 2px !important;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption small {
+    color: #4b5140 !important;
+    font-size: 7px !important;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption strong {
+    color: #171a13 !important;
+    font-size: 14px !important;
+    line-height: 1.12 !important;
+  }
+
+  /* Keep the handwritten thought visible without covering the portrait. */
+  #home.hero-v3 .hero-principle {
+    top: 19% !important;
+    right: 2.8% !important;
+    bottom: auto !important;
+    width: 204px !important;
+    padding: 16px 16px 14px !important;
+    transform: rotate(-1.4deg) !important;
+  }
+
+  #home.hero-v3 .hero-principle blockquote {
+    color: #171a13 !important;
+    font-size: 19px !important;
+    line-height: 1.15 !important;
+  }
+
+  #home.hero-v3 .hero-principle__source {
+    color: #525746 !important;
+    font-size: 8px !important;
+  }
+
+  /* A long record sleeve sits on the desk, not over the title, face or 5+ proof. */
+  #home.hero-v3 .hero-soundtrack {
+    top: auto !important;
+    right: auto !important;
+    bottom: 58px !important;
+    left: 43.2% !important;
+    width: min(430px, 30vw) !important;
+    min-width: 390px !important;
+    max-width: 430px !important;
+    min-height: 112px !important;
+    padding: 13px 16px 14px 17px !important;
+    transform: rotate(-.35deg) !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack:hover {
+    transform: translateY(-3px) rotate(0deg) !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__topline {
+    margin: 0 0 10px 3px !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__main {
+    display: grid !important;
+    width: 100% !important;
+    grid-template-columns: 68px minmax(0, 1fr) 48px !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__cover {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__track {
+    display: flex !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    overflow: visible !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__track > strong {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    color: #172319 !important;
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__track > span {
+    color: #59644f !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__wave {
+    width: min(100%, 150px) !important;
+    height: 13px !important;
+    margin-top: 3px !important;
+  }
+
+  #home.hero-v3 .hero-soundtrack__play {
+    width: 46px !important;
+    min-width: 46px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    margin: 0 !important;
+    justify-self: end !important;
+  }
+
+  #home.hero-v3 .hero-v3__scroll {
+    right: 4.5% !important;
+    bottom: 22px !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}
