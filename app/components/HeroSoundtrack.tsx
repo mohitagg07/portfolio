@@ -1,22 +1,26 @@
 "use client";
 
-import { useRef, useState, type ChangeEvent, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-
-function formatTime(seconds: number) {
-  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
-  const minutes = Math.floor(seconds / 60);
-  const remainder = Math.floor(seconds % 60);
-  return `${minutes}:${remainder.toString().padStart(2, "0")}`;
-}
 
 export default function HeroSoundtrack() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const reduceMotion = useReducedMotion();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [audioError, setAudioError] = useState(false);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Never resume automatically after a remount or navigation.
+    audio.pause();
+    audio.currentTime = 0;
+
+    return () => {
+      audio.pause();
+    };
+  }, []);
 
   const togglePlayback = async () => {
     const audio = audioRef.current;
@@ -35,16 +39,6 @@ export default function HeroSoundtrack() {
     }
   };
 
-  const seek = (event: ChangeEvent<HTMLInputElement>) => {
-    const audio = audioRef.current;
-    const nextTime = Number(event.currentTarget.value);
-    if (!audio || !Number.isFinite(nextTime)) return;
-    audio.currentTime = nextTime;
-    setCurrentTime(nextTime);
-  };
-
-  const progress = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
-
   return (
     <motion.aside
       className={`hero-soundtrack${isPlaying ? " is-playing" : ""}`}
@@ -60,18 +54,10 @@ export default function HeroSoundtrack() {
       <audio
         ref={audioRef}
         src="/audio/blinding_lights.mp3"
-        preload="metadata"
+        preload="none"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
-        onLoadedMetadata={(event) => {
-          setDuration(event.currentTarget.duration);
-          setAudioError(false);
-        }}
-        onEnded={() => {
-          setIsPlaying(false);
-          setCurrentTime(0);
-        }}
+        onEnded={() => setIsPlaying(false)}
         onError={() => {
           setAudioError(true);
           setIsPlaying(false);
@@ -80,7 +66,7 @@ export default function HeroSoundtrack() {
 
       <div className="hero-soundtrack__topline">
         <span className="hero-soundtrack__eyebrow">A SONG I KEEP COMING BACK TO</span>
-        <span className="hero-soundtrack__edition">28 SECOND PREVIEW</span>
+        <span className="hero-soundtrack__edition">PERSONAL SOUNDTRACK</span>
       </div>
 
       <div className="hero-soundtrack__main">
@@ -90,7 +76,7 @@ export default function HeroSoundtrack() {
           aria-label="Blinding Lights single artwork by The Weeknd"
         />
         <div className="hero-soundtrack__track">
-          <strong>{audioError ? "Preview unavailable" : "Blinding Lights"}</strong>
+          <strong>{audioError ? "Audio unavailable" : "Blinding Lights"}</strong>
           <span>The Weeknd</span>
           <div className="hero-soundtrack__wave" aria-hidden="true">
             <i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i />
@@ -99,7 +85,10 @@ export default function HeroSoundtrack() {
         <button
           className="hero-soundtrack__play"
           type="button"
-          onClick={togglePlayback}
+          onClick={(event) => {
+            event.stopPropagation();
+            void togglePlayback();
+          }}
           aria-label={isPlaying ? "Pause Blinding Lights" : "Play Blinding Lights"}
           aria-pressed={isPlaying}
           disabled={audioError}
@@ -115,22 +104,9 @@ export default function HeroSoundtrack() {
           )}
         </button>
       </div>
-
-      <div className="hero-soundtrack__timeline">
-        <input
-          aria-label="Seek through the Blinding Lights preview"
-          type="range"
-          min={0}
-          max={duration || 1}
-          step={0.1}
-          value={Math.min(currentTime, duration || 1)}
-          onChange={seek}
-          disabled={!duration || audioError}
-          style={{ "--track-progress": `${progress}%` } as CSSProperties}
-        />
-        <span>{formatTime(currentTime)}</span>
-        <span>{formatTime(duration)}</span>
-      </div>
+      <p className="hero-soundtrack__hint" aria-live="polite">
+        {audioError ? "The preview could not be loaded." : isPlaying ? "Playing" : "Press play when you want to listen."}
+      </p>
     </motion.aside>
   );
 }

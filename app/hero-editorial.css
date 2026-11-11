@@ -791,3 +791,121 @@
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+
+/* V10 — correction pass from the live laptop screenshot */
+@media (min-width: 1101px) {
+  /* Keep the role visible below the fixed navigation before the headline starts. */
+  #home.hero-v3 .hero-v3__copy {
+    top: 44%;
+    transform: translateY(-42%);
+  }
+
+  /* Move the player into the open desk area, away from the 5+ proof column. */
+  #home.hero-v3 .hero-soundtrack {
+    top: auto;
+    right: auto;
+    bottom: 30px;
+    left: 44.5%;
+    width: 284px;
+    min-width: 0;
+    padding: 10px 12px 9px;
+    border-radius: 3px;
+  }
+}
+
+#home.hero-v3 .hero-polaroid__caption small {
+  color: #3f3d2c !important;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-shadow: none;
+}
+
+#home.hero-v3 .hero-polaroid__caption strong {
+  color: #17231a !important;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.08;
+  text-shadow: none;
+}
+
+#home.hero-v3 .hero-soundtrack__edition {
+  color: #c4d8ae;
+  font-size: 6px;
+  letter-spacing: .09em;
+}
+
+#home.hero-v3 .hero-soundtrack__hint {
+  margin: 7px 0 0 72px;
+  color: rgba(228, 231, 213, .72);
+  font: 500 7px/1.3 var(--font-body-face), sans-serif;
+}
+
+/* The music visual is static; only the button state changes when the user presses it. */
+#home.hero-v3 .hero-soundtrack.is-playing .hero-soundtrack__wave i,
+#home.hero-v3 .hero-soundtrack .hero-soundtrack__wave i {
+  animation: none !important;
+}
+
+/* The mascot belongs to the deeper site experience, not the hero's first impression.
+   Scope above the older, more specific rules that deliberately re-show it. */
+.m-char-layer .m-char--home,
+.m-char-layer .m-char--home.is-mounted,
+.m-char-layer .m-char--home .m-char__note {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 1100px) and (min-width: 768px) {
+  #home.hero-v3 .hero-v3__copy {
+    top: 46%;
+    transform: translateY(-40%);
+  }
+
+  #home.hero-v3 .hero-soundtrack {
+    top: auto;
+    right: 5%;
+    bottom: 25px;
+    left: auto;
+    width: 280px;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  #home.hero-v3 .hero-v3__copy {
+    top: 106px;
+  }
+
+  #home.hero-v3 .hero-soundtrack {
+    right: 16px;
+    bottom: 15px;
+    left: 16px;
+    width: auto;
+    min-width: 0;
+    max-width: 440px;
+    margin-inline: auto;
+    padding: 10px 11px 9px;
+  }
+
+  #home.hero-v3 .hero-soundtrack__hint {
+    margin-left: 63px;
+    font-size: 6px;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption small {
+    font-size: 6px;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption strong {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  #home.hero-v3 .hero-soundtrack__edition {
+    display: none;
+  }
+}
