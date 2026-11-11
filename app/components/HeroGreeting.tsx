@@ -12,16 +12,16 @@ function Word({
   delay: number;
   accent?: boolean;
 }) {
-  const prefersReducedMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.span
       className={accent ? "hero-v3__word hero-v3__word--accent" : "hero-v3__word"}
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 14, filter: "blur(1.5px)" }}
+      initial={reduceMotion ? false : { opacity: 0, y: 15, filter: "blur(1px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{
-        duration: prefersReducedMotion ? 0 : 0.58,
-        delay: prefersReducedMotion ? 0 : delay,
+        duration: reduceMotion ? 0 : 0.58,
+        delay: reduceMotion ? 0 : delay,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -31,11 +31,12 @@ function Word({
 }
 
 export default function HeroGreeting() {
-  const prefersReducedMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="hero-v3__content">
       <div className="hero-v3__copy">
+        <p className="hero-v3__eyebrow">SOFTWARE ENGINEER <i>·</i> AI &amp; AUTOMATION</p>
         <h1
           id="hero-v3-title"
           className="hero-v3__title"
@@ -58,39 +59,48 @@ export default function HeroGreeting() {
           </span>
         </h1>
 
+        <motion.p
+          className="hero-v3__summary"
+          initial={reduceMotion ? false : { opacity: 0, y: 9 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : 0.78 }}
+        >
+          AI-powered products, thoughtful interfaces and automation built for real use.
+        </motion.p>
+
         <div className="hero-v3__actions">
           <motion.a
             className="hero-v3__button hero-v3__button--primary"
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: 0.82 }}
+            transition={{ duration: reduceMotion ? 0 : 0.55, delay: 0.86 }}
           >
-            Explore my work <span aria-hidden="true">↗</span>
+            Explore selected work <span aria-hidden="true">↗</span>
           </motion.a>
           <motion.a
             className="hero-v3__button hero-v3__button--secondary"
             href="#about"
             onClick={(event) => navigateToSection(event, "about")}
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: 0.9 }}
+            transition={{ duration: reduceMotion ? 0 : 0.55, delay: 0.94 }}
           >
-            A little about me
+            About me
           </motion.a>
         </div>
 
         <motion.div
           className="hero-v3__facts"
           aria-label="Selected work"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: 1.02 }}
+          transition={{ duration: reduceMotion ? 0 : 0.5, delay: 1.04 }}
         >
           <div>
             <strong>5+</strong>
-            <span>Projects &amp; experiments</span>
+            <span>Selected builds</span>
           </div>
         </motion.div>
       </div>

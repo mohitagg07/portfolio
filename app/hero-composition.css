@@ -5062,3 +5062,684 @@
     animation: none !important;
   }
 }
+
+
+/* V15 — tactile scrapbook art direction, built for wide screens and phones */
+#home.hero-v3 {
+  min-height: 700px;
+  background: #091b12;
+}
+
+#home.hero-v3 > .hero-v3__shade {
+  background:
+    linear-gradient(90deg, rgba(4,17,10,.88) 0%, rgba(4,17,10,.72) 36%, rgba(4,17,10,.20) 61%, rgba(4,17,10,.03) 100%),
+    linear-gradient(180deg, rgba(4,14,8,.04) 0%, transparent 55%, rgba(4,14,8,.42) 100%);
+}
+
+#home.hero-v3 .hero-v3__copy {
+  top: 47%;
+  left: clamp(28px, 6.3vw, 100px);
+  width: min(47%, 700px);
+  max-width: 700px;
+  transform: translateY(-43%);
+}
+
+#home.hero-v3 .hero-v3__eyebrow {
+  display: block !important;
+  margin: 0 0 14px;
+  color: #bdddb8;
+  font: 650 9px/1.4 var(--font-mono-face), ui-monospace, monospace;
+  letter-spacing: .13em;
+  text-shadow: 0 1px 12px rgba(0,0,0,.45);
+}
+
+#home.hero-v3 .hero-v3__eyebrow i {
+  padding-inline: 4px;
+  color: #c79b52;
+  font-style: normal;
+}
+
+#home.hero-v3 .hero-v3__title {
+  font-size: clamp(3.3rem, 4.25vw, 4.55rem);
+  line-height: .99;
+  letter-spacing: -.057em;
+  text-wrap: balance;
+}
+
+#home.hero-v3 .hero-v3__line { white-space: nowrap; }
+#home.hero-v3 .hero-v3__accent { color: #a9e6ba; }
+
+#home.hero-v3 .hero-v3__summary {
+  display: block !important;
+  max-width: 40ch;
+  margin-top: 17px;
+  color: rgba(239,241,226,.90);
+  font: 400 clamp(13px, .98vw, 15px)/1.55 var(--font-body-face), sans-serif;
+  text-shadow: 0 1px 12px rgba(0,0,0,.42);
+}
+
+#home.hero-v3 .hero-v3__actions {
+  gap: 11px;
+  margin-top: 22px;
+}
+
+#home.hero-v3 .hero-v3__button {
+  min-height: 45px;
+  padding-inline: 21px;
+  font-size: 10px;
+}
+
+#home.hero-v3 .hero-v3__facts {
+  display: inline-flex;
+  width: auto;
+  margin-top: 25px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(237,235,215,.28);
+}
+
+#home.hero-v3 .hero-v3__facts > div {
+  flex: none;
+  min-width: 176px;
+  padding: 0;
+  border: 0;
+}
+
+#home.hero-v3 .hero-v3__facts strong {
+  font-size: 29px;
+}
+
+#home.hero-v3 .hero-v3__facts span {
+  color: rgba(235,235,218,.82);
+  font-size: 8px;
+}
+
+/* Polaroids retain the real uploaded photographs and tactile paper frame. */
+#home.hero-v3 .hero-personal-details {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  pointer-events: none;
+}
+
+#home.hero-v3 .hero-polaroid {
+  width: 148px;
+  padding: 7px 7px 11px;
+  border: 1px solid rgba(117,96,57,.18);
+  background:
+    linear-gradient(150deg, rgba(255,255,255,.38), transparent 38%),
+    #f0e6d1;
+  box-shadow: 0 13px 28px rgba(0,0,0,.26), 0 2px 4px rgba(0,0,0,.14);
+  pointer-events: auto;
+  transition: transform 360ms cubic-bezier(.16,1,.3,1), box-shadow 360ms ease;
+}
+
+#home.hero-v3 .hero-polaroid--home {
+  top: 16.5%;
+  left: 51.5%;
+  transform: rotate(-5.5deg);
+}
+
+#home.hero-v3 .hero-polaroid--field {
+  top: 22%;
+  left: 61%;
+  width: 143px;
+  transform: rotate(4.3deg);
+}
+
+#home.hero-v3 .hero-polaroid__photo {
+  aspect-ratio: 1.18;
+  background: #c5c8ad;
+}
+
+#home.hero-v3 .hero-polaroid--field .hero-polaroid__photo {
+  aspect-ratio: 1.28;
+}
+
+#home.hero-v3 .hero-polaroid__photo img {
+  object-fit: cover;
+  transition: transform 650ms cubic-bezier(.16,1,.3,1);
+}
+
+#home.hero-v3 .hero-polaroid__caption {
+  gap: 3px;
+  padding: 8px 3px 1px;
+}
+
+#home.hero-v3 .hero-polaroid__caption small {
+  color: #7e806c;
+  font-size: 6px;
+  letter-spacing: .105em;
+}
+
+#home.hero-v3 .hero-polaroid__caption strong {
+  color: #244b39;
+  font: italic 14px/1.12 var(--font-accent-face), Georgia, serif;
+}
+
+/* Paper checklist: functional links, physical paper, a small piece of tape. */
+#home.hero-v3 .hero-workbench {
+  top: 16%;
+  right: 2.8%;
+  width: 198px;
+  padding: 16px 15px 13px;
+  border: 1px solid rgba(124,97,51,.19);
+  border-radius: 2px;
+  color: #304333;
+  background:
+    radial-gradient(rgba(103,82,49,.09) .65px, transparent .85px),
+    linear-gradient(145deg, #f4e9d1, #e7d7b6);
+  background-size: 8px 8px, 100% 100%;
+  box-shadow: 0 15px 32px rgba(0,0,0,.25), 0 2px 4px rgba(0,0,0,.15);
+  transform: rotate(1.4deg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: transform 300ms cubic-bezier(.16,1,.3,1), box-shadow 300ms ease;
+}
+
+#home.hero-v3 .hero-workbench::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 66px;
+  height: 16px;
+  border: 1px solid rgba(148,123,78,.15);
+  background: rgba(220,199,154,.75);
+  transform: translateX(-50%) rotate(-2deg);
+}
+
+#home.hero-v3 .hero-workbench:hover {
+  transform: translateY(-3px) rotate(.3deg);
+  border-color: rgba(124,97,51,.25);
+  box-shadow: 0 19px 38px rgba(0,0,0,.27);
+}
+
+#home.hero-v3 .hero-workbench__heading {
+  margin-bottom: 7px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(72,83,58,.22);
+}
+
+#home.hero-v3 .hero-workbench__heading > span {
+  color: #263b2d;
+  font: italic 21px/1 var(--font-accent-face), Georgia, serif;
+}
+
+#home.hero-v3 .hero-workbench__heading small {
+  color: #6e785f;
+  font-size: 6px;
+  letter-spacing: .1em;
+}
+
+#home.hero-v3 .hero-workbench > a {
+  min-height: 39px;
+  border-bottom: 1px solid rgba(73,82,59,.15);
+  color: #293b30;
+  transition: padding 220ms ease, background 220ms ease;
+}
+
+#home.hero-v3 .hero-workbench > a:hover {
+  padding-inline: 5px;
+  background: rgba(113,139,91,.12);
+}
+
+#home.hero-v3 .hero-workbench__number {
+  color: #7d704a;
+  font-size: 7px;
+}
+
+#home.hero-v3 .hero-workbench__copy strong {
+  color: #263b2d;
+  font-size: 9px;
+}
+
+#home.hero-v3 .hero-workbench__copy small {
+  color: #697565;
+  font-size: 7px;
+}
+
+#home.hero-v3 .hero-workbench__arrow { color: #6f8a63; }
+
+/* MindCare principle: a separate handwritten note, not another floating glass panel. */
+#home.hero-v3 .hero-principle {
+  top: auto !important;
+  right: 3.2%;
+  bottom: 7.5%;
+  width: 204px;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 17px 17px 14px;
+  border: 1px solid rgba(126,98,53,.19);
+  border-radius: 1px;
+  color: #2b4031;
+  background:
+    radial-gradient(rgba(97,75,42,.08) .6px, transparent .8px),
+    linear-gradient(135deg, #f0e5ca, #e5d4b2);
+  background-size: 8px 8px, 100% 100%;
+  box-shadow: 0 13px 27px rgba(0,0,0,.24), 0 2px 4px rgba(0,0,0,.12);
+  transform: rotate(-1.5deg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: transform 300ms cubic-bezier(.16,1,.3,1), box-shadow 300ms ease;
+  pointer-events: auto;
+}
+
+#home.hero-v3 .hero-principle:hover {
+  transform: translateY(-3px) rotate(-.3deg);
+  border-color: rgba(126,98,53,.28);
+  box-shadow: 0 18px 34px rgba(0,0,0,.27);
+}
+
+#home.hero-v3 .hero-principle__tape {
+  top: -7px;
+  width: 58px;
+  height: 14px;
+  border: 1px solid rgba(139,117,72,.13);
+  background: rgba(212,190,145,.72);
+}
+
+#home.hero-v3 .hero-principle__eyebrow {
+  color: #78806d;
+  font-size: 6px;
+  letter-spacing: .11em;
+}
+
+#home.hero-v3 .hero-principle__quote-mark {
+  color: #71845f;
+}
+
+#home.hero-v3 .hero-principle blockquote {
+  color: #283c30;
+  font: italic 19px/1.15 var(--font-accent-face), Georgia, serif;
+}
+
+#home.hero-v3 .hero-principle__source {
+  color: #66735e;
+  font-size: 7px;
+}
+
+/* The song sleeve uses the official single artwork and your actual local preview. */
+#home.hero-v3 .hero-soundtrack {
+  top: 73%;
+  right: auto;
+  bottom: auto;
+  left: 46.5%;
+  width: 326px;
+  min-width: 0;
+  padding: 13px 14px 12px;
+  border: 1px solid rgba(127,101,62,.23);
+  border-radius: 2px;
+  color: #23392d;
+  background:
+    radial-gradient(rgba(95,75,40,.07) .65px, transparent .85px),
+    linear-gradient(145deg, #f2e8d5, #e7d7b8);
+  background-size: 8px 8px, 100% 100%;
+  box-shadow: 0 15px 32px rgba(0,0,0,.25), 0 2px 5px rgba(0,0,0,.13);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transform: translateY(-50%) rotate(-.8deg);
+  transition: transform 300ms cubic-bezier(.16,1,.3,1), box-shadow 300ms ease;
+  overflow: visible;
+}
+
+#home.hero-v3 .hero-soundtrack::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -7px;
+  left: 50%;
+  width: 54px;
+  height: 13px;
+  border: 1px solid rgba(139,117,72,.12);
+  background: rgba(212,190,145,.72);
+  transform: translateX(-50%) rotate(2deg);
+  pointer-events: none;
+}
+
+#home.hero-v3 .hero-soundtrack::after { display: none; }
+
+#home.hero-v3 .hero-soundtrack:hover {
+  transform: translateY(calc(-50% - 3px)) rotate(0deg);
+  border-color: rgba(127,101,62,.30);
+  box-shadow: 0 20px 38px rgba(0,0,0,.28);
+}
+
+#home.hero-v3 .hero-soundtrack__topline { margin-bottom: 9px; }
+
+#home.hero-v3 .hero-soundtrack__eyebrow {
+  color: #6e765d;
+  font-size: 7px;
+  letter-spacing: .10em;
+}
+
+#home.hero-v3 .hero-soundtrack__edition {
+  color: #8b7754;
+  font-size: 6px;
+}
+
+#home.hero-v3 .hero-soundtrack__cover {
+  width: 64px;
+  height: 64px;
+  border: 1px solid rgba(85,63,38,.2);
+  border-radius: 1px;
+  background-image: url("https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/a6/6e/bf/a66ebf79-5008-8948-b352-a790fc87446b/19UM1IM04638.rgb.jpg/3000x3000bb.jpg");
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 3px 7px rgba(41,32,19,.18);
+}
+
+#home.hero-v3 .hero-soundtrack__track > strong {
+  color: #263a2d;
+  font-size: 12px;
+}
+
+#home.hero-v3 .hero-soundtrack__track > span {
+  color: #6d715f;
+  font-size: 8px;
+}
+
+#home.hero-v3 .hero-soundtrack__wave i {
+  background: #718b60;
+  opacity: .68;
+}
+
+#home.hero-v3 .hero-soundtrack__play {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #263e30;
+  border-radius: 50%;
+  color: #f3e9d4;
+  background: #243d2f;
+  box-shadow: 0 3px 8px rgba(38,53,39,.18);
+}
+
+#home.hero-v3 .hero-soundtrack__play:hover:not(:disabled) {
+  transform: scale(1.06);
+  background: #345642;
+  box-shadow: 0 5px 13px rgba(38,53,39,.22);
+}
+
+#home.hero-v3 .hero-soundtrack__timeline {
+  margin-top: 11px;
+}
+
+#home.hero-v3 .hero-soundtrack__timeline input {
+  background: linear-gradient(90deg, #526e4d var(--track-progress,0%), rgba(83,91,70,.24) var(--track-progress,0%));
+}
+
+#home.hero-v3 .hero-soundtrack__timeline input::-webkit-slider-thumb {
+  border-color: #f6ecd8;
+  background: #526e4d;
+}
+
+#home.hero-v3 .hero-soundtrack__timeline input::-moz-range-thumb {
+  border-color: #f6ecd8;
+  background: #526e4d;
+}
+
+#home.hero-v3 .hero-soundtrack__timeline > span {
+  color: #73705c;
+}
+
+/* Medium screens: retain the two prints, but simplify the side notes. */
+@media (min-width: 768px) and (max-width: 1360px) {
+  #home.hero-v3 .hero-v3__copy {
+    left: 5%;
+    width: min(48%, 620px);
+  }
+
+  #home.hero-v3 .hero-v3__title {
+    font-size: clamp(2.85rem, 4.2vw, 3.8rem);
+  }
+
+  #home.hero-v3 .hero-polaroid--home {
+    top: 17%;
+    left: 49%;
+    width: 124px;
+  }
+
+  #home.hero-v3 .hero-polaroid--field {
+    top: 23%;
+    left: 59%;
+    width: 120px;
+  }
+
+  #home.hero-v3 .hero-workbench {
+    top: 15%;
+    right: 2%;
+    width: 174px;
+  }
+
+  #home.hero-v3 .hero-principle { display: none; }
+
+  #home.hero-v3 .hero-soundtrack {
+    top: auto;
+    right: 24px;
+    bottom: 28px;
+    left: auto;
+    width: 300px;
+    transform: rotate(-.8deg);
+  }
+
+  #home.hero-v3 .hero-soundtrack:hover {
+    transform: translateY(-3px) rotate(0deg);
+  }
+}
+
+/* Mobile is an intentionally stacked scrapbook, not a compressed desktop canvas. */
+@media (max-width: 767px) {
+  #home.hero-v3 {
+    height: max(100svh, 1210px) !important;
+    min-height: 1210px !important;
+    max-height: none;
+  }
+
+  #home.hero-v3 > .hero-v3__image {
+    object-position: 76% 20% !important;
+    transform: none !important;
+  }
+
+  #home.hero-v3 > .hero-v3__shade {
+    background:
+      linear-gradient(180deg, rgba(4,14,8,.16) 0%, rgba(4,14,8,.30) 34%, rgba(4,14,8,.82) 52%, #0b2016 100%),
+      linear-gradient(90deg, rgba(4,14,8,.34), transparent 80%);
+  }
+
+  #home.hero-v3 > .hero-v3__content {
+    padding: 0;
+  }
+
+  #home.hero-v3 .hero-v3__copy {
+    top: 96px;
+    right: 19px;
+    bottom: auto;
+    left: 19px;
+    width: auto;
+    max-width: none;
+    transform: none;
+  }
+
+  #home.hero-v3 .hero-v3__eyebrow {
+    margin-bottom: 9px;
+    font-size: 7px;
+    letter-spacing: .1em;
+  }
+
+  #home.hero-v3 .hero-v3__title {
+    max-width: 14ch;
+    font-size: clamp(2.65rem, 9.2vw, 3.35rem);
+    line-height: .98;
+    text-wrap: balance;
+  }
+
+  #home.hero-v3 .hero-v3__line { white-space: normal; }
+  #home.hero-v3 .hero-v3__accent { white-space: normal; }
+
+  #home.hero-v3 .hero-v3__summary {
+    max-width: 34ch;
+    margin-top: 12px;
+    font-size: 12px;
+    line-height: 1.48;
+  }
+
+  #home.hero-v3 .hero-v3__actions {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  #home.hero-v3 .hero-v3__button {
+    min-height: 40px;
+    padding-inline: 13px;
+    font-size: 9px;
+  }
+
+  #home.hero-v3 .hero-v3__facts {
+    display: inline-flex !important;
+    margin-top: 14px;
+    padding-top: 9px;
+  }
+
+  #home.hero-v3 .hero-v3__facts > div { min-width: 0; }
+  #home.hero-v3 .hero-v3__facts strong { font-size: 23px; }
+  #home.hero-v3 .hero-v3__facts span { font-size: 7px; }
+
+  #home.hero-v3 .hero-v3__scroll { display: none; }
+
+  #home.hero-v3 .hero-personal-details {
+    position: absolute;
+    inset: 555px 16px 164px;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    grid-template-rows: 162px 178px 104px;
+    align-content: start;
+    gap: 12px;
+    pointer-events: none;
+  }
+
+  #home.hero-v3 .hero-polaroid,
+  #home.hero-v3 .hero-workbench,
+  #home.hero-v3 .hero-principle {
+    position: relative;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: auto;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none;
+    transform: rotate(0deg);
+  }
+
+  #home.hero-v3 .hero-polaroid {
+    align-self: start;
+    padding: 6px 6px 8px;
+  }
+
+  #home.hero-v3 .hero-polaroid--home {
+    grid-column: 1;
+    grid-row: 1;
+    transform: rotate(-3deg);
+  }
+
+  #home.hero-v3 .hero-polaroid--field {
+    grid-column: 2;
+    grid-row: 1;
+    transform: rotate(2.5deg);
+  }
+
+  #home.hero-v3 .hero-polaroid__photo {
+    height: 104px;
+    aspect-ratio: auto;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption {
+    padding: 6px 2px 0;
+  }
+
+  #home.hero-v3 .hero-polaroid__caption small { font-size: 5px; }
+  #home.hero-v3 .hero-polaroid__caption strong { font-size: 11px; }
+
+  #home.hero-v3 .hero-workbench {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding: 13px 14px 9px;
+    transform: rotate(-.7deg);
+  }
+
+  #home.hero-v3 .hero-workbench__heading {
+    margin-bottom: 4px;
+    padding-bottom: 6px;
+  }
+
+  #home.hero-v3 .hero-workbench__heading > span { font-size: 19px; }
+
+  #home.hero-v3 .hero-workbench > a {
+    min-height: 32px;
+    padding-block: 3px;
+  }
+
+  #home.hero-v3 .hero-principle {
+    display: block !important;
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-self: end;
+    width: min(88%, 330px);
+    padding: 11px 14px 10px;
+    transform: rotate(1deg);
+  }
+
+  #home.hero-v3 .hero-principle__eyebrow { font-size: 5px; }
+  #home.hero-v3 .hero-principle__quote-mark { height: 13px; font-size: 20px; }
+  #home.hero-v3 .hero-principle blockquote { font-size: 15px; line-height: 1.15; }
+  #home.hero-v3 .hero-principle__source { margin-top: 5px; font-size: 6px; }
+
+  #home.hero-v3 .hero-soundtrack {
+    top: auto;
+    right: 16px;
+    bottom: 13px;
+    left: 16px;
+    width: auto;
+    min-width: 0;
+    max-width: 440px;
+    margin-inline: auto;
+    padding: 10px 11px 9px;
+    transform: rotate(-.5deg);
+  }
+
+  #home.hero-v3 .hero-soundtrack:hover { transform: translateY(-2px) rotate(0deg); }
+  #home.hero-v3 .hero-soundtrack__cover { width: 54px; height: 54px; }
+  #home.hero-v3 .hero-soundtrack__main {
+    grid-template-columns: 54px minmax(0,1fr) 36px;
+    gap: 9px;
+  }
+  #home.hero-v3 .hero-soundtrack__play { width: 36px; height: 36px; }
+  #home.hero-v3 .hero-soundtrack__eyebrow { font-size: 6px; }
+  #home.hero-v3 .hero-soundtrack__edition { font-size: 5px; }
+  #home.hero-v3 .hero-soundtrack__track > strong { font-size: 10px; }
+  #home.hero-v3 .hero-soundtrack__track > span { font-size: 7px; }
+  #home.hero-v3 .hero-soundtrack__wave { height: 15px; }
+}
+
+@media (max-width: 390px) {
+  #home.hero-v3 { min-height: 1240px !important; }
+  #home.hero-v3 .hero-personal-details { inset: 572px 13px 166px; gap: 10px; }
+  #home.hero-v3 .hero-polaroid__caption strong { font-size: 10px; }
+  #home.hero-v3 .hero-soundtrack { right: 13px; left: 13px; }
+  #home.hero-v3 .hero-v3__button { padding-inline: 10px; font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #home.hero-v3 .hero-polaroid,
+  #home.hero-v3 .hero-polaroid__photo img,
+  #home.hero-v3 .hero-workbench,
+  #home.hero-v3 .hero-principle,
+  #home.hero-v3 .hero-soundtrack,
+  #home.hero-v3 .hero-soundtrack__play {
+    transition: none !important;
+    animation: none !important;
+  }
+  #home.hero-v3 .hero-soundtrack.is-playing .hero-soundtrack__wave i {
+    animation: none !important;
+  }
+}

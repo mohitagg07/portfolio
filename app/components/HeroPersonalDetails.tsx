@@ -18,26 +18,26 @@ export default function HeroPersonalDetails() {
   });
 
   return (
-    <div className="hero-personal-details" aria-label="Personal details and selected work">
+    <div className="hero-personal-details" aria-label="Personal photographs and selected work">
       <motion.a
         href="#about"
         className="hero-polaroid hero-polaroid--home"
         onClick={(event) => navigateToSection(event, "about")}
-        aria-label="Explore the About section: home base, Jammu"
-        {...reveal(0.68)}
+        aria-label="Explore the mountain photograph in About"
+        {...reveal(0.62)}
       >
         <span className="hero-polaroid__pin" aria-hidden="true" />
         <span className="hero-polaroid__photo">
           <Image
-            src="/about/about-main.webp"
-            alt="A personal photograph from Mohit's About section"
+            src="/about/mountain-memory.webp"
+            alt="A quiet mountain viewpoint beneath a wide cloudy sky"
             fill
-            sizes="(max-width: 1100px) 110px, 148px"
+            sizes="(max-width: 767px) 44vw, (max-width: 1100px) 120px, 152px"
           />
         </span>
         <span className="hero-polaroid__caption">
-          <small>FROM THE CAMERA ROLL</small>
-          <strong>Between the builds</strong>
+          <small>OFF THE CLOCK</small>
+          <strong>A day above the clouds</strong>
         </span>
       </motion.a>
 
@@ -45,32 +45,33 @@ export default function HeroPersonalDetails() {
         href="#about"
         className="hero-polaroid hero-polaroid--field"
         onClick={(event) => navigateToSection(event, "about")}
-        aria-label="Explore more personal photographs in About"
-        {...reveal(0.82)}
+        aria-label="Explore the group photograph in About"
+        {...reveal(0.76)}
       >
         <span className="hero-polaroid__pin" aria-hidden="true" />
         <span className="hero-polaroid__photo">
           <Image
-            src="/about/about-waterfall.webp"
-            alt="A waterfall from Mohit's personal photo collage"
+            src="/about/friends-memory.webp"
+            alt="Mohit with friends at an outdoor gathering"
             fill
-            sizes="(max-width: 1100px) 100px, 136px"
+            sizes="(max-width: 767px) 44vw, (max-width: 1100px) 116px, 148px"
           />
         </span>
         <span className="hero-polaroid__caption">
-          <small>OFF THE SCREEN</small>
-          <strong>Outside the workspace</strong>
+          <small>THE PEOPLE BEHIND THE BUILDS</small>
+          <strong>Good people, great milestones</strong>
         </span>
       </motion.a>
 
       <motion.aside
         className="hero-workbench"
-        aria-label="Selected areas of work"
-        {...reveal(0.96)}
+        aria-label="Selected projects"
+        {...reveal(0.9)}
       >
+        <span className="hero-workbench__pin" aria-hidden="true" />
         <div className="hero-workbench__heading">
-          <span>THE WORKBENCH</span>
-          <small>A FEW THINGS I'VE BUILT</small>
+          <span>The workbench</span>
+          <small>A FEW THINGS I'VE BEEN BUILDING</small>
         </div>
         <a href="#work" onClick={(event) => navigateToSection(event, "work")}>
           <span className="hero-workbench__number">01</span>
@@ -102,9 +103,10 @@ export default function HeroPersonalDetails() {
         href="#work"
         className="hero-principle"
         onClick={(event) => navigateToSection(event, "work")}
-        aria-label="Explore MindCare and its product principle"
-        {...reveal(1.08)}
+        aria-label="Explore the MindCare product principle"
+        {...reveal(1.02)}
       >
+        <span className="hero-principle__tape" aria-hidden="true" />
         <span className="hero-principle__eyebrow">A PRINCIPLE I BUILD BY</span>
         <span className="hero-principle__quote-mark" aria-hidden="true">“</span>
         <blockquote>People should not have to explain their story from zero.</blockquote>

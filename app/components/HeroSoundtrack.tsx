@@ -49,11 +49,11 @@ export default function HeroSoundtrack() {
     <motion.aside
       className={`hero-soundtrack${isPlaying ? " is-playing" : ""}`}
       aria-label="Mohit's soundtrack: Blinding Lights by The Weeknd"
-      initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: reduceMotion ? 0 : 0.64,
-        delay: reduceMotion ? 0 : 0.9,
+        delay: reduceMotion ? 0 : 0.94,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -77,24 +77,22 @@ export default function HeroSoundtrack() {
 
       <div className="hero-soundtrack__topline">
         <span className="hero-soundtrack__eyebrow">A SONG FOR THE LONG BUILDS</span>
-        <span className="hero-soundtrack__edition">MOHIT'S PICK</span>
+        <span className="hero-soundtrack__edition">MOHIT'S PICK · PREVIEW</span>
       </div>
 
       <div className="hero-soundtrack__main">
-        <div className="hero-soundtrack__cover" aria-hidden="true">
-          <span className="hero-soundtrack__cover-glow" />
-          <span className="hero-soundtrack__cover-line" />
-          <strong>M</strong>
-        </div>
-
+        <div
+          className="hero-soundtrack__cover"
+          role="img"
+          aria-label="Blinding Lights single artwork by The Weeknd"
+        />
         <div className="hero-soundtrack__track">
           <strong>{audioError ? "Preview unavailable" : "Blinding Lights"}</strong>
-          <span>The Weeknd <i>·</i> 28s preview</span>
+          <span>The Weeknd <i>·</i> 28-second preview</span>
           <div className="hero-soundtrack__wave" aria-hidden="true">
             <i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i />
           </div>
         </div>
-
         <button
           className="hero-soundtrack__play"
           type="button"
