@@ -28,7 +28,7 @@
 }
 
 #home.hero-v3 .hero-v3__copy {
-  top: 45%;
+  top: 42%;
   left: clamp(28px, 6.4vw, 104px);
   width: min(53%, 760px);
   max-width: 760px;
@@ -273,8 +273,9 @@
 
 #home.hero-v3 .hero-principle {
   position: absolute;
-  top: 18%;
+  top: 18% !important;
   right: 4.4%;
+  bottom: auto !important;
   display: flex;
   width: 207px;
   flex-direction: column;
@@ -639,6 +640,7 @@
     font-size: 9px;
   }
   #home.hero-v3 .hero-v3__facts {
+    display: grid !important;
     grid-template-columns: 112px minmax(0, 1fr);
     gap: 12px;
     width: 100%;
@@ -707,6 +709,10 @@
   #home.hero-v3 .hero-polaroid__caption strong { font-size: 11px; }
 
   #home.hero-v3 .hero-principle {
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
     display: flex;
     grid-column: 1 / -1;
     grid-row: 2;

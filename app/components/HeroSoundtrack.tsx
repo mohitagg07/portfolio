@@ -49,8 +49,8 @@ export default function HeroSoundtrack() {
     <motion.aside
       className={`hero-soundtrack${isPlaying ? " is-playing" : ""}`}
       aria-label="Mohit's soundtrack: Blinding Lights by The Weeknd"
-      initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={reduceMotion ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
         duration: reduceMotion ? 0 : 0.6,
         delay: reduceMotion ? 0 : 0.86,
