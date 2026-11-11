@@ -3,104 +3,69 @@
 import { motion, useReducedMotion } from "motion/react";
 import { navigateToSection } from "../utils/scroll";
 
-function Word({
-  children,
-  delay,
-  accent = false,
-}: {
-  children: string;
-  delay: number;
-  accent?: boolean;
-}) {
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <motion.span
-      className={accent ? "hero-v3__word hero-v3__word--accent" : "hero-v3__word"}
-      initial={reduceMotion ? false : { opacity: 0, y: 15, filter: "blur(1px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{
-        duration: reduceMotion ? 0 : 0.58,
-        delay: reduceMotion ? 0 : delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-    >
-      {children}
-    </motion.span>
-  );
-}
-
 export default function HeroGreeting() {
   const reduceMotion = useReducedMotion();
+  const reveal = (delay: number) => ({
+    initial: reduceMotion ? false : { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: {
+      duration: reduceMotion ? 0 : 0.65,
+      delay: reduceMotion ? 0 : delay,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  });
 
   return (
     <div className="hero-v3__content">
       <div className="hero-v3__copy">
-        <p className="hero-v3__eyebrow">SOFTWARE ENGINEER <i>·</i> AI &amp; AUTOMATION</p>
-        <h1
-          id="hero-v3-title"
-          className="hero-v3__title"
-          aria-label="I build useful systems that make work feel simpler."
-        >
-          <span className="hero-v3__line" aria-hidden="true">
-            <Word delay={0.08}>I</Word>{" "}
-            <Word delay={0.14}>build</Word>{" "}
-            <Word delay={0.2}>useful</Word>{" "}
-            <Word delay={0.27}>systems</Word>
-          </span>
-          <span className="hero-v3__line" aria-hidden="true">
-            <Word delay={0.38}>that</Word>{" "}
-            <Word delay={0.45}>make</Word>{" "}
-            <Word delay={0.52}>work</Word>{" "}
-            <em className="hero-v3__accent">
-              <Word delay={0.62} accent>feel</Word>{" "}
-              <Word delay={0.72} accent>simpler.</Word>
-            </em>
-          </span>
-        </h1>
-
-        <motion.p
-          className="hero-v3__summary"
-          initial={reduceMotion ? false : { opacity: 0, y: 9 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : 0.78 }}
-        >
-          AI-powered products, thoughtful interfaces and automation built for real use.
+        <motion.p className="hero-v3__eyebrow" {...reveal(0.08)}>
+          SOFTWARE ENGINEER <i aria-hidden="true">/</i> AI &amp; AUTOMATION
         </motion.p>
 
-        <div className="hero-v3__actions">
-          <motion.a
+        <motion.h1
+          id="hero-v3-title"
+          className="hero-v3__title"
+          aria-label="I build software that makes complicated things feel clear."
+          {...reveal(0.18)}
+        >
+          <span className="hero-v3__line">I build software</span>
+          <span className="hero-v3__line">that makes complicated</span>
+          <span className="hero-v3__line">
+            things <em className="hero-v3__accent">feel clear.</em>
+          </span>
+        </motion.h1>
+
+        <motion.p className="hero-v3__summary" {...reveal(0.34)}>
+          I turn rough ideas and tangled workflows into useful things people can rely on.
+        </motion.p>
+
+        <motion.div className="hero-v3__actions" {...reveal(0.46)}>
+          <a
             className="hero-v3__button hero-v3__button--primary"
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.55, delay: 0.86 }}
           >
-            Explore selected work <span aria-hidden="true">↗</span>
-          </motion.a>
-          <motion.a
+            Explore my work <span aria-hidden="true">↗</span>
+          </a>
+          <a
             className="hero-v3__button hero-v3__button--secondary"
             href="#about"
             onClick={(event) => navigateToSection(event, "about")}
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.55, delay: 0.94 }}
           >
-            About me
-          </motion.a>
-        </div>
+            A little about me
+          </a>
+        </motion.div>
 
-        <motion.div
-          className="hero-v3__facts"
-          aria-label="Selected work"
-          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, delay: 1.04 }}
-        >
-          <div>
+        <motion.div className="hero-v3__facts" aria-label="Selected work and working principles" {...reveal(0.58)}>
+          <div className="hero-v3__facts-count">
             <strong>5+</strong>
-            <span>Selected builds</span>
+            <span>Projects &amp; experiments</span>
+            <small>Ideas explored, built and improved along the way.</small>
+          </div>
+          <div className="hero-v3__practice" aria-label="How I approach a project">
+            <span>Understand the problem</span>
+            <span>Build what helps</span>
+            <span>Care about the details</span>
           </div>
         </motion.div>
       </div>

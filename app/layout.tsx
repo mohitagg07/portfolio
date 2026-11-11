@@ -3,6 +3,7 @@ import { Manrope, Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./portfolio-art-direction.css";
 import "./hero-composition.css";
+import "./hero-editorial.css";
 
 const displayFont = Manrope({
   subsets: ["latin"],

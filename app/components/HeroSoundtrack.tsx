@@ -49,11 +49,11 @@ export default function HeroSoundtrack() {
     <motion.aside
       className={`hero-soundtrack${isPlaying ? " is-playing" : ""}`}
       aria-label="Mohit's soundtrack: Blinding Lights by The Weeknd"
-      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: reduceMotion ? 0 : 0.64,
-        delay: reduceMotion ? 0 : 0.94,
+        duration: reduceMotion ? 0 : 0.6,
+        delay: reduceMotion ? 0 : 0.86,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -64,7 +64,10 @@ export default function HeroSoundtrack() {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
-        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
+        onLoadedMetadata={(event) => {
+          setDuration(event.currentTarget.duration);
+          setAudioError(false);
+        }}
         onEnded={() => {
           setIsPlaying(false);
           setCurrentTime(0);
@@ -76,8 +79,8 @@ export default function HeroSoundtrack() {
       />
 
       <div className="hero-soundtrack__topline">
-        <span className="hero-soundtrack__eyebrow">A SONG FOR THE LONG BUILDS</span>
-        <span className="hero-soundtrack__edition">MOHIT'S PICK · PREVIEW</span>
+        <span className="hero-soundtrack__eyebrow">A SONG I KEEP COMING BACK TO</span>
+        <span className="hero-soundtrack__edition">28 SECOND PREVIEW</span>
       </div>
 
       <div className="hero-soundtrack__main">
@@ -88,7 +91,7 @@ export default function HeroSoundtrack() {
         />
         <div className="hero-soundtrack__track">
           <strong>{audioError ? "Preview unavailable" : "Blinding Lights"}</strong>
-          <span>The Weeknd <i>·</i> 28-second preview</span>
+          <span>The Weeknd</span>
           <div className="hero-soundtrack__wave" aria-hidden="true">
             <i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i />
           </div>
