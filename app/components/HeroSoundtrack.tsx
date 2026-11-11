@@ -59,7 +59,7 @@ export default function HeroSoundtrack() {
     >
       <audio
         ref={audioRef}
-        src="/audio/blinding-lights-preview.mp3"
+        src="/audio/blinding_lights.mp3"
         preload="metadata"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}

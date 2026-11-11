@@ -4884,3 +4884,181 @@
   #home.hero-v3 .hero-workbench { right: 2%; width: 166px; }
   #home.hero-v3 .hero-principle { right: 2%; width: 184px; }
 }
+
+
+/* V14 — editorial hero spacing, true card sizing and reachable audio controls */
+@media (min-width: 1361px) {
+  #home.hero-v3 .hero-v3__copy {
+    top: 47%;
+    left: 7%;
+    width: min(49%, 700px);
+    max-width: 700px;
+    transform: translateY(-43%);
+  }
+  #home.hero-v3 .hero-v3__title {
+    font-size: clamp(3.2rem, 4.15vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -.056em;
+    text-wrap: nowrap;
+  }
+  #home.hero-v3 .hero-v3__line,
+  #home.hero-v3 .hero-v3__accent { white-space: nowrap; }
+
+  #home.hero-v3 .hero-polaroid--home {
+    top: 15.5%;
+    left: 52.5%;
+    width: 132px;
+  }
+  #home.hero-v3 .hero-polaroid--field {
+    top: 20%;
+    left: 61.2%;
+    width: 124px;
+  }
+
+  /* Reset the inherited top:25% rule. top + bottom together were stretching
+     this anchor through the entire hero and obscuring the workbench. */
+  #home.hero-v3 .hero-principle {
+    top: auto !important;
+    right: 2.8%;
+    bottom: 7%;
+    width: 198px;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none;
+    padding: 14px 15px 13px;
+    display: block;
+    align-self: initial;
+    z-index: 8;
+  }
+  #home.hero-v3 .hero-principle blockquote {
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  #home.hero-v3 .hero-workbench {
+    top: 15%;
+    right: 2.8%;
+    width: 190px;
+    height: auto;
+    min-height: 0;
+    z-index: 8;
+  }
+
+  #home.hero-v3 .hero-soundtrack {
+    top: 66%;
+    right: auto;
+    bottom: auto;
+    left: 45.3%;
+    width: min(336px, 27vw);
+    min-width: 320px;
+    min-height: 0;
+    height: auto;
+    padding: 13px 14px 12px;
+    z-index: 20;
+    pointer-events: auto !important;
+    transform: translateY(-50%);
+  }
+  #home.hero-v3 .hero-soundtrack__cover {
+    width: 60px;
+    height: 60px;
+  }
+  #home.hero-v3 .hero-soundtrack__main {
+    grid-template-columns: 60px minmax(0, 1fr) 42px;
+    gap: 12px;
+  }
+  #home.hero-v3 .hero-soundtrack__track > strong { font-size: 12px; }
+  #home.hero-v3 .hero-soundtrack__track > span { font-size: 9px; }
+  #home.hero-v3 .hero-soundtrack__play {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto !important;
+  }
+  #home.hero-v3 .hero-soundtrack__timeline { margin-top: 11px; }
+  #home.hero-v3 .hero-soundtrack__timeline input {
+    min-height: 14px;
+    cursor: pointer;
+    pointer-events: auto !important;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1360px) {
+  #home.hero-v3 .hero-v3__copy { width: min(48%, 620px); }
+  #home.hero-v3 .hero-v3__title {
+    font-size: clamp(2.8rem, 4.05vw, 3.65rem);
+  }
+  #home.hero-v3 .hero-polaroid--home {
+    top: 15%;
+    left: 49%;
+    width: 120px;
+  }
+  #home.hero-v3 .hero-polaroid--field {
+    top: 20%;
+    left: 57.8%;
+    width: 112px;
+  }
+  #home.hero-v3 .hero-workbench {
+    top: 15%;
+    right: 2%;
+    width: 172px;
+  }
+  #home.hero-v3 .hero-principle {
+    top: auto !important;
+    right: 2%;
+    bottom: 6%;
+    width: 180px;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  #home.hero-v3 .hero-soundtrack {
+    top: 68%;
+    right: auto;
+    bottom: auto;
+    left: 43%;
+    width: 294px;
+    min-width: 280px;
+    z-index: 20;
+    pointer-events: auto !important;
+    transform: translateY(-50%);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  #home.hero-v3 .hero-polaroid,
+  #home.hero-v3 .hero-workbench,
+  #home.hero-v3 .hero-principle { display: none; }
+  #home.hero-v3 .hero-soundtrack {
+    z-index: 20;
+    pointer-events: auto !important;
+  }
+}
+
+/* Keep only actual links and controls interactive through the decorative layer. */
+#home.hero-v3 .hero-personal-details { pointer-events: none; }
+#home.hero-v3 .hero-polaroid,
+#home.hero-v3 .hero-workbench,
+#home.hero-v3 .hero-workbench a,
+#home.hero-v3 .hero-principle,
+#home.hero-v3 .hero-soundtrack,
+#home.hero-v3 .hero-soundtrack button,
+#home.hero-v3 .hero-soundtrack input {
+  pointer-events: auto;
+}
+#home.hero-v3 .hero-soundtrack__play:focus-visible,
+#home.hero-v3 .hero-soundtrack__timeline input:focus-visible {
+  outline: 2px solid #d1efd0;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #home.hero-v3 .hero-polaroid,
+  #home.hero-v3 .hero-workbench,
+  #home.hero-v3 .hero-principle,
+  #home.hero-v3 .hero-soundtrack {
+    transition: none !important;
+    animation: none !important;
+  }
+}
