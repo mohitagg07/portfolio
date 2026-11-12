@@ -2926,7 +2926,6 @@
   background: var(--fn-gold);
 }
 .about-fieldnotes__kicker span { color: var(--fn-gold); padding-inline: 2px; }
-.about-fieldnotes__step + .about-fieldnotes__step::before { left: -4px; }
 .about-fieldnotes__beyond {
   display: grid;
   grid-template-columns: minmax(225px, .72fr) minmax(0, 1.28fr);
@@ -3098,7 +3097,6 @@
   .about-fieldnotes__gallery::before { top: 11px; bottom: 12px; width: 2px; }
   .about-fieldnotes__gallery-index { bottom: -16px; left: 8px; font-size: 7px; }
   .about-fieldnotes__kicker { font-size: 8px; }
-  .about-fieldnotes__step + .about-fieldnotes__step::before { left: 8px; }
   .about-fieldnotes__beyond {
     display: block;
     padding: 24px 0 30px;
