@@ -65,44 +65,6 @@ export default function HeroGreeting() {
         </motion.div>
       </div>
 
-      <motion.aside
-        className="hero-v3__signal-map"
-        aria-label="A simple view of the work: input, orchestration and output"
-        {...reveal(0.42)}
-      >
-        <div className="hero-v3__signal-topline">
-          <span>FROM INPUT TO OUTCOME</span>
-          <span>01—03</span>
-        </div>
-        <ol className="hero-v3__signal-steps">
-          <li>
-            <span className="hero-v3__signal-index">01</span>
-            <span className="hero-v3__signal-copy">
-              <strong>INPUT</strong>
-              <small>Files · data · manual steps</small>
-            </span>
-          </li>
-          <li>
-            <span className="hero-v3__signal-index">02</span>
-            <span className="hero-v3__signal-copy">
-              <strong>ORCHESTRATION</strong>
-              <small>Code · APIs · applied AI</small>
-            </span>
-          </li>
-          <li>
-            <span className="hero-v3__signal-index">03</span>
-            <span className="hero-v3__signal-copy">
-              <strong>OUTCOME</strong>
-              <small>A workflow people can use</small>
-            </span>
-          </li>
-        </ol>
-        <div className="hero-v3__signal-footer">
-          <span className="hero-v3__signal-rule" aria-hidden="true" />
-          LESS FRICTION. MORE CLARITY.
-        </div>
-      </motion.aside>
-
       <a
         className="hero-v3__scroll"
         href="#about"
