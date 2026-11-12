@@ -4131,3 +4131,93 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important;
   }
 }
+
+
+/* Final Hero control treatment: player on the right, two deliberately
+   different button silhouettes, and a shared, stable control baseline. */
+@media (min-width: 768px) {
+  #home.hero-v3 .hero-record-player {
+    top: auto !important;
+    right: clamp(24px, 5.2vw, 76px) !important;
+    bottom: 30px !important;
+    left: auto !important;
+    width: clamp(300px, 27vw, 360px) !important;
+    min-width: 0 !important;
+    max-width: 360px !important;
+    margin: 0 !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  #home.hero-v3 .hero-record-player {
+    right: 22px !important;
+    bottom: 22px !important;
+    left: auto !important;
+    width: min(300px, calc(50vw - 36px)) !important;
+    max-width: 300px !important;
+  }
+}
+
+/* Primary: warm brass with one cut corner, echoing the portfolio's field-note
+   details. Secondary: a quiet sage capsule, clearly a supporting action. */
+#home.hero-v3 .hero-v3__button {
+  height: 49px !important;
+  min-height: 49px !important;
+  gap: 11px !important;
+  font-size: 12px !important;
+  font-weight: 650 !important;
+}
+#home.hero-v3 .hero-v3__button--primary {
+  position: relative !important;
+  border-radius: 5px 17px 5px 17px !important;
+  border-color: #e2bd79 !important;
+  color: #1b2b20 !important;
+  background: linear-gradient(125deg, #edd39e 0%, #d7b36d 100%) !important;
+  box-shadow: 0 7px 17px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.52) !important;
+}
+#home.hero-v3 .hero-v3__button--primary span[aria-hidden="true"] {
+  display: inline-grid;
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  place-items: center;
+  border-radius: 50%;
+  color: #ead6ab;
+  background: #263d2d;
+  font-size: 12px;
+  line-height: 1;
+  transition: transform .22s ease, background-color .22s ease;
+}
+#home.hero-v3 .hero-v3__button--primary:hover {
+  border-color: #f0d9aa !important;
+  color: #15251a !important;
+  background: linear-gradient(125deg, #f3dfb8 0%, #e1c487 100%) !important;
+  transform: translateY(-2px) !important;
+}
+#home.hero-v3 .hero-v3__button--primary:hover span[aria-hidden="true"] {
+  transform: translate(2px,-1px);
+  background: #193126;
+}
+#home.hero-v3 .hero-v3__button--secondary {
+  border-radius: 999px !important;
+  border-color: rgba(174,195,150,.76) !important;
+  color: #edf0e4 !important;
+  background: rgba(28,54,37,.42) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07) !important;
+  backdrop-filter: blur(8px) !important;
+}
+#home.hero-v3 .hero-v3__button--secondary:hover {
+  border-color: #c6d4a7 !important;
+  color: #f4e8ca !important;
+  background: rgba(88,112,73,.34) !important;
+  transform: translateY(-2px) !important;
+}
+@media (max-width: 767px) {
+  #home.hero-v3 .hero-v3__button {
+    height: 44px !important;
+    min-height: 44px !important;
+    font-size: 10px !important;
+  }
+  #home.hero-v3 .hero-v3__button--primary {
+    border-radius: 5px 14px 5px 14px !important;
+  }
+}
