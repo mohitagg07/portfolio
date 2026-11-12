@@ -14,9 +14,9 @@
   --type-body: clamp(1rem, 1.25vw, 1.125rem);
   --type-ui: .8125rem;
   --type-meta: .6875rem;
-  --tracking-display: -.066em;
-  --leading-display: .99;
-  --leading-body: 1.78;
+  --tracking-display: -.048em;
+  --leading-display: .96;
+  --leading-body: 1.68;
   --bg: #060810;
   --fg: #f5f5f0;
   --fg-muted: #c0cad8;
@@ -38,7 +38,7 @@ body {
   color: var(--fg);
   font-family: var(--font-body);
   font-size: var(--type-body);
-  font-weight: 450;
+  font-weight: 400;
   line-height: var(--leading-body);
   overflow-x: clip;
   cursor: default;
@@ -57,9 +57,9 @@ body {
 /* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   color: var(--fg);
-  line-height: 1.1;
+  line-height: 1.04;
   letter-spacing: var(--tracking-display);
 }
 h1, h2 { text-transform: none; }
@@ -5886,4 +5886,15 @@ main,
 }
 .m-char-layer .m-char--home .m-char__note.is-visible {
   transform: translate3d(0, 0, 0) rotate(-1.5deg);
+}
+
+
+/* A coherent type system: expressive Fraunces display, readable Plex text,
+   and Plex Mono for technical labels. */
+:root {
+  --font-editorial-face: var(--font-display-face);
+  --font-accent-face: var(--font-display-face);
+  --font-display: var(--font-display-face), Georgia, serif;
+  --font-body: var(--font-body-face), Arial, sans-serif;
+  --font-main: var(--font-body-face), Arial, sans-serif;
 }
