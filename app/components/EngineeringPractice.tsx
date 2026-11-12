@@ -64,7 +64,7 @@ const PHASES: Array<{
 ];
 
 const LOOP_PATH =
-  "M 132 214 C 132 137 220 63 342 70 C 453 77 488 42 590 74 C 716 113 758 203 687 271 C 616 340 521 374 419 340 C 327 309 237 369 160 310 C 93 259 85 214 132 214";
+  "M 132 214 C 132 137 220 63 342 70 C 453 77 488 42 590 74 C 716 113 758 203 687 271 C 616 340 521 374 419 340 C 327 309 237 369 160 310 C 93 259 132 291 132 214";
 
 export default function EngineeringPractice() {
   const sceneRef = useRef<HTMLDivElement>(null);
@@ -130,7 +130,7 @@ export default function EngineeringPractice() {
               <path d={LOOP_PATH} className={styles.loopTrackDash} />
 
               <path
-                d="M 132 214 C 132 137 220 63 342 70 C 453 77 488 42 590 74 C 716 113 758 203 687 271 C 616 340 521 374 419 340 C 327 309 237 369 160 310 C 93 259 85 214 132 214"
+                d={LOOP_PATH}
                 className={styles.loopInnerGuide}
               />
 
