@@ -24,7 +24,7 @@ const bodyFont = IBM_Plex_Sans({
 
 const monoFont = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-mono-face",
   display: "swap",
