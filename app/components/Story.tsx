@@ -69,8 +69,8 @@ export default function Story() {
 
             <motion.figure
               className="about-fieldnotes__photo about-fieldnotes__photo--selfie"
-              initial={reduceMotion ? false : { opacity: 0, x: 12 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.2, ease: EASE }}
             >
               <span className="about-fieldnotes__tape" aria-hidden="true" />
@@ -88,8 +88,8 @@ export default function Story() {
 
             <motion.figure
               className="about-fieldnotes__photo about-fieldnotes__photo--waterfall"
-              initial={reduceMotion ? false : { opacity: 0, x: 12 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.3, ease: EASE }}
             >
               <span className="about-fieldnotes__tape" aria-hidden="true" />
