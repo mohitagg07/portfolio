@@ -199,11 +199,11 @@ export default function Story() {
           <div className="about-v5-beyond-heading">
             <div>
               <p className="about-v5-kicker">03 <span>/</span> BEYOND THE SCREEN</p>
-              <h3 id="about-beyond-title">Some things are better shared offline.</h3>
+              <h3 id="about-beyond-title">Some things deserve to stay outside the workspace.</h3>
             </div>
             <p>
-              New places, familiar faces, and the moments in between. A little distance from
-              the screen is often the best way to return with a fresh perspective.
+              New places, familiar faces, unexpected views and the little moments in between.
+              They give life a perspective that no screen can replace.
             </p>
           </div>
 
@@ -217,7 +217,7 @@ export default function Story() {
               <span className="about-v5-memory-card__tape" aria-hidden="true" />
               <div className="about-v5-memory-card__image">
                 <Image
-                  src="/about/mountain-memory.jpg"
+                  src="/about/mountain-memory.webp"
                   alt="A quiet mountain view shared with someone close"
                   fill
                   sizes="(max-width: 760px) 86vw, (max-width: 1200px) 42vw, 520px"
@@ -241,7 +241,7 @@ export default function Story() {
               <span className="about-v5-memory-card__tape" aria-hidden="true" />
               <div className="about-v5-memory-card__image">
                 <Image
-                  src="/about/friends-memory.png"
+                  src="/about/friends-memory-240.webp"
                   alt="Mohit sharing a moment with friends at an outdoor gathering"
                   fill
                   sizes="(max-width: 760px) 86vw, (max-width: 1200px) 42vw, 520px"
@@ -257,7 +257,7 @@ export default function Story() {
             </motion.figure>
           </div>
 
-          <p className="about-v5-beyond-signoff">Not everything worth remembering happens at a desk.</p>
+          <p className="about-v5-beyond-signoff">A little room to reset, and good people to share it with.</p>
         </motion.section>
 
         <motion.div
