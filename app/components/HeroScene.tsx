@@ -7,7 +7,6 @@ export default function HeroScene() {
       className="hero-v3"
       aria-labelledby="hero-v3-title"
     >
-      <div className="hero-v3__surface" aria-hidden="true" />
       <HeroGreeting />
     </section>
   );
