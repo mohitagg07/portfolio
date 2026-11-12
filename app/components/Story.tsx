@@ -11,271 +11,224 @@ export default function Story() {
   const reduceMotion = useReducedMotion();
 
   const reveal = (delay = 0) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 18 },
-    animate: reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
-    transition: reduceMotion ? { duration: 0 } : { duration: 0.65, delay, ease: EASE },
+    initial: reduceMotion ? false : { opacity: 0, y: 16 },
+    animate: reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.62, delay, ease: EASE },
   });
 
-  const photoReveal = (delay = 0) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 18, rotate: -1.5 },
-    whileInView: { opacity: 1, y: 0, rotate: 0 },
-    viewport: { once: true, amount: 0.24 },
-    transition: reduceMotion ? { duration: 0 } : { duration: 0.68, delay, ease: EASE },
-  });
+  const inViewReveal = {
+    initial: reduceMotion ? false : { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.14 },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.68, ease: EASE },
+  };
 
   return (
     <section
       ref={sectionRef}
       id="about"
       aria-labelledby="about-title"
-      className="about-v4-section relative isolate scroll-mt-24"
+      className="about-fieldnotes relative isolate scroll-mt-24"
     >
-      <div className="about-v4-inner mx-auto w-full">
-        <div className="about-v4-masthead">
-          <p className="about-v4-masthead__title">About Me <span aria-hidden="true" /></p>
-          <p className="about-v4-masthead__note">A little more than the work</p>
-        </div>
+      <div className="about-fieldnotes__inner mx-auto w-full">
+        <header className="about-fieldnotes__masthead">
+          <div className="about-fieldnotes__masthead-title">
+            <span>About Me</span>
+            <i aria-hidden="true" />
+          </div>
+          <p>01 / JAMMU, INDIA</p>
+        </header>
 
-        <div className="about-v4-layout">
-          <motion.div className="about-v4-collage" {...reveal(0.08)}>
-            <span className="about-v4-paper-shape" aria-hidden="true" />
-
-            <div className="about-v4-jammu-tag" aria-label="Home base: Jammu, India">
-              <span>HOME BASE</span>
-              <strong>Jammu, India</strong>
-            </div>
-
+        <div className="about-fieldnotes__intro">
+          <motion.div className="about-fieldnotes__gallery" {...reveal(0.06)}>
             <motion.figure
               data-about-portrait="true"
               data-about-interactive="portrait"
-              className="about-v4-photo about-v4-photo--main"
-              initial={reduceMotion ? false : { opacity: 0, y: 24, rotate: -4 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0, rotate: -1.6 } : { opacity: 0, y: 24, rotate: -4 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.78, delay: 0.12, ease: EASE }}
-              whileHover={reduceMotion ? undefined : { y: -7, rotate: -0.2, scale: 1.012 }}
+              className="about-fieldnotes__photo about-fieldnotes__photo--main"
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.08, ease: EASE }}
             >
               <Image
                 src="/about/about-main.webp"
                 alt="Mohit outdoors in a black shirt, among the greenery"
                 fill
-                sizes="(max-width: 760px) 76vw, (max-width: 1200px) 45vw, 620px"
-                quality={90}
-                className="about-v4-photo-image object-cover object-center"
+                sizes="(max-width: 760px) 61vw, (max-width: 1100px) 43vw, 620px"
+                quality={88}
+                className="about-fieldnotes__photo-image"
               />
             </motion.figure>
 
             <motion.figure
-              className="about-v4-photo about-v4-photo--selfie"
-              initial={reduceMotion ? false : { opacity: 0, x: 18, rotate: 8 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0, rotate: 4 } : { opacity: 0, x: 18, rotate: 8 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.68, delay: 0.3, ease: EASE }}
-              whileHover={reduceMotion ? undefined : { y: -7, rotate: 1.5, scale: 1.025 }}
+              className="about-fieldnotes__photo about-fieldnotes__photo--selfie"
+              initial={reduceMotion ? false : { opacity: 0, x: 12 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.2, ease: EASE }}
             >
               <Image
                 src="/about/about-selfie.webp"
                 alt="Mohit in a black leather jacket"
                 fill
-                sizes="(max-width: 760px) 31vw, 230px"
-                quality={90}
-                className="about-v4-photo-image object-cover object-center"
+                sizes="(max-width: 760px) 30vw, 240px"
+                quality={88}
+                className="about-fieldnotes__photo-image"
               />
             </motion.figure>
 
             <motion.figure
-              className="about-v4-photo about-v4-photo--waterfall"
-              initial={reduceMotion ? false : { opacity: 0, y: 20, rotate: 6 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0, rotate: 2.5 } : { opacity: 0, y: 20, rotate: 6 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.44, ease: EASE }}
-              whileHover={reduceMotion ? undefined : { y: -7, rotate: 0.5, scale: 1.025 }}
+              className="about-fieldnotes__photo about-fieldnotes__photo--waterfall"
+              initial={reduceMotion ? false : { opacity: 0, x: 12 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.3, ease: EASE }}
             >
               <Image
                 src="/about/about-waterfall.webp"
                 alt="Mohit visiting a waterfall"
                 fill
-                sizes="(max-width: 760px) 36vw, 260px"
-                quality={90}
-                className="about-v4-photo-image object-cover object-[50%_66%]"
+                sizes="(max-width: 760px) 30vw, 240px"
+                quality={88}
+                className="about-fieldnotes__photo-image about-fieldnotes__photo-image--waterfall"
               />
             </motion.figure>
 
-            <span className="about-v4-tape about-v4-tape--main" aria-hidden="true" />
-            <span className="about-v4-tape about-v4-tape--selfie" aria-hidden="true" />
-            <span className="about-v4-name-tag">Mohit</span>
-            <span className="about-v4-handnote">a little time away from the screen</span>
+            <span className="about-fieldnotes__gallery-index" aria-hidden="true">01—03</span>
           </motion.div>
 
-          <motion.div className="about-v4-copy-title" {...reveal(0.16)}>
-            <p className="about-v4-eyebrow">HEY, I’M MOHIT</p>
-            <h2 id="about-title" className="about-v4-title">
+          <motion.div className="about-fieldnotes__copy" {...reveal(0.14)}>
+            <p className="about-fieldnotes__eyebrow">
+              SOFTWARE ENGINEER <span aria-hidden="true">·</span> AI &amp; AUTOMATION
+            </p>
+
+            <h2 id="about-title" className="about-fieldnotes__title">
               <span>I like figuring</span>
               <span>things out.</span>
               <em>And making them work.</em>
             </h2>
-          </motion.div>
 
-          <motion.div className="about-v4-copy-body" {...reveal(0.28)}>
-            <p>
-              I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
-              I’m drawn to the parts of a project that need a bit of untangling: a slow process,
-              scattered information, or an idea that hasn’t quite become a product yet.
-            </p>
-            <p>
-              I’ve worked on web apps, automation and projects like <strong>MindCare</strong> and
-              <strong> LegalMind AI</strong>. I enjoy making a first version, seeing where it falls
-              short, and making the next one better.
-            </p>
-
-            <div className="about-v4-interests" aria-label="What I enjoy">
-              <span>Making useful things.</span>
-              <span>Finding simpler ways to work.</span>
-              <span>Exploring AI when it helps.</span>
+            <div className="about-fieldnotes__bio">
+              <p>
+                I studied Computer Science (AI &amp; Machine Learning) at <strong>VIT Chennai</strong>.
+                Most of my work starts with something that isn’t working as well as it should: a
+                manual process, scattered information, or a complex workflow. I look for where
+                software, automation or AI can turn that friction into something useful.
+              </p>
+              <p>
+                I build, test, notice what breaks, and keep improving until the solution feels
+                clear to use.
+              </p>
             </div>
 
-            <a href="#work" className="about-v4-link">
-              A few things I’ve been working on <span aria-hidden="true">↗</span>
-            </a>
+            <div className="about-fieldnotes__focus" aria-label="Areas I work across">
+              <span>AI-POWERED PRODUCTS</span>
+              <span>WORKFLOW AUTOMATION</span>
+              <span>FULL-STACK SYSTEMS</span>
+            </div>
           </motion.div>
         </div>
 
         <motion.section
-          className="about-v5-approach"
+          className="about-fieldnotes__chapter about-fieldnotes__approach"
           aria-labelledby="about-approach-title"
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
+          {...inViewReveal}
         >
-          <div className="about-v5-chapter-heading">
-            <p className="about-v5-kicker">02 <span>/</span> THE WAY I THINK</p>
-            <div>
-              <h3 id="about-approach-title">Good work starts before the first line of code.</h3>
-              <p>
-                I like understanding what is actually getting in the way, then finding a clear,
-                useful way through it. The details matter, but so does knowing which details
-                don’t need to be there.
-              </p>
-            </div>
-          </div>
-
-          <div className="about-v5-approach-list">
-            <article>
-              <span className="about-v5-number">01</span>
-              <div>
-                <h4>Understand the problem.</h4>
-                <p>Look past the request and get to what someone really needs.</p>
-              </div>
-            </article>
-            <article>
-              <span className="about-v5-number">02</span>
-              <div>
-                <h4>Make it useful.</h4>
-                <p>Build something clear, practical and dependable in everyday use.</p>
-              </div>
-            </article>
-            <article>
-              <span className="about-v5-number">03</span>
-              <div>
-                <h4>Keep making it better.</h4>
-                <p>Pay attention to what feels awkward, then refine without adding noise.</p>
-              </div>
-            </article>
-          </div>
-
-          <blockquote className="about-v5-note">
-            <span className="about-v5-note__eyebrow">A THOUGHT I COME BACK TO</span>
-            <p>The hard part should stay behind the screen.</p>
-            <cite>— Mohit</cite>
-          </blockquote>
-        </motion.section>
-
-        <motion.section
-          className="about-v5-beyond"
-          aria-labelledby="about-beyond-title"
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.16 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
-        >
-          <div className="about-v5-beyond-heading">
-            <div>
-              <p className="about-v5-kicker">03 <span>/</span> BEYOND THE SCREEN</p>
-              <h3 id="about-beyond-title">Some things deserve to stay outside the workspace.</h3>
-            </div>
-            <p>
-              New places, familiar faces, unexpected views and the little moments in between.
-              They give life a perspective that no screen can replace.
+          <div className="about-fieldnotes__chapter-heading">
+            <p className="about-fieldnotes__kicker">02 <span>/</span> HOW I APPROACH A BUILD</p>
+            <h3 id="about-approach-title">From messy inputs to something people can use.</h3>
+            <p className="about-fieldnotes__chapter-intro">
+              The work moves from understanding the friction to connecting the right tools,
+              then refining what people actually use.
             </p>
           </div>
 
-          <div className="about-v5-memory-grid">
+          <div className="about-fieldnotes__process" aria-label="My approach to building">
+            <article className="about-fieldnotes__step">
+              <span className="about-fieldnotes__step-number">01</span>
+              <div>
+                <h4>Find the friction.</h4>
+                <p>Spot the repetitive step, unclear decision, or information gap.</p>
+              </div>
+            </article>
+            <article className="about-fieldnotes__step">
+              <span className="about-fieldnotes__step-number">02</span>
+              <div>
+                <h4>Connect the pieces.</h4>
+                <p>Bring data, APIs and AI together where they make the workflow simpler.</p>
+              </div>
+            </article>
+            <article className="about-fieldnotes__step">
+              <span className="about-fieldnotes__step-number">03</span>
+              <div>
+                <h4>Make it dependable.</h4>
+                <p>Refine the interface, test edge cases, and improve the next version.</p>
+              </div>
+            </article>
+          </div>
+        </motion.section>
+
+        <motion.section
+          className="about-fieldnotes__beyond"
+          aria-labelledby="about-beyond-title"
+          {...inViewReveal}
+        >
+          <div className="about-fieldnotes__beyond-copy">
+            <p className="about-fieldnotes__kicker">03 <span>/</span> BEYOND THE SCREEN</p>
+            <h3 id="about-beyond-title">Some things deserve to stay outside the workspace.</h3>
+            <p>
+              Time outdoors, a change of scene, and good people. That’s usually enough to come
+              back with a clearer head.
+            </p>
+          </div>
+
+          <div className="about-fieldnotes__memories">
             <motion.figure
-              className="about-v5-memory-card about-v5-memory-card--mountain"
+              className="about-fieldnotes__memory"
               data-about-interactive="memory-mountain"
-              {...photoReveal(0.04)}
-              whileHover={reduceMotion ? undefined : { y: -7, rotate: -0.6, scale: 1.012 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.22 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.04, ease: EASE }}
             >
-              <span className="about-v5-memory-card__tape" aria-hidden="true" />
-              <div className="about-v5-memory-card__image">
+              <div className="about-fieldnotes__memory-image">
                 <Image
                   src="/about/mountain-memory.webp"
-                  alt="A quiet mountain view shared with someone close"
+                  alt="Two people sitting in a grassy clearing, looking out toward the trees"
                   fill
-                  sizes="(max-width: 760px) 86vw, (max-width: 1200px) 42vw, 520px"
-                  className="object-cover"
-                  style={{ objectPosition: "center 72%" }}
-                  quality={88}
+                  sizes="(max-width: 760px) 44vw, (max-width: 1100px) 32vw, 420px"
+                  quality={86}
+                  className="about-fieldnotes__memory-photo about-fieldnotes__memory-photo--outdoors"
                 />
               </div>
               <figcaption>
-                <small>AWAY FROM THE DESK</small>
-                <strong>A view worth the climb.</strong>
+                <span>OFF THE CLOCK</span>
+                <strong>A little time outdoors.</strong>
               </figcaption>
             </motion.figure>
 
             <motion.figure
-              className="about-v5-memory-card about-v5-memory-card--friends"
+              className="about-fieldnotes__memory about-fieldnotes__memory--friends"
               data-about-interactive="memory-friends"
-              {...photoReveal(0.16)}
-              whileHover={reduceMotion ? undefined : { y: -7, rotate: 0.5, scale: 1.012 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.22 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.14, ease: EASE }}
             >
-              <span className="about-v5-memory-card__tape" aria-hidden="true" />
-              <div className="about-v5-memory-card__image">
+              <div className="about-fieldnotes__memory-image">
                 <Image
-                  src="/about/friends-memory-240.webp"
-                  alt="Mohit sharing a moment with friends at an outdoor gathering"
+                  src="/about/friends-memory.webp"
+                  alt="Mohit sharing an outdoor moment with friends"
                   fill
-                  sizes="(max-width: 760px) 86vw, (max-width: 1200px) 42vw, 520px"
-                  className="object-cover"
-                  style={{ objectPosition: "center 48%" }}
-                  quality={88}
+                  sizes="(max-width: 760px) 44vw, (max-width: 1100px) 32vw, 420px"
+                  quality={86}
+                  className="about-fieldnotes__memory-photo about-fieldnotes__memory-photo--friends"
                 />
               </div>
               <figcaption>
-                <small>GOOD COMPANY</small>
+                <span>GOOD COMPANY</span>
                 <strong>Better with good people.</strong>
               </figcaption>
             </motion.figure>
           </div>
-
-          <p className="about-v5-beyond-signoff">A little room to reset, and good people to share it with.</p>
         </motion.section>
-
-        <motion.div
-          className="about-v5-next"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.62, ease: EASE }}
-        >
-          <div>
-            <p className="about-v5-kicker">04 <span>/</span> WHAT’S NEXT</p>
-            <h3>Curious about what I make?</h3>
-            <p>A closer look at the ideas, projects and experiments I’ve been working on.</p>
-          </div>
-          <a href="#work" className="about-v5-next-link">
-            Explore selected work <span aria-hidden="true">↗</span>
-          </a>
-        </motion.div>
       </div>
     </section>
   );
