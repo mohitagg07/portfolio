@@ -1,270 +1,258 @@
 "use client";
 
-import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from "motion/react";
-import {
-  FileText,
-  GitBranch,
-  LockKeyhole,
-  RotateCcw,
-  ShieldCheck,
-} from "lucide-react";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
+import { RotateCcw } from "lucide-react";
 import styles from "./EngineeringPractice.module.css";
 
-type Lens = "context" | "recovery" | "control";
+type Phase = "understand" | "build" | "challenge" | "refine";
 
-const LENSES: Array<{
-  id: Lens;
+const PHASES: Array<{
+  id: Phase;
   number: string;
   name: string;
-  short: string;
+  eyebrow: string;
   headline: string;
   description: string;
-  core: string;
-  readout: string;
-  icon: typeof FileText;
+  position: { left: string; top: string };
+  placement: string;
 }> = [
   {
-    id: "context",
+    id: "understand",
     number: "01",
-    name: "Context",
-    short: "TRACE / LINKED",
-    headline: "Nothing gets lost.",
+    name: "Understand",
+    eyebrow: "START WITH THE REAL PROBLEM",
+    headline: "Find the friction first.",
     description:
-      "Sources, decisions and the reason behind an output stay connected — so the next step starts informed, not from zero.",
-    core: "TRACE",
-    readout: "SOURCE GRAPH · CONNECTED",
-    icon: FileText,
+      "Before choosing a tool, understand the people, hand-offs and constraints around the problem. Good engineering starts with asking better questions.",
+    position: { left: "16.5%", top: "49.8%" },
+    placement: "start",
   },
   {
-    id: "recovery",
+    id: "build",
     number: "02",
-    name: "Resilience",
-    short: "RECOVERY / READY",
-    headline: "A failure is not the end.",
+    name: "Build",
+    eyebrow: "MAKE SOMETHING USEFUL",
+    headline: "Turn the idea into a working thing.",
     description:
-      "Work can retry from the point it stopped. Completed steps stay intact; the system picks up the pieces.",
-    core: "RETRY",
-    readout: "CHECKPOINT · RECOVERABLE",
-    icon: GitBranch,
+      "Connect the right pieces, keep the system understandable, and make the useful path feel natural. Start focused; leave room to grow.",
+    position: { left: "42.75%", top: "16.3%" },
+    placement: "top",
   },
   {
-    id: "control",
+    id: "challenge",
     number: "03",
-    name: "User control",
-    short: "PERMISSION / ASK",
-    headline: "The user stays in charge.",
+    name: "Challenge",
+    eyebrow: "TEST WHAT COULD GO WRONG",
+    headline: "Look for the edge cases.",
     description:
-      "Memory, persistence and consequential actions respect permission. Intelligence should never mean taking control away.",
-    core: "CHOICE",
-    readout: "PERMISSION · EXPLICIT",
-    icon: ShieldCheck,
+      "Try interrupted runs, unexpected inputs and awkward hand-offs. Reliability comes from testing the parts that are easiest to overlook.",
+    position: { left: "85.9%", top: "63%" },
+    placement: "end",
+  },
+  {
+    id: "refine",
+    number: "04",
+    name: "Refine",
+    eyebrow: "LEARN AND RETURN",
+    headline: "Keep what works. Improve the rest.",
+    description:
+      "Use what real use reveals. Remove friction, strengthen weak points, and carry those lessons into the next pass.",
+    position: { left: "52.4%", top: "79.1%" },
+    placement: "bottom",
   },
 ];
 
-const SPRING = { stiffness: 110, damping: 18, mass: 0.7 };
+const LOOP_PATH =
+  "M 132 214 C 132 137 220 63 342 70 C 453 77 488 42 590 74 C 716 113 758 203 687 271 C 616 340 521 374 419 340 C 327 309 237 369 160 310 C 93 259 85 214 132 214";
 
 export default function EngineeringPractice() {
-  const stageRef = useRef<HTMLDivElement>(null);
-  const awake = useInView(stageRef, { once: true, amount: 0.22 });
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sceneRef, { once: true, amount: 0.25 });
   const reduceMotion = useReducedMotion();
-  const [activeLens, setActiveLens] = useState<Lens>("context");
-  const [run, setRun] = useState(0);
+  const [activePhase, setActivePhase] = useState<Phase>("understand");
+  const [loopKey, setLoopKey] = useState(0);
+  const active = PHASES.find((phase) => phase.id === activePhase) ?? PHASES[0];
 
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const rotateX = useSpring(pointerX, SPRING);
-  const rotateY = useSpring(pointerY, SPRING);
-
-  const active = LENSES.find((lens) => lens.id === activeLens) ?? LENSES[0];
-
-  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (reduceMotion || event.pointerType !== "mouse") return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    pointerX.set(-y * 8);
-    pointerY.set(x * 10);
-  };
-
-  const resetPointer = () => {
-    pointerX.set(0);
-    pointerY.set(0);
-  };
+  const replayLoop = () => setLoopKey((value) => value + 1);
 
   return (
     <section className={styles.section} aria-labelledby="engineering-practice-title">
       <header className={styles.intro}>
         <p className={styles.kicker}>02 <span>/</span> HOW I APPROACH A BUILD</p>
-        <h3 id="engineering-practice-title">
-          Make complexity <em>feel effortless.</em>
-        </h3>
-        <p className={styles.summary}>
-          A system is only as good as the experience it leaves behind.
-        </p>
+        <div className={styles.headingRow}>
+          <h3 id="engineering-practice-title">
+            Build. Learn. <em>Repeat.</em>
+          </h3>
+          <p className={styles.summary}>
+            Good work rarely moves in a straight line. Every pass should make the next one better.
+          </p>
+        </div>
       </header>
 
-      <div className={styles.experience}>
-        <aside className={styles.controls} aria-label="Explore the engineering principles">
-          <p className={styles.controlEyebrow}>CHOOSE A LENS <span>↘</span></p>
+      <div className={styles.workbench}>
+        <div className={styles.loopCanvas} ref={sceneRef} data-running={inView && !reduceMotion}>
+          <div className={styles.canvasHeader}>
+            <span>THE WORKING LOOP</span>
+            <span>01—04 <i /></span>
+          </div>
 
-          <div className={styles.choices} role="group" aria-label="Choose an engineering principle">
-            {LENSES.map((lens) => {
-              const Icon = lens.icon;
-              const selected = activeLens === lens.id;
+          <div className={styles.loopStage}>
+            <svg
+              className={styles.loopSvg}
+              viewBox="0 0 800 430"
+              role="img"
+              aria-labelledby="loop-title loop-description"
+            >
+              <title id="loop-title">A continuous engineering feedback loop</title>
+              <desc id="loop-description">
+                Understand the problem, build a useful solution, challenge it with real conditions,
+                refine what you learn, and return to the problem with better understanding.
+              </desc>
 
-              return (
-                <button
-                  key={lens.id}
-                  type="button"
-                  className={styles.choice}
-                  data-active={selected}
-                  aria-pressed={selected}
-                  onClick={() => setActiveLens(lens.id)}
-                >
-                  <span className={styles.choiceIcon} aria-hidden="true">
-                    <Icon size={16} strokeWidth={1.6} />
-                  </span>
-                  <span className={styles.choiceCopy}>
-                    <small>{lens.number} / PRINCIPLE</small>
-                    <strong>{lens.name}</strong>
-                  </span>
-                  <span className={styles.choiceArrow} aria-hidden="true">↗</span>
-                </button>
-              );
-            })}
+              <defs>
+                <linearGradient id="loop-track-gradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#315e43" />
+                  <stop offset="55%" stopColor="#879b72" />
+                  <stop offset="100%" stopColor="#b88b3e" />
+                </linearGradient>
+                <filter id="loop-signal-glow" x="-300%" y="-300%" width="700%" height="700%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <path d={LOOP_PATH} className={styles.loopTrackBase} />
+              <path d={LOOP_PATH} className={styles.loopTrackAccent} />
+              <path d={LOOP_PATH} className={styles.loopTrackDash} />
+
+              <path
+                d="M 132 214 C 132 137 220 63 342 70 C 453 77 488 42 590 74 C 716 113 758 203 687 271 C 616 340 521 374 419 340 C 327 309 237 369 160 310 C 93 259 85 214 132 214"
+                className={styles.loopInnerGuide}
+              />
+
+              {PHASES.map((phase) => {
+                const coordinates = {
+                  understand: [132, 214],
+                  build: [342, 70],
+                  challenge: [687, 271],
+                  refine: [419, 340],
+                }[phase.id];
+
+                return (
+                  <g key={phase.id}>
+                    <circle
+                      cx={coordinates[0]}
+                      cy={coordinates[1]}
+                      r={activePhase === phase.id ? 12 : 8}
+                      className={styles.svgNodeHalo}
+                      data-active={activePhase === phase.id}
+                    />
+                    <circle
+                      cx={coordinates[0]}
+                      cy={coordinates[1]}
+                      r={activePhase === phase.id ? 4.5 : 3}
+                      className={styles.svgNodeCore}
+                      data-active={activePhase === phase.id}
+                    />
+                  </g>
+                );
+              })}
+
+              <text x="407" y="196" textAnchor="middle" className={styles.loopCenterTop}>
+                NOT A CHECKLIST
+              </text>
+              <text x="407" y="224" textAnchor="middle" className={styles.loopCenterMain}>
+                A way of working.
+              </text>
+              <path d="M 374 240 H 440" className={styles.loopCenterRule} />
+              <text x="407" y="258" textAnchor="middle" className={styles.loopCenterBottom}>
+                EACH PASS MAKES THE NEXT ONE BETTER
+              </text>
+
+              {inView && !reduceMotion && (
+                <g key={loopKey} filter="url(#loop-signal-glow)">
+                  <circle r="4.4" className={styles.loopSignal}>
+                    <animateMotion
+                      dur="14s"
+                      repeatCount="indefinite"
+                      rotate="auto"
+                      path={LOOP_PATH}
+                    />
+                  </circle>
+                  <circle r="1.4" fill="#fff8e8">
+                    <animateMotion
+                      dur="14s"
+                      repeatCount="indefinite"
+                      rotate="auto"
+                      path={LOOP_PATH}
+                    />
+                  </circle>
+                </g>
+              )}
+            </svg>
+
+            {PHASES.map((phase) => (
+              <button
+                key={phase.id}
+                type="button"
+                className={styles.phaseButton}
+                data-active={activePhase === phase.id}
+                data-placement={phase.placement}
+                style={phase.position}
+                aria-pressed={activePhase === phase.id}
+                onClick={() => setActivePhase(phase.id)}
+                onMouseEnter={() => setActivePhase(phase.id)}
+                onFocus={() => setActivePhase(phase.id)}
+              >
+                <span className={styles.phasePin} aria-hidden="true" />
+                <span className={styles.phaseText}>
+                  <small>{phase.number}</small>
+                  <strong>{phase.name}</strong>
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.canvasFooter}>
+            <span>THE LOOP NEVER REALLY ENDS</span>
+            <span>BACK TO THE BEGINNING <b>↶</b></span>
+          </div>
+        </div>
+
+        <aside className={styles.phaseDetail} aria-label="Selected stage of the engineering loop">
+          <div className={styles.detailTopline}>
+            <span>THE APPROACH</span>
+            <span>{active.number} <i>/ 04</i></span>
           </div>
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
-              key={activeLens}
-              className={styles.detail}
-              initial={reduceMotion ? false : { opacity: 0, y: 9, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -5, filter: "blur(3px)" }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              key={activePhase}
+              className={styles.detailContent}
+              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -5 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               aria-live="polite"
             >
-              <span className={styles.detailIndex}>{active.number} / {active.short}</span>
+              <p className={styles.detailEyebrow}>{active.eyebrow}</p>
               <h4>{active.headline}</h4>
-              <p>{active.description}</p>
+              <p className={styles.detailDescription}>{active.description}</p>
             </motion.div>
           </AnimatePresence>
 
-          <button
-            type="button"
-            className={styles.replay}
-            onClick={() => setRun((value) => value + 1)}
-          >
-            <RotateCcw size={13} strokeWidth={1.7} />
-            <span>Replay the sequence</span>
-          </button>
+          <div className={styles.detailBottom}>
+            <button type="button" className={styles.replayButton} onClick={replayLoop}>
+              <RotateCcw size={13} strokeWidth={1.7} />
+              <span>Watch it go around again</span>
+            </button>
+            <span className={styles.loopIndex}>01 — 04 — 01</span>
+          </div>
         </aside>
-
-        <div
-          ref={stageRef}
-          className={styles.stageShell}
-          data-mode={activeLens}
-          data-awake={awake ? "true" : "false"}
-        >
-          <div className={styles.stageChrome}>
-            <span><i /> SYSTEM / IN MOTION</span>
-            <span>INTERACTIVE STUDY <b>01</b></span>
-          </div>
-
-          <motion.div
-            className={styles.stage}
-            style={{ rotateX, rotateY }}
-            onPointerMove={handlePointerMove}
-            onPointerLeave={resetPointer}
-            role="img"
-            aria-label={`Three-dimensional system model highlighting ${active.name.toLowerCase()}`}
-          >
-            <div className={styles.stageAtmosphere} />
-            <div className={styles.stageGrid} />
-            <div className={styles.lightWell} />
-
-            <div className={styles.orbit + " " + styles.orbitOne} />
-            <div className={styles.orbit + " " + styles.orbitTwo} />
-            <div className={styles.orbit + " " + styles.orbitThree} />
-
-            <div className={styles.satellite + " " + styles.satelliteContext}>
-              <span className={styles.satelliteIcon}><FileText size={15} strokeWidth={1.5} /></span>
-              <span><strong>Context</strong><small>source memory</small></span>
-            </div>
-
-            <div className={styles.satellite + " " + styles.satelliteRecovery}>
-              <span className={styles.satelliteIcon}><GitBranch size={15} strokeWidth={1.5} /></span>
-              <span><strong>Recovery</strong><small>checkpoint logic</small></span>
-            </div>
-
-            <div className={styles.satellite + " " + styles.satelliteControl}>
-              <span className={styles.satelliteIcon}><LockKeyhole size={15} strokeWidth={1.5} /></span>
-              <span><strong>Permission</strong><small>human in control</small></span>
-            </div>
-
-            <div className={styles.coreAura} />
-            <div className={styles.coreCube}>
-              <div className={styles.coreFace + " " + styles.faceFront}>
-                <span className={styles.corePulse} />
-                <span className={styles.coreGlyph}>✳</span>
-                <strong>{active.core}</strong>
-                <small>ENGINE / 01</small>
-              </div>
-              <div className={styles.coreFace + " " + styles.faceBack}>
-                <span className={styles.faceCode}>01</span>
-              </div>
-              <div className={styles.coreFace + " " + styles.faceRight}>
-                <span className={styles.faceCode}>AI</span>
-              </div>
-              <div className={styles.coreFace + " " + styles.faceLeft}>
-                <span className={styles.faceCode}>↗</span>
-              </div>
-              <div className={styles.coreFace + " " + styles.faceTop}>
-                <span className={styles.faceCode}>✳</span>
-              </div>
-              <div className={styles.coreFace + " " + styles.faceBottom} />
-            </div>
-
-            <div className={styles.centerHalo} />
-            {awake && (
-              <motion.span
-                key={run}
-                className={styles.signalPulse}
-                initial={{ opacity: 0, scale: 0.55 }}
-                animate={{ opacity: [0, 0.72, 0], scale: [0.6, 1.35, 1.85] }}
-                transition={{ duration: 2.2, ease: "easeOut" }}
-              />
-            )}
-            <span className={styles.axisMark + " " + styles.axisTop}>X / 01</span>
-            <span className={styles.axisMark + " " + styles.axisBottom}>Y / 02</span>
-          </motion.div>
-
-          <div className={styles.stageReadout}>
-            <span className={styles.readoutLive}><i /> LIVE MODEL</span>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={activeLens}
-                className={styles.readoutValue}
-                initial={reduceMotion ? false : { opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
-                transition={{ duration: reduceMotion ? 0 : 0.22 }}
-              >
-                {active.readout}
-              </motion.span>
-            </AnimatePresence>
-            <span className={styles.tiltHint}>MOVE TO TILT <b>↗</b></span>
-          </div>
-        </div>
       </div>
     </section>
   );
