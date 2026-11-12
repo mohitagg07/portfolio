@@ -1,157 +1,268 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "motion/react";
+import {
+  FileText,
+  GitBranch,
+  LockKeyhole,
+  RotateCcw,
+  ShieldCheck,
+} from "lucide-react";
 import styles from "./EngineeringPractice.module.css";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+type Lens = "context" | "recovery" | "control";
+
+const LENSES: Array<{
+  id: Lens;
+  number: string;
+  name: string;
+  short: string;
+  headline: string;
+  description: string;
+  core: string;
+  readout: string;
+  icon: typeof FileText;
+}> = [
+  {
+    id: "context",
+    number: "01",
+    name: "Context",
+    short: "TRACE / LINKED",
+    headline: "Nothing gets lost.",
+    description:
+      "Sources, decisions and the reason behind an output stay connected — so the next step starts informed, not from zero.",
+    core: "TRACE",
+    readout: "SOURCE GRAPH · CONNECTED",
+    icon: FileText,
+  },
+  {
+    id: "recovery",
+    number: "02",
+    name: "Resilience",
+    short: "RECOVERY / READY",
+    headline: "A failure is not the end.",
+    description:
+      "Work can retry from the point it stopped. Completed steps stay intact; the system picks up the pieces.",
+    core: "RETRY",
+    readout: "CHECKPOINT · RECOVERABLE",
+    icon: GitBranch,
+  },
+  {
+    id: "control",
+    number: "03",
+    name: "User control",
+    short: "PERMISSION / ASK",
+    headline: "The user stays in charge.",
+    description:
+      "Memory, persistence and consequential actions respect permission. Intelligence should never mean taking control away.",
+    core: "CHOICE",
+    readout: "PERMISSION · EXPLICIT",
+    icon: ShieldCheck,
+  },
+];
+
+const SPRING = { stiffness: 110, damping: 18, mass: 0.7 };
 
 export default function EngineeringPractice() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const entered = useInView(sceneRef, { once: true, amount: 0.28 });
+  const stageRef = useRef<HTMLDivElement>(null);
+  const awake = useInView(stageRef, { once: true, amount: 0.22 });
   const reduceMotion = useReducedMotion();
-  const shouldAnimate = entered && !reduceMotion;
+  const [activeLens, setActiveLens] = useState<Lens>("context");
+  const [run, setRun] = useState(0);
+
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rotateX = useSpring(pointerX, SPRING);
+  const rotateY = useSpring(pointerY, SPRING);
+
+  const active = LENSES.find((lens) => lens.id === activeLens) ?? LENSES[0];
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (reduceMotion || event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    pointerX.set(-y * 8);
+    pointerY.set(x * 10);
+  };
+
+  const resetPointer = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
 
   return (
     <section className={styles.section} aria-labelledby="engineering-practice-title">
       <header className={styles.intro}>
         <p className={styles.kicker}>02 <span>/</span> HOW I APPROACH A BUILD</p>
         <h3 id="engineering-practice-title">
-          Make complexity <em>dependable.</em>
+          Make complexity <em>feel effortless.</em>
         </h3>
         <p className={styles.summary}>
-          Built around context, resilience and human control.
+          A system is only as good as the experience it leaves behind.
         </p>
       </header>
 
-      <div className={styles.visual} ref={sceneRef}>
-        <svg
-          className={styles.desktopSvg}
-          viewBox="0 0 1080 320"
-          role="img"
-          aria-labelledby="engineering-visual-title engineering-visual-description"
+      <div className={styles.experience}>
+        <aside className={styles.controls} aria-label="Explore the engineering principles">
+          <p className={styles.controlEyebrow}>CHOOSE A LENS <span>↘</span></p>
+
+          <div className={styles.choices} role="group" aria-label="Choose an engineering principle">
+            {LENSES.map((lens) => {
+              const Icon = lens.icon;
+              const selected = activeLens === lens.id;
+
+              return (
+                <button
+                  key={lens.id}
+                  type="button"
+                  className={styles.choice}
+                  data-active={selected}
+                  aria-pressed={selected}
+                  onClick={() => setActiveLens(lens.id)}
+                >
+                  <span className={styles.choiceIcon} aria-hidden="true">
+                    <Icon size={16} strokeWidth={1.6} />
+                  </span>
+                  <span className={styles.choiceCopy}>
+                    <small>{lens.number} / PRINCIPLE</small>
+                    <strong>{lens.name}</strong>
+                  </span>
+                  <span className={styles.choiceArrow} aria-hidden="true">↗</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={activeLens}
+              className={styles.detail}
+              initial={reduceMotion ? false : { opacity: 0, y: 9, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -5, filter: "blur(3px)" }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              aria-live="polite"
+            >
+              <span className={styles.detailIndex}>{active.number} / {active.short}</span>
+              <h4>{active.headline}</h4>
+              <p>{active.description}</p>
+            </motion.div>
+          </AnimatePresence>
+
+          <button
+            type="button"
+            className={styles.replay}
+            onClick={() => setRun((value) => value + 1)}
+          >
+            <RotateCcw size={13} strokeWidth={1.7} />
+            <span>Replay the sequence</span>
+          </button>
+        </aside>
+
+        <div
+          ref={stageRef}
+          className={styles.stageShell}
+          data-mode={activeLens}
+          data-awake={awake ? "true" : "false"}
         >
-          <title id="engineering-visual-title">One connected approach to dependable software</title>
-          <desc id="engineering-visual-description">
-            Documents, workflows and conversations enter one system. It keeps context traceable,
-            recovers unfinished work and respects user permission before producing a dependable outcome.
-          </desc>
-
-          <rect x="1" y="1" width="1078" height="318" rx="10" fill="#f5f2e9" stroke="#ded8c9" />
-
-          <text x="48" y="62" className={styles.svgMono}>MANY INPUTS</text>
-
-          <g className={styles.inputIcon}>
-            <path d="M51 96h14l7 7v19H51z M65 96v8h7 M56 111h11 M56 116h11" />
-            <path d="M51 151h21 M51 157h15 M51 163h18" />
-            <path d="M51 198h21v14H60l-6 5v-5h-3z" />
-          </g>
-          <text x="88" y="114" className={styles.svgInput}>Documents</text>
-          <text x="88" y="163" className={styles.svgInput}>Live workflows</text>
-          <text x="88" y="210" className={styles.svgInput}>Conversations</text>
-
-          <path
-            d="M207 112 C238 112 239 160 270 160 M207 160 H270 M207 208 C238 208 239 160 270 160"
-            fill="none"
-            stroke="#b9bcae"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-          />
-          <circle cx="270" cy="160" r="4" fill="#b88b3e" />
-
-          <path d="M270 160H866" fill="none" stroke="#c9cbbb" strokeWidth="2" strokeLinecap="round" />
-          <motion.path
-            d="M270 160H866"
-            fill="none"
-            stroke="#b88b3e"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={shouldAnimate ? { pathLength: 1 } : { pathLength: 0 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 1.55, delay: 0.18, ease: EASE }}
-          />
-
-          <g>
-            <text x="382" y="66" textAnchor="middle" className={styles.svgStageNo}>01 / CONTEXT</text>
-            <text x="382" y="91" textAnchor="middle" className={styles.svgStageTitle}>Keep context</text>
-            <circle cx="382" cy="160" r="25" fill="#f5f2e9" stroke="#b9c5ad" strokeWidth="1.5" />
-            <rect x="373" y="148" width="18" height="24" rx="2.5" fill="none" stroke="#315a40" strokeWidth="1.5" />
-            <path d="M377 155h10 M377 160h10 M377 165h7" fill="none" stroke="#315a40" strokeWidth="1.35" strokeLinecap="round" />
-            <text x="382" y="222" textAnchor="middle" className={styles.svgCaption}>Sources stay traceable</text>
-          </g>
-
-          <g>
-            <text x="548" y="66" textAnchor="middle" className={styles.svgStageNo}>02 / RESILIENCE</text>
-            <text x="548" y="91" textAnchor="middle" className={styles.svgStageTitle}>Recover safely</text>
-            <circle cx="548" cy="160" r="25" fill="#f5f2e9" stroke="#b9c5ad" strokeWidth="1.5" />
-            <path d="M558 154a11 11 0 0 0-19-5l-3 3 M536 148h-1v-7 M538 166a11 11 0 0 0 19 5l3-3 M560 172h1v7" fill="none" stroke="#315a40" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-            <text x="548" y="222" textAnchor="middle" className={styles.svgCaption}>Retry what did not finish</text>
-          </g>
-
-          <g>
-            <text x="714" y="66" textAnchor="middle" className={styles.svgStageNo}>03 / PERMISSION</text>
-            <text x="714" y="91" textAnchor="middle" className={styles.svgStageTitle}>Respect choice</text>
-            <circle cx="714" cy="160" r="25" fill="#f5f2e9" stroke="#b9c5ad" strokeWidth="1.5" />
-            <rect x="702" y="154" width="24" height="12" rx="6" fill="#e4e9dc" stroke="#315a40" strokeWidth="1.3" />
-            <circle cx="708" cy="160" r="4" fill="#315a40" />
-            <text x="714" y="222" textAnchor="middle" className={styles.svgCaption}>Save only with consent</text>
-          </g>
-
-          <motion.circle
-            cx="270"
-            cy="160"
-            r="4.5"
-            fill="#b88b3e"
-            initial={{ opacity: 0 }}
-            animate={shouldAnimate ? { cx: [270, 382, 548, 714, 866], opacity: [0, 1, 1, 1, 0] } : { opacity: 0 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 2.1, delay: 0.35, times: [0, 0.22, 0.48, 0.74, 1], ease: "linear" }}
-          />
-
-          <path d="M866 160H890" fill="none" stroke="#b88b3e" strokeWidth="1.8" strokeLinecap="round" />
-          <rect x="890" y="112" width="148" height="96" rx="7" fill="#18372a" />
-          <text x="908" y="139" className={styles.svgOutputMeta}>THE OUTCOME</text>
-          <text x="908" y="166" className={styles.svgOutputTitle}>Ready to use.</text>
-          <path d="M908 178h112" stroke="#6c846f" strokeWidth="1" />
-          <text x="908" y="194" className={styles.svgOutputFoot}>grounded · recoverable</text>
-
-          <text x="48" y="278" className={styles.svgFoot}>ONE SYSTEM. DIFFERENT INPUTS.</text>
-          <text x="1038" y="278" textAnchor="end" className={styles.svgFoot}>BUILT FOR REAL USE</text>
-        </svg>
-
-        <div className={styles.mobileScene} aria-label="One connected approach: context, resilience and user control">
-          <div className={styles.mobileInputs}>
-            <span>INPUTS</span>
-            <p>Documents <i>·</i> workflows <i>·</i> conversations</p>
+          <div className={styles.stageChrome}>
+            <span><i /> SYSTEM / IN MOTION</span>
+            <span>INTERACTIVE STUDY <b>01</b></span>
           </div>
 
-          <div className={styles.mobileStages}>
-            <div className={styles.mobileStage}>
-              <span className={styles.mobileNumber}>01</span>
-              <div>
-                <strong>Keep context</strong>
-                <p>Sources stay traceable.</p>
-              </div>
-            </div>
-            <div className={styles.mobileStage}>
-              <span className={styles.mobileNumber}>02</span>
-              <div>
-                <strong>Recover safely</strong>
-                <p>Retry what did not finish.</p>
-              </div>
-            </div>
-            <div className={styles.mobileStage}>
-              <span className={styles.mobileNumber}>03</span>
-              <div>
-                <strong>Respect choice</strong>
-                <p>Save only with consent.</p>
-              </div>
-            </div>
-          </div>
+          <motion.div
+            className={styles.stage}
+            style={{ rotateX, rotateY }}
+            onPointerMove={handlePointerMove}
+            onPointerLeave={resetPointer}
+            role="img"
+            aria-label={`Three-dimensional system model highlighting ${active.name.toLowerCase()}`}
+          >
+            <div className={styles.stageAtmosphere} />
+            <div className={styles.stageGrid} />
+            <div className={styles.lightWell} />
 
-          <div className={styles.mobileOutcome}>
-            <span>THE OUTCOME</span>
-            <strong>Ready to use.</strong>
-            <small>Grounded · recoverable · user-controlled</small>
+            <div className={styles.orbit + " " + styles.orbitOne} />
+            <div className={styles.orbit + " " + styles.orbitTwo} />
+            <div className={styles.orbit + " " + styles.orbitThree} />
+
+            <div className={styles.satellite + " " + styles.satelliteContext}>
+              <span className={styles.satelliteIcon}><FileText size={15} strokeWidth={1.5} /></span>
+              <span><strong>Context</strong><small>source memory</small></span>
+            </div>
+
+            <div className={styles.satellite + " " + styles.satelliteRecovery}>
+              <span className={styles.satelliteIcon}><GitBranch size={15} strokeWidth={1.5} /></span>
+              <span><strong>Recovery</strong><small>checkpoint logic</small></span>
+            </div>
+
+            <div className={styles.satellite + " " + styles.satelliteControl}>
+              <span className={styles.satelliteIcon}><LockKeyhole size={15} strokeWidth={1.5} /></span>
+              <span><strong>Permission</strong><small>human in control</small></span>
+            </div>
+
+            <div className={styles.coreAura} />
+            <div className={styles.coreCube}>
+              <div className={styles.coreFace + " " + styles.faceFront}>
+                <span className={styles.corePulse} />
+                <span className={styles.coreGlyph}>✳</span>
+                <strong>{active.core}</strong>
+                <small>ENGINE / 01</small>
+              </div>
+              <div className={styles.coreFace + " " + styles.faceBack}>
+                <span className={styles.faceCode}>01</span>
+              </div>
+              <div className={styles.coreFace + " " + styles.faceRight}>
+                <span className={styles.faceCode}>AI</span>
+              </div>
+              <div className={styles.coreFace + " " + styles.faceLeft}>
+                <span className={styles.faceCode}>↗</span>
+              </div>
+              <div className={styles.coreFace + " " + styles.faceTop}>
+                <span className={styles.faceCode}>✳</span>
+              </div>
+              <div className={styles.coreFace + " " + styles.faceBottom} />
+            </div>
+
+            <div className={styles.centerHalo} />
+            {awake && (
+              <motion.span
+                key={run}
+                className={styles.signalPulse}
+                initial={{ opacity: 0, scale: 0.55 }}
+                animate={{ opacity: [0, 0.72, 0], scale: [0.6, 1.35, 1.85] }}
+                transition={{ duration: 2.2, ease: "easeOut" }}
+              />
+            )}
+            <span className={styles.axisMark + " " + styles.axisTop}>X / 01</span>
+            <span className={styles.axisMark + " " + styles.axisBottom}>Y / 02</span>
+          </motion.div>
+
+          <div className={styles.stageReadout}>
+            <span className={styles.readoutLive}><i /> LIVE MODEL</span>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={activeLens}
+                className={styles.readoutValue}
+                initial={reduceMotion ? false : { opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
+                transition={{ duration: reduceMotion ? 0 : 0.22 }}
+              >
+                {active.readout}
+              </motion.span>
+            </AnimatePresence>
+            <span className={styles.tiltHint}>MOVE TO TILT <b>↗</b></span>
           </div>
         </div>
       </div>
