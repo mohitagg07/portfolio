@@ -11,25 +11,29 @@ const PROJECTS: Array<{
   id: ProjectKey;
   number: string;
   name: string;
+  discipline: string;
   insight: string;
 }> = [
   {
     id: "legal",
     number: "01",
     name: "LegalMind AI",
-    insight: "An answer should show where it came from.",
+    discipline: "DOCUMENT INTELLIGENCE",
+    insight: "Keep source structure and references intact.",
   },
   {
     id: "pipeline",
     number: "02",
     name: "Business pipeline",
-    insight: "A timeout shouldn't waste the work already done.",
+    discipline: "WORKFLOW ENGINEERING",
+    insight: "Retry unfinished work. Leave completed work untouched.",
   },
   {
     id: "mindcare",
     number: "03",
     name: "MindCare",
-    insight: "Memory should be chosen, never assumed.",
+    discipline: "CONVERSATIONAL AI",
+    insight: "Saved context stays under the user's control.",
   },
 ];
 
@@ -37,8 +41,6 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function EngineeringPractice() {
   const [active, setActive] = useState<ProjectKey>("legal");
-  const [guardrailApplied, setGuardrailApplied] = useState(false);
-  const [pipelineRetried, setPipelineRetried] = useState(false);
   const [memoryEnabled, setMemoryEnabled] = useState(false);
   const reduceMotion = useReducedMotion();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -73,24 +75,27 @@ export default function EngineeringPractice() {
       <div className={styles.intro}>
         <p className={styles.kicker}>02 <span>/</span> THE DETAILS THAT MATTER</p>
         <h3 id="engineering-practice-title">
-          The details are where <em>trust is built.</em>
+          What happens <em>underneath</em> matters.
         </h3>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.p
+          <motion.div
             key={active}
             className={styles.insight}
-            initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 7 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.24, ease: EASE }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -5 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease: EASE }}
           >
-            {activeProject.insight}
-          </motion.p>
+            <span className={styles.projectMeta}>
+              {activeProject.number} / {activeProject.discipline}
+            </span>
+            <p>{activeProject.insight}</p>
+          </motion.div>
         </AnimatePresence>
       </div>
 
       <div className={styles.experience}>
-        <div className={styles.tabs} role="tablist" aria-label="Try an engineering decision">
+        <div className={styles.tabs} role="tablist" aria-label="Explore engineering decisions">
           {PROJECTS.map((project, index) => (
             <button
               key={project.id}
@@ -119,289 +124,217 @@ export default function EngineeringPractice() {
           aria-labelledby={`engineering-tab-${active}`}
           tabIndex={0}
         >
-          <div className={styles.demoShell}>
-            <div className={styles.demoHeader}>
-              <span>{activeProject.name}</span>
-              <span className={styles.demoMode}>INTERACTIVE EXAMPLE</span>
-            </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={active}
+              className={styles.scene}
+              initial={reduceMotion ? false : { opacity: 0, y: 8, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -5, scale: 0.995 }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.38, ease: EASE }}
+            >
+              {active === "legal" && <LegalScene reduceMotion={Boolean(reduceMotion)} />}
+              {active === "pipeline" && <PipelineScene reduceMotion={Boolean(reduceMotion)} />}
+              {active === "mindcare" && (
+                <MindCareScene memoryEnabled={memoryEnabled} reduceMotion={Boolean(reduceMotion)} />
+              )}
+            </motion.div>
+          </AnimatePresence>
 
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={active}
-                className={styles.demoStage}
-                initial={reduceMotion ? false : { opacity: 0, y: 7 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: EASE }}
+          {active === "mindcare" && (
+            <div className={styles.memoryControlRow}>
+              <span className={styles.memoryHint}>Preview user-controlled memory</span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={memoryEnabled}
+                aria-label="Save this conversation context"
+                className={styles.memorySwitch}
+                onClick={() => setMemoryEnabled((enabled) => !enabled)}
               >
-                {active === "legal" && (
-                  <LegalDemo
-                    applied={guardrailApplied}
-                    onToggle={() => setGuardrailApplied((value) => !value)}
-                    reduceMotion={Boolean(reduceMotion)}
-                  />
-                )}
-                {active === "pipeline" && (
-                  <PipelineDemo
-                    retried={pipelineRetried}
-                    onRetry={() => setPipelineRetried((value) => !value)}
-                    reduceMotion={Boolean(reduceMotion)}
-                  />
-                )}
-                {active === "mindcare" && (
-                  <MindCareDemo
-                    enabled={memoryEnabled}
-                    onToggle={() => setMemoryEnabled((value) => !value)}
-                    reduceMotion={Boolean(reduceMotion)}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
+                <span className={styles.switchTrack} data-enabled={memoryEnabled}>
+                  <span className={styles.switchThumb} />
+                </span>
+                <span>{memoryEnabled ? "Memory on" : "Memory off"}</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-function LegalDemo({
-  applied,
-  onToggle,
-  reduceMotion,
-}: {
-  applied: boolean;
-  onToggle: () => void;
-  reduceMotion: boolean;
-}) {
-  const response = applied
-    ? "Plain-English note: This clause leaves liability uncapped for indirect losses. Commercial agreements often negotiate a mutual cap tied to contract value."
-    : "You must reject this contract immediately and refuse to sign Clause 14.2.";
-
+function LegalScene({ reduceMotion }: { reduceMotion: boolean }) {
   return (
-    <div className={styles.legalDemo}>
-      <div className={styles.sourceCard}>
-        <div className={styles.cardOverline}>
-          <span>SOURCE</span>
-          <span>14.2</span>
-        </div>
-        <h4>Indemnity clause</h4>
-        <p>
-          Receiving Party shall indemnify Disclosing Party against all indirect or consequential losses
-          <mark> without cap.</mark>
-        </p>
-        <span className={styles.sourceFoot}>Original wording stays attached</span>
-      </div>
+    <>
+      <svg className={styles.desktopSvg} viewBox="0 0 660 250" role="img" aria-label="A contract clause passes through a safety check and becomes a neutral explanation">
+        <defs>
+          <linearGradient id="legal-card" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#fffdf7" />
+            <stop offset="1" stopColor="#f5f0e4" />
+          </linearGradient>
+        </defs>
 
-      <div className={styles.decisionRail} aria-hidden="true">
-        <motion.span
-          className={styles.railLine}
-          animate={{ scaleY: applied ? 1 : 0.45, opacity: applied ? 1 : 0.55 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.35, ease: EASE }}
+        <rect x="18" y="28" width="188" height="186" rx="7" fill="url(#legal-card)" stroke="#d8d0bd" />
+        <text x="36" y="51" className={styles.svgMono}>SOURCE DOCUMENT</text>
+        <text x="36" y="76" className={styles.svgSerif}>Service agreement</text>
+        <path d="M36 91H185 M36 101H169 M36 111H180" stroke="#c9c3b5" strokeWidth="3" strokeLinecap="round" />
+        <rect x="30" y="126" width="164" height="43" rx="4" fill="#e6ecd9" />
+        <text x="42" y="143" className={styles.svgStrong}>14.2 / LIABILITY</text>
+        <path d="M42 153H176 M42 160H151" stroke="#879b7b" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M36 184H179" stroke="#d5cfc1" strokeWidth="2.4" strokeLinecap="round" />
+
+        <motion.path
+          d="M207 147 C239 147 242 110 276 110 H310"
+          fill="none"
+          stroke="#b48b43"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          initial={reduceMotion ? false : { pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.85, delay: 0.12, ease: EASE }}
         />
-        <span className={styles.railNode}>{applied ? "✓" : "!"}</span>
-        <span className={styles.railLabel}>SAFETY</span>
-      </div>
+        <motion.circle cx="310" cy="110" r="5" fill="#b48b43" initial={reduceMotion ? false : { scale: 0 }} animate={{ scale: 1 }} transition={{ delay: reduceMotion ? 0 : 0.7 }} />
+        <circle cx="335" cy="110" r="28" fill="#e7ecdc" stroke="#c3cdb4" />
+        <path d="M324 110L332 118L347 100" fill="none" stroke="#315a40" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="335" y="157" textAnchor="middle" className={styles.svgMono}>SAFETY CHECK</text>
 
-      <div className={styles.responseCard} data-guarded={applied}>
-        <div className={styles.cardOverline}>
-          <span>{applied ? "GUARDED RESPONSE" : "MODEL DRAFT"}</span>
-          <span className={applied ? styles.stateGood : styles.stateNeedsReview}>
-            {applied ? "REVIEWED" : "NEEDS REVIEW"}
-          </span>
-        </div>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.p
-            key={applied ? "guarded" : "draft"}
-            className={styles.responseText}
-            initial={reduceMotion ? false : { opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.22, ease: EASE }}
-            aria-live="polite"
-          >
-            {response}
-          </motion.p>
-        </AnimatePresence>
-        <span className={styles.responseSource}>
-          {applied ? "↳ Source retained · Clause 14.2" : "↳ Source reference not yet attached"}
-        </span>
-      </div>
+        <motion.path
+          d="M364 110 C390 110 393 110 420 110"
+          fill="none"
+          stroke="#b48b43"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          initial={reduceMotion ? false : { pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.7, delay: 0.45, ease: EASE }}
+        />
+        <rect x="424" y="48" width="216" height="132" rx="7" fill="#18372a" />
+        <text x="442" y="72" className={styles.svgMonoLight}>PLAIN-ENGLISH NOTE</text>
+        <path d="M442 84H621" stroke="#6c846f" strokeWidth="1" />
+        <text x="442" y="108" className={styles.svgLightStrong}>Liability is uncapped</text>
+        <text x="442" y="128" className={styles.svgLight}>for indirect losses.</text>
+        <text x="442" y="151" className={styles.svgLightMuted}>Source clause 14.2</text>
+        <rect x="442" y="160" width="84" height="5" rx="2.5" fill="#c7d5a6" opacity=".82" />
+        <text x="36" y="232" className={styles.svgMono}>CLAUSE ORDER PRESERVED</text>
+        <text x="624" y="232" textAnchor="end" className={styles.svgMono}>GROUNDED RESPONSE</text>
+      </svg>
 
-      <div className={styles.demoAction}>
-        <span className={styles.actionNote}>
-          {applied ? "Prescriptive wording intercepted." : "See what the safety layer changes."}
-        </span>
-        <button type="button" className={styles.actionButton} onClick={onToggle}>
-          {applied ? "View original draft" : "Apply safety check"}
-          <span aria-hidden="true">↗</span>
-        </button>
+      <div className={styles.mobileFlow} aria-hidden="true">
+        <div><span className={styles.mobileNode}>01</span><strong>Source clause</strong><small>14.2 / Liability</small></div>
+        <span className={styles.mobileConnector} />
+        <div><span className={styles.mobileNode}>02</span><strong>Safety check</strong><small>Prescriptive wording intercepted</small></div>
+        <span className={styles.mobileConnector} />
+        <div><span className={styles.mobileNode}>03</span><strong>Grounded note</strong><small>Neutral explanation · source 14.2</small></div>
       </div>
-    </div>
+    </>
   );
 }
 
-function PipelineDemo({
-  retried,
-  onRetry,
-  reduceMotion,
-}: {
-  retried: boolean;
-  onRetry: () => void;
-  reduceMotion: boolean;
-}) {
+function PipelineScene({ reduceMotion }: { reduceMotion: boolean }) {
   return (
-    <div className={styles.pipelineDemo}>
-      <div className={styles.pipelineTopline}>
-        <span>ASYNC JOB</span>
-        <span className={retried ? styles.stateGood : styles.stateNeedsReview}>
-          {retried ? "COMPLETED" : "TIMED OUT"}
-        </span>
-      </div>
+    <>
+      <svg className={styles.desktopSvg} viewBox="0 0 660 250" role="img" aria-label="Business records are validated, a failed job retries, and duplicate records resolve into one entity">
+        <text x="22" y="25" className={styles.svgMono}>INCOMING RECORDS</text>
+        <rect x="18" y="39" width="190" height="44" rx="6" fill="#fffdf7" stroke="#d8d0bd" />
+        <text x="32" y="57" className={styles.svgStrong}>RECORD 01</text>
+        <text x="32" y="72" className={styles.svgSmall}>website · phone</text>
 
-      <div className={styles.jobTrack}>
-        <div className={styles.jobStep}>
-          <span className={styles.jobIcon}>01</span>
-          <span className={styles.jobLabel}>Collect</span>
-          <span className={styles.jobStatus}>Done</span>
-        </div>
-        <motion.div
-          className={styles.jobConnector}
-          animate={{ backgroundColor: retried ? "#9eac8d" : "#c9c1af" }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.3 }}
-        />
-        <div className={styles.jobStep}>
-          <motion.span
-            className={styles.jobIcon}
-            data-retried={retried}
-            animate={retried ? { rotate: 0, scale: 1 } : { rotate: 0, scale: 1 }}
-          >
-            {retried ? "✓" : "!"}
-          </motion.span>
-          <span className={styles.jobLabel}>Fetch</span>
-          <span className={retried ? styles.stateGood : styles.stateNeedsReview}>
-            {retried ? "Retried" : "Timeout"}
-          </span>
-        </div>
-        <motion.div
-          className={styles.jobConnector}
-          animate={{ backgroundColor: retried ? "#9eac8d" : "#c9c1af", scaleX: retried ? 1 : 0.55 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: EASE }}
-        />
-        <div className={styles.jobStep}>
-          <span className={styles.jobIcon}>03</span>
-          <span className={styles.jobLabel}>Validate</span>
-          <span className={styles.jobStatus}>{retried ? "Ready" : "Waiting"}</span>
-        </div>
-      </div>
+        <rect x="18" y="93" width="190" height="44" rx="6" fill="#fffdf7" stroke="#d8d0bd" />
+        <text x="32" y="111" className={styles.svgStrong}>RECORD 02</text>
+        <text x="32" y="126" className={styles.svgSmall}>same business · variant URL</text>
 
-      <div className={styles.mergeExample}>
-        <div className={styles.mergeLabel}>DUPLICATE CHECK <span>ILLUSTRATIVE RECORDS</span></div>
-        <div className={styles.mergeRows}>
-          <motion.div
-            className={styles.recordPair}
-            animate={retried ? { x: 18, opacity: 0.42 } : { x: 0, opacity: 1 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.38, ease: EASE }}
-          >
-            <span>northstar.example</span>
-            <span>www.northstar.example</span>
-          </motion.div>
-          <motion.span
-            className={styles.mergeArrow}
-            animate={retried ? { scale: 1.08, opacity: 1 } : { scale: 1, opacity: 0.65 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.3 }}
-            aria-hidden="true"
-          >
-            →
-          </motion.span>
-          <motion.div
-            className={styles.canonicalRecord}
-            animate={retried ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0.62, scale: 0.97, y: 3 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.38, ease: EASE }}
-          >
-            <span className={styles.canonicalDot} />
-            <span>{retried ? "One verified record" : "Canonical record"}</span>
-          </motion.div>
-        </div>
-      </div>
+        <rect x="18" y="147" width="190" height="44" rx="6" fill="#f6ead9" stroke="#d7bd91" strokeDasharray="4 4" />
+        <text x="32" y="165" className={styles.svgStrong}>RECORD 03</text>
+        <text x="32" y="180" className={styles.svgSmall}>temporary timeout</text>
 
-      <div className={styles.demoAction}>
-        <span className={styles.actionNote} aria-live="polite">
-          {retried ? "The retry rejoins the completed run." : "Completed work stays untouched."}
-        </span>
-        <button type="button" className={styles.actionButton} onClick={onRetry}>
-          {retried ? "Reset example" : "Retry failed job"}
-          <span aria-hidden="true">↗</span>
-        </button>
+        <motion.path d="M209 61 C240 61 242 104 275 104" fill="none" stroke="#87987a" strokeWidth="1.8" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={reduceMotion ? { duration: 0 } : { duration: .6, delay: .1 }} />
+        <motion.path d="M209 115H275" fill="none" stroke="#87987a" strokeWidth="1.8" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={reduceMotion ? { duration: 0 } : { duration: .6, delay: .25 }} />
+        <motion.path d="M209 169 C242 169 242 130 275 130" fill="none" stroke="#b48b43" strokeWidth="1.6" strokeDasharray="4 4" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={reduceMotion ? { duration: 0 } : { duration: .7, delay: .4 }} />
+
+        <rect x="276" y="76" width="112" height="86" rx="8" fill="#e8ecdf" stroke="#c8d1bb" />
+        <circle cx="332" cy="101" r="13" fill="#d4ddc8" />
+        <path d="M326 101L331 106L339 96" fill="none" stroke="#315a40" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="332" y="129" textAnchor="middle" className={styles.svgStrong}>VALIDATE</text>
+        <text x="332" y="144" textAnchor="middle" className={styles.svgSmall}>normalise</text>
+        <text x="332" y="180" textAnchor="middle" className={styles.svgMono}>RETRY + RESUME</text>
+
+        <motion.path d="M333 191 C333 214 252 214 252 183 C252 171 264 169 276 169" fill="none" stroke="#b48b43" strokeWidth="1.7" strokeDasharray="4 4" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={reduceMotion ? { duration: 0 } : { duration: .8, delay: .45 }} />
+        <motion.path d="M389 119H437" fill="none" stroke="#87987a" strokeWidth="1.8" strokeLinecap="round" initial={reduceMotion ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={reduceMotion ? { duration: 0 } : { duration: .6, delay: .55 }} />
+
+        <rect x="440" y="69" width="198" height="106" rx="8" fill="#18372a" />
+        <text x="458" y="91" className={styles.svgMonoLight}>CANONICAL ENTITY</text>
+        <path d="M458 101H620" stroke="#6c846f" strokeWidth="1" />
+        <text x="458" y="125" className={styles.svgLightStrong}>One clean record</text>
+        <text x="458" y="145" className={styles.svgLight}>validated fields</text>
+        <text x="458" y="161" className={styles.svgLightMuted}>duplicates resolved</text>
+        <text x="18" y="232" className={styles.svgMono}>COMPLETED WORK STAYS COMPLETED</text>
+        <text x="638" y="232" textAnchor="end" className={styles.svgMono}>READY TO SYNC</text>
+      </svg>
+
+      <div className={styles.mobileFlow} aria-hidden="true">
+        <div><span className={styles.mobileNode}>01</span><strong>Incoming records</strong><small>Mixed formats · duplicate entries</small></div>
+        <span className={styles.mobileConnector} />
+        <div><span className={styles.mobileNode}>02</span><strong>Retry &amp; validate</strong><small>Recover failed work · normalise fields</small></div>
+        <span className={styles.mobileConnector} />
+        <div><span className={styles.mobileNode}>03</span><strong>One canonical record</strong><small>Duplicates resolved · ready to sync</small></div>
       </div>
-    </div>
+    </>
   );
 }
 
-function MindCareDemo({
-  enabled,
-  onToggle,
-  reduceMotion,
-}: {
-  enabled: boolean;
-  onToggle: () => void;
-  reduceMotion: boolean;
-}) {
+function MindCareScene({ memoryEnabled, reduceMotion }: { memoryEnabled: boolean; reduceMotion: boolean }) {
   return (
-    <div className={styles.mindcareDemo}>
-      <div className={styles.conversationCard}>
-        <div className={styles.cardOverline}>
-          <span>CONVERSATION</span>
-          <span>THIS SESSION</span>
-        </div>
-        <div className={styles.chatLine}>
-          <span className={styles.chatAvatar}>M</span>
-          <p>Short check-ins work better for me.</p>
-        </div>
-        <div className={styles.conversationFoot}>A preference shared by the user</div>
+    <>
+      <svg className={styles.desktopSvg} viewBox="0 0 660 250" role="img" aria-label={memoryEnabled ? "Conversation context is saved because memory is enabled" : "Conversation context is not saved because memory is off"}>
+        <rect x="20" y="43" width="214" height="132" rx="9" fill="#fffdf7" stroke="#d8d0bd" />
+        <text x="38" y="67" className={styles.svgMono}>CONVERSATION</text>
+        <path d="M38 78H214" stroke="#d8d0bd" />
+        <rect x="38" y="92" width="166" height="47" rx="7" fill="#e8ecdf" />
+        <text x="50" y="111" className={styles.svgSmall}>“I want to pick up</text>
+        <text x="50" y="126" className={styles.svgSmall}>where we left off.”</text>
+        <path d="M234 109H298" fill="none" stroke="#87987a" strokeWidth="1.7" strokeLinecap="round" />
+        <circle cx="298" cy="109" r="4" fill="#b48b43" />
+        <rect x="299" y="69" width="105" height="80" rx="8" fill="#e8ecdf" stroke="#c8d1bb" />
+        <text x="351" y="94" textAnchor="middle" className={styles.svgMono}>PERMISSION</text>
+        <path d="M351 105V120" stroke="#87987a" strokeWidth="1.5" />
+        <text x="351" y="137" textAnchor="middle" className={styles.svgStrong}>{memoryEnabled ? "ON" : "OFF"}</text>
+
+        <motion.path
+          d="M405 109H463"
+          fill="none"
+          stroke={memoryEnabled ? "#87987a" : "#b9b2a3"}
+          strokeWidth="1.8"
+          strokeDasharray={memoryEnabled ? "0" : "4 5"}
+          initial={reduceMotion ? false : { pathLength: 0 }}
+          animate={{ pathLength: memoryEnabled ? 1 : 0.42, opacity: memoryEnabled ? 1 : .55 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: .45, ease: EASE }}
+        />
+        <motion.rect
+          x="465" y="48" width="174" height="123" rx="8"
+          fill={memoryEnabled ? "#18372a" : "#f4f0e6"}
+          stroke={memoryEnabled ? "#18372a" : "#d8d0bd"}
+          strokeDasharray={memoryEnabled ? "0" : "4 4"}
+          animate={{ opacity: memoryEnabled ? 1 : .64 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: .35 }}
+        />
+        <text x="482" y="72" className={memoryEnabled ? styles.svgMonoLight : styles.svgMono}>SAVED CONTEXT</text>
+        <path d="M482 82H621" stroke={memoryEnabled ? "#6c846f" : "#d8d0bd"} />
+        <text x="482" y="105" className={memoryEnabled ? styles.svgLightStrong : styles.svgSmall}> {memoryEnabled ? "Approved preference" : "Nothing stored"} </text>
+        <text x="482" y="124" className={memoryEnabled ? styles.svgLight : styles.svgSmall}>{memoryEnabled ? "Available next time" : "Memory is switched off"}</text>
+        <text x="482" y="149" className={memoryEnabled ? styles.svgLightMuted : styles.svgMono}> {memoryEnabled ? "USER-APPROVED" : "NO PERSISTENCE"} </text>
+        <text x="20" y="232" className={styles.svgMono}>CONVERSATION STAYS PRIVATE BY DEFAULT</text>
+        <text x="638" y="232" textAnchor="end" className={styles.svgMono}>{memoryEnabled ? "CONTEXT ENABLED" : "CONTEXT DISABLED"}</text>
+      </svg>
+
+      <div className={styles.mobileFlow} aria-hidden="true">
+        <div><span className={styles.mobileNode}>01</span><strong>Conversation</strong><small>Context begins in the session</small></div>
+        <span className={styles.mobileConnector} />
+        <div><span className={styles.mobileNode}>02</span><strong>User permission</strong><small>{memoryEnabled ? "Memory enabled" : "Memory disabled"}</small></div>
+        <span className={styles.mobileConnector} />
+        <div><span className={styles.mobileNode}>03</span><strong>{memoryEnabled ? "Approved context" : "Nothing stored"}</strong><small>{memoryEnabled ? "Available next time" : "No persistence"}</small></div>
       </div>
-
-      <div className={styles.memoryDecision}>
-        <span className={styles.memoryDecisionLabel}>REMEMBER THIS?</span>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={enabled}
-          aria-label="Save this conversation preference for next time"
-          className={styles.memorySwitch}
-          onClick={onToggle}
-        >
-          <span className={styles.switchTrack} data-enabled={enabled}>
-            <span className={styles.switchThumb} />
-          </span>
-          <span>{enabled ? "On" : "Off"}</span>
-        </button>
-      </div>
-
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={enabled ? "saved" : "not-saved"}
-          className={styles.memoryResult}
-          data-enabled={enabled}
-          initial={reduceMotion ? false : { opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={reduceMotion ? undefined : { opacity: 0, y: -4 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.24, ease: EASE }}
-          aria-live="polite"
-        >
-          <span className={styles.memoryResultIcon}>{enabled ? "✓" : "—"}</span>
-          <div>
-            <strong>{enabled ? "Saved context" : "Nothing saved"}</strong>
-            <p>
-              {enabled
-                ? "Short check-ins work better for me."
-                : "This preference stays in the current conversation only."}
-            </p>
-          </div>
-          <span className={styles.memoryResultMeta}>{enabled ? "NEXT SESSION" : "SESSION ONLY"}</span>
-        </motion.div>
-      </AnimatePresence>
-
-      <span className={styles.mindcareNote}>Preview only · No data is stored by this demo</span>
-    </div>
+    </>
   );
 }
