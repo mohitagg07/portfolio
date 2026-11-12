@@ -3971,19 +3971,7 @@ h1, h2, h3, h4, h5, h6 {
     radial-gradient(ellipse 46% 54% at 78% 38%, rgba(70, 104, 73, .22), transparent 76%),
     linear-gradient(112deg, #10231a 0%, #152b20 57%, #1b3023 100%) !important;
 }
-#home.hero-v3::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  pointer-events: none;
-  opacity: .42;
-  background:
-    linear-gradient(90deg, transparent calc(100% - 1px), rgba(221,225,203,.08) 100%),
-    linear-gradient(180deg, transparent calc(100% - 1px), rgba(221,225,203,.045) 100%);
-  background-size: 8.333% 100%, 100% 112px;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 100%);
-}
+#home.hero-v3::before { display: none !important; }
 #home.hero-v3::after {
   content: "";
   position: absolute;
@@ -4228,13 +4216,6 @@ h1, h2, h3, h4, h5, h6 {
 #home.hero-v3 .hero-v3__project-list a:hover .hero-v3__project-arrow {
   opacity: 1;
   transform: translate(2px,-2px);
-}
-#home.hero-v3 .hero-v3__project-index-foot {
-  margin: 0;
-  padding: 13px 0 14px;
-  color: rgba(207,218,195,.48);
-  font: italic 400 12px/1.45 var(--font-display-face), Georgia, serif;
-  letter-spacing: .005em;
 }
 
 /* Desktop composition stays balanced from laptop widths to large monitors. */
