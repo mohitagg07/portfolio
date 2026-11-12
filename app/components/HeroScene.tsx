@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, type PointerEvent as ReactPointerEvent 
 import { useReducedMotion } from "motion/react";
 import HeroGreeting from "./HeroGreeting";
 import HeroSoundtrack from "./HeroSoundtrack";
-import HeroPersonalDetails from "./HeroPersonalDetails";
 
 const GRID_STEP = 56;
 const INFLUENCE_RADIUS = 156;
@@ -225,7 +224,6 @@ export default function HeroScene() {
       <div className="hero-v3__shade" aria-hidden="true" />
       <canvas ref={canvasRef} className="hero-v3__grid" aria-hidden="true" />
       <HeroGreeting />
-      <HeroPersonalDetails />
       <HeroSoundtrack />
     </section>
   );

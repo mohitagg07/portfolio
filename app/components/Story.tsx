@@ -8,13 +8,19 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Story() {
   const [sectionRef, sectionSeen] = useInView<HTMLElement>(0.08);
-  const [factsRef, factsSeen] = useInView<HTMLDivElement>(0.12);
   const reduceMotion = useReducedMotion();
 
   const reveal = (delay = 0) => ({
     initial: reduceMotion ? false : { opacity: 0, y: 18 },
     animate: reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 },
     transition: reduceMotion ? { duration: 0 } : { duration: 0.65, delay, ease: EASE },
+  });
+
+  const photoReveal = (delay = 0) => ({
+    initial: reduceMotion ? false : { opacity: 0, y: 18, rotate: -1.5 },
+    whileInView: { opacity: 1, y: 0, rotate: 0 },
+    viewport: { once: true, amount: 0.24 },
+    transition: reduceMotion ? { duration: 0 } : { duration: 0.68, delay, ease: EASE },
   });
 
   return (
@@ -29,6 +35,7 @@ export default function Story() {
           <p className="about-v4-masthead__title">About Me <span aria-hidden="true" /></p>
           <p className="about-v4-masthead__note">A little more than the work</p>
         </div>
+
         <div className="about-v4-layout">
           <motion.div className="about-v4-collage" {...reveal(0.08)}>
             <span className="about-v4-paper-shape" aria-hidden="true" />
@@ -130,94 +137,145 @@ export default function Story() {
           </motion.div>
         </div>
 
-        <motion.div
-          ref={factsRef}
-          className="about-v4-facts"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={reduceMotion || factsSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-          transition={reduceMotion ? { duration: 0 } : { duration: 0.68, ease: EASE }}
+        <motion.section
+          className="about-v5-approach"
+          aria-labelledby="about-approach-title"
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
         >
-          <div className="about-v4-fact">
-            <span>EDUCATION</span>
-            <strong>VIT Chennai</strong>
-            <small>B.Tech · Computer Science (AI &amp; ML) · 2025</small>
-          </div>
-          <div className="about-v4-fact">
-            <span>INDUSTRY EXPERIENCE</span>
-            <strong>02 internships</strong>
-            <small>Relu Consultancy · Berger Paints</small>
-          </div>
-          <div className="about-v4-fact">
-            <span>SELECTED BUILDS</span>
-            <strong>MindCare · LegalMind AI</strong>
-            <small>Business data and workflow automation</small>
-          </div>
-        </motion.div>
-
-        <section className="about-experience" aria-labelledby="about-experience-title">
-          <div className="about-experience__heading">
+          <div className="about-v5-chapter-heading">
+            <p className="about-v5-kicker">02 <span>/</span> THE WAY I THINK</p>
             <div>
-              <p className="about-experience__eyebrow">WHERE I’VE CONTRIBUTED</p>
-              <h3 id="about-experience-title">A couple of chapters<br /><em>in the real world.</em></h3>
+              <h3 id="about-approach-title">Good work starts before the first line of code.</h3>
+              <p>
+                I like understanding what is actually getting in the way, then finding a clear,
+                useful way through it. The details matter, but so does knowing which details
+                don’t need to be there.
+              </p>
             </div>
-            <span className="about-experience__count">02 / INTERNSHIPS</span>
           </div>
 
-          <div className="about-experience__timeline">
-            <motion.article
-              className="about-experience__item"
-              data-about-interactive="experience-relu"
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.65, delay: 0.08, ease: EASE }}
-              whileHover={reduceMotion ? undefined : { y: -4 }}
-            >
-              <div className="about-experience__rail">
-                <span className="about-experience__index">01</span>
-                <span className="about-experience__node" />
+          <div className="about-v5-approach-list">
+            <article>
+              <span className="about-v5-number">01</span>
+              <div>
+                <h4>Understand the problem.</h4>
+                <p>Look past the request and get to what someone really needs.</p>
               </div>
-              <div className="about-experience__content">
-                <div className="about-experience__meta">
-                  <span className="about-experience__tag">INTERNSHIP</span>
-                </div>
-                <h4>Relu Consultancy</h4>
-                <p className="about-experience__role">Intern</p>
-                <p className="about-experience__description">
-                  An internship experience with the team at Relu Consultancy.
-                </p>
+            </article>
+            <article>
+              <span className="about-v5-number">02</span>
+              <div>
+                <h4>Make it useful.</h4>
+                <p>Build something clear, practical and dependable in everyday use.</p>
               </div>
-              <span className="about-experience__year">01</span>
-            </motion.article>
-
-            <motion.article
-              className="about-experience__item"
-              data-about-interactive="experience-berger"
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.65, delay: 0.18, ease: EASE }}
-              whileHover={reduceMotion ? undefined : { y: -4 }}
-            >
-              <div className="about-experience__rail">
-                <span className="about-experience__index">02</span>
-                <span className="about-experience__node" />
+            </article>
+            <article>
+              <span className="about-v5-number">03</span>
+              <div>
+                <h4>Keep making it better.</h4>
+                <p>Pay attention to what feels awkward, then refine without adding noise.</p>
               </div>
-              <div className="about-experience__content">
-                <div className="about-experience__meta">
-                  <span>AUG — DEC 2023</span>
-                  <span className="about-experience__tag">INDUSTRY INTERNSHIP</span>
-                </div>
-                <h4>Berger Paints</h4>
-                <p className="about-experience__role">Intern</p>
-                <p className="about-experience__description">
-                  An early industry experience alongside my Computer Science studies.
-                </p>
-              </div>
-              <span className="about-experience__year">02</span>
-            </motion.article>
+            </article>
           </div>
-        </section>
 
-        <p className="about-v4-signoff">Still curious. Still making things.</p>
+          <blockquote className="about-v5-note">
+            <span className="about-v5-note__eyebrow">A THOUGHT I COME BACK TO</span>
+            <p>The hard part should stay behind the screen.</p>
+            <cite>— Mohit</cite>
+          </blockquote>
+        </motion.section>
+
+        <motion.section
+          className="about-v5-beyond"
+          aria-labelledby="about-beyond-title"
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.16 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.72, ease: EASE }}
+        >
+          <div className="about-v5-beyond-heading">
+            <div>
+              <p className="about-v5-kicker">03 <span>/</span> BEYOND THE SCREEN</p>
+              <h3 id="about-beyond-title">Some things are better shared offline.</h3>
+            </div>
+            <p>
+              New places, familiar faces, and the moments in between. A little distance from
+              the screen is often the best way to return with a fresh perspective.
+            </p>
+          </div>
+
+          <div className="about-v5-memory-grid">
+            <motion.figure
+              className="about-v5-memory-card about-v5-memory-card--mountain"
+              data-about-interactive="memory-mountain"
+              {...photoReveal(0.04)}
+              whileHover={reduceMotion ? undefined : { y: -7, rotate: -0.6, scale: 1.012 }}
+            >
+              <span className="about-v5-memory-card__tape" aria-hidden="true" />
+              <div className="about-v5-memory-card__image">
+                <Image
+                  src="/about/mountain-memory.jpg"
+                  alt="A quiet mountain view shared with someone close"
+                  fill
+                  sizes="(max-width: 760px) 86vw, (max-width: 1200px) 42vw, 520px"
+                  className="object-cover"
+                  style={{ objectPosition: "center 72%" }}
+                  quality={88}
+                />
+              </div>
+              <figcaption>
+                <small>AWAY FROM THE DESK</small>
+                <strong>A view worth the climb.</strong>
+              </figcaption>
+            </motion.figure>
+
+            <motion.figure
+              className="about-v5-memory-card about-v5-memory-card--friends"
+              data-about-interactive="memory-friends"
+              {...photoReveal(0.16)}
+              whileHover={reduceMotion ? undefined : { y: -7, rotate: 0.5, scale: 1.012 }}
+            >
+              <span className="about-v5-memory-card__tape" aria-hidden="true" />
+              <div className="about-v5-memory-card__image">
+                <Image
+                  src="/about/friends-memory.png"
+                  alt="Mohit sharing a moment with friends at an outdoor gathering"
+                  fill
+                  sizes="(max-width: 760px) 86vw, (max-width: 1200px) 42vw, 520px"
+                  className="object-cover"
+                  style={{ objectPosition: "center 48%" }}
+                  quality={88}
+                />
+              </div>
+              <figcaption>
+                <small>GOOD COMPANY</small>
+                <strong>Better with good people.</strong>
+              </figcaption>
+            </motion.figure>
+          </div>
+
+          <p className="about-v5-beyond-signoff">Not everything worth remembering happens at a desk.</p>
+        </motion.section>
+
+        <motion.div
+          className="about-v5-next"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.62, ease: EASE }}
+        >
+          <div>
+            <p className="about-v5-kicker">04 <span>/</span> WHAT’S NEXT</p>
+            <h3>Curious about what I make?</h3>
+            <p>A closer look at the ideas, projects and experiments I’ve been working on.</p>
+          </div>
+          <a href="#work" className="about-v5-next-link">
+            Explore selected work <span aria-hidden="true">↗</span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
