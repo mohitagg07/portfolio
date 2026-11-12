@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { Github, Youtube, Linkedin, Mail, Copy, Check, ArrowUpRight } from "lucide-react";
+import { Github, Youtube, Linkedin, Copy, Check, ArrowUpRight } from "lucide-react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
 
@@ -11,7 +11,6 @@ const LINKS = [
   { label: "GitHub", href: "https://github.com/mohitagg07", Icon: Github },
   { label: "LinkedIn", href: "https://linkedin.com/in/mohitagg07", Icon: Linkedin },
   { label: "YouTube", href: "https://youtube.com/@MohitAgg07", Icon: Youtube },
-  { label: EMAIL, href: `mailto:${EMAIL}`, Icon: Mail },
 ];
 
 export default function ContactSection() {
@@ -78,7 +77,7 @@ export default function ContactSection() {
           <div className="contact-editorial-grid">
             <div className="contact-column contact-panel">
               <p className="contact-kicker">
-                <span>04</span> Collaboration &amp; enquiries
+                <span>06</span> Collaboration &amp; enquiries
               </p>
               <ScrollReveal variant="mask">
                 <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
