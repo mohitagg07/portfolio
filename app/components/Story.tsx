@@ -41,6 +41,11 @@ export default function Story() {
 
         <div className="about-fieldnotes__intro">
           <motion.div className="about-fieldnotes__gallery" {...reveal(0.06)}>
+            <div className="about-fieldnotes__location" aria-label="Home base: Jammu, India">
+              <span>HOME BASE</span>
+              <strong>Jammu, India</strong>
+            </div>
+
             <motion.figure
               data-about-portrait="true"
               data-about-interactive="portrait"
@@ -49,6 +54,8 @@ export default function Story() {
               animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.08, ease: EASE }}
             >
+              <span className="about-fieldnotes__tape about-fieldnotes__tape--main" aria-hidden="true" />
+              <div className="about-fieldnotes__photo-frame">
               <Image
                 src="/about/about-main.webp"
                 alt="Mohit outdoors in a black shirt, among the greenery"
@@ -57,6 +64,7 @@ export default function Story() {
                 quality={88}
                 className="about-fieldnotes__photo-image"
               />
+              </div>
             </motion.figure>
 
             <motion.figure
@@ -65,6 +73,8 @@ export default function Story() {
               animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.2, ease: EASE }}
             >
+              <span className="about-fieldnotes__tape" aria-hidden="true" />
+              <div className="about-fieldnotes__photo-frame">
               <Image
                 src="/about/about-selfie.webp"
                 alt="Mohit in a black leather jacket"
@@ -73,6 +83,7 @@ export default function Story() {
                 quality={88}
                 className="about-fieldnotes__photo-image"
               />
+              </div>
             </motion.figure>
 
             <motion.figure
@@ -81,6 +92,8 @@ export default function Story() {
               animate={reduceMotion || sectionSeen ? { opacity: 1, x: 0 } : { opacity: 0, x: 12 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.3, ease: EASE }}
             >
+              <span className="about-fieldnotes__tape" aria-hidden="true" />
+              <div className="about-fieldnotes__photo-frame">
               <Image
                 src="/about/about-waterfall.webp"
                 alt="Mohit visiting a waterfall"
@@ -89,6 +102,7 @@ export default function Story() {
                 quality={88}
                 className="about-fieldnotes__photo-image about-fieldnotes__photo-image--waterfall"
               />
+              </div>
             </motion.figure>
 
             <span className="about-fieldnotes__gallery-index" aria-hidden="true">01—03</span>
@@ -188,6 +202,8 @@ export default function Story() {
               viewport={{ once: true, amount: 0.22 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.04, ease: EASE }}
             >
+              <span className="about-fieldnotes__memory-tape" aria-hidden="true" />
+              <span className="about-fieldnotes__memory-tape" aria-hidden="true" />
               <div className="about-fieldnotes__memory-image">
                 <Image
                   src="/about/mountain-memory.jpg"
@@ -214,7 +230,7 @@ export default function Story() {
             >
               <div className="about-fieldnotes__memory-image">
                 <Image
-                  src="/about/friends-memory.webp"
+                  src="/about/friends-memory-240.webp"
                   alt="Mohit sharing an outdoor moment with friends"
                   fill
                   sizes="(max-width: 760px) 44vw, (max-width: 1100px) 32vw, 420px"
