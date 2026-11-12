@@ -263,7 +263,7 @@ export default function Projects() {
       <section
         ref={sectionRef}
         id="work"
-        className={`section-spacer work-section relative z-10 bg-[#f4f4f5] rounded-t-[3rem] shadow-2xl ${active ? "is-active" : ""}`}
+        className={`section-spacer work-section relative z-10 bg-[#f4f4f5] ${active ? "is-active" : ""}`}
       >
         <motion.div
           className="section-wrap work-entry-content"
@@ -275,7 +275,7 @@ export default function Projects() {
           {/* Section Introduction */}
           <div className="project-intro-reveal">
             <div className="project-intro">
-              <p className="project-eyebrow">Selected work <span aria-hidden="true">/</span> a few things I&apos;ve made</p>
+              <p className="project-eyebrow"><span className="project-eyebrow__index">04 /</span> Selected work <span aria-hidden="true">/</span> a few things I&apos;ve made</p>
               <ScrollReveal variant="mask" delay={0.05}>
                 <h2 className="section-heading section-title">
                   A few things I&apos;ve <em className="work-title-accent">built.</em>
@@ -287,12 +287,6 @@ export default function Projects() {
             </div>
           </div>
 
-          <div className="work-principles" aria-label="How I approach a build">
-            <span className="work-principles__label">A simple rulebook</span>
-            <div className="work-principles__item"><b>01</b><span>Start with the problem</span></div>
-            <div className="work-principles__item"><b>02</b><span>Make the hard parts clear</span></div>
-            <div className="work-principles__item"><b>03</b><span>Build for real use</span></div>
-          </div>
 
           {/* ══════════════════════════════════════════════════════════════ */}
           {/* MOBILE PROJECT SLIDER (visible on screens <= 768px)          */}
