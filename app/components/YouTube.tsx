@@ -89,19 +89,19 @@ export default function YouTube() {
         <ScrollReveal className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`}>
           <div className="youtube-intro yt-intro">
             <p className="yt-eyebrow">
-              <span>03</span>
-              <span>Off the clock, out in the world</span>
+              <span>05</span>
+              <span>Video notes</span>
             </p>
             <ScrollReveal variant="mask">
               <h2
                 id="yt-heading"
                 className={`section-heading section-title youtube-title ${hasBeenSeen ? "is-in" : ""}`}
               >
-                A little life <em className="youtube-title-accent">outside the screen.</em>
+                A few things <em className="youtube-title-accent">I’ve shared.</em>
               </h2>
             </ScrollReveal>
             <p className="section-lede">
-              A few trips, things I’m curious about, and moments worth keeping beyond the work.
+              Short videos, experiments and everyday moments from the things that catch my curiosity.
             </p>
           </div>
 
