@@ -190,7 +190,7 @@ export default function Story() {
             >
               <div className="about-fieldnotes__memory-image">
                 <Image
-                  src="/about/mountain-memory.webp"
+                  src="/about/mountain-memory.jpg"
                   alt="Two people sitting in a grassy clearing, looking out toward the trees"
                   fill
                   sizes="(max-width: 760px) 44vw, (max-width: 1100px) 32vw, 420px"
