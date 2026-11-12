@@ -526,13 +526,17 @@
   width: var(--cube-size);
   height: var(--cube-size);
   transform-style: preserve-3d;
-  animation: cubeTurn 27s linear infinite;
+  animation: none;
   filter: drop-shadow(0 22px 22px rgba(0,0,0,.2));
 }
 
 @keyframes cubeTurn {
   from { transform: translate(-50%,-50%) rotateX(-22deg) rotateY(-25deg); }
   to { transform: translate(-50%,-50%) rotateX(-22deg) rotateY(335deg); }
+}
+
+.stageShell[data-awake="true"] .coreCube {
+  animation: cubeTurn 27s linear infinite;
 }
 
 .coreFace {
