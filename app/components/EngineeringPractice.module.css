@@ -508,7 +508,7 @@
     font-size: 5.5px;
   }
 
-  .mapStage { aspect-ratio: 920 / 500; }
+  .mapStage { aspect-ratio: 920 / 470; }
   .mapSvg { height: 100%; }
 
   .mapCoordinates { font-size: 8px; }
@@ -538,7 +538,7 @@
 }
 
 @media (max-width: 390px) {
-  .mapStage { aspect-ratio: 920 / 535; }
+  .mapStage { aspect-ratio: 920 / 470; }
   .mapTopline,
   .mapBottomline { font-size: 5px; letter-spacing: .075em; }
   .pinLabel strong { font-size: 7px; }
