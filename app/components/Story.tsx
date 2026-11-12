@@ -114,8 +114,8 @@ export default function Story() {
             </p>
 
             <h2 id="about-title" className="about-fieldnotes__title">
-              <span>I like figuring</span>
-              <span>things out.</span>
+              <span className="about-fieldnotes__title-first">I like figuring</span>
+              <span className="about-fieldnotes__title-second">things out.</span>
               <em>And making them work.</em>
             </h2>
 
