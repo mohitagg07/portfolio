@@ -4080,3 +4080,54 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 10px !important;
   }
 }
+
+
+/* Hero bottom alignment: keep the music identity on the left and the
+   scroll affordance precisely centred across the viewport. */
+@media (min-width: 768px) {
+  #home.hero-v3 .hero-record-player {
+    top: auto !important;
+    right: auto !important;
+    bottom: 30px !important;
+    left: clamp(28px, 6.3vw, 92px) !important;
+    width: clamp(270px, 25vw, 340px) !important;
+    min-width: 0 !important;
+    max-width: 340px !important;
+    margin: 0 !important;
+  }
+
+  #home.hero-v3 .hero-v3__scroll {
+    position: absolute !important;
+    right: auto !important;
+    bottom: 32px !important;
+    left: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 9px !important;
+    width: max-content !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  #home.hero-v3 .hero-record-player {
+    bottom: 22px !important;
+    left: 24px !important;
+    width: min(280px, calc(50vw - 44px)) !important;
+    max-width: 280px !important;
+  }
+
+  #home.hero-v3 .hero-v3__scroll {
+    bottom: 25px !important;
+  }
+}
+
+/* On narrow screens the player remains in its mobile flow and the scroll
+   cue stays hidden to avoid stacking two controls in the same bottom area. */
+@media (max-width: 767px) {
+  #home.hero-v3 .hero-v3__scroll {
+    display: none !important;
+  }
+}
