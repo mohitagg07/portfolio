@@ -9,7 +9,7 @@ import "./hero-editorial.css";
 // axes give the site a more human, drawn quality without sacrificing legibility.
 const displayFont = Fraunces({
   subsets: ["latin"],
-  axes: ["SOFT", "WONK"],
+  axes: ["SOFT", "WONK", "opsz"],
   style: ["normal", "italic"],
   variable: "--font-display-face",
   display: "swap",
@@ -24,6 +24,7 @@ const bodyFont = IBM_Plex_Sans({
 
 const monoFont = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-mono-face",
   display: "swap",
