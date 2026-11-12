@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { navigateToSection } from "../utils/scroll";
 
@@ -18,59 +17,13 @@ export default function HeroPersonalDetails() {
   });
 
   return (
-    <div className="hero-personal-details" aria-label="Personal photographs and a note about my work">
-      <motion.a
-        href="#about"
-        className="hero-polaroid hero-polaroid--home"
-        onClick={(event) => navigateToSection(event, "about")}
-        aria-label="See more photographs from time away from the desk"
-        {...reveal(0.5)}
-      >
-        <span className="hero-polaroid__pin" aria-hidden="true" />
-        <span className="hero-polaroid__photo">
-          <Image
-            src="/about/mountain-memory.webp"
-            alt="Two people taking in a wide mountain view"
-            fill
-            sizes="(max-width: 767px) 44vw, (max-width: 1100px) 120px, 152px"
-          />
-        </span>
-        <span className="hero-polaroid__caption">
-          <small>OFF THE CLOCK</small>
-          <strong>A view worth the climb.</strong>
-        </span>
-      </motion.a>
-
-      <motion.a
-        href="#about"
-        className="hero-polaroid hero-polaroid--field"
-        onClick={(event) => navigateToSection(event, "about")}
-        aria-label="See more photographs with friends"
-        {...reveal(0.64)}
-      >
-        <span className="hero-polaroid__pin" aria-hidden="true" />
-        <span className="hero-polaroid__photo">
-          <Image
-            src="/about/friends-memory-240.webp"
-            alt="Mohit with three friends at an outdoor gathering"
-            fill
-            priority
-            unoptimized
-            sizes="(max-width: 767px) 44vw, (max-width: 1100px) 116px, 148px"
-          />
-        </span>
-        <span className="hero-polaroid__caption">
-          <small>GOOD COMPANY</small>
-          <strong>Better with good people.</strong>
-        </span>
-      </motion.a>
-
+    <div className="hero-personal-details" aria-label="A note about my work">
       <motion.a
         href="#work"
         className="hero-principle"
         onClick={(event) => navigateToSection(event, "work")}
         aria-label="Read about the thinking behind my projects"
-        {...reveal(0.82)}
+        {...reveal(0.5)}
         whileHover={reduceMotion ? undefined : { y: -4, rotate: -0.3 }}
         whileTap={reduceMotion ? undefined : { scale: 0.995 }}
       >
