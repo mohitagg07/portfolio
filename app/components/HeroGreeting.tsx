@@ -114,9 +114,6 @@ export default function HeroGreeting() {
           ))}
         </ol>
 
-        <p className="hero-v3__project-index-foot">
-          A few problems I’ve enjoyed working through.
-        </p>
       </motion.aside>
     </div>
   );
