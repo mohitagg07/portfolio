@@ -2688,3 +2688,57 @@
     padding-bottom: 16px !important;
   }
 }
+
+
+/* Hero refinement — keep the opening composition focused on the work. */
+#home.hero-v3 .hero-personal-details { pointer-events: none; }
+#home.hero-v3 .hero-polaroid,
+#home.hero-v3 .hero-polaroid--home,
+#home.hero-v3 .hero-polaroid--field { display: none !important; }
+
+/* Beyond the Screen — landscape scrapbook prints with taped, overlapping edges. */
+.about-v5-beyond-heading {
+  display: grid;
+  grid-template-columns: minmax(190px, .85fr) minmax(0, 1.15fr);
+  align-items: end;
+  gap: clamp(24px, 5vw, 72px);
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+.about-v5-memory-grid {
+  position: relative;
+  width: min(100%, 1010px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items: start;
+  gap: clamp(18px, 2.2vw, 32px);
+  padding: 10px 8px 18px;
+}
+.about-v5-memory-card {
+  padding: 9px 9px 13px;
+  box-shadow: 0 17px 32px rgba(36, 48, 33, .16), 0 2px 5px rgba(36, 48, 33, .08);
+}
+.about-v5-memory-card--mountain { margin-top: 14px; transform: rotate(-2deg); }
+.about-v5-memory-card--friends { margin-top: 43px; transform: rotate(2.1deg); }
+.about-v5-memory-card__image { aspect-ratio: 1.52 / 1; }
+.about-v5-memory-card--mountain .about-v5-memory-card__image img { object-position: center 68%; }
+.about-v5-memory-card--friends .about-v5-memory-card__image img { object-position: center 48%; }
+.about-v5-memory-card__tape { top: -9px; width: 76px; height: 18px; }
+.about-v5-memory-card figcaption { padding: 12px 8px 3px; }
+.about-v5-memory-card figcaption small { font-size: 8px; letter-spacing: .13em; }
+.about-v5-memory-card figcaption strong { font-size: clamp(1.25rem, 2vw, 1.75rem); }
+
+@media (max-width: 760px) {
+  .about-v5-beyond-heading { grid-template-columns: 1fr; gap: 13px; }
+  .about-v5-memory-grid {
+    grid-template-columns: 1fr;
+    width: min(100%, 520px);
+    gap: 22px;
+    padding: 8px 10px 12px;
+  }
+  .about-v5-memory-card--mountain {
+    width: 92%; margin: 12px auto 0 0; transform: rotate(-1.6deg);
+  }
+  .about-v5-memory-card--friends {
+    width: 92%; margin: 5px 0 0 auto; transform: rotate(1.6deg);
+  }
+  .about-v5-memory-card__image { aspect-ratio: 1.38 / 1; }
+}
