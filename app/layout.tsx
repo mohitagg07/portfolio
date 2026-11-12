@@ -1,40 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Instrument_Serif, Geist_Mono } from "next/font/google";
+import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import "./portfolio-art-direction.css";
 import "./hero-composition.css";
 import "./hero-editorial.css";
 
-const displayFont = Manrope({
+// Fraunces is used as a variable display face: its optical, softness and wonky
+// axes give the site a more human, drawn quality without sacrificing legibility.
+const displayFont = Fraunces({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  axes: ["SOFT", "WONK"],
+  style: ["normal", "italic"],
   variable: "--font-display-face",
+  display: "swap",
 });
 
-const bodyFont = Manrope({
+const bodyFont = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-body-face",
+  display: "swap",
 });
 
-const editorialFont = Instrument_Serif({
+const monoFont = IBM_Plex_Mono({
   subsets: ["latin"],
-  style: "normal",
-  weight: "400",
-  variable: "--font-editorial-face",
-});
-
-const expressiveFont = Instrument_Serif({
-  subsets: ["latin"],
-  style: "italic",
-  weight: "400",
-  variable: "--font-accent-face",
-});
-
-const monoFont = Geist_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  style: ["normal", "italic"],
   variable: "--font-mono-face",
+  display: "swap",
 });
 
 const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
@@ -73,17 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
-      className={
-        displayFont.variable +
-        " " +
-        bodyFont.variable +
-        " " +
-        editorialFont.variable +
-        " " +
-        expressiveFont.variable +
-        " " +
-        monoFont.variable
-      }
+      className={displayFont.variable + " " + bodyFont.variable + " " + monoFont.variable}
     >
       <body className="antialiased">
         {children}
