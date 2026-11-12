@@ -1,12 +1,12 @@
 .section {
-  padding: clamp(32px, 3.8vw, 50px) 0 clamp(40px, 4.3vw, 58px);
+  padding: clamp(34px, 3.8vw, 52px) 0 clamp(42px, 4.4vw, 60px);
   border-top: 1px solid var(--fn-line, rgba(20,47,37,.19));
   color: var(--fn-ink, #142f25);
 }
 
 .intro {
   display: grid;
-  gap: 15px;
+  gap: 16px;
 }
 
 .kicker {
@@ -24,371 +24,414 @@
 
 .headingRow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, .62fr);
+  grid-template-columns: minmax(0, 1fr) minmax(230px, .58fr);
   align-items: end;
-  gap: 36px;
+  gap: clamp(28px, 5vw, 70px);
 }
 
 .headingRow h3 {
   max-width: 15ch;
   margin: 0;
-  color: var(--fn-ink, #142f25);
-  font: 460 clamp(2.55rem, 4.4vw, 3.75rem)/.96 var(--font-display-face), Georgia, serif;
-  font-variation-settings: "SOFT" 24, "WONK" 1;
-  letter-spacing: -.06em;
+  color: #1c392a;
+  font: 460 clamp(2.5rem, 4.35vw, 3.75rem)/.97 var(--font-display-face), Georgia, serif;
+  font-variation-settings: "SOFT" 26, "WONK" 1;
+  letter-spacing: -.061em;
   text-wrap: balance;
 }
 
 .headingRow h3 em {
-  color: #8c744a;
+  color: #8d754c;
   font-weight: 400;
 }
 
 .summary {
   max-width: 34ch;
   margin: 0 0 5px auto;
-  color: #657267;
-  font: 400 13px/1.65 var(--font-body-face), Arial, sans-serif;
+  color: #647267;
+  font: 400 13px/1.68 var(--font-body-face), Arial, sans-serif;
   text-align: right;
 }
 
-.workbench {
+.fieldStudy {
   display: grid;
-  grid-template-columns: minmax(0, 1.8fr) minmax(220px, .64fr);
+  grid-template-columns: minmax(0, 1.78fr) minmax(220px, .62fr);
   align-items: center;
-  gap: clamp(24px, 4.2vw, 58px);
-  margin-top: clamp(24px, 3.4vw, 42px);
+  gap: clamp(24px, 4.2vw, 56px);
+  margin-top: clamp(26px, 3.4vw, 42px);
 }
 
-.loopCanvas {
+.mapWrap {
   min-width: 0;
-  border-top: 1px solid rgba(29,48,39,.18);
-  border-bottom: 1px solid rgba(29,48,39,.18);
+  overflow: hidden;
+  border-top: 1px solid rgba(29,48,39,.2);
+  border-bottom: 1px solid rgba(29,48,39,.2);
+  background:
+    radial-gradient(ellipse at 48% 48%, rgba(216,211,191,.28), transparent 58%),
+    linear-gradient(180deg, rgba(241,238,229,.78), rgba(236,233,222,.56));
 }
 
-.canvasHeader,
-.canvasFooter {
+.mapTopline,
+.mapBottomline {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  min-height: 32px;
-  color: #838a7c;
+  gap: 14px;
+  min-height: 35px;
+  padding: 0 4px;
+  color: #858a7c;
   font: 600 7px/1.4 var(--font-mono-face), monospace;
   letter-spacing: .12em;
 }
 
-.canvasHeader {
-  border-bottom: 1px solid rgba(29,48,39,.11);
+.mapTopline {
+  border-bottom: 1px solid rgba(29,48,39,.1);
 }
 
-.canvasHeader > span:last-child {
+.mapTopline b {
+  padding: 0 4px;
+  color: #b48b43;
+  font-weight: 500;
+}
+
+.mapTopline > span:last-child {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.canvasHeader i {
+.mapTopline i {
   display: inline-block;
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #b88b3e;
+  background: #b48b43;
 }
 
-.loopStage {
+.mapStage {
   position: relative;
   width: 100%;
-  aspect-ratio: 800 / 430;
-  overflow: hidden;
+  aspect-ratio: 920 / 470;
   isolation: isolate;
 }
 
-.loopSvg {
+.mapSvg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
-.loopTrackBase,
-.loopTrackAccent,
-.loopTrackDash,
-.loopInnerGuide {
+.contours {
+  stroke: #aeb4a3;
+  stroke-width: 1;
+  opacity: .32;
+  vector-effect: non-scaling-stroke;
+}
+
+.contours path:nth-child(2n) {
+  stroke: #c2b89f;
+  opacity: .64;
+}
+
+.mapCoordinates {
+  fill: #9a9a88;
+  font: 500 7px var(--font-mono-face), monospace;
+  letter-spacing: 1.15px;
+}
+
+.routeUnderlay,
+.routeMain,
+.routeCenterline,
+.routeDashes,
+.crossingThread {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
-.loopTrackBase {
-  stroke: #d6d1c3;
-  stroke-width: 2.4;
-}
-
-.loopTrackAccent {
-  stroke: url(#loop-track-gradient);
-  stroke-width: 1.5;
+.routeUnderlay {
+  stroke: #d6c9a9;
+  stroke-width: 18;
   opacity: .72;
 }
 
-.loopTrackDash {
-  stroke: #b88b3e;
+.routeMain {
+  stroke: #31543d;
+  stroke-width: 8;
+}
+
+.routeCenterline {
+  stroke: #a9b69b;
+  stroke-width: 1.15;
+  opacity: .72;
+}
+
+.routeDashes {
+  stroke: #e1c48a;
   stroke-width: 1.25;
   stroke-dasharray: 1 13;
-  opacity: .85;
+  opacity: .92;
 }
 
-.loopCanvas[data-running="true"] .loopTrackDash {
-  animation: traceForward 9s linear infinite;
+.mapWrap[data-running="true"] .routeDashes {
+  animation: mapRouteDrift 8s linear infinite;
 }
 
-@keyframes traceForward {
-  to { stroke-dashoffset: -140; }
+@keyframes mapRouteDrift {
+  to { stroke-dashoffset: -112; }
 }
 
-.loopInnerGuide {
-  stroke: rgba(49,94,67,.11);
-  stroke-width: .8;
-  stroke-dasharray: 2 11;
+.crossingThread {
+  stroke: rgba(245,242,233,.78);
+  stroke-width: 2.2;
+  opacity: .8;
 }
 
-.svgNodeHalo {
-  fill: #f5f2e9;
-  stroke: #b5b6a6;
-  stroke-width: 1.2;
-  transition: r .35s cubic-bezier(.16,1,.3,1), stroke .3s ease, fill .3s ease;
+.routeNodeHalo {
+  fill: #f1eee5;
+  stroke: #aab49f;
+  stroke-width: 1.1;
+  transition: r .3s cubic-bezier(.16,1,.3,1), stroke .25s ease, fill .25s ease;
 }
 
-.svgNodeHalo[data-active="true"] {
-  fill: #e6e4d7;
-  stroke: #b88b3e;
+.routeNodeHalo[data-active="true"] {
+  fill: #e7dec9;
+  stroke: #ae8748;
 }
 
-.svgNodeCore {
-  fill: #8c9a7c;
-  transition: r .35s cubic-bezier(.16,1,.3,1), fill .3s ease;
+.routeNode {
+  fill: #718b70;
+  transition: r .3s cubic-bezier(.16,1,.3,1), fill .25s ease;
 }
 
-.svgNodeCore[data-active="true"] { fill: #b88b3e; }
+.routeNode[data-active="true"] { fill: #a87835; }
 
-.loopCenterTop {
-  fill: #8e917f;
-  font: 600 8px var(--font-mono-face), monospace;
-  letter-spacing: 1.65px;
+.mapCenterLabel,
+.mapCenterTitle,
+.mapCenterSub {
+  paint-order: stroke;
+  stroke: #eeeade;
+  stroke-linejoin: round;
 }
 
-.loopCenterMain {
-  fill: #254333;
-  font: 450 20px var(--font-display-face), Georgia, serif;
+.mapCenterLabel {
+  fill: #8e907f;
+  stroke-width: 7px;
+  font: 600 7px var(--font-mono-face), monospace;
+  letter-spacing: 1.55px;
+}
+
+.mapCenterTitle {
+  fill: #294332;
+  stroke-width: 8px;
+  font: 450 23px var(--font-display-face), Georgia, serif;
   font-variation-settings: "SOFT" 25, "WONK" 1;
-  letter-spacing: -.65px;
+  letter-spacing: -.8px;
 }
 
-.loopCenterRule {
-  fill: none;
-  stroke: #b88b3e;
-  stroke-width: 1;
-  opacity: .75;
+.mapCenterSub {
+  fill: #8d8e7e;
+  stroke-width: 6px;
+  font: 500 6px var(--font-mono-face), monospace;
+  letter-spacing: 1.05px;
 }
 
-.loopCenterBottom {
-  fill: #8e917f;
-  font: 500 6.5px var(--font-mono-face), monospace;
-  letter-spacing: 1px;
+.routeTraveller {
+  pointer-events: none;
 }
 
-.loopSignal {
-  fill: #d4b16f;
-  stroke: #fff8e8;
-  stroke-width: 1.2;
+.travellerGlow {
+  fill: #d8b574;
+  opacity: .35;
 }
 
-.phaseButton {
+.travellerCore {
+  fill: #b17e37;
+  stroke: #f9efd9;
+  stroke-width: 1.5;
+}
+
+.mapPin {
   position: absolute;
   z-index: 3;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
+  gap: 7px;
   padding: 5px 7px;
   border: 0;
   border-radius: 2px;
-  color: #687469;
-  background: rgba(245,242,233,.72);
+  color: #697467;
+  background: rgba(239,236,226,.84);
   text-align: left;
   cursor: pointer;
-  transform: translateY(-50%);
-  transition: color .24s ease, background .24s ease;
+  transform: translate(-50%, -50%);
+  transition: color .2s ease, background .2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
-.phaseButton:hover,
-.phaseButton[data-active="true"] {
-  color: #234b35;
-  background: rgba(245,242,233,.95);
+.mapPin:hover,
+.mapPin[data-active="true"] {
+  color: #234530;
+  background: rgba(250,248,239,.97);
 }
 
-.phaseButton:focus-visible {
-  outline: 2px solid #b88b3e;
+.mapPin:focus-visible {
+  outline: 2px solid #b88b43;
   outline-offset: 3px;
 }
 
-.phasePin {
+.pinDot {
   position: relative;
   display: block;
-  width: 8px;
-  height: 8px;
-  flex: 0 0 8px;
-  border: 1px solid #87947d;
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border: 1px solid #83927b;
   border-radius: 50%;
-  background: #f5f2e9;
-  transition: border-color .25s ease, background .25s ease, transform .3s cubic-bezier(.16,1,.3,1);
+  background: #f1eee5;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
 }
 
-.phasePin::after {
+.pinDot::after {
   position: absolute;
   inset: 2px;
   border-radius: 50%;
   background: transparent;
   content: "";
-  transition: background .25s ease;
+  transition: background .2s ease;
 }
 
-.phaseButton[data-active="true"] .phasePin {
-  border-color: #a47f45;
-  background: #e6d8b7;
-  transform: scale(1.25);
+.mapPin[data-active="true"] .pinDot {
+  border-color: #a67e43;
+  background: #eadbb9;
+  transform: scale(1.22);
 }
 
-.phaseButton[data-active="true"] .phasePin::after { background: #9a7135; }
+.mapPin[data-active="true"] .pinDot::after { background: #a67e43; }
 
-.phaseText {
+.pinLabel {
   display: grid;
   gap: 2px;
   white-space: nowrap;
 }
 
-.phaseText small {
-  color: #9a8a66;
-  font: 600 6px/1.2 var(--font-mono-face), monospace;
+.pinLabel small {
+  color: #a08250;
+  font: 600 6px/1.1 var(--font-mono-face), monospace;
   letter-spacing: .1em;
 }
 
-.phaseText strong {
+.pinLabel strong {
   color: inherit;
   font: 600 10px/1.2 var(--font-body-face), Arial, sans-serif;
   letter-spacing: -.015em;
 }
 
-.phaseButton[data-placement="start"] {
+.mapPin[data-placement="left"] {
   transform: translate(0, -50%);
 }
 
-.phaseButton[data-placement="top"] {
+.mapPin[data-placement="below"] {
   flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 3px 7px 5px;
-  transform: translate(-50%, -50%);
+  align-items: flex-start;
+  gap: 3px;
+  transform: translate(-12%, -5%);
 }
 
-.phaseButton[data-placement="top"] .phaseText {
-  position: absolute;
-  bottom: calc(100% + 5px);
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+.mapPin[data-placement="below"] .pinLabel {
+  padding-left: 1px;
 }
 
-.phaseButton[data-placement="end"] {
+.mapPin[data-placement="right"] {
   flex-direction: row-reverse;
   transform: translate(-100%, -50%);
 }
 
-.phaseButton[data-placement="end"] .phaseText { text-align: right; }
+.mapPin[data-placement="right"] .pinLabel { text-align: right; }
 
-.phaseButton[data-placement="bottom"] {
+.mapPin[data-placement="above"] {
   flex-direction: column-reverse;
-  align-items: center;
-  gap: 0;
-  padding: 5px 7px 3px;
-  transform: translate(-50%, -50%);
+  align-items: flex-end;
+  gap: 3px;
+  transform: translate(-100%, -7%);
 }
 
-.phaseButton[data-placement="bottom"] .phaseText {
-  position: absolute;
-  top: calc(100% + 5px);
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+.mapPin[data-placement="above"] .pinLabel {
+  padding-right: 1px;
+  text-align: right;
 }
 
-.canvasFooter {
-  border-top: 1px solid rgba(29,48,39,.11);
-  font-size: 6.5px;
+.mapBottomline {
+  min-height: 33px;
+  border-top: 1px solid rgba(29,48,39,.1);
+  font-size: 6px;
   letter-spacing: .1em;
 }
 
-.canvasFooter b {
-  padding-left: 4px;
-  color: #a47d43;
+.mapBottomline b {
+  padding-left: 3px;
+  color: #a17b42;
   font-size: 11px;
   font-weight: 400;
 }
 
-.phaseDetail {
+.fieldNote {
+  display: flex;
   min-width: 0;
-  min-height: 270px;
-  padding: 8px 0 0 clamp(18px, 2.2vw, 28px);
-  border-left: 1px solid rgba(29,48,39,.2);
+  min-height: 278px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 7px 0 0 clamp(18px, 2.2vw, 29px);
+  border-left: 1px solid rgba(29,48,39,.19);
 }
 
-.detailTopline,
-.detailBottom {
+.noteTopline,
+.noteFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 11px;
   color: #929383;
   font: 600 7px/1.4 var(--font-mono-face), monospace;
   letter-spacing: .12em;
 }
 
-.detailTopline > span:last-child { color: #a17c46; }
-.detailTopline i { color: #a2a293; font-style: normal; }
+.noteTopline > span:last-child { color: #a17b42; }
+.noteTopline i { color: #a3a292; font-style: normal; }
 
-.detailContent { margin-top: 33px; }
+.noteContent { margin: auto 0; padding: 26px 0; }
 
-.detailEyebrow {
-  margin: 0 0 11px;
-  color: #9a8154;
-  font: 600 7px/1.4 var(--font-mono-face), monospace;
+.noteEyebrow {
+  display: block;
+  margin: 0 0 12px;
+  color: #9b8153;
+  font: 600 7px/1.45 var(--font-mono-face), monospace;
   letter-spacing: .1em;
 }
 
-.detailContent h4 {
-  max-width: 12ch;
+.noteContent h4 {
+  max-width: 13ch;
   margin: 0;
-  color: #234232;
-  font: 450 clamp(1.7rem, 2.5vw, 2.15rem)/1.02 var(--font-display-face), Georgia, serif;
+  color: #244332;
+  font: 450 clamp(1.65rem, 2.45vw, 2.1rem)/1.02 var(--font-display-face), Georgia, serif;
   font-variation-settings: "SOFT" 27, "WONK" 1;
   letter-spacing: -.052em;
 }
 
-.detailDescription {
+.noteContent p {
   max-width: 35ch;
-  margin: 13px 0 0;
-  color: #647267;
-  font: 400 12px/1.7 var(--font-body-face), Arial, sans-serif;
+  margin: 14px 0 0;
+  color: #657267;
+  font: 400 12px/1.72 var(--font-body-face), Arial, sans-serif;
 }
 
-.detailBottom {
-  margin-top: 33px;
+.noteFooter {
   padding-top: 11px;
   border-top: 1px solid rgba(29,48,39,.13);
 }
 
-.replayButton {
+.replay {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -401,30 +444,36 @@
   transition: color .2s ease, gap .2s ease;
 }
 
-.replayButton:hover {
+.replay:hover:not(:disabled) {
   gap: 11px;
   color: #9b743c;
 }
 
-.replayButton:focus-visible {
-  outline: 2px solid #b88b3e;
+.replay:focus-visible {
+  outline: 2px solid #b88b43;
   outline-offset: 4px;
   border-radius: 3px;
 }
 
-.replayButton svg { color: #a1824c; }
-.loopIndex { color: #a3a291; font-size: 6px; white-space: nowrap; }
+.replay:disabled {
+  cursor: default;
+  opacity: .55;
+}
+
+.replay svg { color: #a1824c; }
+.routeIndex { color: #a2a18f; font-size: 6px; white-space: nowrap; }
 
 @media (max-width: 1050px) {
-  .workbench {
-    grid-template-columns: minmax(0, 1.55fr) minmax(200px, .7fr);
-    gap: 25px;
+  .fieldStudy {
+    grid-template-columns: minmax(0, 1.55fr) minmax(195px, .68fr);
+    gap: 24px;
   }
 
-  .phaseText strong { font-size: 9px; }
-  .phaseDetail { min-height: 250px; padding-left: 17px; }
-  .detailContent { margin-top: 26px; }
-  .detailBottom { margin-top: 24px; }
+  .fieldNote { min-height: 260px; padding-left: 18px; }
+  .noteContent { padding: 21px 0; }
+  .noteContent h4 { font-size: clamp(1.5rem, 2.5vw, 1.9rem); }
+  .mapPin { gap: 5px; padding: 4px 5px; }
+  .pinLabel strong { font-size: 9px; }
 }
 
 @media (max-width: 760px) {
@@ -432,74 +481,79 @@
 
   .headingRow { display: block; }
   .headingRow h3 {
-    max-width: 14ch;
+    max-width: 15ch;
     margin-top: 11px;
-    font-size: clamp(2.35rem, 9vw, 3.05rem);
+    font-size: clamp(2.35rem, 8.8vw, 3.05rem);
     line-height: .99;
   }
 
   .summary {
-    max-width: 39ch;
+    max-width: 40ch;
     margin: 11px 0 0;
     font-size: 12px;
     text-align: left;
   }
 
-  .workbench {
+  .fieldStudy {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 18px;
-    margin-top: 21px;
+    gap: 17px;
+    margin-top: 22px;
   }
 
-  .loopStage { min-height: 176px; }
-  .phaseButton { gap: 5px; padding: 4px 5px; }
-  .phaseText small { font-size: 5.5px; }
-  .phaseText strong { font-size: 8px; }
+  .mapTopline,
+  .mapBottomline {
+    min-height: 29px;
+    font-size: 5.5px;
+  }
 
-  .phaseButton[data-placement="start"] .phaseText { max-width: 76px; }
-  .phaseButton[data-placement="end"] .phaseText { max-width: 76px; }
+  .mapStage { aspect-ratio: 920 / 500; }
+  .mapSvg { height: 100%; }
 
-  .loopCenterTop { font-size: 7px; }
-  .loopCenterMain { font-size: 17px; }
-  .loopCenterBottom { font-size: 5.5px; letter-spacing: .65px; }
+  .mapCoordinates { font-size: 8px; }
+  .mapCenterLabel { font-size: 7px; }
+  .mapCenterTitle { font-size: 22px; }
+  .mapCenterSub { font-size: 6px; }
 
-  .canvasHeader,
-  .canvasFooter { min-height: 29px; font-size: 6px; }
+  .mapPin { gap: 4px; padding: 4px 5px; }
+  .pinDot { width: 8px; height: 8px; flex-basis: 8px; }
+  .pinLabel small { font-size: 5.5px; }
+  .pinLabel strong { font-size: 8px; }
 
-  .phaseDetail {
+  .mapPin[data-placement="left"] { transform: translate(0, -50%); }
+  .mapPin[data-placement="below"] { transform: translate(-12%, -5%); }
+  .mapPin[data-placement="right"] { transform: translate(-100%, -50%); }
+  .mapPin[data-placement="above"] { transform: translate(-100%, -7%); }
+
+  .fieldNote {
     min-height: 0;
-    padding: 2px 0 0 14px;
+    padding: 1px 0 0 14px;
   }
 
-  .detailContent { margin-top: 16px; }
-  .detailEyebrow { margin-bottom: 7px; }
-  .detailContent h4 { max-width: 19ch; font-size: 1.7rem; }
-  .detailDescription { max-width: 53ch; margin-top: 8px; font-size: 11px; }
-  .detailBottom { margin-top: 16px; }
+  .noteContent { padding: 15px 0; }
+  .noteEyebrow { margin-bottom: 7px; }
+  .noteContent h4 { max-width: 20ch; font-size: 1.7rem; }
+  .noteContent p { max-width: 52ch; margin-top: 8px; font-size: 11px; }
 }
 
 @media (max-width: 390px) {
-  .loopStage { min-height: 158px; }
-  .phaseButton { padding-inline: 3px; }
-  .phaseText strong { font-size: 7.5px; }
-  .phaseText small { font-size: 5px; }
-  .phaseButton[data-placement="start"] .phaseText,
-  .phaseButton[data-placement="end"] .phaseText { max-width: 66px; }
-  .loopCenterMain { font-size: 15px; }
-  .loopCenterBottom { font-size: 5px; }
+  .mapStage { aspect-ratio: 920 / 535; }
+  .mapTopline,
+  .mapBottomline { font-size: 5px; letter-spacing: .075em; }
+  .pinLabel strong { font-size: 7px; }
+  .pinLabel small { font-size: 5px; }
+  .mapPin { padding: 3px 4px; }
+  .mapPin[data-placement="left"] { transform: translate(-3%, -50%); }
+  .mapPin[data-placement="right"],
+  .mapPin[data-placement="above"] { transform: translate(-97%, -50%); }
+  .noteContent h4 { font-size: 1.55rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loopCanvas[data-running="true"] .loopTrackDash {
-    animation: none !important;
-  }
-
-  .phaseButton,
-  .phasePin,
-  .phasePin::after,
-  .replayButton {
-    transition: none !important;
-  }
+  .mapWrap[data-running="true"] .routeDashes { animation: none !important; }
+  .mapPin,
+  .pinDot,
+  .pinDot::after,
+  .replay { transition: none !important; }
 }
