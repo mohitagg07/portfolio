@@ -167,7 +167,6 @@ export default function Story() {
               transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.04, ease: EASE }}
             >
               <span className="about-fieldnotes__memory-tape" aria-hidden="true" />
-              <span className="about-fieldnotes__memory-tape" aria-hidden="true" />
               <div className="about-fieldnotes__memory-image">
                 <Image
                   src="/about/mountain-memory.jpg"
@@ -192,6 +191,7 @@ export default function Story() {
               viewport={{ once: true, amount: 0.22 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.14, ease: EASE }}
             >
+              <span className="about-fieldnotes__memory-tape" aria-hidden="true" />
               <div className="about-fieldnotes__memory-image">
                 <Image
                   src="/about/friends-memory-240.webp"
