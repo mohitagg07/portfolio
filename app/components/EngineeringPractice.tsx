@@ -25,7 +25,7 @@ const PHASES: Array<{
     headline: "Find what is actually getting in the way.",
     description:
       "Look past the first request. Understand the people, the hand-offs and the constraints before deciding what to build.",
-    position: { left: "20.65%", top: "25.4%" },
+    position: { left: "20.65%", top: "28.1%" },
     placement: "left",
   },
   {
@@ -36,7 +36,7 @@ const PHASES: Array<{
     headline: "Give the idea something real to become.",
     description:
       "Choose the simplest set of tools that solves the real problem. Connect the pieces, then make the experience feel clear.",
-    position: { left: "31%", top: "62.7%" },
+    position: { left: "31%", top: "69.4%" },
     placement: "below",
   },
   {
@@ -47,7 +47,7 @@ const PHASES: Array<{
     headline: "Find the part that will break.",
     description:
       "Try the strange inputs, interrupted tasks and missed hand-offs. The weak points are often where the most useful learning lives.",
-    position: { left: "76.1%", top: "65.4%" },
+    position: { left: "76.1%", top: "72.3%" },
     placement: "right",
   },
   {
@@ -58,7 +58,7 @@ const PHASES: Array<{
     headline: "Make the next pass more considered.",
     description:
       "Keep what works. Remove the friction. Strengthen what did not hold up — then take that understanding into the next cycle.",
-    position: { left: "84.8%", top: "25%" },
+    position: { left: "84.8%", top: "27.7%" },
     placement: "above",
   },
 ];
