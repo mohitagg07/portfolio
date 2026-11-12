@@ -3262,3 +3262,225 @@
     transition: none !important;
   }
 }
+
+
+/* Scrapbook photo direction — bring back personality without returning to clutter. */
+.about-fieldnotes__gallery {
+  display: block;
+  height: clamp(405px, 36vw, 490px);
+  padding: 0;
+  isolation: isolate;
+}
+.about-fieldnotes__gallery::before {
+  top: 7%;
+  bottom: 5%;
+  left: 2%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(184,139,62,.72) 12%, rgba(184,139,62,.72) 88%, transparent);
+  opacity: .85;
+}
+.about-fieldnotes__photo {
+  position: absolute;
+  overflow: visible;
+  padding: 7px 7px 17px;
+  border: 1px solid rgba(68,65,49,.14);
+  border-radius: 3px;
+  background: #fbf8ef;
+  box-shadow: 0 13px 27px rgba(35,48,38,.17), 0 2px 4px rgba(35,48,38,.09);
+  transform-origin: center center;
+}
+.about-fieldnotes__photo-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #dce4d9;
+}
+.about-fieldnotes__photo--main {
+  z-index: 1;
+  left: 3%;
+  top: 7%;
+  width: 72%;
+  height: 87%;
+  transform: rotate(-2.2deg);
+}
+.about-fieldnotes__photo--selfie {
+  z-index: 3;
+  left: 62%;
+  top: 5%;
+  width: 32%;
+  height: 42%;
+  transform: rotate(3.6deg);
+}
+.about-fieldnotes__photo--waterfall {
+  z-index: 2;
+  left: 59%;
+  bottom: 3%;
+  width: 36%;
+  height: 43%;
+  transform: rotate(-2.4deg);
+}
+.about-fieldnotes__photo--main:hover { z-index: 5; transform: rotate(-.6deg) translateY(-5px); }
+.about-fieldnotes__photo--selfie:hover { z-index: 5; transform: rotate(1.1deg) translateY(-5px); }
+.about-fieldnotes__photo--waterfall:hover { z-index: 5; transform: rotate(-.6deg) translateY(-5px); }
+.about-fieldnotes__photo-image {
+  object-fit: cover;
+  object-position: center;
+}
+.about-fieldnotes__photo-image--waterfall { object-position: 50% 58%; }
+.about-fieldnotes__tape,
+.about-fieldnotes__memory-tape {
+  position: absolute;
+  z-index: 4;
+  top: -9px;
+  left: 50%;
+  width: 66px;
+  height: 17px;
+  border: 1px solid rgba(141,113,65,.15);
+  background: rgba(218,193,143,.76);
+  box-shadow: 0 2px 4px rgba(44,42,30,.08);
+  transform: translateX(-50%) rotate(-3deg);
+  pointer-events: none;
+}
+.about-fieldnotes__tape--main {
+  left: 23%;
+  transform: translateX(-50%) rotate(2deg);
+}
+.about-fieldnotes__photo--selfie .about-fieldnotes__tape { transform: translateX(-50%) rotate(4deg); }
+.about-fieldnotes__photo--waterfall .about-fieldnotes__tape { transform: translateX(-50%) rotate(-4deg); }
+.about-fieldnotes__location {
+  position: absolute;
+  z-index: 6;
+  top: -1%;
+  right: 7%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 154px;
+  padding: 9px 13px 10px;
+  border: 1px solid rgba(117,94,55,.14);
+  border-radius: 2px;
+  color: #304c39;
+  background: linear-gradient(145deg, #f5e9cd, #ead9b5);
+  box-shadow: 0 8px 17px rgba(48,55,39,.12);
+  transform: rotate(-3deg);
+}
+.about-fieldnotes__location span {
+  color: #7a806d;
+  font: 700 7px/1.3 var(--font-mono-face), ui-monospace, monospace;
+  letter-spacing: .13em;
+}
+.about-fieldnotes__location strong {
+  color: #294634;
+  font: italic 400 21px/1 var(--font-accent-face), Georgia, serif;
+}
+.about-fieldnotes__gallery-index {
+  bottom: -17px;
+  left: 4%;
+  color: #7b8374;
+  font-size: 7px;
+}
+.about-fieldnotes__memories {
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 0;
+  padding: 8px 8px 9px 0;
+  align-items: start;
+}
+.about-fieldnotes__memory {
+  position: relative;
+  z-index: 1;
+  padding: 8px 8px 12px;
+  border: 1px solid rgba(68,65,49,.14);
+  border-radius: 3px;
+  background: #fbf8ef;
+  box-shadow: 0 13px 25px rgba(35,48,38,.16), 0 2px 4px rgba(35,48,38,.08);
+  transform: rotate(-2.3deg);
+  transition: transform .32s ease, box-shadow .32s ease;
+}
+.about-fieldnotes__memory--friends {
+  z-index: 2;
+  margin-top: 34px;
+  margin-left: -18px;
+  transform: rotate(2.4deg);
+}
+.about-fieldnotes__memory:hover {
+  z-index: 5;
+  transform: translateY(-5px) rotate(-.4deg);
+  box-shadow: 0 17px 29px rgba(35,48,38,.19), 0 2px 4px rgba(35,48,38,.08);
+}
+.about-fieldnotes__memory--friends:hover { transform: translateY(-5px) rotate(.4deg); }
+.about-fieldnotes__memory-tape { top: -8px; width: 70px; height: 17px; }
+.about-fieldnotes__memory--friends .about-fieldnotes__memory-tape { transform: translateX(-50%) rotate(3deg); }
+.about-fieldnotes__memory-image {
+  aspect-ratio: 1.43 / 1;
+  border-radius: 1px;
+}
+.about-fieldnotes__memory figcaption {
+  min-height: 48px;
+  margin-top: 0;
+  padding: 10px 4px 0;
+}
+.about-fieldnotes__memory figcaption strong {
+  font-size: clamp(1.15rem, 1.6vw, 1.48rem);
+}
+@media (max-width: 1050px) {
+  .about-fieldnotes__gallery { height: clamp(350px, 43vw, 430px); }
+  .about-fieldnotes__location { right: 4%; }
+}
+@media (max-width: 760px) {
+  .about-fieldnotes__gallery {
+    width: 100%;
+    height: min(84vw, 350px);
+    min-height: 270px;
+    margin-top: 2px;
+  }
+  .about-fieldnotes__photo { padding: 5px 5px 12px; }
+  .about-fieldnotes__photo--main {
+    left: 2%; top: 9%; width: 72%; height: 84%;
+    transform: rotate(-2deg);
+  }
+  .about-fieldnotes__photo--selfie {
+    left: 62%; top: 7%; width: 32%; height: 41%;
+    transform: rotate(3deg);
+  }
+  .about-fieldnotes__photo--waterfall {
+    left: 58%; bottom: 4%; width: 37%; height: 42%;
+    transform: rotate(-2deg);
+  }
+  .about-fieldnotes__location {
+    top: -1%; right: 4%;
+    min-width: 118px;
+    padding: 7px 9px 8px;
+  }
+  .about-fieldnotes__location span { font-size: 6px; }
+  .about-fieldnotes__location strong { font-size: 17px; }
+  .about-fieldnotes__tape,
+  .about-fieldnotes__memory-tape { width: 50px; height: 13px; top: -7px; }
+  .about-fieldnotes__gallery-index { bottom: -14px; }
+  .about-fieldnotes__memories {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 8px 8px 0 0;
+  }
+  .about-fieldnotes__memory {
+    width: 88%;
+    padding: 6px 6px 10px;
+    transform: rotate(-1.8deg);
+  }
+  .about-fieldnotes__memory--friends {
+    width: 88%;
+    margin-top: -2px;
+    margin-left: auto;
+    transform: rotate(1.9deg);
+  }
+  .about-fieldnotes__memory-image { aspect-ratio: 1.55 / 1; }
+  .about-fieldnotes__memory figcaption { min-height: 43px; padding: 8px 3px 0; }
+  .about-fieldnotes__memory figcaption span { font-size: 7px; }
+  .about-fieldnotes__memory figcaption strong { font-size: 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-fieldnotes__memory,
+  .about-fieldnotes__photo {
+    transition: none !important;
+  }
+}
