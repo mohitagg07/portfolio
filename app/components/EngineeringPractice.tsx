@@ -15,66 +15,75 @@ const PHASES: Array<{
   headline: string;
   description: string;
   position: { left: string; top: string };
-  placement: string;
+  placement: "left" | "below" | "right" | "above";
 }> = [
   {
     id: "understand",
     number: "01",
     name: "Understand",
     eyebrow: "START WITH THE REAL PROBLEM",
-    headline: "Find the friction first.",
+    headline: "Find what is actually getting in the way.",
     description:
-      "Before choosing a tool, understand the people, hand-offs and constraints around the problem. Good engineering starts with asking better questions.",
-    position: { left: "16.5%", top: "49.8%" },
-    placement: "start",
+      "Look past the first request. Understand the people, the hand-offs and the constraints before deciding what to build.",
+    position: { left: "20.65%", top: "25.4%" },
+    placement: "left",
   },
   {
     id: "build",
     number: "02",
     name: "Build",
-    eyebrow: "MAKE SOMETHING USEFUL",
-    headline: "Turn the idea into a working thing.",
+    eyebrow: "MAKE A USEFUL FIRST VERSION",
+    headline: "Give the idea something real to become.",
     description:
-      "Connect the right pieces, keep the system understandable, and make the useful path feel natural. Start focused; leave room to grow.",
-    position: { left: "42.75%", top: "16.3%" },
-    placement: "top",
+      "Choose the simplest set of tools that solves the real problem. Connect the pieces, then make the experience feel clear.",
+    position: { left: "31%", top: "62.7%" },
+    placement: "below",
   },
   {
     id: "challenge",
     number: "03",
     name: "Challenge",
-    eyebrow: "TEST WHAT COULD GO WRONG",
-    headline: "Look for the edge cases.",
+    eyebrow: "TEST THE UNCOMFORTABLE CASES",
+    headline: "Find the part that will break.",
     description:
-      "Try interrupted runs, unexpected inputs and awkward hand-offs. Reliability comes from testing the parts that are easiest to overlook.",
-    position: { left: "85.9%", top: "63%" },
-    placement: "end",
+      "Try the strange inputs, interrupted tasks and missed hand-offs. The weak points are often where the most useful learning lives.",
+    position: { left: "76.1%", top: "65.4%" },
+    placement: "right",
   },
   {
     id: "refine",
     number: "04",
     name: "Refine",
-    eyebrow: "LEARN AND RETURN",
-    headline: "Keep what works. Improve the rest.",
+    eyebrow: "CARRY THE LEARNING FORWARD",
+    headline: "Make the next pass more considered.",
     description:
-      "Use what real use reveals. Remove friction, strengthen weak points, and carry those lessons into the next pass.",
-    position: { left: "52.4%", top: "79.1%" },
-    placement: "bottom",
+      "Keep what works. Remove the friction. Strengthen what did not hold up — then take that understanding into the next cycle.",
+    position: { left: "84.8%", top: "25%" },
+    placement: "above",
   },
 ];
 
-const LOOP_PATH =
-  "M 132 214 C 132 137 220 63 342 70 C 453 77 488 42 590 74 C 716 113 758 203 687 271 C 616 340 521 374 419 340 C 327 309 237 369 160 310 C 93 259 132 291 132 214";
+const ROUTE_PATH =
+  "M 460 235 C 410 130 285 78 190 132 C 75 195 140 330 285 326 C 380 323 415 248 460 235 C 505 222 560 335 700 340 C 830 345 865 190 780 130 C 700 65 560 135 460 235";
+
+const CONTOURS = [
+  "M-50 96 C80 12 202 5 306 52 S500 130 632 75 S826 -4 970 50",
+  "M-50 122 C80 39 205 35 309 78 S502 151 636 101 S828 23 970 77",
+  "M-50 149 C84 68 208 62 315 104 S505 178 642 128 S832 50 970 104",
+  "M-40 386 C84 326 187 352 280 393 S473 460 604 411 S821 320 965 365",
+  "M-40 414 C80 354 190 382 286 420 S477 488 610 440 S825 350 965 393",
+  "M-40 441 C83 384 194 409 292 447 S479 514 615 468 S830 380 965 421",
+  "M35 250 C60 200 98 188 132 190 M34 270 C55 310 96 332 140 333",
+  "M885 205 C852 166 826 154 795 156 M890 227 C865 270 827 289 786 287",
+];
 
 export default function EngineeringPractice() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sceneRef, { once: true, amount: 0.25 });
+  const mapRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(mapRef, { once: true, amount: 0.18 });
   const reduceMotion = useReducedMotion();
   const [activePhase, setActivePhase] = useState<Phase>("understand");
-  const [loopKey, setLoopKey] = useState(0);
+  const [replayKey, setReplayKey] = useState(0);
   const active = PHASES.find((phase) => phase.id === activePhase) ?? PHASES[0];
-
-  const replayLoop = () => setLoopKey((value) => value + 1);
 
   return (
     <section className={styles.section} aria-labelledby="engineering-practice-title">
@@ -82,113 +91,108 @@ export default function EngineeringPractice() {
         <p className={styles.kicker}>02 <span>/</span> HOW I APPROACH A BUILD</p>
         <div className={styles.headingRow}>
           <h3 id="engineering-practice-title">
-            Build. Learn. <em>Repeat.</em>
+            The work moves in <em>loops, not lines.</em>
           </h3>
           <p className={styles.summary}>
-            Good work rarely moves in a straight line. Every pass should make the next one better.
+            Understand the problem. Make a pass. Learn from what happens. Come back sharper.
           </p>
         </div>
       </header>
 
-      <div className={styles.workbench}>
-        <div className={styles.loopCanvas} ref={sceneRef} data-running={inView && !reduceMotion}>
-          <div className={styles.canvasHeader}>
-            <span>THE WORKING LOOP</span>
-            <span>01—04 <i /></span>
+      <div className={styles.fieldStudy}>
+        <div className={styles.mapWrap} ref={mapRef}>
+          <div className={styles.mapTopline}>
+            <span>FIELD STUDY <b>—</b> 01</span>
+            <span>A ROUTE THROUGH COMPLEXITY <i /></span>
           </div>
 
-          <div className={styles.loopStage}>
+          <div className={styles.mapStage}>
             <svg
-              className={styles.loopSvg}
-              viewBox="0 0 800 430"
+              className={styles.mapSvg}
+              viewBox="0 0 920 470"
               role="img"
-              aria-labelledby="loop-title loop-description"
+              aria-labelledby="field-map-title field-map-description"
             >
-              <title id="loop-title">A continuous engineering feedback loop</title>
-              <desc id="loop-description">
-                Understand the problem, build a useful solution, challenge it with real conditions,
-                refine what you learn, and return to the problem with better understanding.
+              <title id="field-map-title">A hand-drawn route through an iterative way of working</title>
+              <desc id="field-map-description">
+                A continuous, looping route moves through understanding, building, challenging
+                and refining, then returns to the beginning. Contour lines suggest the complexity
+                surrounding the work.
               </desc>
 
-              <defs>
-                <linearGradient id="loop-track-gradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#315e43" />
-                  <stop offset="55%" stopColor="#879b72" />
-                  <stop offset="100%" stopColor="#b88b3e" />
-                </linearGradient>
-                <filter id="loop-signal-glow" x="-300%" y="-300%" width="700%" height="700%">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
+              <g className={styles.contours} fill="none">
+                {CONTOURS.map((path, index) => (
+                  <path key={index} d={path} />
+                ))}
+              </g>
 
-              <path d={LOOP_PATH} className={styles.loopTrackBase} />
-              <path d={LOOP_PATH} className={styles.loopTrackAccent} />
-              <path d={LOOP_PATH} className={styles.loopTrackDash} />
+              <g className={styles.mapCoordinates}>
+                <text x="40" y="42">N 32° 43′</text>
+                <text x="880" y="42" textAnchor="end">FIELD NOTES / ITERATION</text>
+                <text x="40" y="448">PROBLEM SPACE</text>
+                <text x="880" y="448" textAnchor="end">RETURN TO START ↶</text>
+              </g>
 
-              <path
-                d={LOOP_PATH}
-                className={styles.loopInnerGuide}
-              />
+              <path d={ROUTE_PATH} className={styles.routeUnderlay} />
+              <path d={ROUTE_PATH} className={styles.routeMain} />
+              <path d={ROUTE_PATH} className={styles.routeCenterline} />
+              <path d={ROUTE_PATH} className={styles.routeDashes} />
+
+              <path d="M430 202 C443 215 451 225 460 235" className={styles.crossingThread} />
+              <path d="M460 235 C472 245 486 258 500 276" className={styles.crossingThread} />
 
               {PHASES.map((phase) => {
-                const coordinates = {
-                  understand: [132, 214],
-                  build: [342, 70],
-                  challenge: [687, 271],
-                  refine: [419, 340],
+                const coords = {
+                  understand: [190, 132],
+                  build: [285, 326],
+                  challenge: [700, 340],
+                  refine: [780, 130],
                 }[phase.id];
 
                 return (
                   <g key={phase.id}>
                     <circle
-                      cx={coordinates[0]}
-                      cy={coordinates[1]}
-                      r={activePhase === phase.id ? 12 : 8}
-                      className={styles.svgNodeHalo}
+                      cx={coords[0]}
+                      cy={coords[1]}
+                      r={activePhase === phase.id ? 15 : 10}
+                      className={styles.routeNodeHalo}
                       data-active={activePhase === phase.id}
                     />
                     <circle
-                      cx={coordinates[0]}
-                      cy={coordinates[1]}
+                      cx={coords[0]}
+                      cy={coords[1]}
                       r={activePhase === phase.id ? 4.5 : 3}
-                      className={styles.svgNodeCore}
+                      className={styles.routeNode}
                       data-active={activePhase === phase.id}
                     />
                   </g>
                 );
               })}
 
-              <text x="407" y="196" textAnchor="middle" className={styles.loopCenterTop}>
-                NOT A CHECKLIST
+              <text x="460" y="211" textAnchor="middle" className={styles.mapCenterLabel}>
+                THE PROCESS
               </text>
-              <text x="407" y="224" textAnchor="middle" className={styles.loopCenterMain}>
-                A way of working.
+              <text x="460" y="239" textAnchor="middle" className={styles.mapCenterTitle}>
+                Stay curious.
               </text>
-              <path d="M 374 240 H 440" className={styles.loopCenterRule} />
-              <text x="407" y="258" textAnchor="middle" className={styles.loopCenterBottom}>
-                EACH PASS MAKES THE NEXT ONE BETTER
+              <text x="460" y="258" textAnchor="middle" className={styles.mapCenterSub}>
+                KEEP MOVING. KEEP LEARNING.
               </text>
 
               {inView && !reduceMotion && (
-                <g key={loopKey} filter="url(#loop-signal-glow)">
-                  <circle r="4.4" className={styles.loopSignal}>
+                <g key={replayKey} className={styles.routeTraveller}>
+                  <circle r="8" className={styles.travellerGlow}>
                     <animateMotion
-                      dur="14s"
+                      dur="17s"
                       repeatCount="indefinite"
-                      rotate="auto"
-                      path={LOOP_PATH}
+                      path={ROUTE_PATH}
                     />
                   </circle>
-                  <circle r="1.4" fill="#fff8e8">
+                  <circle r="3.2" className={styles.travellerCore}>
                     <animateMotion
-                      dur="14s"
+                      dur="17s"
                       repeatCount="indefinite"
-                      rotate="auto"
-                      path={LOOP_PATH}
+                      path={ROUTE_PATH}
                     />
                   </circle>
                 </g>
@@ -199,7 +203,7 @@ export default function EngineeringPractice() {
               <button
                 key={phase.id}
                 type="button"
-                className={styles.phaseButton}
+                className={styles.mapPin}
                 data-active={activePhase === phase.id}
                 data-placement={phase.placement}
                 style={phase.position}
@@ -208,8 +212,8 @@ export default function EngineeringPractice() {
                 onMouseEnter={() => setActivePhase(phase.id)}
                 onFocus={() => setActivePhase(phase.id)}
               >
-                <span className={styles.phasePin} aria-hidden="true" />
-                <span className={styles.phaseText}>
+                <span className={styles.pinDot} aria-hidden="true" />
+                <span className={styles.pinLabel}>
                   <small>{phase.number}</small>
                   <strong>{phase.name}</strong>
                 </span>
@@ -217,40 +221,45 @@ export default function EngineeringPractice() {
             ))}
           </div>
 
-          <div className={styles.canvasFooter}>
-            <span>THE LOOP NEVER REALLY ENDS</span>
-            <span>BACK TO THE BEGINNING <b>↶</b></span>
+          <div className={styles.mapBottomline}>
+            <span>NO FIXED ROUTE. JUST BETTER QUESTIONS.</span>
+            <span>THE NEXT PASS STARTS HERE <b>↗</b></span>
           </div>
         </div>
 
-        <aside className={styles.phaseDetail} aria-label="Selected stage of the engineering loop">
-          <div className={styles.detailTopline}>
-            <span>THE APPROACH</span>
+        <aside className={styles.fieldNote} aria-label="Selected stage">
+          <div className={styles.noteTopline}>
+            <span>IN THE MARGIN</span>
             <span>{active.number} <i>/ 04</i></span>
           </div>
 
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={activePhase}
-              className={styles.detailContent}
+              className={styles.noteContent}
               initial={reduceMotion ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={reduceMotion ? undefined : { opacity: 0, y: -5 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               aria-live="polite"
             >
-              <p className={styles.detailEyebrow}>{active.eyebrow}</p>
+              <span className={styles.noteEyebrow}>{active.eyebrow}</span>
               <h4>{active.headline}</h4>
-              <p className={styles.detailDescription}>{active.description}</p>
+              <p>{active.description}</p>
             </motion.div>
           </AnimatePresence>
 
-          <div className={styles.detailBottom}>
-            <button type="button" className={styles.replayButton} onClick={replayLoop}>
+          <div className={styles.noteFooter}>
+            <button
+              type="button"
+              className={styles.replay}
+              onClick={() => setReplayKey((value) => value + 1)}
+              disabled={Boolean(reduceMotion)}
+            >
               <RotateCcw size={13} strokeWidth={1.7} />
-              <span>Watch it go around again</span>
+              <span>Follow the route again</span>
             </button>
-            <span className={styles.loopIndex}>01 — 04 — 01</span>
+            <span className={styles.routeIndex}>01—04—01</span>
           </div>
         </aside>
       </div>
