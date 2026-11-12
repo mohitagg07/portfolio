@@ -45,7 +45,7 @@ export default function HeroGreeting() {
             href="#work"
             onClick={(event) => navigateToSection(event, "work")}
           >
-            View selected work <span aria-hidden="true">↗</span>
+            See what I’ve built <span aria-hidden="true">↗</span>
           </a>
           <a
             className="hero-v3__button hero-v3__button--secondary"
