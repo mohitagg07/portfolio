@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { useInView } from "./useInView";
+import EngineeringPractice from "./EngineeringPractice";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -140,44 +141,7 @@ export default function Story() {
           </motion.div>
         </div>
 
-        <motion.section
-          className="about-fieldnotes__chapter about-fieldnotes__approach"
-          aria-labelledby="about-approach-title"
-          {...inViewReveal}
-        >
-          <div className="about-fieldnotes__chapter-heading">
-            <p className="about-fieldnotes__kicker">02 <span>/</span> HOW I APPROACH A BUILD</p>
-            <h3 id="about-approach-title">From messy inputs to something people can use.</h3>
-            <p className="about-fieldnotes__chapter-intro">
-              The work moves from understanding the friction to connecting the right tools,
-              then refining what people actually use.
-            </p>
-          </div>
-
-          <div className="about-fieldnotes__process" aria-label="My approach to building">
-            <article className="about-fieldnotes__step">
-              <span className="about-fieldnotes__step-number">01</span>
-              <div>
-                <h4>Find the friction.</h4>
-                <p>Spot the repetitive step, unclear decision, or information gap.</p>
-              </div>
-            </article>
-            <article className="about-fieldnotes__step">
-              <span className="about-fieldnotes__step-number">02</span>
-              <div>
-                <h4>Connect the pieces.</h4>
-                <p>Bring data, APIs and AI together where they make the workflow simpler.</p>
-              </div>
-            </article>
-            <article className="about-fieldnotes__step">
-              <span className="about-fieldnotes__step-number">03</span>
-              <div>
-                <h4>Make it dependable.</h4>
-                <p>Refine the interface, test edge cases, and improve the next version.</p>
-              </div>
-            </article>
-          </div>
-        </motion.section>
+        <EngineeringPractice />
 
         <motion.section
           className="about-fieldnotes__beyond"
