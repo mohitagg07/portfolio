@@ -98,10 +98,8 @@ export default function HeroRobot() {
         const pRect = portraitEl.getBoundingClientRect();
         if (pRect.bottom > 0 && pRect.top < window.innerHeight) {
           const isCompact = window.innerWidth <= 960;
-          const rawX = isCompact ? pRect.right - 52 : pRect.left - 48;
-          const rawY = isCompact
-            ? pRect.top - 36
-            : pRect.top + Math.min(pRect.height * 0.56, 260);
+          const rawX = pRect.left - (isCompact ? 38 : 48);
+          const rawY = pRect.top + Math.min(pRect.height * 0.56, isCompact ? 210 : 260);
           const safeX = Math.max(24, Math.min(window.innerWidth - 88, Math.round(rawX)));
           const safeY = Math.max(118, Math.min(window.innerHeight - 124, Math.round(rawY)));
           charRef.current.style.setProperty("--about-x", `${safeX}px`);
