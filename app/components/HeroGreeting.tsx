@@ -56,16 +56,11 @@ export default function HeroGreeting() {
           </a>
         </motion.div>
 
-        <motion.div className="hero-v3__facts" aria-label="Selected work and working principles" {...reveal(0.58)}>
+        <motion.div className="hero-v3__facts" aria-label="Selected projects and experiments" {...reveal(0.58)}>
           <div className="hero-v3__facts-count">
             <strong>5+</strong>
             <span>Projects &amp; experiments</span>
             <small>Ideas explored, built and improved along the way.</small>
-          </div>
-          <div className="hero-v3__practice" aria-label="How I approach a project">
-            <span>Understand the problem</span>
-            <span>Build what helps</span>
-            <span>Care about the details</span>
           </div>
         </motion.div>
       </div>
