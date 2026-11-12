@@ -50,8 +50,8 @@ export default function Story() {
               data-about-portrait="true"
               data-about-interactive="portrait"
               className="about-fieldnotes__photo about-fieldnotes__photo--main"
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.08, ease: EASE }}
             >
               <span className="about-fieldnotes__tape about-fieldnotes__tape--main" aria-hidden="true" />
@@ -197,8 +197,8 @@ export default function Story() {
             <motion.figure
               className="about-fieldnotes__memory"
               data-about-interactive="memory-mountain"
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.22 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.04, ease: EASE }}
             >
@@ -223,8 +223,8 @@ export default function Story() {
             <motion.figure
               className="about-fieldnotes__memory about-fieldnotes__memory--friends"
               data-about-interactive="memory-friends"
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.22 }}
               transition={reduceMotion ? { duration: 0 } : { duration: 0.64, delay: 0.14, ease: EASE }}
             >
