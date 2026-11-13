@@ -335,7 +335,22 @@
   box-shadow: 0 5px 15px rgba(31,43,30,.12), inset 0 1px 0 rgba(255,255,255,.9);
   cursor: pointer;
   transform: translate(-50%, -50%);
-  transition: color .25s ease, background .25s ease, border-color .25s ease;
+  transition:
+    top .65s cubic-bezier(.16,1,.3,1),
+    left .65s cubic-bezier(.16,1,.3,1),
+    right .65s cubic-bezier(.16,1,.3,1),
+    transform .65s cubic-bezier(.16,1,.3,1),
+    color .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+}
+
+.comparison[data-unified="true"] .transformButton {
+  top: 22px;
+  right: 22px;
+  left: auto;
+  color: #274634;
+  transform: none;
 }
 
 .transformButton:hover {
@@ -717,6 +732,11 @@
     top: 50%;
     width: 42px;
     height: 42px;
+  }
+
+  .comparison[data-unified="true"] .transformButton {
+    top: 15px;
+    right: 14px;
   }
 
   .craftStrip {
