@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowLeftRight, Check, Circle, Dot } from "lucide-react";
+import { ArrowLeftRight, Check, Dot } from "lucide-react";
 import styles from "./EngineeringPractice.module.css";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
