@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeftRight, Check, Dot } from "lucide-react";
 import styles from "./EngineeringPractice.module.css";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function EngineeringPractice() {
   const [unified, setUnified] = useState(false);
@@ -45,6 +45,7 @@ export default function EngineeringPractice() {
         </div>
 
         <motion.div
+          id="workflow-comparison"
           className={styles.comparison}
           data-unified={unified ? "true" : "false"}
           {...reveal(0.1)}
@@ -149,6 +150,7 @@ export default function EngineeringPractice() {
             onClick={() => setUnified((value) => !value)}
             aria-label={unified ? "Show the original complexity" : "See the system brought together"}
             aria-pressed={unified}
+            aria-controls="workflow-comparison"
             whileHover={reduceMotion ? undefined : { scale: 1.06 }}
             whileTap={reduceMotion ? undefined : { scale: 0.94 }}
             transition={{ duration: 0.2 }}
