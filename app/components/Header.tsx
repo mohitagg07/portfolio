@@ -21,48 +21,60 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    let lastScrolled: boolean | undefined;
-    let lastActive: string | undefined;
+    let lastScrolled = false;
     let scrollFrame = 0;
-    const updateScrollState = () => {
+
+    // Only the compact header state needs a scroll-frame update. Section
+    // tracking is handled by IntersectionObserver to avoid repeated layout reads.
+    const updateScrolledState = () => {
       scrollFrame = 0;
-      const y = window.scrollY;
-      const nextScrolled = y > 40;
-      const nextNearTop = y < 200;
+      const nextScrolled = window.scrollY > 40;
       if (nextScrolled !== lastScrolled) {
         lastScrolled = nextScrolled;
         setScrolled(nextScrolled);
       }
-
-      let nextActive = "";
-      if (!nextNearTop) {
-        const triggerY = window.innerHeight * 0.35;
-        for (const [, id] of LINKS) {
-          const el = document.getElementById(id);
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= triggerY && rect.bottom > triggerY) {
-            nextActive = id;
-            break;
-          }
-        }
-      }
-      if (nextActive !== lastActive) {
-        lastActive = nextActive;
-        setActive(nextActive);
+      if (window.scrollY < 200) {
+        setActive((current) => current ? "" : current);
       }
     };
+
     const onScroll = () => {
       if (scrollFrame) return;
-      scrollFrame = window.requestAnimationFrame(updateScrollState);
+      scrollFrame = window.requestAnimationFrame(updateScrolledState);
     };
-    updateScrollState();
+
+    updateScrolledState();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        if (window.scrollY < 200) return;
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (a, b) =>
+              Math.abs(a.boundingClientRect.top - window.innerHeight * 0.35) -
+              Math.abs(b.boundingClientRect.top - window.innerHeight * 0.35)
+          );
+        const nextActive = visible[0]?.target.id;
+        if (nextActive) {
+          setActive((current) => current === nextActive ? current : nextActive);
+        }
+      },
+      { rootMargin: "-34% 0px -55% 0px", threshold: 0 }
+    );
+
+    LINKS.forEach(([, id]) => {
+      const section = document.getElementById(id);
+      if (section) sectionObserver.observe(section);
+    });
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.cancelAnimationFrame(scrollFrame);
+      sectionObserver.disconnect();
     };
   }, []);
 
