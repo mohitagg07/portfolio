@@ -16,7 +16,7 @@ export default function HeroScene() {
         alt=""
         fill
         priority
-        quality={90}
+        quality={75}
         sizes="100vw"
         className="hero-v3__image"
         aria-hidden="true"
