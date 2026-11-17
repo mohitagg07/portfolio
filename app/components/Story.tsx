@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { useInView } from "./useInView";
-import EngineeringPractice from "./EngineeringPractice";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -41,74 +40,6 @@ export default function Story() {
         </header>
 
         <div className="about-fieldnotes__intro">
-          <motion.div className="about-fieldnotes__gallery" {...reveal(0.06)}>
-            <div className="about-fieldnotes__location" aria-label="Home base: Jammu, India">
-              <span>HOME BASE</span>
-              <strong>Jammu, India</strong>
-            </div>
-
-            <motion.figure
-              data-about-portrait="true"
-              data-about-interactive="portrait"
-              className="about-fieldnotes__photo about-fieldnotes__photo--main"
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.72, delay: 0.08, ease: EASE }}
-            >
-              <span className="about-fieldnotes__tape about-fieldnotes__tape--main" aria-hidden="true" />
-              <div className="about-fieldnotes__photo-frame">
-              <Image
-                src="/about/about-main.webp"
-                alt="Mohit outdoors in a black shirt, among the greenery"
-                fill
-                sizes="(max-width: 760px) 61vw, (max-width: 1100px) 43vw, 620px"
-                quality={75}
-                className="about-fieldnotes__photo-image"
-              />
-              </div>
-            </motion.figure>
-
-            <motion.figure
-              className="about-fieldnotes__photo about-fieldnotes__photo--selfie"
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.2, ease: EASE }}
-            >
-              <span className="about-fieldnotes__tape" aria-hidden="true" />
-              <div className="about-fieldnotes__photo-frame">
-              <Image
-                src="/about/about-selfie.webp"
-                alt="Mohit in a black leather jacket"
-                fill
-                sizes="(max-width: 760px) 30vw, 240px"
-                quality={75}
-                className="about-fieldnotes__photo-image"
-              />
-              </div>
-            </motion.figure>
-
-            <motion.figure
-              className="about-fieldnotes__photo about-fieldnotes__photo--waterfall"
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={reduceMotion || sectionSeen ? { opacity: 1 } : { opacity: 0 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.62, delay: 0.3, ease: EASE }}
-            >
-              <span className="about-fieldnotes__tape" aria-hidden="true" />
-              <div className="about-fieldnotes__photo-frame">
-              <Image
-                src="/about/about-waterfall.webp"
-                alt="Mohit visiting a waterfall"
-                fill
-                sizes="(max-width: 760px) 30vw, 240px"
-                quality={75}
-                className="about-fieldnotes__photo-image about-fieldnotes__photo-image--waterfall"
-              />
-              </div>
-            </motion.figure>
-
-            <span className="about-fieldnotes__gallery-index" aria-hidden="true">01—03</span>
-          </motion.div>
-
           <motion.div className="about-fieldnotes__copy" {...reveal(0.14)}>
             <p className="about-fieldnotes__eyebrow">
               SOFTWARE ENGINEER <span aria-hidden="true">·</span> AI &amp; AUTOMATION
@@ -141,7 +72,6 @@ export default function Story() {
           </motion.div>
         </div>
 
-        <EngineeringPractice />
 
         <motion.section
           className="about-fieldnotes__beyond"
@@ -149,7 +79,7 @@ export default function Story() {
           {...inViewReveal}
         >
           <div className="about-fieldnotes__beyond-copy">
-            <p className="about-fieldnotes__kicker">03 <span>/</span> BEYOND THE SCREEN</p>
+            <p className="about-fieldnotes__kicker">02 <span>/</span> BEYOND THE SCREEN</p>
             <h3 id="about-beyond-title">Some things deserve to stay outside the workspace.</h3>
             <p>
               Time outdoors, a change of scene, and good people. That’s usually enough to come
