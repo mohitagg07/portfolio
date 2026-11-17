@@ -38,6 +38,7 @@ function timeAgo(dateStr: string): string {
 
 export default function YouTube() {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
   const [subscribers, setSubscribers] = useState(0);
   const [videoStatus, setVideoStatus] = useState<"idle" | "loading" | "ready" | "empty" | "error">("idle");
   const [sectionRef, hasBeenSeen] = useInView<HTMLElement>(0.05);
@@ -73,6 +74,11 @@ export default function YouTube() {
     subscribers >= SHOW_COUNTS_FROM
       ? `${formatCount(subscribers)} subscribers`
       : "Travel, tech and building in public";
+  const featuredVideo = videos.find((video) => video.videoId === selectedVideoId) ?? videos[0];
+  const videoMeta = (video: Video) =>
+    [timeAgo(video.publishedAt), video.viewCount >= SHOW_COUNTS_FROM ? `${formatCount(video.viewCount)} views` : null]
+      .filter(Boolean)
+      .join(" · ");
 
   return (
     <div id="video" className="video-scroll-stage">
@@ -130,50 +136,87 @@ export default function YouTube() {
                 </div>
               ))}
             </div>
-          ) : videos.length > 0 ? (
-            <div className="yt-grid">
-              {videos.map((v, i) => {
-                const meta = [timeAgo(v.publishedAt), v.viewCount >= SHOW_COUNTS_FROM ? `${formatCount(v.viewCount)} views` : null]
-                  .filter(Boolean)
-                  .join(" · ");
-                return (
+          ) : videos.length > 0 && featuredVideo ? (
+            <div className="video-feature-layout">
+              <article className="video-featured" aria-label="Featured video">
+                <div className="video-featured__eyebrow">
+                  <span>Featured / from the channel</span>
+                  <span>@MohitAgg07</span>
+                </div>
+                {featuredVideo.thumbnail ? (
                   <a
-                    key={v.videoId}
-                    href={v.url}
+                    className="video-featured__image"
+                    href={featuredVideo.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`${v.title} — watch on YouTube`}
-                    className="youtube-card yt-card"
-                    style={{
-                      "--i": i,
-                      "--enter-x": i % 2 === 0 ? "-26px" : "26px",
-                      "--enter-x-mobile": i % 2 === 0 ? "-34px" : "34px",
-                    } as React.CSSProperties}
+                    aria-label={`Watch ${featuredVideo.title} on YouTube`}
                   >
-                    <div className="youtube-thumbnail yt-card__thumb">
-                      {v.thumbnail && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={v.thumbnail}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          onError={(e) => {
-                            e.currentTarget.src = `https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`;
-                          }}
-                        />
-                      )}
-                      <span className="yt-card__play" aria-hidden="true">
-                        <Play size={16} fill="currentColor" />
-                      </span>
-                    </div>
-                    <div className="yt-card__info">
-                      <p className="yt-card__title">{v.title}</p>
-                      <p className="yt-card__meta">{meta}</p>
-                    </div>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={featuredVideo.thumbnail}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.currentTarget.src = `https://i.ytimg.com/vi/${featuredVideo.videoId}/hqdefault.jpg`;
+                      }}
+                    />
+                    <span className="video-featured__play" aria-hidden="true">
+                      <Play size={23} fill="currentColor" />
+                    </span>
                   </a>
-                );
-              })}
+                ) : (
+                  <a className="video-featured__empty" href={featuredVideo.url} target="_blank" rel="noopener noreferrer">
+                    <Play size={26} aria-hidden="true" />
+                    <p>Open this upload on the channel</p>
+                  </a>
+                )}
+                <div className="video-featured__copy">
+                  <h3 className="video-featured__title">{featuredVideo.title}</h3>
+                  <p className="video-featured__meta">{videoMeta(featuredVideo)}</p>
+                </div>
+              </article>
+
+              <aside className="video-queue" aria-label="Choose a video">
+                <div className="video-queue__head">
+                  <strong>More from the channel</strong>
+                  <span>{String(videos.length).padStart(2, "0")} UPLOADS</span>
+                </div>
+                <div className="video-queue__list">
+                  {videos.map((video, index) => {
+                    const isSelected = video.videoId === featuredVideo.videoId;
+                    return (
+                      <button
+                        key={video.videoId}
+                        type="button"
+                        className="video-queue__item"
+                        aria-pressed={isSelected}
+                        aria-label={`Feature video: ${video.title}`}
+                        onClick={() => setSelectedVideoId(video.videoId)}
+                      >
+                        <span className="video-queue__thumb">
+                          {video.thumbnail ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={video.thumbnail}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                              onError={(e) => {
+                                e.currentTarget.src = `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`;
+                              }}
+                            />
+                          ) : null}
+                        </span>
+                        <span className="video-queue__item-copy">
+                          <strong>{video.title}</strong>
+                          <small>{isSelected ? "Now featured" : videoMeta(video)}</small>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </aside>
             </div>
           ) : videoStatus === "empty" || videoStatus === "error" ? (
             <div className="yt-empty-state">
