@@ -4,6 +4,7 @@ import "./globals.css";
 import "./portfolio-art-direction.css";
 import "./hero-composition.css";
 import "./hero-editorial.css";
+import "./portfolio-polish.css";
 
 // Fraunces is used as a variable display face: its optical, softness and wonky
 // axes give the site a more human, drawn quality without sacrificing legibility.
