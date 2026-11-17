@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type { FormEvent } from "react";
 import { Github, Youtube, Linkedin, Copy, Check, ArrowUpRight } from "lucide-react";
 import { useInView } from "./useInView";
@@ -68,6 +69,15 @@ export default function ContactSection() {
       className={`section-spacer contact-section ${seen ? "is-active" : ""}`}
     >
       <div className="contact-art" aria-hidden="true">
+        <Image
+          src="/contact-workspace.webp"
+          alt=""
+          fill
+          priority={false}
+          sizes="100vw"
+          quality={78}
+          className="contact-art__image"
+        />
         <div className="contact-art__shade" />
         <div className="contact-art__glow" />
       </div>
