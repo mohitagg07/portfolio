@@ -400,11 +400,17 @@
   max-width: 1180px;
 }
 .video-scroll-sticky .yt-intro {
+  display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(270px, .72fr);
+  grid-template-rows: auto auto;
   align-items: end;
   column-gap: clamp(32px, 6vw, 82px);
+  row-gap: 13px;
   margin-bottom: clamp(26px, 3vw, 36px);
 }
+.video-scroll-sticky .yt-intro > .yt-eyebrow { grid-column: 1 / -1; grid-row: 1; }
+.video-scroll-sticky .yt-intro > .scroll-reveal-mask-outer { grid-column: 1; grid-row: 2; }
+.video-scroll-sticky .yt-intro > .section-lede { grid-column: 2; grid-row: 2; align-self: end; }
 .video-scroll-sticky .section-heading,
 .video-scroll-sticky .youtube-title {
   max-width: 12ch;
@@ -503,7 +509,14 @@
   .video-scroll-sticky .section-wrap { width: min(calc(100% - 40px), 680px); }
   .video-scroll-sticky .yt-intro {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     row-gap: 12px;
+  }
+  .video-scroll-sticky .yt-intro > .yt-eyebrow,
+  .video-scroll-sticky .yt-intro > .scroll-reveal-mask-outer,
+  .video-scroll-sticky .yt-intro > .section-lede {
+    grid-column: 1;
+    grid-row: auto;
   }
   .video-scroll-sticky .section-heading,
   .video-scroll-sticky .youtube-title {
