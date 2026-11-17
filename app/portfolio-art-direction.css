@@ -3482,3 +3482,12 @@ body {
   }
 }
 
+/* Performance: keep the restored contact artwork static. A full-bleed photo
+   should not retain a continuously animated GPU layer while the user scrolls. */
+.contact-section .contact-art__image {
+  animation: none !important;
+  will-change: auto !important;
+}
+.contact-section .contact-art__glow {
+  animation: none !important;
+}
