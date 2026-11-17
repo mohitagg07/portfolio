@@ -87,7 +87,7 @@ export default function ContactSection() {
           <div className="contact-editorial-grid">
             <div className="contact-column contact-panel">
               <p className="contact-kicker">
-                <span>06</span> Collaboration &amp; enquiries
+                <span>05</span> Collaboration &amp; enquiries
               </p>
               <ScrollReveal variant="mask">
                 <h2 className={`section-heading section-title ${seen ? "is-in" : ""}`}>
