@@ -62,7 +62,7 @@ export default function Story() {
                 alt="Mohit outdoors in a black shirt, among the greenery"
                 fill
                 sizes="(max-width: 760px) 61vw, (max-width: 1100px) 43vw, 620px"
-                quality={88}
+                quality={75}
                 className="about-fieldnotes__photo-image"
               />
               </div>
@@ -81,7 +81,7 @@ export default function Story() {
                 alt="Mohit in a black leather jacket"
                 fill
                 sizes="(max-width: 760px) 30vw, 240px"
-                quality={88}
+                quality={75}
                 className="about-fieldnotes__photo-image"
               />
               </div>
@@ -100,7 +100,7 @@ export default function Story() {
                 alt="Mohit visiting a waterfall"
                 fill
                 sizes="(max-width: 760px) 30vw, 240px"
-                quality={88}
+                quality={75}
                 className="about-fieldnotes__photo-image about-fieldnotes__photo-image--waterfall"
               />
               </div>
@@ -173,7 +173,7 @@ export default function Story() {
                   alt="Two people sitting in a grassy clearing, looking out toward the trees"
                   fill
                   sizes="(max-width: 760px) 44vw, (max-width: 1100px) 32vw, 420px"
-                  quality={86}
+                  quality={75}
                   className="about-fieldnotes__memory-photo about-fieldnotes__memory-photo--outdoors"
                 />
               </div>
@@ -198,7 +198,7 @@ export default function Story() {
                   alt="Mohit sharing an outdoor moment with friends"
                   fill
                   sizes="(max-width: 760px) 44vw, (max-width: 1100px) 32vw, 420px"
-                  quality={86}
+                  quality={75}
                   className="about-fieldnotes__memory-photo about-fieldnotes__memory-photo--friends"
                 />
               </div>
