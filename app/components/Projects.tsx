@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "./useInView";
 import ScrollReveal from "./ScrollReveal";
@@ -180,21 +180,8 @@ function handleTabListKeyDown(event: React.KeyboardEvent<HTMLElement>) {
 }
 
 export default function Projects() {
-  const workStageRef = useRef<HTMLDivElement>(null);
   const [sectionRef, active] = useInView<HTMLElement>(0.03);
   const [transitionRef, transitionSeen] = useInView<HTMLDivElement>(0.2);
-  const prefersReducedMotion = useReducedMotion();
-
-  // This uses the same 100svh handoff window as About's fade:
-  // Work begins rising as it enters from below, then settles as it reaches the top.
-  const { scrollYProgress: workEntryProgress } = useScroll({
-    target: workStageRef,
-    offset: ["start end", "start start"],
-  });
-  const workContentLiftRaw = useTransform(workEntryProgress, [0, 0.62, 1], [76, 18, 0]);
-  const workContentOpacityRaw = useTransform(workEntryProgress, [0, 1], [0.88, 1]);
-  const workContentLift = useSpring(workContentLiftRaw, { stiffness: 185, damping: 29, mass: 0.58 });
-  const workContentOpacity = useSpring(workContentOpacityRaw, { stiffness: 190, damping: 31, mass: 0.52 });
   const [legalMindView, setLegalMindView] = useState<"preview" | "architecture">("preview");
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
   const [activeMobileSlide, setActiveMobileSlide] = useState<number>(0);
@@ -258,19 +245,13 @@ export default function Projects() {
   };
 
   return (
-    <div ref={workStageRef} className="work-scroll-stage">
+    <div className="work-scroll-stage">
       <section
         ref={sectionRef}
         id="work"
         className={`section-spacer work-section relative z-10 bg-[#f4f4f5] ${active ? "is-active" : ""}`}
       >
-        <motion.div
-          className="section-wrap work-entry-content"
-          style={{
-            y: prefersReducedMotion ? 0 : workContentLift,
-            opacity: prefersReducedMotion ? 1 : workContentOpacity,
-          }}
-        >
+        <div className="section-wrap work-entry-content">
           {/* Section Introduction */}
           <div className="project-intro-reveal">
             <div className="project-intro">
@@ -348,7 +329,8 @@ export default function Projects() {
                     alt="MindCare homepage with its calm forest-green reflection experience"
                     width={640}
                     height={277}
-                    quality={90}
+                    sizes="(max-width: 768px) calc(100vw - 48px), 1px"
+                    quality={75}
                     className="supporting-image"
                   />
                 </div>
@@ -504,7 +486,8 @@ export default function Projects() {
                         alt="LegalMind AI contract demystifier interface showing plain-English clause breakdown"
                         width={800}
                         height={500}
-                        quality={85}
+                        sizes="(max-width: 768px) calc(100vw - 40px), 1px"
+                        quality={75}
                         className="viewport-image"
                       />
                     </div>
@@ -604,7 +587,8 @@ export default function Projects() {
                       alt="VYRN mobile interface displaying biometric readiness score, training load, and dynamic volume recommendations"
                       width={800}
                       height={533}
-                      quality={85}
+                      sizes="(max-width: 768px) calc(100vw - 40px), 1px"
+                      quality={75}
                       className="vyrn-image"
                     />
                   </div>
@@ -685,7 +669,8 @@ export default function Projects() {
                                 alt="MindCare reflection interface preview"
                                 width={800}
                                 height={500}
-                                quality={90}
+                                sizes="(max-width: 768px) 1px, (max-width: 1100px) 44vw, 560px"
+                                quality={75}
                                 className="supporting-image"
                               />
                             ) : (
@@ -846,7 +831,8 @@ export default function Projects() {
                               alt="LegalMind AI contract demystifier interface showing plain-English clause breakdown"
                               width={1200}
                               height={750}
-                              quality={85}
+                              sizes="(max-width: 768px) 1px, (max-width: 1100px) 47vw, 620px"
+                              quality={75}
                               className="viewport-image"
                             />
                           </div>
@@ -935,7 +921,8 @@ export default function Projects() {
                             alt="VYRN mobile interface displaying biometric readiness score, training load, and dynamic volume recommendations"
                             width={1200}
                             height={800}
-                            quality={85}
+                            sizes="(max-width: 768px) 1px, (max-width: 1100px) 47vw, 620px"
+                            quality={75}
                             className="vyrn-image"
                           />
                         </div>
@@ -1114,7 +1101,7 @@ export default function Projects() {
               <span />
             </div>
           </ScrollReveal>
-        </motion.div>
+        </div>
       </section>
     </div>
   );
