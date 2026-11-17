@@ -255,7 +255,7 @@ export default function Projects() {
           {/* Section Introduction */}
           <div className="project-intro-reveal">
             <div className="project-intro">
-              <p className="project-eyebrow"><span className="project-eyebrow__index">04 /</span> Selected work <span aria-hidden="true">/</span> a few things I&apos;ve made</p>
+              <p className="project-eyebrow"><span className="project-eyebrow__index">03 /</span> Selected work <span aria-hidden="true">/</span> a few things I&apos;ve made</p>
               <ScrollReveal variant="mask" delay={0.05}>
                 <h2 className="section-heading section-title">
                   A few things I&apos;ve <em className="work-title-accent">built.</em>
