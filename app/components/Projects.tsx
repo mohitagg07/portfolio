@@ -58,7 +58,7 @@ interface SupportingProject {
   implementation: string;
   challenge: string;
   stack: string[];
-  image: string;
+  image?: string;
   secondaryImage?: string;
   demo: string;
   github?: string;
@@ -90,7 +90,6 @@ const SUPPORTING_PROJECTS: SupportingProject[] = [
     challenge:
       "What I learned: Balancing expressive brand typography with sub-second page loads on mobile connections required careful image sizing and minimal client-side JavaScript.",
     stack: ["Next.js", "Responsive UI", "Client enquiries"],
-    image: "/projects/project-1.png",
     demo: "https://innovix-branding-studio.vercel.app/",
     github: "https://github.com/mohitagg07",
   },
@@ -141,17 +140,17 @@ const GUARDRAIL_SAMPLES = [
 ] as const;
 
 const PROJECT_KICKERS = [
-  "Featured · Document AI",
-  "Prototype · Adaptive Coaching",
   "AI Reflection · Web App",
   "Brand & Studio Website",
+  "Featured · Document AI",
+  "Prototype · Adaptive Coaching",
 ];
 
 const PROJECT_NAMES = [
-  "LegalMind AI",
-  "VYRN",
   "MindCare",
   "Innovix Studio",
+  "LegalMind AI",
+  "VYRN",
 ];
 function handleTabListKeyDown(event: React.KeyboardEvent<HTMLElement>) {
   const key = event.key;
@@ -315,12 +314,126 @@ export default function Projects() {
               tabIndex={0}
               onKeyDown={handleSliderKeyDown}
             >
-              {/* Slide 1: LegalMind AI */}
+              {/* Slide 1: MindCare */}
               <article
                 className={`mobile-slide-card ${activeMobileSlide === 0 ? "is-active-slide" : ""}`}
                 role="group"
                 aria-roledescription="slide"
-                aria-label="Project 1 of 4: LegalMind AI"
+                aria-label="Project 1 of 4: MindCare"
+              >
+                <div className="mobile-slide-badge-row">
+                  <span className="featured-badge">AI Reflection · Web App</span>
+                </div>
+
+                <div className="mobile-slide-title-row">
+                  <h3 className="mobile-slide-title">MindCare</h3>
+                  <a
+                    href="https://mindcare-opal.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="supporting-link"
+                    aria-label="MindCare: open live demo"
+                  >
+                    Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
+                  </a>
+                </div>
+
+                <p className="mobile-slide-summary">
+                  A quieter space to talk things through, complete a guided check-in, and choose what context stays with you between conversations.
+                </p>
+
+                <div className="supporting-media supporting-media--mindcare mobile-mindcare-preview">
+                  <Image
+                    src="/projects/mindcare-room-hero.webp"
+                    alt="MindCare homepage with its calm forest-green reflection experience"
+                    width={640}
+                    height={277}
+                    quality={90}
+                    className="supporting-image"
+                  />
+                </div>
+
+                <div className="featured-implementation-block">
+                  <span className="featured-implementation-label">Implementation</span>
+                  <p className="featured-implementation-text">
+                    React and FastAPI power account-backed sessions, streamed conversations, and a memory setting people control themselves.
+                  </p>
+                </div>
+
+                <div className="project-tags mobile-project-tags" aria-label="MindCare technologies and capabilities">
+                  {["React", "FastAPI", "Streaming", "User-controlled memory"].map((tag) => (
+                    <span className="project-tag" key={tag}>{tag}</span>
+                  ))}
+                </div>
+
+                <div className="mobile-slide-action">
+                  <a
+                    href="https://mindcare-opal.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="featured-demo-btn w-full justify-center"
+                  >
+                    Open MindCare <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+
+              {/* Slide 2: Innovix Studio */}
+              <article
+                className={`mobile-slide-card ${activeMobileSlide === 1 ? "is-active-slide" : ""}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label="Project 2 of 4: Innovix Studio"
+              >
+                <div className="mobile-slide-badge-row">
+                  <span className="featured-badge">Brand &amp; Studio Website</span>
+                </div>
+
+                <div className="mobile-slide-title-row">
+                  <h3 className="mobile-slide-title">Innovix Studio</h3>
+                  <a
+                    href="https://innovix-branding-studio.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="supporting-link"
+                    aria-label="Innovix Studio: open live demo"
+                  >
+                    Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
+                  </a>
+                </div>
+
+                <p className="mobile-slide-summary">
+                  A website for a creative agency in Jammu, showcasing its service portfolio and helping potential clients make enquiries or schedule a call.
+                </p>
+
+                <div className="supporting-media innovix-project-media rounded-xl overflow-hidden">
+                  <InnovixProjectCover />
+                </div>
+
+                <div className="featured-implementation-block">
+                  <span className="featured-implementation-label">Implementation</span>
+                  <p className="featured-implementation-text">
+                    Built as a responsive Next.js application with fast asset delivery and an integrated client inquiry flow.
+                  </p>
+                </div>
+
+                <div className="mobile-slide-action">
+                  <a
+                    href="https://innovix-branding-studio.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="featured-demo-btn w-full justify-center"
+                  >
+                    Launch Live Demo <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+              {/* Slide 3: LegalMind AI */}
+              <article
+                className={`mobile-slide-card ${activeMobileSlide === 2 ? "is-active-slide" : ""}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label="Project 3 of 4: LegalMind AI"
               >
                 <div className="mobile-slide-badge-row">
                   <span className="featured-badge">Featured · Document AI</span>
@@ -465,12 +578,12 @@ export default function Projects() {
                 </div>
               </article>
 
-              {/* Slide 2: VYRN */}
+              {/* Slide 4: VYRN */}
               <article
-                className={`mobile-slide-card ${activeMobileSlide === 1 ? "is-active-slide" : ""}`}
+                className={`mobile-slide-card ${activeMobileSlide === 3 ? "is-active-slide" : ""}`}
                 role="group"
                 aria-roledescription="slide"
-                aria-label="Project 2 of 4: VYRN"
+                aria-label="Project 4 of 4: VYRN"
               >
                 <div className="mobile-slide-badge-row">
                   <span className="featured-badge">Prototype · Adaptive AI Coaching</span>
@@ -509,120 +622,6 @@ export default function Projects() {
                 </div>
               </article>
 
-              {/* Slide 3: MindCare */}
-              <article
-                className={`mobile-slide-card ${activeMobileSlide === 2 ? "is-active-slide" : ""}`}
-                role="group"
-                aria-roledescription="slide"
-                aria-label="Project 3 of 4: MindCare"
-              >
-                <div className="mobile-slide-badge-row">
-                  <span className="featured-badge">AI Reflection · Web App</span>
-                </div>
-
-                <div className="mobile-slide-title-row">
-                  <h3 className="mobile-slide-title">MindCare</h3>
-                  <a
-                    href="https://mindcare-opal.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="supporting-link"
-                    aria-label="MindCare: open live demo"
-                  >
-                    Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
-                  </a>
-                </div>
-
-                <p className="mobile-slide-summary">
-                  A quieter space to talk things through, complete a guided check-in, and choose what context stays with you between conversations.
-                </p>
-
-                <div className="supporting-media supporting-media--mindcare mobile-mindcare-preview">
-                  <Image
-                    src="/projects/mindcare-room-hero.webp"
-                    alt="MindCare homepage with its calm forest-green reflection experience"
-                    width={640}
-                    height={277}
-                    quality={90}
-                    className="supporting-image"
-                  />
-                </div>
-
-                <div className="featured-implementation-block">
-                  <span className="featured-implementation-label">Implementation</span>
-                  <p className="featured-implementation-text">
-                    React and FastAPI power account-backed sessions, streamed conversations, and a memory setting people control themselves.
-                  </p>
-                </div>
-
-                <div className="project-tags mobile-project-tags" aria-label="MindCare technologies and capabilities">
-                  {["React", "FastAPI", "Streaming", "User-controlled memory"].map((tag) => (
-                    <span className="project-tag" key={tag}>{tag}</span>
-                  ))}
-                </div>
-
-                <div className="mobile-slide-action">
-                  <a
-                    href="https://mindcare-opal.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="featured-demo-btn w-full justify-center"
-                  >
-                    Open MindCare <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </article>
-
-              {/* Slide 4: Innovix Studio */}
-              <article
-                className={`mobile-slide-card ${activeMobileSlide === 3 ? "is-active-slide" : ""}`}
-                role="group"
-                aria-roledescription="slide"
-                aria-label="Project 4 of 4: Innovix Studio"
-              >
-                <div className="mobile-slide-badge-row">
-                  <span className="featured-badge">Brand &amp; Studio Website</span>
-                </div>
-
-                <div className="mobile-slide-title-row">
-                  <h3 className="mobile-slide-title">Innovix Studio</h3>
-                  <a
-                    href="https://innovix-branding-studio.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="supporting-link"
-                    aria-label="Innovix Studio: open live demo"
-                  >
-                    Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
-                  </a>
-                </div>
-
-                <p className="mobile-slide-summary">
-                  A website for a creative agency in Jammu, showcasing its service portfolio and helping potential clients make enquiries or schedule a call.
-                </p>
-
-                <div className="supporting-media innovix-project-media rounded-xl overflow-hidden">
-                  <InnovixProjectCover />
-                </div>
-
-                <div className="featured-implementation-block">
-                  <span className="featured-implementation-label">Implementation</span>
-                  <p className="featured-implementation-text">
-                    Built as a responsive Next.js application with fast asset delivery and an integrated client inquiry flow.
-                  </p>
-                </div>
-
-                <div className="mobile-slide-action">
-                  <a
-                    href="https://innovix-branding-studio.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="featured-demo-btn w-full justify-center"
-                  >
-                    Launch Live Demo <span aria-hidden="true">↗</span>
-                  </a>
-                </div>
-              </article>
             </div>
 
             {/* Pagination Dots */}
@@ -646,9 +645,116 @@ export default function Projects() {
           {/* DESKTOP EDITORIAL LAYOUT (visible on screens >= 769px)        */}
           {/* ══════════════════════════════════════════════════════════════ */}
           <div className="work-desktop-editorial">
+            {/* Supporting Projects Section */}
+            <ScrollReveal delay={0.1}>
+              <div className="supporting-section mt-16">
+                <div className="supporting-header selected-work-header">
+                  <div className="selected-work-header__copy">
+                    <span className="supporting-kicker">01 — 02 / Selected projects</span>
+                    <h3 className="supporting-title">Two products. Two different problems.</h3>
+                  </div>
+                  <p className="selected-work-header__note">
+                    MindCare makes space for reflection. Innovix gives a creative studio a clear, client-facing home.
+                  </p>
+                </div>
+
+                <div className="supporting-grid mt-8" role="region" aria-label="Primary projects list">
+                  {SUPPORTING_PROJECTS.map((proj) => {
+                    const isMindCare = proj.title === "MindCare";
+                    const displaySrc = isMindCare
+                      ? (mindCareView === "session" && proj.secondaryImage
+                          ? proj.secondaryImage
+                          : proj.image || "/projects/mindcare-room-hero.webp")
+                      : "";
+
+                    return (
+                      <article
+                        key={proj.title}
+                        className={`supporting-card${isMindCare ? " supporting-card--mindcare" : ""}`}
+                        data-project-number={isMindCare ? "01" : "02"}
+                      >
+                        <ScrollReveal variant="clip-image" delay={0.08}>
+                          <div
+                            className={`supporting-media${
+                              isMindCare ? " supporting-media--mindcare" : ""
+                            }`}
+                          >
+                            {isMindCare ? (
+                              <Image
+                                src={displaySrc}
+                                alt="MindCare reflection interface preview"
+                                width={800}
+                                height={500}
+                                quality={90}
+                                className="supporting-image"
+                              />
+                            ) : (
+                              <InnovixProjectCover />
+                            )}
+                          </div>
+                        </ScrollReveal>
+
+                        <div className="supporting-body">
+                          <div className="supporting-title-row">
+                            <div className="supporting-heading-group">
+                              <p className="supporting-category">{proj.category}</p>
+                              <h4 className="supporting-name">{proj.title}</h4>
+                            </div>
+                            <div className="supporting-links-group">
+                              {isMindCare && proj.secondaryImage ? (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setMindCareView((v) => (v === "room" ? "session" : "room"))
+                                  }
+                                  className="supporting-view-switch"
+                                  aria-pressed={mindCareView === "session"}
+                                >
+                                  {mindCareView === "room" ? "View Live Session UI" : "View Calm Room UI"}
+                                </button>
+                              ) : null}
+                              {proj.demo ? (
+                                <a
+                                  href={proj.demo}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="supporting-link"
+                                  aria-label={`${proj.title}: open live demo`}
+                                >
+                                  Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
+                                </a>
+                              ) : null}
+                            </div>
+                          </div>
+
+                          <p className="supporting-description">{proj.description}</p>
+                          {proj.implementation ? (
+                            <p className="supporting-implementation">{proj.implementation}</p>
+                          ) : null}
+                          {proj.challenge ? (
+                            <p className="supporting-challenge">{proj.challenge}</p>
+                          ) : null}
+                          <div
+                            className="project-tags"
+                            aria-label={`${proj.title} technologies and capabilities`}
+                          >
+                            {proj.stack.map((tag) => (
+                              <span className="project-tag" key={tag}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            </ScrollReveal>
+
             {/* Featured Project 1: LegalMind AI */}
             <ScrollReveal delay={0.06}>
-              <article className="featured-project-card mt-12" data-project-number="01" aria-labelledby="legalmind-heading">
+              <article className="featured-project-card mt-12" data-project-number="03" aria-labelledby="legalmind-heading">
                 <div className="featured-project-layout">
                   {/* Content Column */}
                   <div className="featured-project-info">
@@ -817,7 +923,7 @@ export default function Projects() {
 
             {/* Featured Project 2: VYRN */}
             <ScrollReveal delay={0.08}>
-              <article className="featured-project-card featured-project-card--vyrn mt-10" data-project-number="02" aria-labelledby="vyrn-heading">
+              <article className="featured-project-card featured-project-card--vyrn mt-10" data-project-number="04" aria-labelledby="vyrn-heading">
                 <div className="featured-project-layout featured-project-layout--reverse">
                   {/* Visual Column */}
                   <div className="featured-project-display">
@@ -866,110 +972,10 @@ export default function Projects() {
               </article>
             </ScrollReveal>
 
-            {/* Supporting Projects Section */}
-            <ScrollReveal delay={0.1}>
-              <div className="supporting-section mt-16">
-                <div className="supporting-header">
-                  <span className="supporting-kicker">A little more from the workbench</span>
-                  <h3 className="supporting-title">Other things I&apos;ve been making.</h3>
-                </div>
-
-                <div className="supporting-grid mt-8" role="region" aria-label="Supporting projects list">
-                  {SUPPORTING_PROJECTS.map((proj) => {
-                    const isMindCare = proj.title === "MindCare";
-                    const displaySrc =
-                      isMindCare && mindCareView === "session" && proj.secondaryImage
-                        ? proj.secondaryImage
-                        : proj.image;
-
-                    return (
-                      <article
-                        key={proj.title}
-                        className={`supporting-card${isMindCare ? " supporting-card--mindcare" : ""}`}
-                      >
-                        <ScrollReveal variant="clip-image" delay={0.08}>
-                          <div
-                            className={`supporting-media${
-                              isMindCare ? " supporting-media--mindcare" : ""
-                            }`}
-                          >
-                            {isMindCare ? (
-                              <Image
-                                src={displaySrc}
-                                alt="MindCare reflection interface preview"
-                                width={800}
-                                height={500}
-                                quality={90}
-                                className="supporting-image"
-                              />
-                            ) : (
-                              <InnovixProjectCover />
-                            )}
-                          </div>
-                        </ScrollReveal>
-
-                        <div className="supporting-body">
-                          <div className="supporting-title-row">
-                            <div className="supporting-heading-group">
-                              <p className="supporting-category">{proj.category}</p>
-                              <h4 className="supporting-name">{proj.title}</h4>
-                            </div>
-                            <div className="supporting-links-group">
-                              {isMindCare && proj.secondaryImage ? (
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    setMindCareView((v) => (v === "room" ? "session" : "room"))
-                                  }
-                                  className="supporting-view-switch"
-                                  aria-pressed={mindCareView === "session"}
-                                >
-                                  {mindCareView === "room" ? "View Live Session UI" : "View Calm Room UI"}
-                                </button>
-                              ) : null}
-                              {proj.demo ? (
-                                <a
-                                  href={proj.demo}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="supporting-link"
-                                  aria-label={`${proj.title}: open live demo`}
-                                >
-                                  Live Demo <span aria-hidden="true" className="supporting-link-arrow">↗</span>
-                                </a>
-                              ) : null}
-                            </div>
-                          </div>
-
-                          <p className="supporting-description">{proj.description}</p>
-                          {proj.implementation ? (
-                            <p className="supporting-implementation">{proj.implementation}</p>
-                          ) : null}
-                          {proj.challenge ? (
-                            <p className="supporting-challenge">{proj.challenge}</p>
-                          ) : null}
-                          <div
-                            className="project-tags"
-                            aria-label={`${proj.title} technologies and capabilities`}
-                          >
-                            {proj.stack.map((tag) => (
-                              <span className="project-tag" key={tag}>
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </div>
-            </ScrollReveal>
-
             {/* Phase 9: Playground, Workflows & Engineering Experiments */}
             <ScrollReveal delay={0.11}>
               <div id="experiments" className="workbench-experiments mt-16">
-                <div className="supporting-header">
+                <div className="supporting-header workbench-header">
                   <span className="supporting-kicker">Playground &amp; workflow engineering</span>
                   <h3 className="supporting-title">
                     Pipelines, scrapers &amp; smaller experiments.
