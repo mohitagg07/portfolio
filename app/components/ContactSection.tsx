@@ -75,7 +75,7 @@ export default function ContactSection() {
           fill
           priority={false}
           sizes="100vw"
-          quality={78}
+          quality={75}
           className="contact-art__image"
         />
         <div className="contact-art__shade" />
