@@ -95,7 +95,7 @@ export default function YouTube() {
         <ScrollReveal className={`section-wrap youtube-content ${hasBeenSeen ? "is-in" : ""}`}>
           <div className="youtube-intro yt-intro">
             <p className="yt-eyebrow">
-              <span>05</span>
+              <span>04</span>
               <span>Video notes</span>
             </p>
             <ScrollReveal variant="mask">
