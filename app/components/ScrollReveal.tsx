@@ -52,15 +52,15 @@ export default function ScrollReveal({
       <motion.div
         ref={containerRef}
         className={`scroll-reveal-clip ${className}`.trim()}
-        initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(5% 0% 5% 0% round 16px)", scale: 1.03 }}
-        animate={prefersReducedMotion || isInView ? { opacity: 1, clipPath: "inset(0% 0% 0% 0% round 16px)", scale: 1 } : { opacity: 0, clipPath: "inset(5% 0% 5% 0% round 16px)", scale: 1.03 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.015 }}
+        animate={prefersReducedMotion || isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.015 }}
         transition={
           prefersReducedMotion
             ? { duration: 0 }
             : { duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }
         }
         onAnimationComplete={() => setSettled(true)}
-        style={{ willChange: prefersReducedMotion || settled ? "auto" : "clip-path, transform, opacity" }}
+        style={{ willChange: prefersReducedMotion || settled ? "auto" : "transform, opacity" }}
       >
         {children}
       </motion.div>
